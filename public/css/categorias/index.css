@@ -1,0 +1,69 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container{
+    margin: 5%;
+}
+
+.add_icon i{
+    background-color: #007BFF;
+    border-radius: 50%;
+    font-size: 2rem;
+    padding: 0.5%;
+}
+
+.add_icon{
+    padding-bottom: 1%;
+}
+
+.container_table{
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+}
+
+thead{
+    background-color: rgb(rgba(39, 144, 151, 0.322));
+}
+
+th{
+    background-color: rgb(192, 192, 192);
+    padding: 1% 0%;
+    font-weight: 700;
+    text-transform: uppercase;
+    border: solid 1px rgb(8, 8, 8);
+   
+}
+
+td {
+    padding: 1rem;
+    border: solid 1px rgb(8, 8, 8);
+}
+
+form a{
+    border-radius: 25%;
+    font-size: 1.5rem;
+    padding: 1%;
+    justify-content: center;
+}
+
+.icon_show{
+    background-color: #17A2B8;
+}
+
+.icon_edit{
+    background-color: #28A745;
+}
+
+
+form button {
+    background-color: #DC3545;
+    border-radius: 25%;
+    font-size: 1.5rem;
+    padding: 1%;
+    border: none;
+    cursor: pointer;
+}

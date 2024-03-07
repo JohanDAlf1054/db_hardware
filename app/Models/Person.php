@@ -1,0 +1,64 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+/**
+ * Class Person
+ *
+ * @property $id
+ * @property $rol
+ * @property $identification_type
+ * @property $identification_number
+ * @property $person_type
+ * @property $company_name
+ * @property $first_name
+ * @property $other_name
+ * @property $surname
+ * @property $second_surname
+ * @property $digit_verification
+ * @property $email_address
+ * @property $city
+ * @property $address
+ * @property $phone
+ * @property $status
+ * @property $created_at
+ * @property $updated_at
+ *
+ * @package App
+ * @mixin \Illuminate\Database\Eloquent\Builder
+ */
+class Person extends Model
+{
+
+    static $rules = [
+		'rol' => 'required',
+		'identification_type' => 'required',
+		'identification_number' => 'required|string',
+		'person_type' => 'required',
+		'company_name' => 'string|nullable',
+		'first_name' => 'string|nullable',
+		'other_name' => 'string|nullable',
+		'surname' => 'string|nullable',
+		'second_surname' => 'string|nullable',
+		'digit_verification' => 'required|string',
+		'email_address' => 'required|string',
+		'city' => 'required|string',
+		'address' => 'required|string',
+		'phone' => 'required|string',
+		'status' => 'nullable',
+    ];
+
+    protected $perPage = 20;
+
+    /**
+     * Attributes that should be mass-assignable.
+     *
+     * @var array
+     */
+    protected $fillable = ['rol','identification_type','identification_number','person_type','company_name','first_name','other_name','surname','second_surname','digit_verification','email_address','city','address','phone','status'];
+
+
+
+}
