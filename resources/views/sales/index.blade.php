@@ -1,6 +1,6 @@
 @auth
 
-@include('include.barra')
+@include('include.barra', ['modo'=>'Ventas'])
 <!DOCTYPE html>
 <html lang="en">
 <head>
