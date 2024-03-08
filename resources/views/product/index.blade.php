@@ -107,5 +107,5 @@
         </div>
     </div>
 </div>
-@include('sweetalert::alert')
+{{-- @include('sweetalert::alert') --}}
 @include('product.modal')
