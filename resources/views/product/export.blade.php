@@ -1,4 +1,6 @@
-@include('product.barra', ['modo'=>'Informes'])
+@auth
+
+@include('include.barra', ['modo'=>'Informes'])
 <div class="container px-4 py-5" id="hanging-icons">
     <div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
       <div class="col d-flex align-items-start">
@@ -18,7 +20,7 @@
               <input type="file" name="import_file" id="">
               <button class="btn btn btn-primary " type="submit" >Importar</button>
             </form>
-          
+
           <a class="btn btn btn-primary " href="">
             PDF
           </a>
@@ -89,4 +91,7 @@
       </div>
     </div>
 </div>
-
+@endauth
+@guest
+    @include('include.falta_sesion')
+@endguest

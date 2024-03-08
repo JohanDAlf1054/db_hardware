@@ -1,5 +1,8 @@
 
-@include('product.barra', ['modo'=>'Crear Producto'])
+@auth
+
+
+@include('include.barra', ['modo'=>'Crear Producto'])
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,3 +15,7 @@
     </form>
 </body>
 </html>
+@endauth
+@guest
+    @include('include.barra')
+@endguest

@@ -1,3 +1,6 @@
+@auth
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,7 +17,7 @@
 </head>
 <br>
 <body>
-  <div class="container-fluid"> 
+  <div class="container-fluid">
       <div class="page-body">
         <div class="container-x1">
             <div class="row row-cards">
@@ -22,7 +25,7 @@
                     <div class="row">
                         <div class="col-lg-4">
                             <div class="card">
-                            
+
                                 <div class="card-header">
                                 <h3 class="card-title">
                                     {{ __('Imagen Producto') }}
@@ -36,9 +39,9 @@
                                 </div>
 
                                 @if (isset($producto->photo))
-                                <img src="{{ asset('storage/' . $producto->photo) }}" width="400" height="400">  
+                                <img src="{{ asset('storage/' . $producto->photo) }}" width="400" height="400">
                                 @endif
-                                
+
                                 <input
                                     type="file"
                                     accept="image/*"
@@ -53,7 +56,7 @@
                                     {{ $message }}
                                 </div>
                                 @enderror
-                                
+
                             </div>
                             </div>
                         </div>
@@ -157,4 +160,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js"></script>
 </body>
 </html>
+@endauth
+@guest
+    @include('include.falta_sesion')
+@endguest
 

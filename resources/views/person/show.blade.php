@@ -5,7 +5,9 @@
 @endsection
 
 @section('content')  --}}
-@include('person.barra', ['modo'=>'Personas'])
+@auth
+
+@include('include.barra', ['modo'=>'Personas'])
     <section class="content container-fluid">
         <div class="row">
             <div class="col-md-12">
@@ -88,3 +90,7 @@
         </div>
     </section>
 {{--  @endsection  --}}
+@endauth
+@guest
+    @include('include.falta_sesion')
+@endguest

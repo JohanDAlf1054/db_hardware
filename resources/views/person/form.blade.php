@@ -1,3 +1,5 @@
+@auth
+
 @include('include.barra', ['modo'=>'Personas'])
 <!DOCTYPE html>
 <html lang="en">
@@ -283,4 +285,8 @@
 </script>
 </body>
 </html>
+@endauth
+@guest
+    @include('include.falta_sesion')
+@endguest
 

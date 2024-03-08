@@ -1,3 +1,5 @@
+@auth
+
 {{--  @extends('layouts.app')
 
 @section('template_title')
@@ -29,3 +31,7 @@
         </div>
     </section>  --}}
 {{--  @endsection  --}}
+@endauth
+@guest
+    @include('include.falta_sesion')
+@endguest
