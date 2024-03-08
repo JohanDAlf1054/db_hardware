@@ -19,15 +19,15 @@ class Products extends Migration
             $table->string('factory_reference');
             $table->string('classification_tax');
             $table->string('photo')->nullable();
-            $table->string('status');
-            $table->string('stock');
+            $table->boolean('status')->default(True);
+            $table->string('stock')->default(0);
             $table->bigInteger('category_products_id')->unsigned();
             $table->bigInteger('brands_id')->unsigned();
             $table->bigInteger('measurement_units_id')->unsigned();
             $table->timestamps();
-            $table->foreign('category_products_id')->references('id')->on('category_products')->onDelete("cascade");
-            $table->foreign('brands_id')->references('id')->on('brands')->onDelete("cascade");
-            $table->foreign('measurement_units_id')->references('id')->on('measurement_units')->onDelete("cascade");
+            $table->foreign('category_products_id')->references('id')->on('category_products')->onDelete("no action");
+            $table->foreign('brands_id')->references('id')->on('brands')->onDelete("no action");
+            $table->foreign('measurement_units_id')->references('id')->on('measurement_units')->onDelete("no action");
         });
     }
 

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\UnitsImpot;
 use App\Models\MeasurementUnit;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 /**
  * Class MeasurementUnitController
@@ -43,13 +45,13 @@ class MeasurementUnitController extends Controller
      */
     public function store(Request $request)
     {
-        request()->validate(MeasurementUnit::$rules);
-
-        $measurementUnit = MeasurementUnit::create($request->all());
-
-        return redirect()->route('measurement-units.index')
-            ->with('success', 'MeasurementUnit created successfully.');
+        $file = $request->file('import_file');
+        
+        Excel::import(new UnitsImpot, $file, 'xlsx');
+        
+        return redirect()->route('units.index')->with('success', 'All good!');
     }
+
 
     /**
      * Display the specified resource.

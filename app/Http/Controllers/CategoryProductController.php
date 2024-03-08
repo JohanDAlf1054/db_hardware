@@ -45,12 +45,24 @@ class CategoryProductController extends Controller
      */
     public function store(Request $request)
     {
+        $campos=[
+            'name'=>'required|string|max:100',
+            'description'=>'required|string|max:100',
+            'sub_categories_id'=>'required|string|max:100',
+        ];
+        $mensaje=[
+            'name.required'=>'El nombre de la categoria es requerido',
+            'description.required'=>'La descripcion es requerida',
+            'sub_categories_id.required'=>'Selecione una Sub Categoria'
+        ];
+
+        $this->validate($request, $campos, $mensaje);
+
         request()->validate(CategoryProduct::$rules);
 
         $categoryProduct = CategoryProduct::create($request->all());
-
-        return redirect()->route('category.index')
-            ->with('success', 'CategoryProduct created successfully.');
+        // toast('Categoria Creada!','success');
+        return redirect()->route('category.index');
     }
 
     /**
@@ -88,12 +100,24 @@ class CategoryProductController extends Controller
      */
     public function update(Request $request, CategoryProduct $categoryProduct)
     {
+        $campos=[
+            'name'=>'required|string|max:100',
+            'description'=>'required|string|max:100',
+            'sub_categories_id'=>'required|string|max:100',
+        ];
+        $mensaje=[
+            'name.required'=>'El nombre de la categoria es requerido',
+            'description.required'=>'La descripcion es requerida',
+            'sub_categories_id.required'=>'Selecione una Sub Categoria'
+        ];
+
+        $this->validate($request, $campos, $mensaje);
+
         request()->validate(CategoryProduct::$rules);
 
         $categoryProduct->update($request->all());
-
-        return redirect()->route('category-products.index')
-            ->with('success', 'CategoryProduct updated successfully');
+        // toast('Categoria Creada!','success');
+        return redirect()->route('category-products.index');
     }
 
     /**

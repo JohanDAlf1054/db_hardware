@@ -52,21 +52,21 @@
                         </div>
                     </a>
 
-                    <a href="{{ route('person.index')}}">
+                    <a href="#">
                         <div class="option">
                             <i class='bx bxs-user-detail' title="usuarios" ></i>
                             <h4>Usuarios</h4>
                         </div>
                     </a>
 
-                    <a href="#">
+                    <a href="{{route('sales.index')}}">
                         <div class="option">
                             <i class='bx bxs-business' title="ventas" ></i>
                             <h4>Ventas</h4>
                         </div>
                     </a>
 
-                    <a href="#">
+                    <a href="{{route('index_informes')}}">
                         <div class="option">
                             <i class='bx bxs-notepad' ></i>
                             <h4>Informes</h4>

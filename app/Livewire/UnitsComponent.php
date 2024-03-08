@@ -3,33 +3,44 @@
 namespace App\Livewire;
 
 use App\Models\MeasurementUnit;
-use App\Models\Unidade;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class UnitsComponent extends Component
-{
+{   
     use WithPagination;
+    use LivewireAlert;
     public $search='';
     public $Id, $name, $code;
 
+    protected $rules = [
+        'code' => 'required|max:50',
+        'name' => 'required|max:50'
+    ];
+
     public function render()
     {
-        // if ($this->search==""){
-        //     $units = Unidade::paginate(6);
-        //    }else{
-        //        $units = Unidade::where('nombre','like', '%'.$this->criterio.'%')->get();
-        //    }
-           $units = MeasurementUnit::where('name','like', '%'.$this->search.'%')->paginate(5);
+        $units = MeasurementUnit::where('name','like', '%'.$this->search.'%')->paginate(20);
         return view('livewire.units-component', compact('units'));
     }
 
     public function store(){
+        $this->validate([
+            'code' => 'required|max:50',
+            'name' => 'required|max:50'
+        ],[
+            'code.required' => 'El codigo es requerido',
+            'name.required' => 'El nombre es requerido'
+        ]);
+        
         $unit = New MeasurementUnit();
         $unit->name = $this -> name;
         $unit->code = $this -> code;
         $unit->save();
         $this->clear();
+        $this->flash('success', 'Unidad Creada');
+        return redirect()->to('units');
     }
 
     public function clear(){
@@ -46,11 +57,14 @@ class UnitsComponent extends Component
     }
 
     public function update($id){
+        $this->validate();
         $unit = MeasurementUnit::find($id);
         $unit->name = $this->name;
         $unit->code = $this->code;
         $unit->save();
         $this->clear();
+        $this->flash('success', 'Unidad Modificada');
+        return redirect()->to('units');
     }
     
     public function delete($id){

@@ -1,16 +1,9 @@
-{{-- @extends('layouts.app')
 
-@section('template_title')
-    {{ $producto->name ?? "{{ __('Show') Producto" }}
-@endsection
-
-@section('content') --}}
 @include('product.barra', ['modo'=>'Productos'])
 <body>
     <br>
 <div class="container-fluid">
 <div class="page-body">
-    {{-- <div class="container-xl"> --}}
         <div class="row row-cards">
                 <div class="row">
                     <div class="col-lg-4">
@@ -30,7 +23,6 @@
                             
                         </div>
                     </div>
-
                     <div class="col-lg-8">
                         <div class="card">
                             <div class="card-header">
@@ -60,7 +52,13 @@
     
                                         <tr>
                                             <td>Estado</td>
-                                            <td>{{ $producto->status }}</td>
+                                            <td>
+                                                @if ($producto->status == 1)
+                                                    <p class="badge rounded-pill bg-warning text-dark" style="font-size: 15px">Activo</p>
+                                                @else
+                                                    <p class="badge rounded-pill bg-danger"  style="font-size: 15px">Inactivo</class=>
+                                                @endif
+                                            </td>
                                         </tr>
                                         <tr>
                                             <td>Referencia Fabrica</td>
@@ -94,16 +92,11 @@
                                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l14 0" /><path d="M5 12l6 6" /><path d="M5 12l6 -6" /></svg>
                                     {{ __('Back') }}
                                 </a>
-                                {{-- <a class="btn btn-warning" href="">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-pencil" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" /><path d="M13.5 6.5l4 4" /></svg>
-                                    {{ __('Edit') }}
-                                </a> --}}
                             </div>
                         </div>
                     </div>
                 </div>
         </div>
-    {{-- </div> --}}
 </div>
 </div>
 </body>

@@ -6,6 +6,17 @@
       0 => 'Ibex\\CrudGenerator\\CrudServiceProvider',
     ),
   ),
+  'jantinnerezo/livewire-alert' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Jantinnerezo\\LivewireAlert\\LivewireAlertServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'LivewireAlert' => 'Jantinnerezo\\LivewireAlert\\LivewireAlertFacade',
+    ),
+  ),
   'laravel/sail' => 
   array (
     'providers' => 
@@ -48,6 +59,17 @@
     'aliases' => 
     array (
       'Livewire' => 'Livewire\\Livewire',
+    ),
+  ),
+  'maatwebsite/excel' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Maatwebsite\\Excel\\ExcelServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'Excel' => 'Maatwebsite\\Excel\\Facades\\Excel',
     ),
   ),
   'nesbot/carbon' => 

@@ -1,15 +1,19 @@
 @include('product.barra', ['modo'=>'Categoria'] )
+<link rel="stylesheet" href="{{asset('css/categorias/all.css')}}">
 <div>
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
                 <div class="card">
-                    <div class="card-header">
-                    </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <div class="input-group mb-3">
-                                <a href="{{ route('category.create') }}"><button type="button" class="btn btn-primary mx-2 rounded btn-lg">Crear Marca</a></button>
+                                <button type="button" class="btn btn-light">
+                                    <a class="back" href="{{route('products.index')}}">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l14 0" /><path d="M5 12l6 6" /><path d="M5 12l6 -6" /></svg>
+                                    </a>
+                                </button>
+                                <a href="{{ route('category.create') }}"><button type="button" class="btn btn-primary mx-2 rounded btn-lg">Crear Categoria</a></button>
                                 <input type="text" wire:model.live='search'  class="form-control" placeholder="Buscar...">
                             </div>
                             <table class="table table-striped table-hover">
@@ -47,6 +51,6 @@
                 </div>
             </div>
         </div>
-        
     </div>
 </div>
+@include('sweetalert::alert')

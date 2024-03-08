@@ -18,7 +18,7 @@ class CategoryProducts extends Migration
             $table->string('description');
             $table->bigInteger('sub_categories_id')->unsigned();
             $table->timestamps();
-            $table->foreign('sub_categories_id')->references('id')->on('sub_categories')->onDelete("cascade");
+            $table->foreign('sub_categories_id')->references('id')->on('sub_categories')->onDelete("no action");
         });
     }
 

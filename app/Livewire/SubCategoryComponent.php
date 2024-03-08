@@ -3,14 +3,21 @@
 namespace App\Livewire;
 
 use App\Models\SubCategory;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class SubCategoryComponent extends Component
 {
     use WithPagination;
+    use LivewireAlert;
     public $search='';
     public $Id, $name, $description;
+
+    protected $rules = [
+        'name' => 'required|max:50',
+        'description' => 'required|max:50'
+    ];
 
     public function render()
     {
@@ -23,11 +30,21 @@ class SubCategoryComponent extends Component
     }
 
     public function store(){
+        $this->validate([
+            'description' => 'required|max:50',
+            'name' => 'required|max:50'
+        ],[
+            'description.required' => 'La descripcion es requerida',
+            'name.required' => 'El nombre es requerido'
+        ]);
+
         $subCat = New SubCategory();
         $subCat->name = $this -> name;
         $subCat->description = $this -> description;
         $subCat->save();
         $this->clear();
+        $this->flash('success', 'Sub Categoria Creada');
+        return redirect()->to('categorySub');
     }
 
     public function clear(){
@@ -44,11 +61,20 @@ class SubCategoryComponent extends Component
     }
 
     public function update($id){
+        $this->validate([
+            'description' => 'required|max:50',
+            'name' => 'required|max:50'
+        ],[
+            'description.required' => 'La descripcion es requerida',
+            'name.required' => 'El nombre es requerido'
+        ]);
         $subCat = SubCategory::find($id);
         $subCat->name = $this->name;
         $subCat->description = $this->description;
         $subCat->save();
         $this->clear();
+        $this->flash('success', 'Sub Categoria Modificada');
+        return redirect()->to('categorySub');
     }
     
     public function delete($id){

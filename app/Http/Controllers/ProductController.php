@@ -8,6 +8,7 @@ use App\Models\MeasurementUnit;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Class ProductController
@@ -23,6 +24,8 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $filtervalue = $request->input('filtervalue');
+        $activeCheck = $request->input('check');
+        $categoryId = $request->input('category_filter');
         
         $productos = Product::query()
             ->when($filtervalue, function($query) use ($filtervalue) {
@@ -30,13 +33,7 @@ class ProductController extends Controller
             })
             ->orWhere('description_long','like','%'.$filtervalue.'%')
             ->orWhere('factory_reference','like','%'.$filtervalue.'%')
-            ->orWhere('status',$filtervalue)
             ->orWhere('classification_tax',$filtervalue)
-            ->orWhereHas('categoryProduct', function($query) use ($filtervalue){
-                if($filtervalue){
-                    return $query->where('name',$filtervalue);
-                }
-            })
             ->orWhereHas('brand', function($query) use ($filtervalue){
                 if($filtervalue){
                     return $query->where('name',$filtervalue);
@@ -46,13 +43,24 @@ class ProductController extends Controller
                 if($filtervalue){
                     return $query->where('name',$filtervalue);
                 }
-            })->paginate(3);   
-        // $productFilter = Producto::where('nombre','like','%'.$filtervalue.'%');
+            })->paginate(5); 
+            //filtrar los productos activos
+            $productos = Product::query() 
+            ->when($activeCheck, function($query) {
+                return $query->where('status',True);
+            })->paginate(5); 
 
-        // $productos = $productFilter->paginate(2);
+            $categories = CategoryProduct::all();
+
+            $productos = Product::query() 
+            ->when($categoryId, function($query) use ($categoryId) {
+                return $query->where('category_products_id', $categoryId);
+            })->paginate(5); 
+
         return view('product.index',[
             'productos' => $productos,
-        ])->with('i', (request()->input('page', 1) - 1) * $productos->perPage());
+            'categories' => $categories,
+        ]);
     }
 
     /**
@@ -81,16 +89,20 @@ class ProductController extends Controller
             'name_product'=>'required|string|max:100',
             'description_long'=>'required|string|max:100',
             'factory_reference'=>'required|string|max:100',
-            'factory_reference'=>'required|string|max:100',
-            'status'=>'required|string|max:100',
-            'stock'=>'required|max:100',
+            'classification_tax'=>'required|string|max:100',
             'category_products_id'=>'required|max:100',
             'brands_id'=>'required|max:100',
             'measurement_units_id'=>'required|max:100',
-            'photo'=>'required|max:10000|mimes:jpg,png,jpeg',
+            'photo'=>'nullable|max:10000|mimes:jpg,png,jpeg',
         ];
         $mensaje=[
-            'required'=>'Los :attribute son requeridos',
+            'name_product.required'=>'Escriba el nombre del producto',
+            'description_long.required'=>'Escriba una breve descripcion',
+            'factory_reference.required'=>'Escriba la referencia del producto',
+            'classification_tax.required'=>'Selecione la clasificacion',
+            'category_products_id.required'=>'Selecione la categoria',
+            'brands_id.required'=>'Selecione la marca',
+            'measurement_units_id.required'=>'Selecione la unidad de medida',
         ];
         $this->validate($request, $campos, $mensaje);
 
@@ -100,7 +112,8 @@ class ProductController extends Controller
             $datosProducto['photo']=$request->file('photo')->store('products','public');
         }
         Product::create($datosProducto);
-        return redirect('products')->with('mensaje','Proveedor agregado con éxito' );
+        // toast('Producto Creado!','success');
+        return redirect('products');
     }
 
     /**
@@ -142,38 +155,37 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $campos=[
-            'nombre'=>'required|string|max:100',
+            'name_product'=>'required|string|max:100',
+            'description_long'=>'required|string|max:100',
+            'factory_reference'=>'required|string|max:100',
+            'classification_tax'=>'required|string|max:100',
+            'category_products_id'=>'required|max:100',
+            'brands_id'=>'required|max:100',
+            'measurement_units_id'=>'required|max:100',
+            'photo'=>'max:10000|mimes:jpg,png,jpeg',
         ];
-        if ($request->hasFile('photo')) {
-            $campos=['photo'=>'nullable|max:10000|mimes:jpg,png,jpeg'];
-        }
-
         $mensaje=[
-            'required'=>'Los :attribute son requeridos',
+            'name_product.required'=>'Escriba el nombre del producto',
+            'description_long.required'=>'Escriba una breve descripcion',
+            'factory_reference.required'=>'Escriba la referencia del producto',
+            'classification_tax.required'=>'Selecione la clasificacion',
+            'category_products_id.required'=>'Selecione la categoria',
+            'brands_id.required'=>'Selecione la marca',
+            'measurement_units_id.required'=>'Selecione la unidad de medida',
         ];
-
         $this->validate($request, $campos, $mensaje);
 
         $datosProducto=request()->except(['_token','_method']);
 
-        if ($request->hasFile('foto')) {
+        if ($request->hasFile('photo')) {
             $producto = Product::findOrFail($id);
             Storage::delete('public/'.$producto->photo);
             $datosProducto['photo']=$request->file('photo')->store('products','public');
         }
-
-        // if ($request->hasFile('foto')) {
-        //     File::delete(public_path('storage/'. $producto->foto ));
-        //     $foto = $request['foto']->store('products','public');
-        // }else{
-        //     $foto = $producto->foto;
-        // }
-
-        // $producto->foto = $foto;
         
         Product::where('id','=',$id)->update($datosProducto);
-
-        return redirect('products')->with('mensaje','Producto Modificado' );
+        // toast('Producto Modificado!','success');
+        return redirect('products');
     }
 
     /**
@@ -183,9 +195,18 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        $producto = Product::find($id)->delete();
-
-        return redirect()->route('products.index')
-            ->with('success', 'Producto deleted successfully');
+        $producto = Product::find($id);
+        if ($producto->status == 1) {
+            Product::where('id', $producto->id)
+            ->update([
+                'status' => 0
+            ]);
+        } else {
+            Product::where('id', $producto->id)
+            ->update([
+                'status' => 1
+            ]);
+        }
+        return redirect()->route('products.index');
     }
 }
