@@ -31,14 +31,14 @@
 
                 <div class="options__menu">
 
-                    <a href="#" >
+                    <a href="/home" >
                         <div class="option">
                             <i class="fas fa-home" title="Inicio"></i>
                             <h4>Inicio</h4>
                         </div>
                     </a>
 
-                    <a href="{{ route('products.index') }}" class="selected">
+                    <a href="{{ route('products.index') }}" >
                         <div class="option">
                             <i class='bx bxs-package' title="productos" ></i>
                             <h4>Productos</h4>
@@ -52,21 +52,21 @@
                         </div>
                     </a>
 
-                    <a href="#">
+                    <a href="{{ route('person.index')}}">
                         <div class="option">
                             <i class='bx bxs-user-detail' title="usuarios" ></i>
                             <h4>Usuarios</h4>
                         </div>
                     </a>
 
-                    <a href="#">
+                    <a href="{{route('sales.index')}}" class="selected">
                         <div class="option">
                             <i class='bx bxs-business' title="ventas" ></i>
                             <h4>Ventas</h4>
                         </div>
                     </a>
 
-                    <a href="#">
+                    <a href="{{route('index_informes')}}">
                         <div class="option">
                             <i class='bx bxs-notepad' ></i>
                             <h4>Informes</h4>

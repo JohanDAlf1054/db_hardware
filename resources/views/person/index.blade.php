@@ -5,8 +5,10 @@
 @endsection
 
 @section('content')  --}}
+@auth
 
-@include('person.barra', ['modo'=>'Personas'])
+
+@include('include.barra', ['modo'=>'Personas'])
 
     <div class="container-fluid">
         <div class="row">
@@ -17,7 +19,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div style="display: flex; justify-content: space-between; align-items: center;">
-                                {{--  Desplegable deopciones  --}}
+                                {{--  Desplegable de opciones  --}}
                                 <div class="col-lg-6 col-md-6 col-sm-12" >
                                     <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">Nuevo
                                         <span class="visually-hidden">Nuevo</span>
@@ -125,4 +127,8 @@
         </div>
     </div>
 @include('person.modal')
+@endauth
+@guest
+    @include('include.falta_sesion')
+@endguest
 {{--  @endsection  --}}
