@@ -1,4 +1,4 @@
-@include('person.barra', ['modo'=>'Personas'])
+@include('include.barra', ['modo'=>'Personas'])
 <!DOCTYPE html>
 <html lang="en">
 <head>
