@@ -1,13 +1,18 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryProductController;
 use App\Http\Controllers\CategoryProductsSubController;
 use App\Http\Controllers\CategorySubController;
 use App\Http\Controllers\ExportController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\MeasurementUnitController;
 use App\Http\Controllers\PersonController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\SubCategoryController;
 use Illuminate\Support\Facades\Route;
@@ -24,8 +29,39 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
+
+//Rutas del login y registro
+Route::get('/register', [RegisterController::class,'show']);
+Route::post('/register', [RegisterController::class,'register']);
+
+Route::get('/login', [LoginController::class,'show']);
+Route::post('/login', [LoginController::class,'login']);
+
+Route::get('/home', [HomeController::class,'index']);
+
+Route::get('/logout', [LogoutController::class,'logout']);
+
+Route::get('/People', function () {
+    return view('people.index');
+});
+
+
+//Rutas y funciones para el login y recuperar contraseña
+
+// Formulario donde el usuario pone su email para que le enviemos el email de resetear la contraseña
+Route::get('/formulario-recuperar-contrasenia', [AuthController::class, 'formularioRecuperarContrasenia'])->name('formulario-recuperar-contrasenia');
+
+// Función que se ejecuta al enviar el formulario y que enviará el email al usuario
+Route::post('/enviar-recuperar-contrasenia', [AuthController::class, 'enviarRecuperarContrasenia'])->name('enviar-recuperacion');
+
+// Formulario donde se modificará la contraseña
+Route::get('/reiniciar-contrasenia/{token}', [AuthController::class, 'formularioActualizacion'])->name('formulario-actualizar-contrasenia');
+
+// Función que actualiza la contraseña del usuario
+Route::post('/actualizar-contrasenia', [AuthController::class, 'actualizarContrasenia'])->name('actualizar-contrasenia');
+
 
 // Funcion de Productos
 Route::resource('products', ProductController::class);

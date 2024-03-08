@@ -31,7 +31,7 @@
 
                 <div class="options__menu">
 
-                    <a href="#" >
+                    <a href="/home" >
                         <div class="option">
                             <i class="fas fa-home" title="Inicio"></i>
                             <h4>Inicio</h4>
@@ -52,7 +52,7 @@
                         </div>
                     </a>
 
-                    <a href="#">
+                    <a href="{{ route('person.index')}}">
                         <div class="option">
                             <i class='bx bxs-user-detail' title="usuarios" ></i>
                             <h4>Usuarios</h4>
