@@ -1,4 +1,6 @@
-@include('product.barra', ['modo'=>'Productos'])
+@auth
+
+@include('include.barra', ['modo'=>'Productos'])
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-12">
@@ -109,3 +111,7 @@
 </div>
 {{--  @include('sweetalert::alert')  --}}
 @include('product.modal')
+@endauth
+@guest
+    @include('include.falta_sesion')
+@endguest

@@ -5,7 +5,9 @@
 @endsection
 
 @section('content') --}}
-@include('product.barra', ['modo'=>'Sub Categoria'])
+@auth
+
+@include('include.barra', ['modo'=>'Sub Categoria'])
 @livewireStyles
 <body>
     @livewire('sub-category-component')
@@ -14,3 +16,7 @@
     <x-livewire-alert::scripts />
 </body>
 {{-- @endsection --}}
+@endauth
+@guest
+    @include('include.falta_sesion')
+@endguest

@@ -5,7 +5,10 @@
 @endsection
 
 @section('content') --}}
-@include('product.barra', ['modo'=>'Unidades'])
+@auth
+
+
+@include('include.barra', ['modo'=>'Unidades'])
 <body>
     @livewireStyles
     @livewire('units-component');
@@ -13,5 +16,8 @@
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <x-livewire-alert::scripts />
 </body>
-    
+@endauth
+@guest
+    @include('include.falta_sesion')
+@endguest
 

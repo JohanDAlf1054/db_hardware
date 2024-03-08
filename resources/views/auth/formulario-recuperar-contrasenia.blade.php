@@ -15,7 +15,7 @@
     <div class="blur">
         <div class="formulario_email">
             <div class="img_tory">
-                <img src="img/logo-negro ampliado.png" alt="" />
+                <img src="{{ asset('img/logo-negro ampliado.png')}}" alt="img_ToryTech" />
             </div>
             <h2>¿Olvidaste tu contraseña?</h2>
             <hr class="linea">
