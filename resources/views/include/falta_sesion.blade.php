@@ -1,4 +1,3 @@
-@guest
 @include('include.barra', ['modo'=>'Personas'])
     <!DOCTYPE html>
     <html lang="en">
@@ -93,15 +92,13 @@
                 </a>
             </div>
         </div>
-
-        <script src="{{ asset('js/acceso.js')}}"></script>
+        {{--  Revisar el escript porque no ha funcionado  --}}
+        <script src="js/acceso.js"></script>
 
         <br>
             <div class="div-endguest">
                 Para ver el contenido de la aplicacion, <a href="/login"><b>Inicia sesión</b></a>
             </div>
-
-    @endguest
 
     </body>
     </html>

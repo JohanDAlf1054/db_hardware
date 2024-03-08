@@ -106,7 +106,7 @@
             <div class="formulario__grupo" id="grupo__nombre">
                 <label for="nombre" class="formulario__label">Nombre completo</label>
                 <div class="formulario__grupo-input">
-                    <input type="text" name="name" class="formulario__input" placeholder="Jhon Doe" id="nombre">
+                    <input type="text" name="name" class="formulario__input" placeholder="Ejemplo: Jhon Doe" id="nombre">
                     <i class="formulario__validacion-estado far fa-times-circle"></i>
                 </div>
                 <p class="formulario__input-error">El nombre no debe de contener numeros o caracteres especiales</p>
@@ -116,7 +116,7 @@
             <div class="formulario__grupo" id="grupo__email">
                 <label for="email" class="formulario__label">Correo electronico</label>
                 <div class="formulario__grupo-input">
-                    <input type="email" class="formulario__input" name="email" placeholder="JhonDoe@gmail.com" id="email">
+                    <input type="email" class="formulario__input" name="email" placeholder="Ejemplo: JhonDoe@gmail.com" id="email">
                     <i class="formulario__validacion-estado far fa-times-circle"></i>
                 </div>
                 <p class="formulario__input-error">El correo solo puede contener letras, numeros, puntos, guiones y guin bajo.</p>
@@ -126,7 +126,7 @@
             <div class="formulario__grupo" id="grupo__phone_number">
                 <label for="phone_number" class="formulario__label">Telefono</label>
                 <div class="formulario__grupo-input">
-                    <input type="text" class="formulario__input" placeholder="3224062916" name="phone_number" placeholder="Numero de telefono" id="phone_number">
+                    <input type="text" class="formulario__input" placeholder="Ejemplo: 3002000" name="phone_number" id="phone_number">
                     <i class="formulario__validacion-estado far fa-times-circle"></i>
                 </div>
                 <p class="formulario__input-error">El telefono solo puede contener numeros con una cantidad de 10 digitos</p>
@@ -154,7 +154,7 @@
             <div class="formulario__grupo" id="grupo__identification_number">
                 <label for="identification_number" class="formulario__label">Numero de identificacion</label>
                 <div class="formulario__grupo-input">
-                    <input type="text" class="formulario__input" name="identification_number" placeholder="1054283229" id="identification_number">
+                    <input type="text" class="formulario__input" name="identification_number" placeholder="Ejemplo: 1054283229" id="identification_number">
                     <i class="formulario__validacion-estado far fa-times-circle"></i>
                 </div>
                 <p class="formulario__input-error">Completa este campo</p>
