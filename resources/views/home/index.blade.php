@@ -1,3 +1,4 @@
+@auth
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -25,7 +26,6 @@
     ></script>
   </head>
   <body id="body">
-    @auth
     <header>
       <div class="icon__menu">
         <i class='bx bx-menu'id="btn_open"> </i>

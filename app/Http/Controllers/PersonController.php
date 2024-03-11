@@ -36,8 +36,6 @@ class PersonController extends Controller
             return view('person.index',[
                 'people' => $people,
             ])->with('i', (request()->input('page', 1) - 1) * $people->perPage());
-        // return view('person.index', compact('people'))
-        //     ->with('i', (request()->input('page', 1) - 1) * $people->perPage());
     }
 
     /**

@@ -21,13 +21,13 @@
                             <div style="display: flex; justify-content: space-between; align-items: center;">
                                 {{--  Desplegable de opciones  --}}
                                 <div class="col-lg-6 col-md-6 col-sm-12" >
-                                    <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">Nuevo
-                                        <span class="visually-hidden">Nuevo</span>
+                                    <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">Acciones
+                                        <span class="visually-hidden">Acciones</span>
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-end">
                                         <li><a class="dropdown-item" href="{{ route('person.create') }}">Craer nueva persona</a></li>
-                                        <li><a class="dropdown-item" >Motrar proveedores</a></li>
-                                        <li><a class="dropdown-item" >Mostrar clientes</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('supplier.index') }}">Motrar proveedores</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('customer.index')}}">Mostrar clientes</a></li>
                                     </ul>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12" >
@@ -96,7 +96,7 @@
                                                 <td>{{ $person->phone }}</td>
                                                 <td>
                                                     @if($person->status == True)
-                                                    <p class="badge rounded-pill bg-warning text-dark" style="font-size: 15px">Activo</p>
+                                                    <p class="badge rounded-pill bg-success text-dark" style="font-size: 15px">Activo</p>
                                                     @else
                                                     <p class="badge rounded-pill bg-danger"  style="font-size: 15px">Inactivo</p>
                                                     @endif
@@ -104,15 +104,7 @@
 
                                                 <td>
                                                         <a class="btn btn-sm btn-primary " href="{{ route('person.show',$person->id) }}"><i class="fa fa-fw fa-eye"></i></a>
-                                                        <a class="btn btn-sm btn-success" href="{{ route('person.edit',$person->id) }}"><i class="fa fa-fw fa-edit"></i></a>
-
-                                                        {{--  <!-- Button trigger modal -->  --}}
-
-                                                        @if ($person->status == true)
-                                                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#confirmationDestroy-{{$person->id}}"><i class="fa fa-fw fa-trash"></i></button>
-                                                        @else
-                                                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#confirmationDestroy-{{$person->id}}"><i class="fa-solid fa-rotate"></i></button>
-                                                        @endif
+                                                        {{--  Se suspendieron las acciones de borrar y editar en la vista general de la tabla  --}}
                                                 </td>
                                             </tr>
                                         @endforeach

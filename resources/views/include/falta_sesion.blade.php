@@ -97,7 +97,20 @@
 
         <br>
             <div class="div-endguest">
-                Para ver el contenido de la aplicacion, <a href="/login"><b>Inicia sesión</b></a>
+                <div class="alert alert-danger" role="alert">
+                    <h1 class="title_cebolla">Sabias que...</h1>
+                    <img class="cebolla" src="{{ asset('img/cebolla.png')}}" alt="" />
+                    <br>
+                    <p>
+                        Masticar chicle mientras cortas una cebolla te ayudará a no llorar?, bueno pero eso no importa,
+                    </p>
+                    <p>
+                        lo que realmente nos importa es que:
+                    </p>
+                    <button type="button" class="btn btn-primary">
+                        <a href="/login"><b>Inicies sesión.</b></a>
+                    </button>
+                </div>
             </div>
 
     </body>

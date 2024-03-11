@@ -5,6 +5,7 @@ use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryProductController;
 use App\Http\Controllers\CategoryProductsSubController;
 use App\Http\Controllers\CategorySubController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
@@ -15,6 +16,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\SubCategoryController;
+use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -71,6 +73,8 @@ Route::resource('units', MeasurementUnitController::class);
 Route::resource('categorySub', SubCategoryController::class);
 Route::resource('sales', SalesController::class);
 Route::resource('person', PersonController::class);
+Route::resource('customer', CustomerController::class);
+Route::resource('supplier', SupplierController::class);
 
 //Funcion Export Informes
 Route::get('export_index', [ExportController::class, 'index_informes'])->name('index_informes');
