@@ -113,6 +113,8 @@ class PersonController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
      */
+
+    // Esta funcion ya se encuentra en el controlador de cliente y proveedores.
     public function destroy($id)
     {
         $person = Person::find($id);
