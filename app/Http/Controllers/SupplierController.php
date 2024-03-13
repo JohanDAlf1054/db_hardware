@@ -10,21 +10,22 @@ class SupplierController extends Controller
     public function index(Request $request)
     {
         // Barra de busqueda
-        // $filtervalue = $request->input('filtervalue');
+        $filtervalue = $request->input('filtervalue');
 
-        // $proveedores = Person::query()
-        //     ->when($filtervalue, function($query) use ($filtervalue) {
-        //         return $query->where('identification_number','like','%'.$filtervalue.'%');
-        //     })
-        //     ->orWhere('first_name','like','%'.$filtervalue.'%')
-        //     ->orWhere('surname','like','%'.$filtervalue.'%')
-        //     ->orWhere('email_address','like','%'.$filtervalue.'%')
-        //     ->orWhere('company_name','like','%'.$filtervalue.'%')
-        //     ->paginate();
+        $proveedores = Person::query()
+        ->where('rol', 'Proveedor')
+        ->where(function ($query) use ($filtervalue) {
+            $query->where('first_name', 'like', '%' . $filtervalue . '%')
+                ->orWhere('surname', 'like', '%' . $filtervalue . '%')
+                ->orWhere('email_address', 'like', '%' . $filtervalue . '%')
+                ->orWhere('company_name', 'like', '%' . $filtervalue . '%');
+        })
+        ->paginate();
 
-        //     return view('supplier.index',[
-        //         'proveedores' => $proveedores
-        //     ])->with('i', (request()->input('page', 1)-1)* $proveedores->perPage());
+    return view('supplier.index', [
+        'proveedores' => $proveedores
+    ])->with('i', (request()->input('page', 1) - 1) * $proveedores->perPage());
+
 
         $proveedores = Person::where('rol','Proveedor')->get();
         return view('supplier.index', compact('proveedores'));

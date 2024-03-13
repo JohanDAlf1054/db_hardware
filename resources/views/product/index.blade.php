@@ -109,11 +109,7 @@
         </div>
     </div>
 </div>
-<<<<<<< HEAD
-{{-- @include('sweetalert::alert') --}}
-=======
 {{--  @include('sweetalert::alert')  --}}
->>>>>>> a6cde5cf8a4744d872e8cc9a2ccf958d8a14c9a6
 @include('product.modal')
 @endauth
 @guest

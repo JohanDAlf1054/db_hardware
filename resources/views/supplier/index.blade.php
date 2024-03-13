@@ -24,7 +24,7 @@
                                     </ul>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12" >
-                                    <form action="{{ route('person.index') }}" method="get">
+                                    <form action="{{ route('supplier.index') }}" method="get">
                                         <div class="mb-3 row">
                                             <div class="col-sm-9">
                                                 <input name="filtervalue" type="text" class="form-control" aria-label="Text input with segmented dropdown button"  placeholder="Buscar persona....">
