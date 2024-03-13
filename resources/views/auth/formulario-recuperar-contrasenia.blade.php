@@ -41,7 +41,11 @@
                 </div>
                 <div class="">
                     <button type="submit" class="">
-                        Enviar Email de recuperación
+                        Enviar Email de recuperacion
+                    </button>
+
+                    <button class="boton_regresar">
+                        <a href="/login">Regresar</a>
                     </button>
                 </div>
             </form>

@@ -59,7 +59,7 @@
             <div class="formulario__grupo" id="grupo__name">
                 <label for="name" class="formulario__label">Usuario</label>
                 <div class="formulario__grupo-input">
-                    <input type="text"  name="name" autofocus value="{{ old('name') }}" placeholder="Correo electronico" class="formulario__input input_inicio" id="name"/>
+                    <input type="text"  name="name"  value="{{ old('name') }}" placeholder="Correo electronico" class="formulario__input input_inicio" id="name"/>
                     <i class="formulario__validacion-estado far fa-times-circle"></i>
                 </div>
                 <p class="formulario__input-error">Este campo debe contener un correo electronico registrado</p>
@@ -72,6 +72,7 @@
                     <input type="password" class="formulario__input input_inicio" name="password" id="password" placeholder="Contraseña">
                     <i class="formulario__validacion-estado far fa-times-circle"></i>
                 </div>
+                <i class="formulario__icono-toggle fa-solid fa-eye-slash ojo_contrasena" id="togglePassword" onclick="togglePassword()"></i>
                 <p class="formulario__input-error">La contraseña tiene que ser de 4 a 12 dígitos.</p>
             </div>
 

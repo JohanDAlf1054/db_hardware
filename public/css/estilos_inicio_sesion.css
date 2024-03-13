@@ -357,3 +357,11 @@ main {
 .forward_password a:visited{
     color: black;
 }
+/* Estilos para el boton de ver la contraseña */
+.ojo_contrasena{
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    top: 268px;
+    /* transform: translateY(-50%); */
+}

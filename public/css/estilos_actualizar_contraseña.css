@@ -114,3 +114,15 @@ img{
     box-shadow: 1px 4px 15px 0.6px;
     /* font-weight: 600; */
 }
+.ojo_contrasena1{
+    cursor: pointer;
+    position: absolute;
+    top: 460px;
+    right: 200px;
+}
+.ojo_contrasena2{
+    cursor: pointer;
+    position: absolute;
+    top: 585px;
+    right: 200px;
+}

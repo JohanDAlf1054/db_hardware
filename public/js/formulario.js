@@ -67,4 +67,21 @@ formulario.addEventListener('submit', (e) => {
 	}
 });
 
+//Funcion para ocultar y ver la contraseña
+    function togglePassword() {
+        var passwordInput = document.getElementById('password');
+        var icon = document.getElementById('togglePassword');
+        // Cambiar el tipo de entrada de la contraseña entre 'password' y 'text'
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            // Cambiar el icono a 'fa-eye-slash' cuando la contraseña es visible
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+        } else {
+            passwordInput.type = 'password';
+            // Cambiar el icono a 'fa-eye' cuando la contraseña es oculta
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+        }
+    }
 

@@ -113,3 +113,19 @@ img{
     box-shadow: 1px 4px 15px 0.6px;
     /* font-weight: 600; */
 }
+.texto_boton p{
+    font-size: 2px;
+}
+.boton_regresar{
+    margin-left: 20px;
+}
+.boton_regresar a{
+    color: white;
+    text-decoration: none;
+}
+.boton_regresar:hover{
+    color: black;
+    transition: 300ms;
+    border-radius: 5px;
+    box-shadow: 1px 4px 15px 0.6px;
+}

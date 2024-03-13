@@ -31,6 +31,12 @@
                         <!-- @if ($errors->has('email'))
                             <span class="text-danger">{{ $errors->first('email') }}</span>
                         @endif -->
+                        <!-- If para la seleccion del correo electronico -->
+                        @if ($errors->has('email'))
+                            <div class="alert alert-danger">
+                                <span class="text-danger">{{ $errors->first('email') }}</span>
+                            </div>
+                        @endif
                     </div>
                 </div>
 
@@ -41,6 +47,13 @@
                         <!-- @if ($errors->has('password'))
                             <span class="text-danger">{{ $errors->first('password') }}</span>
                         @endif -->
+                        <!-- If para la contraseña -->
+                        <i class="formulario__icono-toggle fa-solid fa-eye-slash ojo_contrasena1" id="togglePassword" onclick="togglePassword()"></i>
+                        @if ($errors->has('password'))
+                            <div class="alert alert-danger">
+                                <span class="text-danger">{{ $errors->first('password') }}</span>
+                            </div>
+                        @endif
                     </div>
                 </div>
 
@@ -51,28 +64,20 @@
                         <!-- @if ($errors->has('password_confirmation'))
                             <span class="text-danger">{{ $errors->first('password_confirmation') }}</span>
                         @endif -->
-                    </div>
-                </div>
-
-                <div class="errores">
-                        <!-- If para la seleccion del correo electronico -->
-                        @if ($errors->has('email'))
-                            <div class="alert alert-danger">
-                                <span class="text-danger">{{ $errors->first('email') }}</span>
-                            </div>
-                        @endif
-                        <!-- If para la contraseña -->
-                        @if ($errors->has('password'))
-                            <div class="alert alert-danger">
-                                <span class="text-danger">{{ $errors->first('password') }}</span>
-                            </div>
-                        @endif
                         <!-- If para la confirmacion de la contraseña -->
+                        <i class="formulario__icono-toggle fa-solid fa-eye-slash ojo_contrasena2" id="togglePassword2" onclick="togglePassword2()"></i>
                         @if ($errors->has('password_confirmation'))
                             <div class="alert alert-danger">
                                 <span class="text-danger">{{ $errors->first('password_confirmation') }}</span>
                             </div>
                         @endif
+                    </div>
+                </div>
+
+                <div class="errores">
+
+
+
                 </div>
 
                 <div>
@@ -83,5 +88,6 @@
             </form>
         </div>
     </div>
+    <script src="{{ asset('js/forActualizarEye.js') }}"></script>
     </body>
 </html>
