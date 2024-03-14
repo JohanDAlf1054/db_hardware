@@ -35,6 +35,12 @@
                 <li><a href="#">Cerrar sesión</a></li>
                 <li><a href="#">Salir</a></li>
             </ul>
+            <div class="cerrar_sesion">
+                <a href="/logout">
+                    Cerrar sesion
+                    <i class="fa-solid fa-door-open"></i>
+                </a>
+            </div>
         </header>
 
         <div class="menu__side" id="menu_side">
@@ -137,9 +143,6 @@
                     </a>
                 </div>
             </div>
-            <p>
-                <a href="/logout">Cerrar Sesion</a>
-            </p>
         </main>
 @endauth
 

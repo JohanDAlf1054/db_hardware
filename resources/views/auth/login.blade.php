@@ -6,6 +6,7 @@
         <!-- <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet"/> -->
         <script src="https://kit.fontawesome.com/7604ee3851.js" crossorigin="anonymous"></script>
         <link href="css/estilos_inicio_sesion.css" rel="stylesheet" />
+
         <title>ToryTech</title>
     </head>
     <body>
@@ -57,7 +58,9 @@
 
             <!-- Grupo para el input de usuario -->
             <div class="formulario__grupo" id="grupo__name">
-                <label for="name" class="formulario__label">Usuario</label>
+                <label for="name" class="formulario__label">Usuario
+                    <span class="text_red">*</span>
+                </label>
                 <div class="formulario__grupo-input">
                     <input type="text"  name="name"  value="{{ old('name') }}" placeholder="Correo electronico" class="formulario__input input_inicio" id="name"/>
                     <i class="formulario__validacion-estado far fa-times-circle"></i>
@@ -67,7 +70,9 @@
             <br>
             <!-- Grupo del input para la contraseña -->
             <div class="formulario__grupo" id="grupo__password">
-                <label for="password" class="formulario__label">Contraseña</label>
+                <label for="password" class="formulario__label">Contraseña
+                    <span class="text_red">*</span>
+                </label>
                 <div class="formulario__grupo-input">
                     <input type="password" class="formulario__input input_inicio" name="password" id="password" placeholder="Contraseña">
                     <i class="formulario__validacion-estado far fa-times-circle"></i>
@@ -105,7 +110,9 @@
 
             <!-- Grupo para el nombre -->
             <div class="formulario__grupo" id="grupo__nombre">
-                <label for="nombre" class="formulario__label">Nombre completo</label>
+                <label for="nombre" class="formulario__label">Nombre completo
+                    <span class="text_red">*</span>
+                </label>
                 <div class="formulario__grupo-input">
                     <input type="text" name="name" class="formulario__input" placeholder="Ejemplo: Jhon Doe" id="nombre">
                     <i class="formulario__validacion-estado far fa-times-circle"></i>
@@ -115,7 +122,9 @@
 
             <!-- Grupo para el correo electronico -->
             <div class="formulario__grupo" id="grupo__email">
-                <label for="email" class="formulario__label">Correo electronico</label>
+                <label for="email" class="formulario__label">Correo electronico
+                    <span class="text_red">*</span>
+                </label>
                 <div class="formulario__grupo-input">
                     <input type="email" class="formulario__input" name="email" placeholder="Ejemplo: JhonDoe@gmail.com" id="email">
                     <i class="formulario__validacion-estado far fa-times-circle"></i>
@@ -125,7 +134,9 @@
 
             <!-- Grupo para el telefono -->
             <div class="formulario__grupo" id="grupo__phone_number">
-                <label for="phone_number" class="formulario__label">Telefono</label>
+                <label for="phone_number" class="formulario__label">Telefono
+                    <span class="text_red">*</span>
+                </label>
                 <div class="formulario__grupo-input">
                     <input type="text" class="formulario__input" placeholder="Ejemplo: 3002000" name="phone_number" id="phone_number">
                     <i class="formulario__validacion-estado far fa-times-circle"></i>
@@ -135,7 +146,9 @@
 
             <!-- Grupo para el tipo de documento -->
             <div class="formulario__grupo" id="grupo__documento">
-                <label for="tipo_documento" class="formulario__label">Tipo de documento</label>
+                <label for="tipo_documento" class="formulario__label">Tipo de documento
+                    <span class="text_red">*</span>
+                </label>
                 <div class="formulario__grupo-input">
                     <select name="document_type" id="tipo_documento" class="formulario__input">
                         <option value="">Seleccione un tipo de documento</option>
@@ -153,7 +166,9 @@
 
             <!-- Grupo para el numero de identificacion -->
             <div class="formulario__grupo" id="grupo__identification_number">
-                <label for="identification_number" class="formulario__label">Numero de identificacion</label>
+                <label for="identification_number" class="formulario__label">Numero de identificacion
+                    <span class="text_red">*</span>
+                </label>
                 <div class="formulario__grupo-input">
                     <input type="text" class="formulario__input" name="identification_number" placeholder="Ejemplo: 1054283229" id="identification_number">
                     <i class="formulario__validacion-estado far fa-times-circle"></i>
@@ -163,7 +178,9 @@
 
             <!-- Grupo para la contraseña -->
             <div class="formulario__grupo" id="grupo__contrasena">
-                <label for="contrasena" class="formulario__label">Contraseña</label>
+                <label for="contrasena" class="formulario__label">Contraseña
+                    <span class="text_red">*</span>
+                </label>
                 <div class="formulario__grupo-input">
                     <input type="password" class="formulario__input" name="password" id="contrasena">
                     <i class="formulario__validacion-estado far fa-times-circle"></i>

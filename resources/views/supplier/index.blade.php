@@ -2,7 +2,9 @@
 
 
 @include('include.barra', ['modo'=>'Proveedores'])
-
+<head>
+    <link href="css/estilos_vista_persona.css" rel="stylesheet" />
+</head>
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
@@ -17,10 +19,12 @@
                                     <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">Acciones
                                         <span class="visually-hidden">Acciones</span>
                                     </button>
-                                    <ul class="dropdown-menu dropdown-menu-end">
-                                        <li><a class="dropdown-item" href="{{ route('person.create') }}">Craer nueva persona</a></li>
-                                        <li><a class="dropdown-item" href="{{ route('person.index') }}" >Motrar tabla general</a></li>
-                                        <li><a class="dropdown-item" href="{{ route('customer.index')}}">Mostrar clientes</a></li>
+                                    <ul class="dropdown-menu desplegable_acciones">
+                                        <div class="acciones_boton">
+                                            <li><a class="dropdown-item" href="{{ route('person.create') }}">Crear nueva persona</a></li>
+                                            <li><a class="dropdown-item" href="{{ route('person.index') }}" >Motrar tabla general</a></li>
+                                            <li><a class="dropdown-item" href="{{ route('customer.index')}}">Mostrar clientes</a></li>
+                                        </div>
                                     </ul>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12" >

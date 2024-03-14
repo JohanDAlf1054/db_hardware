@@ -25,7 +25,9 @@
                 <input type="hidden" name="token" value="{{ $token }}">
 
                 <div>
-                    <label for="email_address">Email</label>
+                    <label for="email_address">Email
+                        <span class="text_red">*</span>
+                    </label>
                     <div>
                         <input type="text" id="email_address"  name="email" required autofocus >
                         <!-- If para la seleccion del correo electronico -->
@@ -38,7 +40,9 @@
                 </div>
 
                 <div>
-                    <label for="password">Contraseña</label>
+                    <label for="password">Contraseña
+                        <span class="text_red">*</span>
+                    </label>
                     <div>
                         <div class="input_contrasena">
                             <input type="password" id="password" name="password" required autofocus>
@@ -54,7 +58,9 @@
                 </div>
 
                 <div>
-                    <label for="password-confirm">Confirmar Contraseña</label>
+                    <label for="password-confirm">Confirmar Contraseña
+                        <span class="text_red">*</span>
+                    </label>
                     <div>
                         <div class="input_confir_contra">
                             <input type="password" id="password-confirm" name="password_confirmation" required autofocus>

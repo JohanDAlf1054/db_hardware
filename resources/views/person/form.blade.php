@@ -82,7 +82,7 @@
                                         <div class="col-sm-6 md-6">
                                             <div class="mb-3">
                                                 <label for="identification_number" class="form-label" id="identification_number" style="font-weight: bolder">
-                                                {{ __('Número de identificacion')}}
+                                                {{ __('Número de identificación')}}
                                                     <span class="text-danger">*</span>
                                                 </label>
                                                 {{ Form::number('identification_number', $person->identification_number, ['id' => 'identification_number1','class' => 'form-control' . ($errors->has('identification_number') ? ' is-invalid' : ''), 'placeholder' => 'Número de identificación']) }}
@@ -232,19 +232,6 @@
 
                                             </div>
                                         </div>
-                                        {{--  Estado  --}}
-                                        {{--  <div class="col-sm-6 md-6">
-                                            <div class="mb-3">
-                                                <label for="status" class="form-label" style="font-weight: bolder">
-                                                    {{ __('Estado')}}
-                                                    <span class="text-danger">*</span>
-                                                </label>
-                                                {{ Form::select('status',['1' => 'Activo', '0' => 'Inactivo'], $person->status, ['class' => 'form-select' . ($errors->has('status') ? ' is-invalid' : ''), 'placeholder' => 'Selecciona una opcion' ]) }}
-
-                                                {!! $errors->first('status', '<div class="invalid-feedback">:message</div>') !!}
-                                            </div>
-                                        </div>  --}}
-
                                     </div>
                                 </div>
                             </div>
@@ -256,8 +243,8 @@
 
 
     <div class="card-footer text-end">
-        <a class="btn btn-primary" style="margin-right: 5rem" href="{{ route('person.index') }}">Back</a>
-        <button type="submit" class="btn btn-success">{{ __('Submit') }}</button>
+        <a class="btn btn-primary" style="margin-right: 5rem" href="{{ route('person.index') }}">Regresar</a>
+        <button type="submit" class="btn btn-success">{{ __('Guardar') }}</button>
     </div>
 
 

@@ -23,7 +23,9 @@
                 <p>Te enviaremos un correo con la informacion necesaria para poder restablecerla.</p>
                 @csrf
                 <div>
-                    <label for="email_address">Tu Email</label>
+                    <label for="email_address">Tu Email
+                        <span class="text_red">*</span>
+                    </label>
                     <br>
                         <input type="text" id="email_address" class="" name="email" required autofocus>
                         <br>
