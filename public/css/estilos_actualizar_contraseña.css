@@ -31,9 +31,9 @@ img{
     backdrop-filter: blur(7px);
     border-radius: 10px;
     width: 50rem;
-    height: 45.5rem;
+    height: 49rem;
     margin: auto;
-    margin-top: 5rem;
+    margin-top: 3rem;
     /* margin-right: 8rem; */
     display: flex;
     border-radius: 5px;
@@ -117,12 +117,22 @@ img{
 .ojo_contrasena1{
     cursor: pointer;
     position: absolute;
-    top: 460px;
-    right: 200px;
+    top: 36px;
+    right: 30px;
 }
 .ojo_contrasena2{
     cursor: pointer;
     position: absolute;
-    top: 585px;
-    right: 200px;
+    top: 36px;
+    right: 30px;
+    background-color: white;
+}
+.mesaje_eror_email{
+    margin-top: 5px;
+}
+.input_contrasena{
+    position: relative;
+}
+.input_confir_contra{
+    position: relative;
 }

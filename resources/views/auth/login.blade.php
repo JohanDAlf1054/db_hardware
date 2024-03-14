@@ -71,8 +71,8 @@
                 <div class="formulario__grupo-input">
                     <input type="password" class="formulario__input input_inicio" name="password" id="password" placeholder="Contraseña">
                     <i class="formulario__validacion-estado far fa-times-circle"></i>
+                    <i class="formulario__icono-toggle fa-solid fa-eye-slash ojo_contrasena" id="togglePassword" onclick="togglePassword()"></i>
                 </div>
-                <i class="formulario__icono-toggle fa-solid fa-eye-slash ojo_contrasena" id="togglePassword" onclick="togglePassword()"></i>
                 <p class="formulario__input-error">La contraseña tiene que ser de 4 a 12 dígitos.</p>
             </div>
 
@@ -167,6 +167,7 @@
                 <div class="formulario__grupo-input">
                     <input type="password" class="formulario__input" name="password" id="contrasena">
                     <i class="formulario__validacion-estado far fa-times-circle"></i>
+                    <i class="formulario__icono-toggle fa-solid fa-eye-slash ojo_contrasena_register" id="togglePasswordRegi" onclick="togglePasswordRegister()"></i>
                 </div>
                 <p class="formulario__input-error">La contraseña debe conter 4 a 12 caracteres</p>
             </div>

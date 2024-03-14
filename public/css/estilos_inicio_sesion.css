@@ -361,7 +361,13 @@ main {
 .ojo_contrasena{
     cursor: pointer;
     position: absolute;
-    right: 10px;
-    top: 268px;
-    /* transform: translateY(-50%); */
+    right: -12px;
+    top: -12px;
+}
+.ojo_contrasena_register{
+    cursor: pointer;
+    position: absolute;
+    right: -8px;
+    top: 13px;
+    background-color: white;
 }
