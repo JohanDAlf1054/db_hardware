@@ -24,8 +24,8 @@
             </div>
 
             <div class="caja-tra-register">
-                <h3>¿Aun no tienes una cuenta?</h3>
-                <p>Registrate para Iniciar secion</p>
+                <h3>¿Aún no tienes una cuenta?</h3>
+                <p>Regístrate para Iniciar seción</p>
                 <button id="btn_registrarse">Registrarse</button>
             </div>
         </div>
@@ -89,7 +89,7 @@
             <!-- Div para el reseteo de contraseña -->
             <div class="reset_password">
                 <a class="forward_password" href="{{ route('formulario-recuperar-contrasenia') }}">
-                    ¿Olvido su contraseña?
+                    ¿Olvidó su contraseña?
                 </a>
             </div>
             <!-- Boton de envio del formulario -->
@@ -122,7 +122,7 @@
 
             <!-- Grupo para el correo electronico -->
             <div class="formulario__grupo" id="grupo__email">
-                <label for="email" class="formulario__label">Correo electronico
+                <label for="email" class="formulario__label">Correo electrónico
                     <span class="text_red">*</span>
                 </label>
                 <div class="formulario__grupo-input">
@@ -134,7 +134,7 @@
 
             <!-- Grupo para el telefono -->
             <div class="formulario__grupo" id="grupo__phone_number">
-                <label for="phone_number" class="formulario__label">Telefono
+                <label for="phone_number" class="formulario__label">Teléfono
                     <span class="text_red">*</span>
                 </label>
                 <div class="formulario__grupo-input">
@@ -166,7 +166,7 @@
 
             <!-- Grupo para el numero de identificacion -->
             <div class="formulario__grupo" id="grupo__identification_number">
-                <label for="identification_number" class="formulario__label">Numero de identificacion
+                <label for="identification_number" class="formulario__label">Número de identificacion
                     <span class="text_red">*</span>
                 </label>
                 <div class="formulario__grupo-input">
