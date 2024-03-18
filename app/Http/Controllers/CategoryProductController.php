@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\CategoryProduct;
-use App\Models\SubCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 /**
  * Class CategoryProductController
@@ -19,10 +19,11 @@ class CategoryProductController extends Controller
      */
     public function index()
     {
-        $categoryProducts = CategoryProduct::paginate();
+        // $categoryProducts = CategoryProduct::paginate();
 
-        return view('category-product.index', compact('categoryProducts'))
-            ->with('i', (request()->input('page', 1) - 1) * $categoryProducts->perPage());
+        // return view('category-product.index', compact('categoryProducts'))
+        //     ->with('i', (request()->input('page', 1) - 1) * $categoryProducts->perPage());
+        return view('category-product.index');
     }
 
     /**
@@ -33,8 +34,7 @@ class CategoryProductController extends Controller
     public function create()
     {
         $categoryProduct = new CategoryProduct();
-        $SubCategory = SubCategory::pluck('name', 'id');
-        return view('category-product.create', compact('categoryProduct','SubCategory'));
+        return view('category-product.create', compact('categoryProduct'));
     }
 
     /**
@@ -45,24 +45,12 @@ class CategoryProductController extends Controller
      */
     public function store(Request $request)
     {
-        $campos=[
-            'name'=>'required|string|max:100',
-            'description'=>'required|string|max:100',
-            'sub_categories_id'=>'required|string|max:100',
-        ];
-        $mensaje=[
-            'name.required'=>'El nombre de la categoria es requerido',
-            'description.required'=>'La descripcion es requerida',
-            'sub_categories_id.required'=>'Selecione una Sub Categoria'
-        ];
-
-        $this->validate($request, $campos, $mensaje);
-
         request()->validate(CategoryProduct::$rules);
 
         $categoryProduct = CategoryProduct::create($request->all());
-        // toast('Categoria Creada!','success');
-        return redirect()->route('category.index');
+
+        return redirect()->route('category.index')
+            ->with('success', 'CategoryProduct created successfully.');
     }
 
     /**
@@ -73,9 +61,8 @@ class CategoryProductController extends Controller
      */
     public function show($id)
     {
-        $categoryProduct = CategoryProduct::find($id);
-
-        return view('category-product.show', compact('categoryProduct'));
+        Session::put("category_id", $id);
+        return redirect()->route('categorySub.index');
     }
 
     /**
@@ -87,8 +74,8 @@ class CategoryProductController extends Controller
     public function edit($id)
     {
         $categoryProduct = CategoryProduct::find($id);
-        $SubCategory = SubCategory::pluck('name', 'id');
-        return view('category-product.edit', compact('categoryProduct','SubCategory'));
+
+        return view('category-product.edit', compact('categoryProduct'));
     }
 
     /**
@@ -100,24 +87,12 @@ class CategoryProductController extends Controller
      */
     public function update(Request $request, CategoryProduct $categoryProduct)
     {
-        $campos=[
-            'name'=>'required|string|max:100',
-            'description'=>'required|string|max:100',
-            'sub_categories_id'=>'required|string|max:100',
-        ];
-        $mensaje=[
-            'name.required'=>'El nombre de la categoria es requerido',
-            'description.required'=>'La descripcion es requerida',
-            'sub_categories_id.required'=>'Selecione una Sub Categoria'
-        ];
-
-        $this->validate($request, $campos, $mensaje);
-
         request()->validate(CategoryProduct::$rules);
 
         $categoryProduct->update($request->all());
-        // toast('Categoria Creada!','success');
-        return redirect()->route('category-products.index');
+
+        return redirect()->route('category-products.index')
+            ->with('success', 'CategoryProduct updated successfully');
     }
 
     /**
@@ -129,7 +104,7 @@ class CategoryProductController extends Controller
     {
         $categoryProduct = CategoryProduct::find($id)->delete();
 
-        return redirect()->route('category-products.index')
+        return redirect()->route('category.index')
             ->with('success', 'CategoryProduct deleted successfully');
     }
 }

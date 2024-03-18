@@ -57,7 +57,15 @@ class UnitsComponent extends Component
     }
 
     public function update($id){
-        $this->validate();
+        $this->validate(
+            [
+                'code' => 'required|max:50',
+                'name' => 'required|max:50'
+            ],[
+                'code.required' => 'El codigo es requerido',
+                'name.required' => 'El nombre es requerido'
+            ]
+        );
         $unit = MeasurementUnit::find($id);
         $unit->name = $this->name;
         $unit->code = $this->code;

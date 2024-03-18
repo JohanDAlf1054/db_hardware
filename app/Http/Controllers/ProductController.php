@@ -47,15 +47,14 @@ class ProductController extends Controller
             //filtrar los productos activos
             $productos = Product::query() 
             ->when($activeCheck, function($query) {
-                return $query->where('status',True);
+                return $query->where('status', True);
             })->paginate(5); 
 
             $categories = CategoryProduct::all();
-
-            $productos = Product::query() 
-            ->when($categoryId, function($query) use ($categoryId) {
-                return $query->where('category_products_id', $categoryId);
-            })->paginate(5); 
+            // $productos = Product::query() 
+            // ->when($categoryId, function($query) use ($categoryId) {
+            //     return $query->where('category_products_id', $categoryId);
+            // })->paginate(5); 
 
         return view('product.index',[
             'productos' => $productos,
@@ -90,6 +89,7 @@ class ProductController extends Controller
             'description_long'=>'required|string|max:100',
             'factory_reference'=>'required|string|max:100',
             'classification_tax'=>'required|string|max:100',
+            'selling_price' => 'required|string|max:100',
             'category_products_id'=>'required|max:100',
             'brands_id'=>'required|max:100',
             'measurement_units_id'=>'required|max:100',
@@ -100,6 +100,7 @@ class ProductController extends Controller
             'description_long.required'=>'Escriba una breve descripcion',
             'factory_reference.required'=>'Escriba la referencia del producto',
             'classification_tax.required'=>'Selecione la clasificacion',
+            'selling_price.required'=>'Escriba el precio de venta',
             'category_products_id.required'=>'Selecione la categoria',
             'brands_id.required'=>'Selecione la marca',
             'measurement_units_id.required'=>'Selecione la unidad de medida',
@@ -159,6 +160,7 @@ class ProductController extends Controller
             'description_long'=>'required|string|max:100',
             'factory_reference'=>'required|string|max:100',
             'classification_tax'=>'required|string|max:100',
+            'selling_price' => 'required|string|max:100',
             'category_products_id'=>'required|max:100',
             'brands_id'=>'required|max:100',
             'measurement_units_id'=>'required|max:100',
@@ -169,6 +171,7 @@ class ProductController extends Controller
             'description_long.required'=>'Escriba una breve descripcion',
             'factory_reference.required'=>'Escriba la referencia del producto',
             'classification_tax.required'=>'Selecione la clasificacion',
+            'selling_price.required'=>'Escriba el precio de venta',
             'category_products_id.required'=>'Selecione la categoria',
             'brands_id.required'=>'Selecione la marca',
             'measurement_units_id.required'=>'Selecione la unidad de medida',

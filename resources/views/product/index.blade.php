@@ -14,7 +14,6 @@
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li><a class="dropdown-item" href="{{ route('products.create') }}">Crear Producto</a></li>
                                 <li><a class="dropdown-item" href="{{ route('category.index') }}">Crear Categoria</a></li>
-                                <li><a class="dropdown-item" href="{{ route('categorySub.index') }}">Crear Sub Categoria</a></li>
                                 <li><a class="dropdown-item" href="{{ route('brand.index') }}">Crear Marca</a></li>
                                 <li><a class="dropdown-item" href="{{ route('units.index') }}"">Crear Unidad</a></li>
                             </ul>
@@ -62,6 +61,7 @@
                                     <th>Nombre</th>
                                     <th>Referencia Fabrica</th>
                                     <th>Clasificación Tributaria</th>
+                                    <th>Precio de Venta</th>
                                     <th>Marca</th>
                                     <th>Unidad</th>
                                     <th>Stock</th>
@@ -77,6 +77,7 @@
                                         <td>{{ $producto->name_product }}</td>
                                         <td>{{ $producto->factory_reference }}</td>
                                         <td>{{ $producto->classification_tax }}</td>
+                                        <td>{{ $producto->selling_price }}</td>
                                         <td>{{ $producto->brand->name }}</td>
                                         <td>{{ $producto->measurementUnit->name }}</td>
                                         <td>{{ $producto->stock }}</td>
@@ -109,7 +110,7 @@
         </div>
     </div>
 </div>
-{{--  @include('sweetalert::alert')  --}}
+{{-- @include('sweetalert::alert') --}}
 @include('product.modal')
 @endauth
 @guest

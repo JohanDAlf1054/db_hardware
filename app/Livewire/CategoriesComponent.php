@@ -3,15 +3,17 @@
 namespace App\Livewire;
 
 use App\Models\CategoryProduct;
-use App\Models\SubCategory;
+use Illuminate\Support\Facades\Session;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithPagination;
 
 class CategoriesComponent extends Component
 {
     use WithPagination;
+    use LivewireAlert;
     public $search='';
-    public $Id, $name, $description, $subCategory, $otherModelData;
+    public $Id, $name, $description;
 
     public function render()
     {   
@@ -20,21 +22,30 @@ class CategoriesComponent extends Component
     }
 
     public function store(){
-        $category = SubCategory::findOrFail($this->subCategory);
-
+        $this->validate([
+            'name' => 'required|max:50',
+            'description' => 'required|max:50'
+        ],[
+            'name.required' => 'El nombre es requerido',
+            'description.required' => 'La descripcion es requerida'
+        ]);
         $categories = New CategoryProduct();
         $categories->name = $this -> name;
         $categories->description = $this -> description;
-        $categories->fill($this->otherModelData);
-
         $categories->save();
         $this->clear();
+        $this->flash('success', 'Categoria Creada');
+        return redirect()->to('category');
     }
 
     public function clear(){
         $this->name='';
-        $this->subCategory = null;
-        $this->otherModelData = [];
+        $this->description='';
+    }
+
+    public function show($id){
+        Session::put("category_id", $id);
+        return redirect()->route('categorySub.index');
     }
 
     public function edit($id){
@@ -42,13 +53,24 @@ class CategoriesComponent extends Component
         $this->clear();
         $this->Id = $categories->id;
         $this->name = $categories->name;
+        $this->description = $categories->description;
     }
 
     public function update($id){
+        $this->validate([
+            'name' => 'required|max:50',
+            'description' => 'required|max:50'
+        ],[
+            'name.required' => 'El nombre es requerido',
+            'description.required' => 'La descripcion es requerida'
+        ]);
         $categories = CategoryProduct::find($id);
         $categories->name = $this->name;
+        $categories->description = $this->description;
         $categories->save();
         $this->clear();
+        $this->flash('success', 'Categoria Modificada');
+        return redirect()->to('category');
     }
     
     public function delete($id){

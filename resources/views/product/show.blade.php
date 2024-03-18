@@ -1,5 +1,3 @@
-@auth
-
 
 @include('include.barra', ['modo'=>'Productos'])
 <body>
@@ -22,7 +20,7 @@
                                     </tr>
                                 </tbody>
                             </table>
-
+                            
                         </div>
                     </div>
                     <div class="col-lg-8">
@@ -51,7 +49,7 @@
                                             <td>Unidad</td>
                                             <td>{{ $producto->measurementUnit->name }}</td>
                                         </tr>
-
+    
                                         <tr>
                                             <td>Estado</td>
                                             <td>
@@ -68,16 +66,20 @@
                                                 {{ $producto->factory_reference }}
                                             </td>
                                         </tr>
-
+    
                                         <tr>
                                             <td>Clasificacion Tributaria</td>
                                             <td>{{ $producto->classification_tax }}</td>
                                         </tr>
                                         <tr>
+                                            <td>Precio de Venta</td>
+                                            <td>{{ $producto->selling_price }}</td>
+                                        </tr
+                                        <tr>
                                             <td> Marca</td>
                                             <td>{{ $producto->brand->name}}</td>
                                         </tr>
-                                        {{--
+                                        {{-- 
                                         <tr>
                                             <td>Tax Type</td>
                                             <td>{{ $product->tax_type->label() }}</td>
@@ -102,7 +104,4 @@
 </div>
 </div>
 </body>
-@endauth
-@guest
-    @include('include.falta_sesion')
-@endguest
+

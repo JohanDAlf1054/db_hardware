@@ -4,21 +4,21 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CategoryProducts extends Migration
+class SubCategories extends Migration
 {
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('category_products', function(Blueprint $table){
+        Schema::create('sub_categories', function(Blueprint $table){
             $table->engine="InnoDB";
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('description');
-            $table->bigInteger('sub_categories_id')->unsigned();
+            $table->bigInteger('category_id')->unsigned();
             $table->timestamps();
-            $table->foreign('sub_categories_id')->references('id')->on('sub_categories')->onDelete("no action");
+            $table->foreign('category_id')->references('id')->on('category_products');
         });
     }
 
@@ -27,6 +27,6 @@ class CategoryProducts extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('category_products');
+        Schema::dropIfExists('sub_categories');
     }
 };

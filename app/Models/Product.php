@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property $description_long
  * @property $factory_reference
  * @property $classification_tax
+ * @property $selling_price
  * @property $photo
  * @property $status
  * @property $stock
@@ -34,7 +35,8 @@ class Product extends Model
 		'name_product' => 'required',
 		'description_long' => 'required',
 		'factory_reference' => 'required',
-		'factory_reference' => 'required',
+		'classification_tax' => 'required',
+        'selling_price' => 'required',
 		'category_products_id' => 'required',
 		'brands_id' => 'required',
 		'measurement_units_id' => 'required',
@@ -47,7 +49,7 @@ class Product extends Model
      *
      * @var array
      */
-    protected $fillable = ['name_product','description_long','factory_reference','classification_tax','photo','category_products_id','brands_id','measurement_units_id'];
+    protected $fillable = ['name_product','description_long','factory_reference','classification_tax','selling_price','photo','category_products_id','brands_id','measurement_units_id'];
 
 
     /**

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\SubCategory;
+use App\Models\CategoryProduct;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 /**
  * Class SubCategoryController
@@ -18,10 +20,9 @@ class SubCategoryController extends Controller
      */
     public function index()
     {
-        $subCategories = SubCategory::paginate();
+        $subCategories = SubCategory::where('category_id', Session::get("category_id") )->get();
 
-        return view('sub-category.index', compact('subCategories'))
-            ->with('i', (request()->input('page', 1) - 1) * $subCategories->perPage());
+        return view('sub-category.index', compact('subCategories'));
     }
 
     /**
@@ -32,7 +33,7 @@ class SubCategoryController extends Controller
     public function create()
     {
         $subCategory = new SubCategory();
-        return view('sub-category.create', compact('subCategory'));
+        return view('sub-category.create' , compact('subCategory'));
     }
 
     /**
@@ -43,13 +44,23 @@ class SubCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        request()->validate(SubCategory::$rules);
-
-        $subCategory = SubCategory::create($request->all());
-
-        return redirect()->route('sub-categories.index')
+        $campos = [
+                'name' => 'required|string|max:100',
+                'description' => 'required|max:100',
+        ];
+        $mensaje = [
+            'name.required'=>'Escriba el nombre de la Sub categoria',
+            'description.required'=>'Escriba una breve descripción',
+        ];
+        $this->validate($request, $campos, $mensaje);
+        $subCategory = new SubCategory($request->all());
+        $subCategory->category_id = Session::get("category_id");
+        $subCategory->save();
+         return redirect()->route('categorySub.index')
             ->with('success', 'SubCategory created successfully.');
+
     }
+
 
     /**
      * Display the specified resource.
@@ -84,13 +95,21 @@ class SubCategoryController extends Controller
      * @param  SubCategory $subCategory
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, SubCategory $subCategory)
+    public function update(Request $request, SubCategory $subCategory, $id)
     {
-        request()->validate(SubCategory::$rules);
-
+        $campos = [
+            'name' => 'required|string|max:100',
+            'description' => 'required|max:100',
+        ];
+        $mensaje = [
+            'name.required'=>'Escriba el nombre de la Sub categoria',
+            'description.required'=>'Escriba una breve descripción',
+        ];
+        $this->validate($request, $campos, $mensaje);
+        $subCategory = SubCategory::find($id);
         $subCategory->update($request->all());
-
-        return redirect()->route('sub-categories.index')
+        $subCategory->save();
+        return redirect()->route('categorySub.index')
             ->with('success', 'SubCategory updated successfully');
     }
 
@@ -101,9 +120,10 @@ class SubCategoryController extends Controller
      */
     public function destroy($id)
     {
-        $subCategory = SubCategory::find($id)->delete();
+        $subCategory = SubCategory::find($id);
+        $subCategory->delete();
 
-        return redirect()->route('sub-categories.index')
+        return redirect()->route('categorySub.index')
             ->with('success', 'SubCategory deleted successfully');
     }
 }

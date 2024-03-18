@@ -10,12 +10,11 @@ use Illuminate\Database\Eloquent\Model;
  * @property $id
  * @property $name
  * @property $description
- * @property $sub_categories_id
  * @property $created_at
  * @property $updated_at
  *
  * @property Product[] $products
- * @property SubCategory $subCategory
+ * @property SubCategory[] $subCategories
  * @package App
  * @mixin \Illuminate\Database\Eloquent\Builder
  */
@@ -23,9 +22,8 @@ class CategoryProduct extends Model
 {
     
     static $rules = [
-		'name' => 'required',
-		'description' => 'required',
-		'sub_categories_id' => 'required',
+		'name' => 'required|string',
+		'description' => 'required|string',
     ];
 
     protected $perPage = 20;
@@ -35,7 +33,7 @@ class CategoryProduct extends Model
      *
      * @var array
      */
-    protected $fillable = ['name','description','sub_categories_id'];
+    protected $fillable = ['name','description'];
 
 
     /**
@@ -43,15 +41,15 @@ class CategoryProduct extends Model
      */
     public function products()
     {
-        return $this->hasMany('App\Models\Product', 'category_products_id', 'id');
+        return $this->hasMany(\App\Models\Product::class, 'id', 'category_products_id');
     }
     
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function subCategory()
+    public function subCategories()
     {
-        return $this->hasOne('App\Models\SubCategory', 'id', 'sub_categories_id');
+        return $this->hasMany(\App\Models\SubCategory::class, 'id', 'category_id');
     }
     
 

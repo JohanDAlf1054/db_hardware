@@ -1,5 +1,3 @@
-@auth
-
 
 @include('include.barra', ['modo'=>'Editar'])
 
@@ -9,8 +7,4 @@
 
     @include('product.form')
 </form>
-@endauth
-@guest
-    @include('include.falta_sesion')
-@endguest
 

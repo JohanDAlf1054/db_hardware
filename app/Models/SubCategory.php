@@ -10,10 +10,11 @@ use Illuminate\Database\Eloquent\Model;
  * @property $id
  * @property $name
  * @property $description
+ * @property $category_id
  * @property $created_at
  * @property $updated_at
  *
- * @property CategoryProduct[] $categoryProducts
+ * @property CategoryProduct $categoryProduct
  * @package App
  * @mixin \Illuminate\Database\Eloquent\Builder
  */
@@ -21,8 +22,9 @@ class SubCategory extends Model
 {
     
     static $rules = [
-		'name' => 'required',
-		'description' => 'required',
+		'name' => 'required|string',
+		'description' => 'required|string',
+		// 'category_id' => 'required',
     ];
 
     protected $perPage = 20;
@@ -32,15 +34,15 @@ class SubCategory extends Model
      *
      * @var array
      */
-    protected $fillable = ['name','description'];
+    protected $fillable = ['name','description','category_id'];
 
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function categoryProducts()
+    public function categoryProduct()
     {
-        return $this->hasMany('App\Models\CategoryProduct', 'sub_categories_id', 'id');
+        return $this->belongsTo(\App\Models\CategoryProduct::class, 'category_id', 'id');
     }
     
 

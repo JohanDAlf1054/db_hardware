@@ -5,7 +5,7 @@
 @endsection
 
 @section('content') --}}
-@include('product.barra', ['modo'=>'Marcas'])
+@include('include.barra', ['modo'=>'Marcas'])
 @livewireStyles
 <body>
     @livewire('brands-component');
