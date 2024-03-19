@@ -34,9 +34,9 @@ class BrandsComponent extends Component
             'code' => 'required|max:50',
             'abbrevation' => 'required|max:50'
         ],[
-            'abbrevation.required' => 'La abreviacion es requerida',
+            'abbrevation.required' => 'La abreviación es requerida',
             'name.required' => 'El nombre es requerido',
-            'code.required' => 'El nombre es requerido'
+            'code.required' => 'El codigo es requerido'
         ]);
         $brand = New Brand();
         $brand->name = $this -> name;
@@ -69,9 +69,9 @@ class BrandsComponent extends Component
             'code' => 'required|max:50',
             'abbrevation' => 'required|max:50'
         ],[
-            'abbrevation.required' => 'La abreviacion es requerida',
+            'abbrevation.required' => 'La abreviación es requerida',
             'name.required' => 'El nombre es requerido',
-            'code.required' => 'El nombre es requerido'
+            'code.required' => 'El codigo es requerido'
         ]);
         $brand = Brand::find($id);
         $brand->name = $this->name;

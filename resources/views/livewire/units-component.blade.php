@@ -13,7 +13,16 @@
                                 </button>
                                 <button type="button" class="btn btn-primary mx-2 rounded btn-lg" data-bs-toggle="modal" data-bs-target="#Modal">Crear Unidad</button>
                                 <input type="text" wire:model.live='search'  class="form-control" placeholder="Buscar...">
+                                <button type="button" class="btn btn-warning mx-2 rounded" data-bs-toggle="modal" data-bs-target="#importUnits">
+                                    {{-- <a href="{{route('import')}}"><i class="fa-solid fa-folder-open" style="color: #0a0a0a; width=24; height=24"; ></i></a> --}}
+                                    <i class="fa-solid fa-folder-open" style="color: #0a0a0a; width=24; height=24"; ></i>
+                                </button>
                             </div>
+                            @if ($message = Session::get('success'))
+                                <div class="alert alert-success">
+                                    <p>{{ $message }}</p>
+                                </div>
+                            @endif
                             <table class="table table-striped table-hover">
                                 <thead class="thead">
                                     <tr>
@@ -46,14 +55,14 @@
     </div>
     @include('components.modalheader')
     <div class="mb-3">
-        <label for="nombre" class="form-label">Codigo</label>
-        <input type="text" class="form-control @error('code') is-invalid @enderror" id="code" wire:model='code' placeholder="Codigo" required>
+        <label for="nombre" class="form-label" style="font-weight: bolder">Codigo <span class="text-danger">*</span></label>
+        <input type="text" class="form-control @error('code') is-invalid @enderror" id="code" wire:model='code' placeholder="Codigo" required >
         @error('code')
         <div class="invalid-feedback">
             {{ $message }}
         </div>
         @enderror
-        <label for="nombre" class="form-label">Nombre</label>
+        <label for="nombre" class="form-label" style="font-weight: bolder">Nombre <span class="text-danger">*</span></label>
         <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" wire:model='name' placeholder="Nombre" required>
         @error('name')
         <div class="invalid-feedback">
@@ -62,4 +71,6 @@
         @enderror
     </div>
     @include('components.modalfooter')
+    @include('measurement-unit.modalImport')
 </div>
+

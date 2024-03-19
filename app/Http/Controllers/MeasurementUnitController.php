@@ -108,4 +108,9 @@ class MeasurementUnitController extends Controller
         return redirect()->route('measurement-units.index')
             ->with('success', 'MeasurementUnit deleted successfully');
     }
+
+    public function import()
+    {
+        return view('measurement-unit.importUnits');
+    }
 }

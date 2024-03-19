@@ -52,21 +52,21 @@
     </div>
     @include('components.modalheader')
     <div class="mb-3">
-        <label for="nombre" class="form-label">Abreviacion</label>
-        <input type="text" class="form-control @error('abbrevation') is-invalid @enderror" id="abbrevation" wire:model.lazy='abbrevation' placeholder="Abreviacion">
+        <label for="nombre" class="form-label" style="font-weight: bolder">Abreviación <span class="text-danger">*</span></label>
+        <input type="text" class="form-control @error('abbrevation') is-invalid @enderror" id="abbrevation" wire:model.lazy='abbrevation' placeholder="Abreviación">
         @error('abbrevation')
         <div class="invalid-feedback">
             {{ $message }}
         </div>
         @enderror
-        <label for="nombre" class="form-label">Codigo</label>
+        <label for="nombre" class="form-label" style="font-weight: bolder">Codigo <span class="text-danger">*</span></label>
         <input type="text" class="form-control @error('code') is-invalid @enderror" id="code" wire:model.lazy='code' placeholder="Codigo">
         @error('code')
         <div class="invalid-feedback">
             {{ $message }}
         </div>
         @enderror
-        <label for="nombre" class="form-label">Nombre</label>
+        <label for="nombre" class="form-label" style="font-weight: bolder">Nombre <span class="text-danger">*</span></label>
         <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" wire:model.lazy='name' placeholder="Nombre">
         @error('name')
         <div class="invalid-feedback">

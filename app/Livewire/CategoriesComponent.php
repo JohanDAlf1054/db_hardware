@@ -27,7 +27,7 @@ class CategoriesComponent extends Component
             'description' => 'required|max:50'
         ],[
             'name.required' => 'El nombre es requerido',
-            'description.required' => 'La descripcion es requerida'
+            'description.required' => 'La descripción es requerida'
         ]);
         $categories = New CategoryProduct();
         $categories->name = $this -> name;
@@ -62,7 +62,7 @@ class CategoriesComponent extends Component
             'description' => 'required|max:50'
         ],[
             'name.required' => 'El nombre es requerido',
-            'description.required' => 'La descripcion es requerida'
+            'description.required' => 'La descripción es requerida'
         ]);
         $categories = CategoryProduct::find($id);
         $categories->name = $this->name;

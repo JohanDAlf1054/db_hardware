@@ -34,8 +34,9 @@
                                 <thead class="thead">
                                     <tr>
                                         
-										<th>Name</th>
-										<th>Description</th>
+										<th>Nombre de la Sub Categoria</th>
+										<th>Descripción</th>
+                                        <th>Acciones</th>
 
                                         <th></th>
                                     </tr>
@@ -49,11 +50,11 @@
 
                                             <td>
                                                 <form action="{{ route('categorySub.destroy',$subCategory->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('categorySub.show',$subCategory->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('categorySub.edit',$subCategory->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
+                                                    <a class="btn btn-sm btn-primary " href="{{ route('categorySub.show',$subCategory->id) }}"><i class="fa fa-fw fa-eye"></i></a>
+                                                    <a class="btn btn-sm btn-success" href="{{ route('categorySub.edit',$subCategory->id) }}"><i class="fa fa-fw fa-edit"></i></a>
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> {{ __('Delete') }}</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i></button>
                                                 </form>
                                             </td>
                                         </tr>

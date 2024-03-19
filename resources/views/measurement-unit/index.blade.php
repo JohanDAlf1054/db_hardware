@@ -8,7 +8,7 @@
 @auth
 
 
-@include('include.barra', ['modo'=>'Unidades'])
+@include('include.barra', ['modo'=>'Unidades de Medida'])
 <body>
     @livewireStyles
     @livewire('units-component');
