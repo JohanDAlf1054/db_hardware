@@ -63,10 +63,10 @@
                     </div>
                 </a>
 
-                <a href="Compras.html">
+                <a href="{{ route('purchase_supplier.index') }}">
                     <div class="option">
-                        <i class="bx bxs-dollar-circle" title="compras"></i>
-                        <h4>Compras</h4>
+                    <i class="fas fa-briefcase"></i>
+                   <h4>  Compras </h4>
                     </div>
                 </a>
 

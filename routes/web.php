@@ -17,6 +17,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\PurchaseSupplierController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -79,3 +80,7 @@ Route::resource('supplier', SupplierController::class);
 //Funcion Export Informes
 Route::get('export_index', [ExportController::class, 'index_informes'])->name('index_informes');
 Route::get('/export', [ExportController::class, 'export'])->name('export');
+
+//Funciones De Compras
+Route::resource('purchase_supplier', App\Http\Controllers\PurchaseSupplierController::class);
+Route::resource('detail-purchases', App\Http\Controllers\DetailPurchaseController::class);
