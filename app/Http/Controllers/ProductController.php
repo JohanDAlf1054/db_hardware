@@ -29,26 +29,28 @@ class ProductController extends Controller
         
         $productos = Product::query()
             ->when($filtervalue, function($query) use ($filtervalue) {
-                return $query->where('name_product','like','%'.$filtervalue.'%');
+                return $query->where('name_product','like','%'.$filtervalue.'%')
+                ->orWhere('description_long','like','%'.$filtervalue.'%')
+                ->orWhere('factory_reference','like','%'.$filtervalue.'%')
+                ->orWhere('classification_tax',$filtervalue)
+                ->orWhereHas('brand', function($query) use ($filtervalue){
+                    if($filtervalue){
+                        return $query->where('name',$filtervalue);
+                    }
+                })
+                ->orWhereHas('measurementUnit', function($query) use ($filtervalue){
+                    if($filtervalue){
+                        return $query->where('name','like','%'.$filtervalue.'%');
+                    }
+                });
             })
-            ->orWhere('description_long','like','%'.$filtervalue.'%')
-            ->orWhere('factory_reference','like','%'.$filtervalue.'%')
-            ->orWhere('classification_tax',$filtervalue)
-            ->orWhereHas('brand', function($query) use ($filtervalue){
-                if($filtervalue){
-                    return $query->where('name',$filtervalue);
-                }
+            ->when($categoryId, function($query) use ($categoryId) {
+                return $query->where('category_products_id', $categoryId);
             })
-            ->orWhereHas('measurementUnit', function($query) use ($filtervalue){
-                if($filtervalue){
-                    return $query->where('name',$filtervalue);
-                }
-            })->paginate(5); 
-            //filtrar los productos activos
-            $productos = Product::query() 
-            ->when($activeCheck, function($query) {
-                return $query->where('status', True);
-            })->paginate(5); 
+            ->when($activeCheck, function($query) use ($activeCheck) {
+                return $query->where('status', true);
+            })
+            ->paginate(5); 
 
             $categories = CategoryProduct::all();
             // $productos = Product::query() 
@@ -56,10 +58,13 @@ class ProductController extends Controller
             //     return $query->where('category_products_id', $categoryId);
             // })->paginate(5); 
 
-        return view('product.index',[
-            'productos' => $productos,
-            'categories' => $categories,
-        ]);
+            //filtrar los productos activos
+            // $productos = Product::query() 
+            // ->when($activeCheck, function($query) {
+            //     return $query->where('status', True);
+            // })->paginate(5);
+
+        return view('product.index', compact('productos', 'categories'));
     }
 
     /**
@@ -89,7 +94,7 @@ class ProductController extends Controller
             'description_long'=>'required|string|max:100',
             'factory_reference'=>'required|string|max:100',
             'classification_tax'=>'required|string|max:100',
-            'selling_price' => 'required|string|max:100',
+            'selling_price' => 'required|numeric|greater_than_zero',
             'category_products_id'=>'required|max:100',
             'brands_id'=>'required|max:100',
             'measurement_units_id'=>'required|max:100',
@@ -100,7 +105,9 @@ class ProductController extends Controller
             'description_long.required'=>'Escriba una breve descripcion',
             'factory_reference.required'=>'Escriba la referencia del producto',
             'classification_tax.required'=>'Selecione la clasificacion',
-            'selling_price.required'=>'Escriba el precio de venta',
+            'selling_price.required' => 'Escriba el precio de venta',
+            'selling_price.numeric' => 'El precio de venta debe ser numérico',
+            'selling_price.greater_than_zero' => 'El precio de venta debe ser mayor a 0',
             'category_products_id.required'=>'Selecione la categoria',
             'brands_id.required'=>'Selecione la marca',
             'measurement_units_id.required'=>'Selecione la unidad de medida',
@@ -114,7 +121,7 @@ class ProductController extends Controller
         }
         Product::create($datosProducto);
         // toast('Producto Creado!','success');
-        return redirect('products');
+        return redirect('products')->with('success', 'Producto Creado!');
     }
 
     /**
@@ -160,18 +167,20 @@ class ProductController extends Controller
             'description_long'=>'required|string|max:100',
             'factory_reference'=>'required|string|max:100',
             'classification_tax'=>'required|string|max:100',
-            'selling_price' => 'required|string|max:100',
+            'selling_price' => 'required|numeric|greater_than_zero',
             'category_products_id'=>'required|max:100',
             'brands_id'=>'required|max:100',
             'measurement_units_id'=>'required|max:100',
-            'photo'=>'max:10000|mimes:jpg,png,jpeg',
+            'photo'=>'nullable|max:10000|mimes:jpg,png,jpeg',
         ];
         $mensaje=[
             'name_product.required'=>'Escriba el nombre del producto',
             'description_long.required'=>'Escriba una breve descripcion',
             'factory_reference.required'=>'Escriba la referencia del producto',
             'classification_tax.required'=>'Selecione la clasificacion',
-            'selling_price.required'=>'Escriba el precio de venta',
+            'selling_price.required' => 'Escriba el precio de venta',
+            'selling_price.numeric' => 'El precio de venta debe ser numérico',
+            'selling_price.greater_than_zero' => 'El precio de venta debe ser mayor a 0',
             'category_products_id.required'=>'Selecione la categoria',
             'brands_id.required'=>'Selecione la marca',
             'measurement_units_id.required'=>'Selecione la unidad de medida',
@@ -188,7 +197,7 @@ class ProductController extends Controller
         
         Product::where('id','=',$id)->update($datosProducto);
         // toast('Producto Modificado!','success');
-        return redirect('products');
+        return redirect('products')->with('success', 'Producto Modificado!');
     }
 
     /**
@@ -210,6 +219,6 @@ class ProductController extends Controller
                 'status' => 1
             ]);
         }
-        return redirect()->route('products.index');
+        return redirect()->route('products.index')->with('success', 'Actualización estado Producto!');
     }
 }

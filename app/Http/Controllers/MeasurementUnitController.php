@@ -49,7 +49,7 @@ class MeasurementUnitController extends Controller
         
         Excel::import(new UnitsImpot, $file, 'xlsx');
         
-        return redirect()->route('units.index')->with('success', 'All good!');
+        return redirect()->route('units.index')->with('success', 'Unidades Agregadas!');
     }
 
 

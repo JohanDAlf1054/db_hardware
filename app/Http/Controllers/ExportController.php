@@ -10,7 +10,7 @@ class ExportController extends Controller
 {
     public function index_informes()
     {
-        return view('product.export');
+        return view('reports.export');
     }
 
     public function export()
