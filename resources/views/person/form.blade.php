@@ -43,7 +43,7 @@
                                 <div class="card card-default">
                                     <div class="card-header" style="display: flex">
                                         <h3 class="card-title">
-                                            {{__('Modificar registro persona')}}
+                                            {{__('Persona')}}
                                         </h3>
                                         <div class="card-actions" style="padding-top: 9px; padding-left: 20px" >
                                             <a href="" class="btn-action">
@@ -111,7 +111,7 @@
                                                 {{ __('Tipo de persona')}}
                                                     <span class="text-danger">*</span>
                                                 </label>
-                                                {{ Form::select('person_type', ['Persona natural' => 'Persona natural', 'Persona jurídica' => 'Persona juridica'],$person->person_type, ['id' => 'person_type','class' => 'form-select' . ($errors->has('person_type') ? ' is-invalid' : ''), 'placeholder' => 'Seleciona una opción']) }}
+                                                {{ Form::select('person_type', ['Persona natural' => 'Persona natural', 'Persona jurídica' => 'Persona jurídica'],$person->person_type, ['id' => 'person_type','class' => 'form-select' . ($errors->has('person_type') ? ' is-invalid' : ''), 'placeholder' => 'Seleciona una opción']) }}
                                                 {!! $errors->first('person_type', '<div class="invalid-feedback">:message</div>') !!}
                                             </div>
                                         </div>
@@ -242,7 +242,7 @@
     </div>
 
 
-{{--  Escript para escojer el tipo de persona  --}}
+{{--  Script para escojer el tipo de persona  --}}
 <script>
     $(document).ready(function(){
         $('#person_type').on('change',function(){
@@ -271,15 +271,41 @@
         $('#box-other-name').show();
         $('#box-surname').show();
         $('#box-second-surname').show();
-    }else{
+    }else if(initialSelectValue == 'Persona jurídica'){
         $('#box-first-name').hide();
         $('#box-other-name').hide();
         $('#box-surname').hide();
         $('#box-second-surname').hide();
         $('#box-razon-social').show();
+    }else{
+       $('#box-first-name').hide();
+        $('#box-other-name').hide();
+        $('#box-surname').hide();
+        $('#box-second-surname').hide();
+        $('#box-razon-social').hide(); 
     }
-
     });
+{{--  //Redirección al index según la elección del Rol
+
+    $(document).ready(function () {
+            $('form').submit(function () {
+                var selectedRole = $('#role').val();
+                var indexRoute;
+
+                if (selectedRole === 'cliente') {
+                    indexRoute = "{{ route('customer.index') }}";
+                } else if (selectedRole === 'proveedor') {
+                    indexRoute = "{{ route('supplier.index') }}";
+                } else {
+                    indexRoute = "{{ route('person.index') }}";
+                }
+
+                $(location).attr('href', indexRoute);
+                return false;
+            });
+        });  --}}
+
+
 </script>
 </body>
 </html>
