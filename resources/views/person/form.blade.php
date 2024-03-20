@@ -1,6 +1,6 @@
 @auth
 
-@include('include.barra', ['modo'=>'Personas'])
+@include('include.barra', ['modo'=>'Ferreteria la excelencia'])
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,7 +43,7 @@
                                 <div class="card card-default">
                                     <div class="card-header" style="display: flex">
                                         <h3 class="card-title">
-                                            {{__('Persona')}}
+                                            {{__('Modificar registro persona')}}
                                         </h3>
                                         <div class="card-actions" style="padding-top: 9px; padding-left: 20px" >
                                             <a href="" class="btn-action">
@@ -65,6 +65,7 @@
                                                 {!! $errors->first('rol', '<div class="invalid-feedback">:message</div>') !!}
                                             </div>
                                         </div>
+
                                             {{--  Tipo de identificacion  --}}
                                         <div class="col-sm-6 md-6">
                                             <div class="md-3" style="margin-bottom: 16px">
@@ -77,7 +78,6 @@
                                             </div>
                                         </div>
 
-
                                         {{--  Numero de identificacion   --}}
                                         <div class="col-sm-6 md-6">
                                             <div class="mb-3">
@@ -85,7 +85,7 @@
                                                 {{ __('Número de identificación')}}
                                                     <span class="text-danger">*</span>
                                                 </label>
-                                                {{ Form::number('identification_number', $person->identification_number, ['id' => 'identification_number1','class' => 'form-control' . ($errors->has('identification_number') ? ' is-invalid' : ''), 'placeholder' => 'Número de identificación']) }}
+                                                {{ Form::text('identification_number', $person->identification_number, ['id' => 'identification_number1','class' => 'form-control' . ($errors->has('identification_number') ? ' is-invalid' : ''), 'placeholder' => 'Número de identificación']) }}
                                                 {!! $errors->first('identification_number', '<div class="invalid-feedback">:message</div>') !!}
                                             </div>
                                         </div>
@@ -128,17 +128,16 @@
                                                     {!! $errors->first('company_name', '<div class="invalid-feedback">:message</div>') !!}
                                             </div>
                                         </div>
-
-                                        <div class="row">
+                                    </div>
+                                    <div class="row row-cards">
                                             {{--  Primer Nombre  --}}
-
                                                 <div class="col-sm-6 md-6" id="box-first-name">
                                                     <div class="mb-3">
                                                             <label for="first_name" class="form-label" style="font-weight: bolder">
                                                             {{ __('Primer nombre')}}
                                                             <span class="text-danger">*</span>
                                                             </label>
-                                                            {{ Form::text('first_name', $person->first_name, ['class' => 'form-control' . ($errors->has('first_name') ? ' is-invalid' : ''), 'placeholder' => 'Primer nombre','style' => 'width: 860px']) }}
+                                                            {{ Form::text('first_name', $person->first_name, ['class' => 'form-control' . ($errors->has('first_name') ? ' is-invalid' : ''), 'placeholder' => 'Primer nombre']) }}
                                                             {!! $errors->first('first_name', '<div class="invalid-feedback">:message</div>') !!}
                                                     </div>
                                                 </div>
@@ -146,19 +145,16 @@
                                             {{--  Segundo nombre   --}}
 
                                                 <div class="col-sm-6 md-6" id="box-other-name">
-                                                    <div  class="mb-3" style="padding-left: 10px">
+                                                    <div  class="mb-3" style="">
                                                             <label for="other_name" class="form-label" style="font-weight: bolder">
                                                             {{ __('Otro nombre')}}
                                                             <span class="text-danger">*</span>
                                                             </label>
-                                                            {{ Form::text('other_name', $person->other_name, ['class' => 'form-control' . ($errors->has('other_name') ? ' is-invalid' : ''), 'placeholder' => 'Otro nombre', 'style' => 'width: 860px']) }}
+                                                            {{ Form::text('other_name', $person->other_name, ['class' => 'form-control' . ($errors->has('other_name') ? ' is-invalid' : ''), 'placeholder' => 'Otro nombre',  ]) }}
                                                             {!! $errors->first('other_name', '<div class="invalid-feedback">:message</div>') !!}
                                                     </div>
                                                 </div>
-                                            </div>
 
-
-                                        <div class="row">
                                             {{--  Apellido   --}}
 
                                                 <div class="col-sm-6 md-6" id="box-surname">
@@ -167,7 +163,7 @@
                                                             {{ __('Apellido')}}
                                                             <span class="text-danger">*</span>
                                                             </label>
-                                                            {{ Form::text('surname', $person->surname, ['class' => 'form-control' . ($errors->has('surname') ? ' is-invalid' : ''), 'placeholder' => 'Primer apellido', 'style' => 'width: 860px']) }}
+                                                            {{ Form::text('surname', $person->surname, ['class' => 'form-control' . ($errors->has('surname') ? ' is-invalid' : ''), 'placeholder' => 'Primer apellido', ]) }}
                                                             {!! $errors->first('surname', '<div class="invalid-feedback">:message</div>') !!}
                                                     </div>
                                                 </div>
@@ -175,17 +171,15 @@
                                             {{--  Segundo apellido  --}}
 
                                                 <div class="col-sm-6 md-6" id="box-second-surname">
-                                                    <div class="mb-3" style="padding-left: 10px">
+                                                    <div class="mb-3">
                                                             <label for="second_surname" class="form-label" style="font-weight: bolder">
                                                             {{ __('Segundo Apellido')}}
                                                             <span class="text-danger">*</span>
                                                             </label>
-                                                            {{ Form::text('second_surname', $person->second_surname, ['class' => 'form-control' . ($errors->has('second_surname') ? ' is-invalid' : ''), 'placeholder' => 'Segundo apellido','style' => 'width: 860px']) }}
+                                                            {{ Form::text('second_surname', $person->second_surname, ['class' => 'form-control' . ($errors->has('second_surname') ? ' is-invalid' : ''), 'placeholder' => 'Segundo apellido',]) }}
                                                             {!! $errors->first('second_surname', '<div class="invalid-feedback">:message</div>') !!}
                                                     </div>
                                                 </div>
-                                            </div>
-
 
                                         {{--  Correo electronico  --}}
                                         <div class="col-sm-6 md-6">
@@ -268,6 +262,23 @@
                 $('#box-razon-social').show();
             }
         });
+
+// Mostrar u ocultar elementos según el valor seleccionado al cargar la página
+    initialSelectValue = $('#person_type').val();
+    if(initialSelectValue == 'Persona natural'){
+        $('#box-razon-social').hide();
+        $('#box-first-name').show();
+        $('#box-other-name').show();
+        $('#box-surname').show();
+        $('#box-second-surname').show();
+    }else{
+        $('#box-first-name').hide();
+        $('#box-other-name').hide();
+        $('#box-surname').hide();
+        $('#box-second-surname').hide();
+        $('#box-razon-social').show();
+    }
+
     });
 </script>
 </body>
