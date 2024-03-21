@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Person;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
+use Illuminate\Support\Facades\Session;
 
 /**
  * Class PersonController
@@ -61,8 +62,14 @@ class PersonController extends Controller
 
         $person = Person::create($request->all());
 
-        return redirect()->route('person.index')
-            ->with('success', 'Persona creada exitosamente.');
+        //Funcion para que se active las notificaciones.
+        Session::flash('notificacion', [
+            'tipo' => 'exito',
+            'titulo' => 'Registro Éxitoso!',
+            'descripcion' => 'La persona se ha creado exitosamente.',
+            'autoCierre' => 'true'
+        ]);
+        return redirect()->route('person.index');
     }
 
     /**
@@ -104,8 +111,14 @@ class PersonController extends Controller
 
         $person->update($request->all());
 
-        return redirect()->route('person.index')
-            ->with('success', 'Persona modificada exitosamente.');
+        Session::flash('notificacion', [
+            'tipo' => 'exito',
+            'titulo' => 'Éxito!',
+            'descripcion' => 'La persona se ha modificado exitosamente.',
+            'autoCierre' => 'true'
+        ]);
+
+        return redirect()->route('person.index');
     }
 
     /**
@@ -131,8 +144,13 @@ class PersonController extends Controller
                 ]);
         }
 
+        Session::flash('notificacion', [
+            'tipo' => 'error',
+            'titulo' => 'Atencion!',
+            'descripcion' => 'La persona se ha inactivado.',
+            'autoCierre' => 'true'
+        ]);
 
-        return redirect()->route('person.index')
-            ->with('success', 'Se ha inactividado a la persona.');
+        return redirect()->route('person.index');
     }
 }

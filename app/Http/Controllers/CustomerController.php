@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Person;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class CustomerController extends Controller
 {
@@ -58,11 +59,23 @@ class CustomerController extends Controller
                 ->update([
                     'status' => false,
                 ]);
+            Session::flash('notificacion', [
+                'tipo' => 'error',
+                'titulo' => 'Atencion!',
+                'descripcion' => 'La persona se ha inactivado.',
+                'autoCierre' => 'true'
+            ]);
         } else {
             Person::where('id', $clientes->id)
                 ->update([
                     'status' => true,
                 ]);
+            Session::flash('notificacion', [
+                'tipo' => 'exito',
+                'titulo' => 'Exito!',
+                'descripcion' => 'La persona se activado.',
+                'autoCierre' => 'true'
+            ]);
         }
 
         return redirect()->route('customer.index')
