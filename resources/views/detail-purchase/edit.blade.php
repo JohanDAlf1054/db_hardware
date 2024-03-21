@@ -1,5 +1,5 @@
 @auth
-@include('include.barra', ['modo'=>''])
+@include('include.barras', ['modo'=>''])
 @section('content')
     <section class="content container-fluid">
         <div class="">

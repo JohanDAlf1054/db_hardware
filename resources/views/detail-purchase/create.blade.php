@@ -1,5 +1,5 @@
 @auth
-@include('include.barra', ['modo'=>''])
+@include('include.barras', ['modo'=>''])
 
     <section class="content container-fluid">
         <div class="row">
@@ -7,8 +7,9 @@
 
                 @includeif('partials.errors')
 
-             
-                    </div>
+                <div class="card card-default">
+                    
+                    <div class="card-body">
                     
                         <form method="POST" action="{{ route('detail-purchases.store') }}"  role="form" enctype="multipart/form-data">
                             @csrf
@@ -17,7 +18,8 @@
 
                         </form>
                  
-               
+                    </div>
+                </div>
             </div>
         </div>
     </section>
