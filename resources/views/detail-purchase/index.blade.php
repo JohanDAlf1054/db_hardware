@@ -68,6 +68,7 @@
                                             <th>Tipo Documento</th>
                                             <th>Numero Documento</th>
                                             <th>Proveedor</th>
+                                            <th>Producto</th>
                                             <th>Total Neto</th>
                                             <th>Iva</th>
                                             <th>Total</th>
@@ -87,7 +88,7 @@
                                             <td>{{ optional($detailPurchase->purchaseSupplier->person)->identification_number ?? 'Error: No se encontró el proveedor' }}</td>
 
                                             <td>{{ optional($detailPurchase->purchaseSupplier->person)->first_name ?? 'Error: No se encontró el proveedor' }}</td>
-                                            
+                                            <td>{{ optional($detailPurchase->product)->name_product ?? 'Error: No se encontró el producto' }}</td>
                                 
                                             <td>{{ $detailPurchase->net_total }}</td>
                                             <td>{{ $detailPurchase->product_tax }}%</td>

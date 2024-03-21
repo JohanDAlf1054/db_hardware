@@ -20,7 +20,7 @@ class PurchaseSupplierController extends Controller
      */
     public function index()
     {
-        $purchaseSuppliers = PurchaseSupplier::paginate(1); 
+        $purchaseSuppliers = PurchaseSupplier::paginate(10); 
     
         return view('purchase-supplier.index', compact('purchaseSuppliers'))
             ->with('i', (request()->input('page', 1) - 1) * $purchaseSuppliers->perPage());

@@ -34,10 +34,10 @@
         </ul>
     </div>
 @endif
-
+{{--
 <div class="float-right">
     <a class="btn btn-primary" href="{{ route('detail-purchases.index') }}"> {{ __('Back') }}</a>
-</div>
+</div>--}}
 
         <div id="content">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -252,16 +252,23 @@
                                 <input type="text" id="method_of_payment" name="method_of_payment" class="form-control" value="{{ isset($detailPurchase) ? $detailPurchase->method_of_payment : '' }}" readonly>
                             </div>
                             
-                                
+                            
                              {{-- <div class="col-12 mt-4 text-center">
                                     <button type="submit" class="btn btn-success" id="guardar">Realizar compra</button>
                                 </div>--}}  
         
                             </div>
                         </div>
+                       <br> 
+                        <div class="float-right text-end" >
+                            <a class="btn btn-primary" href="{{ route('detail-purchases.index') }}"> {{ __('Back') }}</a>
+                        </div>
                     </div>
+                    
                 </div>
+                
             </div>
+            
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
