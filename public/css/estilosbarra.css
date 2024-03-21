@@ -18,7 +18,7 @@ header {
     height: 80px;
     display: flex;
     align-items: center;
-    position: fixed;
+    position: static;
     background-color: #fff;
     top: 0;
     z-index: 200;
@@ -39,7 +39,7 @@ header {
 .icon__menu i {
     font-size: 30px;
     cursor: pointer;
-    position: absolute;
+    position: static;
 }
 
 .logos {

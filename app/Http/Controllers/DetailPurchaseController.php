@@ -55,17 +55,20 @@ class DetailPurchaseController extends Controller
 {
    
     $input = $request->all();
-    $input['price_unit'] = $input['precio_compra'];
-    $input['quantity_units'] = $input['cantidad'];
-    $input['date_purchase'] = $input['fecha'];
-    $input['description'] = $input['precio_venta'];
-    
-    $input['gross_total'] = $input['quantity_units'] * $input['price_unit'];
-    $input['total_tax'] = $input['gross_total'] * ($input['product_tax'] / 100);
-    $input['net_total'] = $input['gross_total'] + $input['total_tax'];
-    $input['total_value'] = $input['net_total'] - $input['discount_total'];
-    $input['products_id'] = $input['producto_id'];
-    $input['purchase_suppliers_id'] = $input['people_id'];
+$input['price_unit'] = $input['precio_compra'];
+$input['quantity_units'] = $input['cantidad'];
+$input['date_purchase'] = $input['fecha'];
+$input['description'] = $input['precio_venta'];
+
+$input['gross_total'] = $input['quantity_units'] * $input['price_unit'];
+$input['total_tax'] = $input['gross_total'] * ($input['product_tax'] / 100);
+$input['net_total'] = $input['gross_total'] + $input['total_tax'];
+$input['discount_total_value'] = $input['net_total'] * ($input['discount_total'] / 100);
+
+$input['total_value'] = $input['net_total'] - $input['discount_total_value'];
+$input['products_id'] = $input['producto_id'];
+$input['purchase_suppliers_id'] = $input['people_id'];
+
     
     $purchaseSupplier = PurchaseSupplier::where('invoice_number_purchase', $input['factura'])->first();
     if ($purchaseSupplier) {
@@ -90,6 +93,9 @@ class DetailPurchaseController extends Controller
     ])->validate();
 
     $detailPurchase = DetailPurchase::create($validatedData);
+    $product = Product::find($input['products_id']);
+    $product->stock += $input['quantity_units'];
+    $product->save();
 
     return redirect()->route('detail-purchases.index')->with('success', 'Compra realizada con éxito.');
 }

@@ -1,4 +1,5 @@
 @auth
+@include('include.barra', ['modo'=>''])
 @section('content')
     <section class="content container-fluid">
         <div class="">
@@ -7,9 +8,7 @@
                 @includeif('partials.errors')
 
                 <div class="card card-default">
-                    <div class="card-header">
-                        <span class="card-title">{{ __('Update') }} Detail Purchase</span>
-                    </div>
+                    
                     <div class="card-body">
                         <form method="POST" action="{{ route('detail-purchases.update', $detailPurchase->id) }}"  role="form" enctype="multipart/form-data">
                             {{ method_field('PATCH') }}
