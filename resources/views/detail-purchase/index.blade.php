@@ -13,14 +13,16 @@
                 
             <div class="col-lg-6 col-md-6 col-sm-12" >
                     
-                <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">Nuevo
-                    <span class="visually-hidden">Nuevo</span>
-                <div style="display: flex; justify-content: space-between; align-items: center;">
+                <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">Acciones
+                    <span class="visually-hidden">Acciones</span>
+                {{-- <div style="display: flex; justify-content: space-between; align-items: center;"> --}}
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end">    
-                    <li><a class="dropdown-item" href="{{ route('purchase_supplier.index') }}">Crear Una Compra A Proveedor</a></li>
                     <li>
                         <a class="dropdown-item" href="{{ route('detail-purchases.create') }}">Crear Detalle De Compra</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" href="{{ route('purchase_supplier.index') }}">Mostrar Compras a Proveedores</a>
                     </li>
                     {{-- <li>
                         <a class="dropdown-item" href="{{ route('credit-note-supplier.index') }}">Crear Una nota Credito</a>

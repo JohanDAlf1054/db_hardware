@@ -12,23 +12,24 @@
                 <div class="row">
                     
                     <div class="col-lg-6 col-md-6 col-sm-12" >
-                    
-                    <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">Nuevo
-                        <span class="visually-hidden">Nuevo</span>
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end">    
-                        <li><a class="dropdown-item" href="{{ route('purchase_supplier.create') }}">Crear Una Compra A Proveedor</a></li>
-                        <li>
-                        <a class="dropdown-item" href="{{ route('detail-purchases.index') }}">Crear Detalle De Compra</a>
-                        </li>
-                        {{--  <li>
-                        <a class="dropdown-item" href="{{ route('credit-note-supplier.index') }}">Crear Una nota Credito</a>
-                        </li>
-                        <li>
-                        <a class="dropdown-item" href="{{ route('debit-note-supplier.index') }}">Crear Una nota debito</a>
-                        </li>
-                                </ul>--}}
+                        <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">Acciones
+                            <span class="visually-hidden">Nuevo</span>
+                        {{-- <div style="display: flex; justify-content: space-between; align-items: center;"> --}}
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">    
+                            <li>
+                                <a class="dropdown-item" href="{{ route('purchase_supplier.create') }}">Crear Compra A Proveedor</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('detail-purchases.index') }}">Mostrar Detalles De Compras</a>
+                            </li>
+                            {{--  <li>
+                            <a class="dropdown-item" href="{{ route('credit-note-supplier.index') }}">Crear Una nota Credito</a>
+                            </li>
+                            <li>
+                            <a class="dropdown-item" href="{{ route('debit-note-supplier.index') }}">Crear Una nota debito</a>
+                            </li>
+                                    </ul>--}}
                     </div>
                             <div class="col-lg-6 col-md-6 col-sm-12" >
                                 {{--<form action="{{ route('detail-purchases.index') }}" method="get">--}} 

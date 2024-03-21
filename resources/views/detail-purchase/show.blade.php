@@ -1,5 +1,5 @@
 @auth
-@include('include.barras', ['modo'=>''])
+@include('include.barra', ['modo'=>'Detalle de Compra'])
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,12 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
  <!-- Bootstrap CSS -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
-
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script>
+{{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"> --}}
 
 
 </head>
@@ -286,36 +281,39 @@
             </div>
         
         </form>
-
-        <script>
-        $(document).ready(function(){
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script> --}}
+    <script>
+    $(document).ready(function(){
     $('#btn_agregar').click(function(){
         agregarProducto();
     });
-});
-let cont=0;
-let subtotal=[];
-let sumas=0;
-let igv=0;
-let total=0;
-let totalBruto=0;
-let totalNeto = 0; 
+    });
+    let cont=0;
+    let subtotal=[];
+    let sumas=0;
+    let igv=0;
+    let total=0;
+    let totalBruto=0;
+    let totalNeto = 0; 
 
-function agregarProducto(){
-    let idProducto = $('#producto_id').val();
-    let nameProducto = $('#producto_id option:selected').text();
-    let cantidad=$('#cantidad').val();
-    let descripcion=$('#precio_venta').val();
-    let impuesto=$('#product_tax').val();
-    let precioCompra=$('#precio_compra').val();
-//calcular valores
-subtotal[cont] = cantidad * precioCompra;
-sumas += subtotal[cont]; 
-igv = sumas * impuesto / 100; 
-total = sumas + igv; 
-totalBruto = sumas; 
-totalNeto = total; 
-$('#gross_total').val(totalBruto);
+    function agregarProducto(){
+        let idProducto = $('#producto_id').val();
+        let nameProducto = $('#producto_id option:selected').text();
+        let cantidad=$('#cantidad').val();
+        let descripcion=$('#precio_venta').val();
+        let impuesto=$('#product_tax').val();
+        let precioCompra=$('#precio_compra').val();
+    //calcular valores
+    subtotal[cont] = cantidad * precioCompra;
+    sumas += subtotal[cont]; 
+    igv = sumas * impuesto / 100; 
+    total = sumas + igv; 
+    totalBruto = sumas; 
+    totalNeto = total; 
+    $('#gross_total').val(totalBruto);
 
     let fila='<tr>'+
         '<th>'+ (cont+1) +'</th>'+
@@ -335,51 +333,45 @@ $('#gross_total').val(totalBruto);
         $('#total').html(total);
         $('#totalBruto').html(totalBruto);
         $('#totalNeto').html(totalNeto);
-}
-function limpiarCampos(){
-    //let select=$('#producto_id');
-    //select.val(''); // Restablece el valor a vacío
-    //$('#cantidad').val('');
-    //$('#precio_venta').val('');
-    //$('#precio_compra').val('');
-}
+    }
+    function limpiarCampos(){
+        //let select=$('#producto_id');
+        //select.val(''); // Restablece el valor a vacío
+        //$('#cantidad').val('');
+        //$('#precio_venta').val('');
+        //$('#precio_compra').val('');
+    }
 
         </script>
         <script>
             document.getElementById('factura').addEventListener('change', function() {
-    var selectedOption = this.options[this.selectedIndex];
-    var date = selectedOption.getAttribute('data-date');
-    document.getElementById('fecha').value = date;
-});
-
+            var selectedOption = this.options[this.selectedIndex];
+            var date = selectedOption.getAttribute('data-date');
+            document.getElementById('fecha').value = date;
+            });
         </script>
         <script>
             document.getElementById('people_id').addEventListener('change', function() {
-    var selectedOption = this.options[this.selectedIndex];
-    var identificationType = selectedOption.getAttribute('data-identification-type');
-    var identificationNumber = selectedOption.getAttribute('data-identification-number');
-    document.getElementById('identification_type').value = identificationType;
-    document.getElementById('identification_number').value = identificationNumber;
-});
-
+            var selectedOption = this.options[this.selectedIndex];
+            var identificationType = selectedOption.getAttribute('data-identification-type');
+            var identificationNumber = selectedOption.getAttribute('data-identification-number');
+            document.getElementById('identification_type').value = identificationType;
+            document.getElementById('identification_number').value = identificationNumber;
+            });
         </script>
         <script>
-  document.getElementById('producto_id').addEventListener('change', function() {
-    var selectedOption = this.options[this.selectedIndex];
-    var sellingPrice = selectedOption.getAttribute('data-selling-price');
-    var classificationTax = selectedOption.getAttribute('data-classification-tax');
-    
-    // Si classificationTax es nulo o vacío, establecerlo en 0
-    if (classificationTax === null || classificationTax === '') {
-        classificationTax = 0;
-    }
+            document.getElementById('producto_id').addEventListener('change', function() {
+                var selectedOption = this.options[this.selectedIndex];
+                var sellingPrice = selectedOption.getAttribute('data-selling-price');
+                var classificationTax = selectedOption.getAttribute('data-classification-tax');
+                
+                // Si classificationTax es nulo o vacío, establecerlo en 0
+                if (classificationTax === null || classificationTax === '') {
+                    classificationTax = 0;
+                }
 
-    document.getElementById('precio_compra').value = sellingPrice;
-    document.getElementById('product_tax').value = classificationTax;
-});
-
-
-
-
+                document.getElementById('precio_compra').value = sellingPrice;
+                document.getElementById('product_tax').value = classificationTax;
+                });
         </script>
-    @endauth
+@endauth

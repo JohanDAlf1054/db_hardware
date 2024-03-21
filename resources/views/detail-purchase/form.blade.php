@@ -1,62 +1,34 @@
 @auth
-
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Accesos Dirrectos </title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
-
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css">
-
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script>
-
+{{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"> --}}
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"></script>
+    {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script> --}}
 </head>
 <body>
-   
-    @push('js')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js"></script>
-    <script>
-        // Tu código JavaScript aquí
-    </script>
-@endpush
-
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+<div class="container-fluid">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="nav navbar-nav ml-auto">
+        </ul> 
     </div>
-@endif
-
-
-
-        
-                
-                    
-                    
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="nav navbar-nav ml-auto">
-                         
-                            
-                        </ul> <br>
-                    </div>
-                </div>
-            </nav>
-            <div class="container">
-                <form action="{{ route('detail-purchases.store') }}" method="POST">
-                    @csrf
-                    <div class="row">
-                        <div class="container-lg mt-4">
+    </nav>
+    <div class="container">
+        <form action="{{ route('detail-purchases.store') }}" method="POST">
+        @csrf
+        <div class="row">
+        <div class="container-lg mt-4">
         <div class="row gy-4">
             <!------Compra producto---->
             <div class="col-xl-8">
@@ -248,9 +220,6 @@
                             <small class="text-danger">{{ '*'.$message }}</small>
                             @enderror
                         </div>
-                        
-                        
-                        
                         <div class="col-6 mb-2">
                             <label for="discount_total" class="form-label">Descuento Total (%):</label>
                             <input type="number" id="discount_total" name="discount_total" min="0" max="100" step="1" class="form-control" placeholder="Ingrese el porcentaje de descuento" oninput="this.value = Math.round(this.value)" value="{{ old('discount_total', isset($detailPurchase) ? $detailPurchase->discount_total : '') }}">
@@ -258,14 +227,7 @@
                             <small class="text-danger">{{ '*'.$message }}</small>
                             @enderror
                         </div>
-                        
-                        
-                        
-                        
-
                         <!--Impuesto---->
-                  
-
                             <div class="col-sm-6 mb-2">
                                 <label for="fecha" class="form-label">Fecha:</label>
                                 <input readonly type="date" name="fecha" id="fecha" class="form-control border-success" value="<?php echo date("Y-m-d") ?>">
@@ -303,8 +265,9 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
+        </div>
+        </div>
+        </div>
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -322,40 +285,43 @@
                     </div>
                 </div>
             </div>
-        
         </form>
-
+    </div>
+</div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js"></script> --}}
+        
         <script>
         $(document).ready(function(){
-    $('#btn_agregar').click(function(){
-        agregarProducto();
-    });
-});
-let cont=0;
-let subtotal=[];
-let sumas=0;
-let igv=0;
-let total=0;
-let totalBruto=0;
-let totalNeto = 0; 
+        $('#btn_agregar').click(function(){
+            agregarProducto();
+        });
+        });
+        let cont=0;
+        let subtotal=[];
+        let sumas=0;
+        let igv=0;
+        let total=0;
+        let totalBruto=0;
+        let totalNeto = 0; 
 
-function agregarProducto(){
-    let idProducto = $('#producto_id').val();
-    let nameProducto = $('#producto_id option:selected').text();
-    let cantidad=$('#cantidad').val();
-    let descripcion=$('#precio_venta').val();
-    let impuesto=$('#product_tax').val();
-    let precioCompra=$('#precio_compra').val();
-//calcular valores
-subtotal[cont] = cantidad * precioCompra;
-sumas += subtotal[cont]; 
-igv = sumas * impuesto / 100; 
-total = sumas + igv; 
-totalBruto = sumas; 
-totalNeto = total; 
-$('#gross_total').val(totalBruto);
-
-    let fila='<tr>'+
+        function agregarProducto(){
+            let idProducto = $('#producto_id').val();
+            let nameProducto = $('#producto_id option:selected').text();
+            let cantidad=$('#cantidad').val();
+            let descripcion=$('#precio_venta').val();
+            let impuesto=$('#product_tax').val();
+            let precioCompra=$('#precio_compra').val();
+        //calcular valores
+        subtotal[cont] = cantidad * precioCompra;
+        sumas += subtotal[cont]; 
+        igv = sumas * impuesto / 100; 
+        total = sumas + igv; 
+        totalBruto = sumas; 
+        totalNeto = total; 
+        $('#gross_total').val(totalBruto);
+        let fila='<tr>'+
         '<th>'+ (cont+1) +'</th>'+
         '<td>'+ nameProducto +'</td>'+
         '<td>'+ cantidad +'</td>'+
@@ -373,52 +339,44 @@ $('#gross_total').val(totalBruto);
         $('#total').html(total);
         $('#totalBruto').html(totalBruto);
         $('#totalNeto').html(totalNeto);
-}
-function limpiarCampos(){
-    //let select=$('#producto_id');
-    //select.val(''); // Restablece el valor a vacío
-    //$('#cantidad').val('');
-    //$('#precio_venta').val('');
-    //$('#precio_compra').val('');
-}
-
+        }
+        function limpiarCampos(){
+            //let select=$('#producto_id');
+            //select.val(''); // Restablece el valor a vacío
+            //$('#cantidad').val('');
+            //$('#precio_venta').val('');
+            //$('#precio_compra').val('');
+        }
         </script>
         <script>
             document.getElementById('factura').addEventListener('change', function() {
-    var selectedOption = this.options[this.selectedIndex];
-    var date = selectedOption.getAttribute('data-date');
-    document.getElementById('fecha').value = date;
-});
-
+            var selectedOption = this.options[this.selectedIndex];
+            var date = selectedOption.getAttribute('data-date');
+            document.getElementById('fecha').value = date;
+            });
         </script>
         <script>
             document.getElementById('people_id').addEventListener('change', function() {
-    var selectedOption = this.options[this.selectedIndex];
-    var identificationType = selectedOption.getAttribute('data-identification-type');
-    var identificationNumber = selectedOption.getAttribute('data-identification-number');
-    document.getElementById('identification_type').value = identificationType;
-    document.getElementById('identification_number').value = identificationNumber;
-});
-
+            var selectedOption = this.options[this.selectedIndex];
+            var identificationType = selectedOption.getAttribute('data-identification-type');
+            var identificationNumber = selectedOption.getAttribute('data-identification-number');
+            document.getElementById('identification_type').value = identificationType;
+            document.getElementById('identification_number').value = identificationNumber;
+            });
         </script>
         <script>
-  document.getElementById('producto_id').addEventListener('change', function() {
-    var selectedOption = this.options[this.selectedIndex];
-    var sellingPrice = selectedOption.getAttribute('data-selling-price');
-    var classificationTax = selectedOption.getAttribute('data-classification-tax');
-    
-    // Si classificationTax es nulo o vacío, establecerlo en 0
-    if (classificationTax === null || classificationTax === '') {
-        classificationTax = 0;
-    }
-
-    document.getElementById('precio_compra').value = sellingPrice;
-    document.getElementById('product_tax').value = classificationTax;
-});
-
-
-
-
+        document.getElementById('producto_id').addEventListener('change', function() {
+            var selectedOption = this.options[this.selectedIndex];
+            var sellingPrice = selectedOption.getAttribute('data-selling-price');
+            var classificationTax = selectedOption.getAttribute('data-classification-tax');
+            
+            // Si classificationTax es nulo o vacío, establecerlo en 0
+            if (classificationTax === null || classificationTax === '') {
+                classificationTax = 0;
+            }
+            document.getElementById('precio_compra').value = sellingPrice;
+            document.getElementById('product_tax').value = classificationTax;
+            });
         </script>
     @endauth
     @guest

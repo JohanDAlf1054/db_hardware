@@ -10,9 +10,9 @@
            
 
                 <div class="card card-default">
-                   {{-- <div class="card-header">
-                        <span class="card-title">{{ __('Create') }} Purchase Supplier</span>
-                    </div>--}}
+                   <div class="card-header">
+                        {{-- <span class="card-title">{{ __('Create') }} Purchase Supplier</span> --}}
+                    </div>
                     <div class="card-body">
                         <form method="POST" action="{{ route('purchase_supplier.store') }}"  role="form" enctype="multipart/form-data">
                             @csrf

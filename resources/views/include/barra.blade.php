@@ -45,7 +45,7 @@
                         </div>
                     </a>
 
-                    <a href="#">
+                    <a href="{{route('purchase_supplier.index') }}" class="{{ request()->route()->named('purchase_supplier.index') ? 'selected' : '' }}">
                         <div class="option">
                             <i class='bx bxs-dollar-circle' title="compras" ></i>
                             <h4>Compras</h4>
