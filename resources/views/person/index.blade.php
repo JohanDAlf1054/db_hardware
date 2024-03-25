@@ -67,7 +67,7 @@
                         {{--  Div con las notificaciones nuevas  --}}
                         <div class="contenedor-notificacion" id="contenedor-notificacion">
                             {{--  Aqui trae las notificaciones por medio de javaescript  --}}
-                            <div class="notificacion exito" id="1">
+                            {{--  <div class="notificacion exito" id="1">
                                 <div class="contenido">
                                     <div class="icono">
                                         <svg
@@ -118,7 +118,7 @@
                                         </svg>
                                     </div>
                                 </button>
-                            </div>
+                            </div>  --}}
                         </div>
 
                     <div class="container_datos">
@@ -132,7 +132,6 @@
                                             <th>Tipo ID</th>
                                             <th>Identificacion</th>
                                             <th>DV</th>
-                                            {{--  <th>Tipo de persona</th>  --}}
                                             <th>Razon social</th>
                                             <th>Primer nombre</th>
                                             <th>Otro nombre</th>
@@ -153,7 +152,6 @@
                                                 <td>{{ $person->identification_type }}</td>
                                                 <td>{{ $person->identification_number }}</td>
                                                 <td>{{ $person->digit_verification }}</td>
-                                                {{--  <td>{{ $person->person_type }}</td>  --}}
                                                 <td>{{ $person->company_name }}</td>
                                                 <td>{{ $person->first_name }}</td>
                                                 <td>{{ $person->other_name }}</td>

@@ -32,7 +32,7 @@ use Illuminate\Database\Eloquent\Model;
 class Person extends Model
 {
 
-    static $rules = [
+    public static $rules = [
 		'rol' => 'required',
 		'identification_type' => 'required',
 		'identification_number' => 'required|string',
@@ -49,6 +49,29 @@ class Person extends Model
 		'phone' => 'required|string',
 		'status' => 'nullable',
     ];
+
+    //Funcion para sobreescribir la regla segun la seleccion en tipo de persona.
+    public static function boot()
+    {
+        parent::boot();
+
+        static::saving(function ($model) {
+            if ($model->person_type === 'Persona natural') {
+                $model::$rules['first_name'] = 'required|string';
+                $model::$rules['other_name'] = 'nullable|string';
+                $model::$rules['surname'] = 'required|string';
+                $model::$rules['second_surname'] = 'required|string';
+                $model::$rules['company_name'] = 'nullable|string';
+            } elseif ($model->person_type === 'Persona jurídica') {
+                $model::$rules['company_name'] = 'required|string';
+                $model::$rules['first_name'] = 'nullable|string';
+                $model::$rules['other_name'] = 'nullable|string';
+                $model::$rules['surname'] = 'nullable|string';
+                $model::$rules['second_surname'] = 'nullable|string';
+            }
+        });
+    }
+
 
     protected $perPage = 20;
 

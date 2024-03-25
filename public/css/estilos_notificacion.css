@@ -52,12 +52,12 @@
 }
 
 .notificacion .icono{
-	color: rgba(0, 0, 0, 0.68);
+	color: rgba(0, 0, 0, 0.95);
 }
 
 .notificacion .titulo{
 	font-size: 20px;
-	font-weight: 600;
+	font-weight: bold;
 	margin-bottom: 5px;
 }
 

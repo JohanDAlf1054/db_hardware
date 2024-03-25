@@ -58,7 +58,26 @@ class PersonController extends Controller
      */
     public function store(Request $request)
     {
+
         request()->validate(Person::$rules);
+
+        //Validacion de acuerdo a la aseleccion de Persona naturao o juridica
+
+        if($request->input('person_type') === 'Persona natural'){
+            Person::$rules['first_name'] = 'required|string';
+            Person::$rules['other_name'] = 'nullable|string';
+            Person::$rules['surname'] = 'required|string';
+            Person::$rules['second_surname'] = 'nullable|string';
+            Person::$rules['company_name'] = 'nullable|string';
+        }elseif($request->input('person_type') === 'Persona jurídica'){
+            Person::$rules['company_name'] = 'required|string';
+            Person::$rules['first_name'] = 'nullable|string';
+            Person::$rules['other_name'] = 'nullable|string';
+            Person::$rules['surname'] = 'nullable|string';
+            Person::$rules['second_surname'] = 'nullable|string';
+        }
+
+        $request->validate((Person::$rules));
 
         $person = Person::create($request->all());
 

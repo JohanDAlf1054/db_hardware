@@ -4,6 +4,8 @@
 @include('include.barra', ['modo'=>'Clientes'])
 <head>
     <link href="css/estilos_vista_persona.css" rel="stylesheet" />
+    <link href="css/estilos_notificacion.css" rel="stylesheet"/>
+    <script src="{{ asset('js/notificaciones.js')}}" defer></script>
 </head>
     <div class="container-fluid">
         <div class="row">
@@ -44,11 +46,21 @@
                     </div>
 
 
-                    @if ($message = Session::get('success'))
-                        <div class="alert alert-success">
-                            <p>{{ $message }}</p>
-                        </div>
-                    @endif
+                    {{-- Script  para mostrar la notificacion --}}
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function () {
+                            const mensajeFlash = {!! json_encode(Session::get('notificacion')) !!};
+                            if (mensajeFlash) {
+                                agregarnotificacion(mensajeFlash);
+                            }
+                        });
+                    </script>
+
+                    {{--  Div con las notificaciones nuevas  --}}
+                    <div class="contenedor-notificacion" id="contenedor-notificacion">
+                        {{--  Aqui trae las notificaciones por medio de javaescript  --}}
+                    </div>
+
                     <div class="container_datos">
                         <div class="table_container">
 

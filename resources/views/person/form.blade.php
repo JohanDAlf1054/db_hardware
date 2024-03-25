@@ -101,7 +101,7 @@
                                                 {!! $errors->first('digit_verification', '<div class="invalid-feedback">:message</div>') !!}
                                             </div>
                                         </div>
-                                        <!-- Script para sacar eldigito de verificacion -->
+                                        {{--  Script para sacar el digito de verificacion  --}}
                                         <script src="{{ asset('js/formularios_digito_de_verificacion.js') }}"></script>
 
                                         {{--  Tipo de persona  --}}
@@ -111,7 +111,7 @@
                                                 {{ __('Tipo de persona')}}
                                                     <span class="text-danger">*</span>
                                                 </label>
-                                                {{ Form::select('person_type', ['Persona natural' => 'Persona natural', 'Persona jurídica' => 'Persona juridica'],$person->person_type, ['id' => 'person_type','class' => 'form-select' . ($errors->has('person_type') ? ' is-invalid' : ''), 'placeholder' => 'Seleciona una opción']) }}
+                                                {{ Form::select('person_type', ['Persona natural' => 'Persona natural', 'Persona jurídica' => 'Persona jurídica'],$person->person_type, ['id' => 'person_type','class' => 'form-select' . ($errors->has('person_type') ? ' is-invalid' : ''), 'placeholder' => 'Seleciona una opción']) }}
                                                 {!! $errors->first('person_type', '<div class="invalid-feedback">:message</div>') !!}
                                             </div>
                                         </div>
@@ -148,7 +148,6 @@
                                                     <div  class="mb-3" style="">
                                                             <label for="other_name" class="form-label" style="font-weight: bolder">
                                                             {{ __('Otro nombre')}}
-                                                            <span class="text-danger">*</span>
                                                             </label>
                                                             {{ Form::text('other_name', $person->other_name, ['class' => 'form-control' . ($errors->has('other_name') ? ' is-invalid' : ''), 'placeholder' => 'Otro nombre',  ]) }}
                                                             {!! $errors->first('other_name', '<div class="invalid-feedback">:message</div>') !!}
@@ -174,7 +173,6 @@
                                                     <div class="mb-3">
                                                             <label for="second_surname" class="form-label" style="font-weight: bolder">
                                                             {{ __('Segundo Apellido')}}
-                                                            <span class="text-danger">*</span>
                                                             </label>
                                                             {{ Form::text('second_surname', $person->second_surname, ['class' => 'form-control' . ($errors->has('second_surname') ? ' is-invalid' : ''), 'placeholder' => 'Segundo apellido',]) }}
                                                             {!! $errors->first('second_surname', '<div class="invalid-feedback">:message</div>') !!}
