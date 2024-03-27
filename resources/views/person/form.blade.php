@@ -147,8 +147,7 @@
                                                 <div class="col-sm-6 md-6" id="box-other-name">
                                                     <div  class="mb-3" style="">
                                                             <label for="other_name" class="form-label" style="font-weight: bolder">
-                                                            {{ __('Otro nombre')}}
-                                                            <span class="text-danger">*</span>
+                                                            {{ __('Otro nombre')}}                                                    
                                                             </label>
                                                             {{ Form::text('other_name', $person->other_name, ['class' => 'form-control' . ($errors->has('other_name') ? ' is-invalid' : ''), 'placeholder' => 'Otro nombre',  ]) }}
                                                             {!! $errors->first('other_name', '<div class="invalid-feedback">:message</div>') !!}
@@ -173,8 +172,7 @@
                                                 <div class="col-sm-6 md-6" id="box-second-surname">
                                                     <div class="mb-3">
                                                             <label for="second_surname" class="form-label" style="font-weight: bolder">
-                                                            {{ __('Segundo Apellido')}}
-                                                            <span class="text-danger">*</span>
+                                                            {{ __('Segundo Apellido')}}                                                            
                                                             </label>
                                                             {{ Form::text('second_surname', $person->second_surname, ['class' => 'form-control' . ($errors->has('second_surname') ? ' is-invalid' : ''), 'placeholder' => 'Segundo apellido',]) }}
                                                             {!! $errors->first('second_surname', '<div class="invalid-feedback">:message</div>') !!}
@@ -265,45 +263,27 @@
 
 // Mostrar u ocultar elementos según el valor seleccionado al cargar la página
     initialSelectValue = $('#person_type').val();
-    if(initialSelectValue == 'Persona natural'){
-        $('#box-razon-social').hide();
-        $('#box-first-name').show();
-        $('#box-other-name').show();
-        $('#box-surname').show();
-        $('#box-second-surname').show();
-    }else if(initialSelectValue == 'Persona jurídica'){
-        $('#box-first-name').hide();
-        $('#box-other-name').hide();
-        $('#box-surname').hide();
-        $('#box-second-surname').hide();
-        $('#box-razon-social').show();
-    }else{
-       $('#box-first-name').hide();
-        $('#box-other-name').hide();
-        $('#box-surname').hide();
-        $('#box-second-surname').hide();
-        $('#box-razon-social').hide(); 
-    }
+        if(initialSelectValue == 'Persona natural'){
+            $('#box-razon-social').hide();
+            $('#box-first-name').show();
+            $('#box-other-name').show();
+            $('#box-surname').show();
+            $('#box-second-surname').show();
+        }else if(initialSelectValue == 'Persona jurídica'){
+            $('#box-first-name').hide();
+            $('#box-other-name').hide();
+            $('#box-surname').hide();
+            $('#box-second-surname').hide();
+            $('#box-razon-social').show();
+        }else{
+            $('#box-first-name').hide();
+            $('#box-other-name').hide();
+            $('#box-surname').hide();
+            $('#box-second-surname').hide();
+            $('#box-razon-social').hide(); 
+        }
     });
-{{--  //Redirección al index según la elección del Rol
 
-    $(document).ready(function () {
-            $('form').submit(function () {
-                var selectedRole = $('#role').val();
-                var indexRoute;
-
-                if (selectedRole === 'cliente') {
-                    indexRoute = "{{ route('customer.index') }}";
-                } else if (selectedRole === 'proveedor') {
-                    indexRoute = "{{ route('supplier.index') }}";
-                } else {
-                    indexRoute = "{{ route('person.index') }}";
-                }
-
-                $(location).attr('href', indexRoute);
-                return false;
-            });
-        });  --}}
 
 
 </script>

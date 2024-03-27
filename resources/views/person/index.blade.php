@@ -66,17 +66,17 @@
                                         <tr style="text-align: center">
                                             <th>Tercero</th>
                                             <th>Tipo ID</th>
-                                            <th>Identificacion</th>
+                                            <th>Identificación</th>
                                             <th>DV</th>
                                             {{--  <th>Tipo de persona</th>  --}}
-                                            <th>Razon social</th>
+                                            <th>Razón social</th>
                                             <th>Primer nombre</th>
                                             <th>Otro nombre</th>
                                             <th>Apellido</th>
                                             <th>Segundo apellido</th>
-                                            <th>Correo electronico</th>
+                                            <th>Correo electrónico</th>
                                             <th>Ciudad</th>
-                                            <th>Direccion</th>
+                                            <th>Dirección</th>
                                             <th>Celular</th>
                                             <th>Estado</th>
                                             <th>Acciones</th>
