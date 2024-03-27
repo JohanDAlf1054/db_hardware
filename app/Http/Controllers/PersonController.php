@@ -62,7 +62,7 @@ class PersonController extends Controller
 
         request()->validate(Person::$rules);
 
-        //Validacion de acuerdo a la aseleccion de Persona naturao o juridica
+        //Validacion de acuerdo a la seleccion de Persona natural o juridica
 
         if($request->input('person_type') === 'Persona natural'){
             Person::$rules['first_name'] = 'required|string';
@@ -87,14 +87,29 @@ class PersonController extends Controller
 
         // Redireccionar al índice correspondiente
         if ($tipo_tercero === 'Cliente') {
-            return redirect()->route('customer.index')
-                ->with('success', 'Cliente creado exitosamente.');
+            return redirect()->route('customer.index');
+            Session::flash('notificacion', [
+                'tipo' => 'exito',
+                'titulo' => 'Éxito!',
+                'descripcion' => 'La persona se ha creado exitosamente.',
+                'autoCierre' => 'true'
+            ]);
         } elseif ($tipo_tercero === 'Proveedor') {
-            return redirect()->route('supplier.index')
-                ->with('success', 'Proveedor creado exitosamente.');
+            return redirect()->route('supplier.index');
+            Session::flash('notificacion', [
+                'tipo' => 'exito',
+                'titulo' => 'Éxito!',
+                'descripcion' => 'La persona se ha creado exitosamente.',
+                'autoCierre' => 'true'
+            ]);
         } else {
-            return redirect()->route('person.index')
-                ->with('success', 'Persona creada exitosamente.');
+            return redirect()->route('person.index');
+            Session::flash('notificacion', [
+                'tipo' => 'exito',
+                'titulo' => 'Éxito!',
+                'descripcion' => 'La persona se ha creado exitosamente.',
+                'autoCierre' => 'true'
+            ]);
         }
     }
 

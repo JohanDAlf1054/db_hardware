@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property $identification_number
  * @property $person_type
  * @property $company_name
+ * @property $comercial_name
  * @property $first_name
  * @property $other_name
  * @property $surname
@@ -38,6 +39,7 @@ class Person extends Model
 		'identification_number' => 'required|string',
 		'person_type' => 'required',
 		'company_name' => 'string|nullable',
+        'comercial_name' => 'string|nullable',
 		'first_name' => 'string|nullable',
 		'other_name' => 'string|nullable',
 		'surname' => 'string|nullable',
@@ -68,6 +70,7 @@ class Person extends Model
                 $model::$rules['other_name'] = 'nullable|string';
                 $model::$rules['surname'] = 'nullable|string';
                 $model::$rules['second_surname'] = 'nullable|string';
+
             }
         });
     }
@@ -80,7 +83,7 @@ class Person extends Model
      *
      * @var array
      */
-    protected $fillable = ['rol','identification_type','identification_number','person_type','company_name','first_name','other_name','surname','second_surname','digit_verification','email_address','city','address','phone','status'];
+    protected $fillable = ['rol','identification_type','identification_number','person_type','company_name','comercial_name','first_name','other_name','surname','second_surname','digit_verification','email_address','city','address','phone','status'];
 
 
 

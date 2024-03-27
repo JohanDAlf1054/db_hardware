@@ -32,6 +32,10 @@
     #box-second-surname{
         display: none;
     }
+
+    #box-comercial-name{
+        display: none;
+    }
 </style>
 <body>
     <div class="content container-fluid">
@@ -126,6 +130,17 @@
                                                     </label>
                                                     {{ Form::text('company_name', $person->company_name, ['id'=> 'company_name','class' => 'form-control' . ($errors->has('company_name') ? ' is-invalid' : ''), 'placeholder' => 'Razón social']) }}
                                                     {!! $errors->first('company_name', '<div class="invalid-feedback">:message</div>') !!}
+                                            </div>
+                                        </div>
+
+                                        {{--  Nombre de comercial  --}}
+                                        <div class="col-sm-6 md-6" id="box-comercial-name">
+                                            <div class="mb-3">
+                                                    <label for="comercial_name" class="form-label" style="font-weight: bolder">
+                                                    {{ __('Nombre comercial')}}
+                                                    </label>
+                                                    {{ Form::text('comercial_name', $person->comercial_name, ['class' => 'form-control' . ($errors->has('comercial_name') ? ' is-invalid' : ''), 'placeholder' => 'Nombre comercial']) }}
+                                                    {!! $errors->first('comercial_name', '<div class="invalid-feedback">:message</div>') !!}
                                             </div>
                                         </div>
                                     </div>
@@ -252,11 +267,13 @@
                 $('#box-other-name').show();
                 $('#box-surname').show();
                 $('#box-second-surname').show();
+                $('#box-comercial-name').show();
             }else{
                 $('#box-first-name').hide();
                 $('#box-other-name').hide();
                 $('#box-surname').hide();
                 $('#box-second-surname').hide();
+                $('#box-comercial-name').hide();
                 $('#box-razon-social').show();
             }
         });
@@ -269,17 +286,21 @@
             $('#box-other-name').show();
             $('#box-surname').show();
             $('#box-second-surname').show();
+            $('#box-comercial-name').show();
+
         }else if(initialSelectValue == 'Persona jurídica'){
             $('#box-first-name').hide();
             $('#box-other-name').hide();
             $('#box-surname').hide();
             $('#box-second-surname').hide();
+            $('#box-comercial-name').hide();
             $('#box-razon-social').show();
         }else{
             $('#box-first-name').hide();
             $('#box-other-name').hide();
             $('#box-surname').hide();
             $('#box-second-surname').hide();
+            $('#box-comercial-name').hide();
             $('#box-razon-social').hide();
         }
     });

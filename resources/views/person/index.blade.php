@@ -67,7 +67,7 @@
                         {{--  Div con las notificaciones nuevas  --}}
                         <div class="contenedor-notificacion" id="contenedor-notificacion">
                             {{--  Aqui trae las notificaciones por medio de javaescript  --}}
-                            <div class="notificacion exito" id="1">
+                            {{--  <div class="notificacion exito" id="1">
                                 <div class="contenido">
                                     <div class="icono">
                                         <svg
@@ -118,7 +118,7 @@
                                         </svg>
                                     </div>
                                 </button>
-                            </div>
+                            </div>  --}}
                         </div>
 
                     <div class="container_datos">
