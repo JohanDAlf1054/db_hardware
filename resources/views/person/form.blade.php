@@ -1,6 +1,6 @@
 @auth
 
-@include('include.barra', ['modo'=>'Personas'])
+@include('include.barra', ['modo'=>'Ferreteria la excelencia'])
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -240,7 +240,7 @@
     </div>
 
 
-{{--  Escript para escojer el tipo de persona  --}}
+{{--  Script para escojer el tipo de persona  --}}
 <script>
     $(document).ready(function(){
         $('#person_type').on('change',function(){
@@ -260,7 +260,32 @@
                 $('#box-razon-social').show();
             }
         });
+
+// Mostrar u ocultar elementos según el valor seleccionado al cargar la página
+    initialSelectValue = $('#person_type').val();
+        if(initialSelectValue == 'Persona natural'){
+            $('#box-razon-social').hide();
+            $('#box-first-name').show();
+            $('#box-other-name').show();
+            $('#box-surname').show();
+            $('#box-second-surname').show();
+        }else if(initialSelectValue == 'Persona jurídica'){
+            $('#box-first-name').hide();
+            $('#box-other-name').hide();
+            $('#box-surname').hide();
+            $('#box-second-surname').hide();
+            $('#box-razon-social').show();
+        }else{
+            $('#box-first-name').hide();
+            $('#box-other-name').hide();
+            $('#box-surname').hide();
+            $('#box-second-surname').hide();
+            $('#box-razon-social').hide();
+        }
     });
+
+
+
 </script>
 </body>
 </html>

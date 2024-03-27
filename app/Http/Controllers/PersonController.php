@@ -56,6 +56,7 @@ class PersonController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
+
     public function store(Request $request)
     {
 
@@ -81,14 +82,20 @@ class PersonController extends Controller
 
         $person = Person::create($request->all());
 
-        //Funcion para que se active las notificaciones.
-        Session::flash('notificacion', [
-            'tipo' => 'exito',
-            'titulo' => 'Registro Éxitoso!',
-            'descripcion' => 'La persona se ha creado exitosamente.',
-            'autoCierre' => 'true'
-        ]);
-        return redirect()->route('person.index');
+        // Obtener el tipo de tercero seleccionado
+        $tipo_tercero = $request->input('rol');
+
+        // Redireccionar al índice correspondiente
+        if ($tipo_tercero === 'Cliente') {
+            return redirect()->route('customer.index')
+                ->with('success', 'Cliente creado exitosamente.');
+        } elseif ($tipo_tercero === 'Proveedor') {
+            return redirect()->route('supplier.index')
+                ->with('success', 'Proveedor creado exitosamente.');
+        } else {
+            return redirect()->route('person.index')
+                ->with('success', 'Persona creada exitosamente.');
+        }
     }
 
     /**
