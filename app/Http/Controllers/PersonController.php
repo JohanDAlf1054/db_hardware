@@ -55,14 +55,27 @@ class PersonController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
+       
     public function store(Request $request)
     {
         request()->validate(Person::$rules);
 
         $person = Person::create($request->all());
 
-        return redirect()->route('person.index')
-            ->with('success', 'Persona creada exitosamente.');
+        // Obtener el tipo de tercero seleccionado
+        $tipo_tercero = $request->input('rol');
+
+        // Redireccionar al índice correspondiente
+        if ($tipo_tercero === 'Cliente') {
+            return redirect()->route('customer.index')
+                ->with('success', 'Cliente creado exitosamente.');
+        } elseif ($tipo_tercero === 'Proveedor') {
+            return redirect()->route('supplier.index')
+                ->with('success', 'Proveedor creado exitosamente.');
+        } else {
+            return redirect()->route('person.index')
+                ->with('success', 'Persona creada exitosamente.');
+        }
     }
 
     /**
