@@ -46,8 +46,13 @@ class CustomerController extends Controller
 
         $person->update($request->all());
 
-        return redirect()->route('customer.index')
-            ->with('success', 'Persona modificada exitosamente.');
+        return redirect()->route('customer.index');
+        Session::flash('notificacion', [
+            'tipo' => 'exito',
+            'titulo' => 'Éxito!',
+            'descripcion' => 'La persona se ha modificado exitosamente.',
+            'autoCierre' => 'true'
+        ]);
     }
 
     public function destroy($id)
@@ -78,7 +83,6 @@ class CustomerController extends Controller
             ]);
         }
 
-        return redirect()->route('customer.index')
-            ->with('success', 'Se ha inactividado a la persona.');
+        return redirect()->route('customer.index');
     }
 }

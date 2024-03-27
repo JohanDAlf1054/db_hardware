@@ -17,7 +17,7 @@
 </head>
 <br>
 <style>
-    #box-razon-social{
+    #box-company-name{
         display: none;
     }
     #box-first-name{
@@ -66,7 +66,7 @@
                                                     <span class="text-danger">*</span>
                                                 </label>
                                                 {{ Form::select('rol', ['Cliente' => 'Cliente', 'Proveedor' => 'Proveedor'],$person->rol, ['class' => 'form-select' . ($errors->has('rol') ? ' is-invalid' : ''), 'placeholder' => 'Seleciona una opción']) }}
-                                                {!! $errors->first('rol', '<div class="invalid-feedback">:message</div>') !!}
+                                                {!! $errors->first('rol', '<div class="invalid-feedback">El campo tercero es obligatorio</div>') !!}
                                             </div>
                                         </div>
 
@@ -78,7 +78,7 @@
                                                     <span class="text-danger">*</span>
                                                 </label>
                                                 {{ Form::select('identification_type', ['CC' => 'Cédula de Ciudadanía', 'CE' => 'Cédula de Extranjería', 'DIE' => 'Documento de Identificación Extranjero', 'NIT' => 'NIT', 'NITO' => 'NIT de otro pais', 'NUIP' => 'NUIP', 'PP' => 'Pasaporte','PEP' => 'Permiso especial de permanencia','RC' => 'Registro civil','TE' => 'Tarjeta de extranjeria','TI' => 'Tarjeta de identidad'],$person->identification_type, ['class' => 'form-select' . ($errors->has('identification_type') ? ' is-invalid' : ''), 'placeholder' => 'Seleciona una opción']) }}
-                                                {!! $errors->first('identification_type', '<div class="invalid-feedback">:message</div>') !!}
+                                                {!! $errors->first('identification_type', '<div class="invalid-feedback">El campo de tipo de identificación es obligatorio</div>') !!}
                                             </div>
                                         </div>
 
@@ -90,7 +90,7 @@
                                                     <span class="text-danger">*</span>
                                                 </label>
                                                 {{ Form::text('identification_number', $person->identification_number, ['id' => 'identification_number1','class' => 'form-control' . ($errors->has('identification_number') ? ' is-invalid' : ''), 'placeholder' => 'Número de identificación']) }}
-                                                {!! $errors->first('identification_number', '<div class="invalid-feedback">:message</div>') !!}
+                                                {!! $errors->first('identification_number', '<div class="invalid-feedback">El campo número de identificación es obligatorio</div>') !!}
                                             </div>
                                         </div>
 
@@ -102,7 +102,7 @@
                                                     <span class="text-danger">*</span>
                                                 </label>
                                                 {{ Form::number('digit_verification', $person->digit_verification, ['id' => 'digit_verification1','class' => 'form-control' . ($errors->has('identification_number') ? ' is-invalid' : ''), 'placeholder' => 'Dígito de verificación', 'readonly' => 'readonly']) }}
-                                                {!! $errors->first('digit_verification', '<div class="invalid-feedback">:message</div>') !!}
+                                                {!! $errors->first('digit_verification', '<div class="invalid-feedback">El campo dígito de verificación es obligatorio</div>') !!}
                                             </div>
                                         </div>
                                         {{--  Script para sacar el digito de verificacion  --}}
@@ -116,20 +116,20 @@
                                                     <span class="text-danger">*</span>
                                                 </label>
                                                 {{ Form::select('person_type', ['Persona natural' => 'Persona natural', 'Persona jurídica' => 'Persona jurídica'],$person->person_type, ['id' => 'person_type','class' => 'form-select' . ($errors->has('person_type') ? ' is-invalid' : ''), 'placeholder' => 'Seleciona una opción']) }}
-                                                {!! $errors->first('person_type', '<div class="invalid-feedback">:message</div>') !!}
+                                                {!! $errors->first('person_type', '<div class="invalid-feedback">El campo tipo de persona es obligatorio</div>') !!}
                                             </div>
                                         </div>
 
 
                                         {{--  Nombre de compañia  --}}
-                                        <div class="col-sm-6 md-6" id="box-razon-social">
+                                        <div class="col-sm-6 md-6" id="box-company-name">
                                             <div class="mb-3">
                                                     <label for="company_name" class="form-label" style="font-weight: bolder">
                                                     {{ __('Razon social')}}
                                                         <span class="text-danger">*</span>
                                                     </label>
                                                     {{ Form::text('company_name', $person->company_name, ['id'=> 'company_name','class' => 'form-control' . ($errors->has('company_name') ? ' is-invalid' : ''), 'placeholder' => 'Razón social']) }}
-                                                    {!! $errors->first('company_name', '<div class="invalid-feedback">:message</div>') !!}
+                                                    {!! $errors->first('company_name', '<div class="invalid-feedback">El campo razon social es obligatorio</div>') !!}
                                             </div>
                                         </div>
 
@@ -140,7 +140,7 @@
                                                     {{ __('Nombre comercial')}}
                                                     </label>
                                                     {{ Form::text('comercial_name', $person->comercial_name, ['class' => 'form-control' . ($errors->has('comercial_name') ? ' is-invalid' : ''), 'placeholder' => 'Nombre comercial']) }}
-                                                    {!! $errors->first('comercial_name', '<div class="invalid-feedback">:message</div>') !!}
+                                                    {!! $errors->first('comercial_name', '<div class="invalid-feedback">El campo nombre comercial es obligatorio</div>') !!}
                                             </div>
                                         </div>
                                     </div>
@@ -153,7 +153,7 @@
                                                             <span class="text-danger">*</span>
                                                             </label>
                                                             {{ Form::text('first_name', $person->first_name, ['class' => 'form-control' . ($errors->has('first_name') ? ' is-invalid' : ''), 'placeholder' => 'Primer nombre']) }}
-                                                            {!! $errors->first('first_name', '<div class="invalid-feedback">:message</div>') !!}
+                                                            {!! $errors->first('first_name', '<div class="invalid-feedback">El campo primer nombre es obligatorio</div>') !!}
                                                     </div>
                                                 </div>
 
@@ -165,7 +165,7 @@
                                                             {{ __('Otro nombre')}}
                                                             </label>
                                                             {{ Form::text('other_name', $person->other_name, ['class' => 'form-control' . ($errors->has('other_name') ? ' is-invalid' : ''), 'placeholder' => 'Otro nombre',  ]) }}
-                                                            {!! $errors->first('other_name', '<div class="invalid-feedback">:message</div>') !!}
+                                                            {!! $errors->first('other_name', '<div class="invalid-feedback">El campo otro nombre es obligatorio</div>') !!}
                                                     </div>
                                                 </div>
 
@@ -178,7 +178,7 @@
                                                             <span class="text-danger">*</span>
                                                             </label>
                                                             {{ Form::text('surname', $person->surname, ['class' => 'form-control' . ($errors->has('surname') ? ' is-invalid' : ''), 'placeholder' => 'Primer apellido', ]) }}
-                                                            {!! $errors->first('surname', '<div class="invalid-feedback">:message</div>') !!}
+                                                            {!! $errors->first('surname', '<div class="invalid-feedback">El campo apellido es obligatorio</div>') !!}
                                                     </div>
                                                 </div>
 
@@ -190,7 +190,7 @@
                                                             {{ __('Segundo Apellido')}}
                                                             </label>
                                                             {{ Form::text('second_surname', $person->second_surname, ['class' => 'form-control' . ($errors->has('second_surname') ? ' is-invalid' : ''), 'placeholder' => 'Segundo apellido',]) }}
-                                                            {!! $errors->first('second_surname', '<div class="invalid-feedback">:message</div>') !!}
+                                                            {!! $errors->first('second_surname', '<div class="invalid-feedback">El campo segundo apellido es obligatorio</div>') !!}
                                                     </div>
                                                 </div>
 
@@ -202,7 +202,7 @@
                                                     <span class="text-danger">*</span>
                                                 </label>
                                                 {{ Form::text('email_address', $person->email_address, ['class' => 'form-control' . ($errors->has('email_address') ? ' is-invalid' : ''), 'placeholder' => 'Correo electrónico']) }}
-                                                {!! $errors->first('email_address', '<div class="invalid-feedback">:message</div>') !!}
+                                                {!! $errors->first('email_address', '<div class="invalid-feedback">El campo correo electrónico es obligatorio</div>') !!}
                                             </div>
                                         </div>
                                         {{--  Ciudad  --}}
@@ -213,7 +213,7 @@
                                                     <span class="text-danger">*</span>
                                                 </label>
                                                 {{ Form::text('city', $person->city, ['class' => 'form-control' . ($errors->has('city') ? ' is-invalid' : ''), 'placeholder' => 'Ciudad']) }}
-                                                {!! $errors->first('city', '<div class="invalid-feedback">:message</div>') !!}
+                                                {!! $errors->first('city', '<div class="invalid-feedback">El campo ciudad es obligatorio</div>') !!}
                                             </div>
                                         </div>
                                         {{--  Direccion  --}}
@@ -224,7 +224,7 @@
                                                     <span class="text-danger">*</span>
                                                 </label>
                                                 {{ Form::text('address', $person->address, ['class' => 'form-control' . ($errors->has('address') ? ' is-invalid' : ''), 'placeholder' => 'Dirección']) }}
-                                                {!! $errors->first('address', '<div class="invalid-feedback">:message</div>') !!}
+                                                {!! $errors->first('address', '<div class="invalid-feedback">El campo dirección es obligatorio</div>') !!}
                                             </div>
                                         </div>
                                         {{--  Número de celular  --}}
@@ -235,8 +235,7 @@
                                                     <span class="text-danger">*</span>
                                                 </label>
                                                     {{ Form::text('phone', $person->phone, ['class' => 'form-control' . ($errors->has('phone') ? ' is-invalid' : ''), 'placeholder' => 'Número telefónico']) }}
-                                                    {!! $errors->first('phone', '<div class="invalid-feedback">:message</div>') !!}
-
+                                                    {!! $errors->first('phone', '<div class="invalid-feedback">El campo teléfono es obligatorio</div>') !!}
                                             </div>
                                         </div>
                                     </div>
@@ -257,12 +256,14 @@
 
 {{--  Script para escojer el tipo de persona  --}}
 <script>
+
+
     $(document).ready(function(){
         $('#person_type').on('change',function(){
             let selectValue = $(this).val();
             //Escoger los valores de natural o juridica
             if(selectValue == 'Persona natural'){
-                $('#box-razon-social').hide();
+                $('#box-company-name').hide();
                 $('#box-first-name').show();
                 $('#box-other-name').show();
                 $('#box-surname').show();
@@ -274,14 +275,14 @@
                 $('#box-surname').hide();
                 $('#box-second-surname').hide();
                 $('#box-comercial-name').hide();
-                $('#box-razon-social').show();
+                $('#box-company-name').show();
             }
         });
 
 // Mostrar u ocultar elementos según el valor seleccionado al cargar la página
     initialSelectValue = $('#person_type').val();
         if(initialSelectValue == 'Persona natural'){
-            $('#box-razon-social').hide();
+            $('#box-company-name').hide();
             $('#box-first-name').show();
             $('#box-other-name').show();
             $('#box-surname').show();
@@ -294,14 +295,14 @@
             $('#box-surname').hide();
             $('#box-second-surname').hide();
             $('#box-comercial-name').hide();
-            $('#box-razon-social').show();
+            $('#box-company-name').show();
         }else{
             $('#box-first-name').hide();
             $('#box-other-name').hide();
             $('#box-surname').hide();
             $('#box-second-surname').hide();
             $('#box-comercial-name').hide();
-            $('#box-razon-social').hide();
+            $('#box-company-name').hide();
         }
     });
 

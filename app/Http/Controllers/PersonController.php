@@ -81,6 +81,12 @@ class PersonController extends Controller
         $request->validate((Person::$rules));
 
         $person = Person::create($request->all());
+        Session::flash('notificacion', [
+            'tipo' => 'exito',
+            'titulo' => 'Éxito!',
+            'descripcion' => 'La persona se ha creado exitosamente.',
+            'autoCierre' => 'true'
+        ]);
 
         // Obtener el tipo de tercero seleccionado
         $tipo_tercero = $request->input('rol');

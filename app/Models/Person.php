@@ -36,10 +36,10 @@ class Person extends Model
     public static $rules = [
 		'rol' => 'required',
 		'identification_type' => 'required',
-		'identification_number' => 'required|string',
+		'identification_number' => 'required|string|unique:people,identification_number',
 		'person_type' => 'required',
-		'company_name' => 'string|nullable',
-        'comercial_name' => 'string|nullable',
+		'company_name' => 'string|nullable|unique:people,company_name',
+        'comercial_name' => 'string|nullable|unique:people,comercial_name',
 		'first_name' => 'string|nullable',
 		'other_name' => 'string|nullable',
 		'surname' => 'string|nullable',

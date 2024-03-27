@@ -59,6 +59,8 @@
                     {{--  Div con las notificaciones nuevas  --}}
                     <div class="contenedor-notificacion" id="contenedor-notificacion">
                         {{--  Aqui trae las notificaciones por medio de javaescript  --}}
+                    
+
                     </div>
 
                     <div class="container_datos">

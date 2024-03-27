@@ -6,7 +6,30 @@
 
 @section('content')  --}}
 @auth
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<style>
+    #box-razon-social{
+        display: none;
+    }
+    #box-first-name{
+        display: none;
+    }
+    #box-other-name{
+        display: none;
+    }
+    #box-surname{
+        display: none;
+    }
+    #box-second-surname{
+        display: none;
+    }
 
+    #box-comercial-name{
+        display: none;
+    }
+</style>
 @include('include.barra', ['modo'=>'Ferreteria la excelencia'])
     <section class="content container-fluid">
         <div class="page-body">
@@ -53,7 +76,7 @@
                                             </div>
                                         </div>
                                         <div class="col-sm-6 md-6">
-                                            <div class="mb-3">
+                                            <div class="mb-3" >
                                                 <label for="person_type" class="form-label" style="font-weight: bolder">
                                                     {{ __('Tipo de persona') }}
                                                     <span class="text-info">*</span>
@@ -61,7 +84,7 @@
                                                 <input type="text" class="form-control" id="rol" value="{{ $person->person_type }}" readonly>
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 md-6">
+                                        <div class="col-sm-6 md-6" id="box-razon-social">
                                             <div class="mb-3">
                                                 <label for="company_name" class="form-label" style="font-weight: bolder">
                                                     {{ __('Razón social') }}
@@ -70,16 +93,16 @@
                                                 <input type="text" class="form-control" id="rol" value="{{ $person->company_name }}" readonly>
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 md-6">
+                                        <div class="col-sm-6 md-6"  id="box-comercial-name">
                                             <div class="mb-3">
                                                 <label for="comercial_name" class="form-label" style="font-weight: bolder">
                                                     {{ __('Nombre comercial')}}
-                                                    <span class="text-info">*</span>
+
                                                 </label>
                                                 <input type="text" class="form-control" id="rol" value="{{ $person->comercial_name }}" readonly>
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 md-6">
+                                        <div class="col-sm-6 md-6" id="box-first-name">
                                             <div class="mb-3">
                                                 <label for="first_name" class="form-label" style="font-weight: bolder">
                                                     {{ __('Primer nombre') }}
@@ -88,16 +111,16 @@
                                                 <input type="text" class="form-control" id="rol" value="{{$person->first_name }}" readonly>
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 md-6">
+                                        <div class="col-sm-6 md-6" id="box-other-name">
                                             <div class="mb-3">
                                                 <label for="other_name" class="form-label" style="font-weight: bolder">
                                                     {{ __('Otro nombre') }}
-                                                    <span class="text-info">*</span>
+
                                                 </label>
                                                 <input type="text" class="form-control" id="rol" value="{{$person->other_name }}" readonly>
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 md-6">
+                                        <div class="col-sm-6 md-6" id="box-surname">
                                             <div class="mb-3">
                                                 <label for="surname" class="form-label" style="font-weight: bolder">
                                                     {{ __('Apellido') }}
@@ -106,11 +129,11 @@
                                                 <input type="text" class="form-control" id="rol" value="{{$person->surname}}" readonly>
                                             </div>
                                         </div>
-                                        <div class="col-sm-6 md-6">
+                                        <div class="col-sm-6 md-6" id="box-second-surname">
                                             <div class="mb-3">
                                                 <label for="second_surname" class="form-label" style="font-weight: bolder">
                                                     {{ __('Segundo apellido') }}
-                                                    <span class="text-info">*</span>
+                                                    
                                                 </label>
                                                 <input type="text" class="form-control" id="rol" value="{{$person->second_surname}}" readonly>
                                             </div>
@@ -174,15 +197,46 @@
                                                 {{--  <input type="text" class="form-control" id="rol" value="{{$person->status}}" readonly>  --}}
                                             </div>
                                         </div>
-
                                 </div>
                             </div>
                         </div>
                     </div>
-                 </div>
+                </div>
             </div>
-         </div>
+        </div>
     </section>
+    {{--  Script para escojer el tipo de persona  --}}
+<script>
+    $(document).ready(function(){
+            // Función para mostrar u ocultar campos según el tipo de persona
+        function mostrarOcultarCampos(selectValue) {
+            if(selectValue == 'Persona natural'){
+                $('#box-razon-social').hide();
+                $('#box-first-name').show();
+                $('#box-other-name').show();
+                $('#box-surname').show();
+                $('#box-second-surname').show();
+                $('#box-comercial-name').show();
+            } else {
+                $('#box-first-name').hide();
+                $('#box-other-name').hide();
+                $('#box-surname').hide();
+                $('#box-second-surname').hide();
+                $('#box-comercial-name').hide();
+                $('#box-razon-social').show();
+            }
+        }
+
+        // Obtener el valor del tipo de persona
+        let selectValue = '{{ $person->person_type }}';
+
+
+
+        // Mostrar u ocultar campos según el tipo de persona
+        mostrarOcultarCampos(selectValue);
+    });
+
+</script>
 {{--  @endsection  --}}
 <div class="card-footer text-end">
         <a class="btn btn-primary" style="margin-right: 5rem" href="{{ route('person.index') }}">Regresar</a>
