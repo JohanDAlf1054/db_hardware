@@ -14,6 +14,11 @@
                             {{ Form::text('invoice_number_purchase', $purchaseSupplier->invoice_number_purchase ?? null, ['class' => 'form-control' . ($errors->has('invoice_number_purchase') ? ' is-invalid' : ''), 'placeholder' => 'Numero De Factura']) }}
                             {!! $errors->first('invoice_number_purchase', '<div class="invalid-feedback">:message</div>') !!}
                         </div>
+                        <div class="form-group">
+                            {{ Form::label('Prefijo', null, ['class' => 'form-label']) }}
+                            {{ Form::text('code', $purchaseSupplier->code?? null, ['class' => 'form-control' . ($errors->has('code') ? ' is-invalid' : ''), 'placeholder' => 'Numero De Prefijo']) }}
+                            {!! $errors->first('code', '<div class="invalid-feedback">:message</div>') !!}
+                        </div>
                         
                         <div class="form-group">
                             {{ Form::label('Fecha De La Factura De Compra', null, ['class' => 'form-label']) }}

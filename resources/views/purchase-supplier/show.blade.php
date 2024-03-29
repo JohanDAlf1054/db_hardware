@@ -19,6 +19,10 @@
                             {{ Form::label('Numero De Factura', null, ['class' => 'form-label']) }}
                             {{ Form::text('invoice_number_purchase', $purchaseSupplier->invoice_number_purchase, ['class' => 'form-control', 'readonly' => 'readonly']) }}
                         </div>
+                        <div class="form-group">
+                            {{ Form::label('Numero De Prefijo', null, ['class' => 'form-label']) }}
+                            {{ Form::text('code', $purchaseSupplier->code, ['class' => 'form-control', 'readonly' => 'readonly']) }}
+                        </div>
 
                         <div class="form-group">
                             {{ Form::label('Fecha De La Factura De Compra', null, ['class' => 'form-label']) }}

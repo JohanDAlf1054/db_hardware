@@ -25,11 +25,11 @@
                             </li>
                             {{--  <li>
                             <a class="dropdown-item" href="{{ route('credit-note-supplier.index') }}">Crear Una nota Credito</a>
-                            </li>
+                            </li>--}}
                             <li>
-                            <a class="dropdown-item" href="{{ route('debit-note-supplier.index') }}">Crear Una nota debito</a>
+                            <a class="dropdown-item" href="{{ route('debit-note-supplier.index') }}">Mostrar  notas debito</a>
                             </li>
-                                    </ul>--}}
+                                    </ul>
                     </div>
                             <div class="col-lg-6 col-md-6 col-sm-12" >
                                 {{--<form action="{{ route('detail-purchases.index') }}" method="get">--}} 

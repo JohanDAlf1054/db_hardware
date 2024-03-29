@@ -24,6 +24,7 @@ class PurchaseSupplier extends Model
     static $rules = [
 		'invoice_number_purchase' => 'required|string',
 		'date_invoice_purchase' => 'required',
+    'code'=>'required',
 		'users_id' => 'required',
 		'people_id' => 'required',
     ];
@@ -35,7 +36,7 @@ class PurchaseSupplier extends Model
      *
      * @var array
      */
-    protected $fillable = ['invoice_number_purchase','date_invoice_purchase','users_id','people_id'];
+    protected $fillable = ['invoice_number_purchase','date_invoice_purchase','code','users_id','people_id'];
 
     public function person()
     {

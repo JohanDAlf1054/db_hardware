@@ -84,3 +84,4 @@ Route::get('/export', [ExportController::class, 'export'])->name('export');
 //Funciones De Compras
 Route::resource('purchase_supplier', App\Http\Controllers\PurchaseSupplierController::class);
 Route::resource('detail-purchases', App\Http\Controllers\DetailPurchaseController::class);
+Route::resource('debit-note-supplier', App\Http\Controllers\DebitNoteSupplierController::class);

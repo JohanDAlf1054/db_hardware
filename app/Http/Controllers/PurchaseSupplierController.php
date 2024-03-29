@@ -50,12 +50,14 @@ class PurchaseSupplierController extends Controller
         $request->validate([
             'invoice_number_purchase' => 'required|unique:purchase_suppliers',
             'date_invoice_purchase' => 'required|date',
+            'code'=> 'required',
             'users_id' => 'required|exists:users,id',
             'people_id' => 'required|exists:people,id',
         ], [
             'invoice_number_purchase.required' => 'Por favor, inserte un número de factura.',
             'invoice_number_purchase.unique' => 'El número de factura ya existe.',
             'date_invoice_purchase.required' => 'Por favor, inserte la fecha de la factura.',
+            'code'=>'porfavor inserte el prefijo parala factura creada',
             'date_invoice_purchase.date' => 'Por favor, inserte una fecha válida.',
             'users_id.required' => 'Por favor, seleccione un empleado.',
             'users_id.exists' => 'El empleado seleccionado no existe.',
@@ -64,6 +66,7 @@ class PurchaseSupplierController extends Controller
         ]);
     
         $data = $request->all();
+       // dd($request->all());
     
         $purchaseSupplier = PurchaseSupplier::create($data);
     
