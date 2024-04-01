@@ -10,7 +10,10 @@
 
 @include('include.barra', ['modo'=>'Personas'])
 <head>
+    <title>Personas</title>
     <link href="css/estilos_vista_persona.css" rel="stylesheet" />
+    <link href="css/estilos_notificacion.css" rel="stylesheet"/>
+    <script src="{{ asset('js/notificaciones.js')}}" defer></script>
 </head>
 
     <div class="container-fluid">
@@ -51,12 +54,73 @@
                         </div>
                     </div>
 
+                        {{-- Script  para mostrar la notificacion --}}
+                        <script>
+                            document.addEventListener('DOMContentLoaded', function () {
+                                const mensajeFlash = {!! json_encode(Session::get('notificacion')) !!};
+                                if (mensajeFlash) {
+                                    agregarnotificacion(mensajeFlash);
+                                }
+                            });
+                        </script>
 
-                    @if ($message = Session::get('success'))
-                        <div class="alert alert-success">
-                            <p>{{ $message }}</p>
+                        {{--  Div con las notificaciones nuevas  --}}
+                        <div class="contenedor-notificacion" id="contenedor-notificacion">
+                            {{--  Aqui trae las notificaciones por medio de javaescript  --}}
+                            {{--  <div class="notificacion exito" id="1">
+                                <div class="contenido">
+                                    <div class="icono">
+                                        <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="currentColor"
+                                        viewBox="0 0 16 16">
+                                        <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm10.03 4.97a.75.75 0 0 1 .011 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.75.75 0 0 1 1.08-.022z"/>
+                                        </svg>
+                                    </div>
+                                    <div class="texto">
+                                        <p class="titulo">Registro Exito!</p>
+                                        <p class="descripcion">Se ha agregado el tercero.</p>
+                                    </div>
+                                </div>
+                                <button class="boton-cerrar">
+                                    <div class="icono">
+                                        <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="currentColor"
+                                        viewBox="0 0 16 16">
+                                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                                        </svg>
+                                    </div>
+                                </button>
+                            </div>
+                            <div class="notificacion error" id="2">
+                                <div class="contenido">
+                                    <div class="icono">
+                                        <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="currentColor"
+                                        viewBox="0 0 16 16">
+                                            <path d="M11.46.146A.5.5 0 0 0 11.107 0H4.893a.5.5 0 0 0-.353.146L.146 4.54A.5.5 0 0 0 0 4.893v6.214a.5.5 0 0 0 .146.353l4.394 4.394a.5.5 0 0 0 .353.146h6.214a.5.5 0 0 0 .353-.146l4.394-4.394a.5.5 0 0 0 .146-.353V4.893a.5.5 0 0 0-.146-.353zM8 4c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995A.905.905 0 0 1 8 4m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+                                        </svg>
+                                    </div>
+                                    <div class="texto">
+                                        <p class="titulo">Atencion!</p>
+                                        <p class="descripcion">Se ha inactivado la persona</p>
+                                    </div>
+                                </div>
+                                <button class="boton-cerrar">
+                                    <div class="icono">
+                                        <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="currentColor"
+                                        viewBox="0 0 16 16">
+                                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                                        </svg>
+                                    </div>
+                                </button>
+                            </div>  --}}
                         </div>
-                    @endif
+
                     <div class="container_datos">
                         <div class="table_container">
 
@@ -66,17 +130,17 @@
                                         <tr style="text-align: center">
                                             <th>Tercero</th>
                                             <th>Tipo ID</th>
-                                            <th>Identificacion</th>
+                                            <th>Identificación</th>
                                             <th>DV</th>
                                             {{--  <th>Tipo de persona</th>  --}}
-                                            <th>Razon social</th>
+                                            <th>Razón social</th>
                                             <th>Primer nombre</th>
                                             <th>Otro nombre</th>
                                             <th>Apellido</th>
                                             <th>Segundo apellido</th>
-                                            <th>Correo electronico</th>
+                                            <th>Correo electrónico</th>
                                             <th>Ciudad</th>
-                                            <th>Direccion</th>
+                                            <th>Dirección</th>
                                             <th>Celular</th>
                                             <th>Estado</th>
                                             <th>Acciones</th>
@@ -89,7 +153,6 @@
                                                 <td>{{ $person->identification_type }}</td>
                                                 <td>{{ $person->identification_number }}</td>
                                                 <td>{{ $person->digit_verification }}</td>
-                                                {{--  <td>{{ $person->person_type }}</td>  --}}
                                                 <td>{{ $person->company_name }}</td>
                                                 <td>{{ $person->first_name }}</td>
                                                 <td>{{ $person->other_name }}</td>
@@ -101,7 +164,7 @@
                                                 <td>{{ $person->phone }}</td>
                                                 <td>
                                                     @if($person->status == True)
-                                                    <p class="badge rounded-pill bg-success text-dark" style="font-size: 15px">Activo</p>
+                                                    <p class="badge rounded-pill bg-warning text-dark" style="font-size: 15px">Activo</p>
                                                     @else
                                                     <p class="badge rounded-pill bg-danger"  style="font-size: 15px">Inactivo</p>
                                                     @endif

@@ -45,10 +45,18 @@ Route::get('/home', [HomeController::class,'index']);
 
 Route::get('/logout', [LogoutController::class,'logout']);
 
+//Rutas de redireccionamiento
 Route::get('/People', function () {
     return view('people.index');
 });
 
+Route::get('/Customer', function () {
+    return view('customer.index');
+});
+
+Route::get('/Supplier', function () {
+    return view('supplier.index');
+});
 
 //Rutas y funciones para el login y recuperar contraseña
 

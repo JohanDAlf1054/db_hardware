@@ -4,12 +4,16 @@
             <meta charset="UTF-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
             <title>{{ $modo }}</title>
+=======
+
+>>>>>>> 4c215b647353aa2b672d570623d58cc375a608d5
             <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet' >
             <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
-            <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
-            <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-            <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+            {{--  <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>  --}}
+            {{--  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>  --}}
+            {{--  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>  --}}
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
             <link rel="stylesheet" href="{{ asset('css/estilosbarra.css') }}" type="text/css">
         </head>

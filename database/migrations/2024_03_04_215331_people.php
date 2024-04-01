@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('identification_number',45);
             $table->enum('person_type',['Persona natural', 'Persona jurídica']);
             $table->string('company_name',45)->nullable();
+            $table->string('comercial_name',45)->nullable();
             $table->string('first_name',45)->nullable();
             $table->string('other_name',45)->nullable();
             $table->string('surname',45)->nullable();

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Person;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class CustomerController extends Controller
 {
@@ -45,8 +46,13 @@ class CustomerController extends Controller
 
         $person->update($request->all());
 
-        return redirect()->route('customer.index')
-            ->with('success', 'Persona modificada exitosamente.');
+        return redirect()->route('customer.index');
+        Session::flash('notificacion', [
+            'tipo' => 'exito',
+            'titulo' => 'Éxito!',
+            'descripcion' => 'La persona se ha modificado exitosamente.',
+            'autoCierre' => 'true'
+        ]);
     }
 
     public function destroy($id)
@@ -58,14 +64,25 @@ class CustomerController extends Controller
                 ->update([
                     'status' => false,
                 ]);
+            Session::flash('notificacion', [
+                'tipo' => 'error',
+                'titulo' => 'Atencion!',
+                'descripcion' => 'La persona se ha inactivado.',
+                'autoCierre' => 'true'
+            ]);
         } else {
             Person::where('id', $clientes->id)
                 ->update([
                     'status' => true,
                 ]);
+            Session::flash('notificacion', [
+                'tipo' => 'exito',
+                'titulo' => 'Exito!',
+                'descripcion' => 'La persona se activado.',
+                'autoCierre' => 'true'
+            ]);
         }
 
-        return redirect()->route('customer.index')
-            ->with('success', 'Se ha inactividado a la persona.');
+        return redirect()->route('customer.index');
     }
 }
