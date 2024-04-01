@@ -38,9 +38,7 @@
                                     <th >Nº de factura</th>
                                     <th>Vendedor</th>
                                     <th>Forma de pago</th>
-                                    <th>Observaciones</th>
                                     <th>Total descuento</th>
-                                    <th>Total Bruto</th>
                                     <th>Total Impuesto</th>
                                     <th>Total Neto</th>
                                     <th>Total</th>  

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StorePostRequest;
 use App\Models\Person;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -21,7 +22,6 @@ class SalesController extends Controller
      */
     public function create()
     {
-
         $clientes = Person::all();
         $products = Product::all();
         return view('sales.create', compact('clientes','products'));
@@ -30,9 +30,9 @@ class SalesController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StorePostRequest $request)
     {
-        //
+        dd($request->validated());
     }
 
     /**
