@@ -248,9 +248,9 @@
     </div>
 
 
-    <div class="card-footer text-end">
-        <a class="btn btn-primary" style="margin-right: 5rem" href="{{ route('person.index') }}">Regresar</a>
-        <button type="submit" class="btn btn-success">{{ __('Guardar') }}</button>
+    <div class="card-footer text-end container_botones">
+        <a class="btn btn-primary caja_subir" style="margin-right: 5rem" href="{{ route('person.index') }}">Regresar</a>
+        <button type="submit" class="btn btn-success caja_subir">{{ __('Guardar') }}</button>
     </div>
 
 
