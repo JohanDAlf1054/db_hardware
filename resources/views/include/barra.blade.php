@@ -4,11 +4,7 @@
             <meta charset="UTF-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
             <title>{{ $modo }}</title>
-=======
-
->>>>>>> 4c215b647353aa2b672d570623d58cc375a608d5
             <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet' >
             <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
             {{--  <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>  --}}

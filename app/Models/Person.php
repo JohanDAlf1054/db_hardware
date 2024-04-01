@@ -36,10 +36,10 @@ class Person extends Model
     public static $rules = [
 		'rol' => 'required',
 		'identification_type' => 'required',
-		'identification_number' => 'required|string|unique:people,identification_number',
+		'identification_number' => 'required|string',
 		'person_type' => 'required',
-		'company_name' => 'string|nullable|unique:people,company_name',
-        'comercial_name' => 'string|nullable|unique:people,comercial_name',
+		'company_name' => 'string|nullable',
+        'comercial_name' => 'string|nullable',
 		'first_name' => 'string|nullable',
 		'other_name' => 'string|nullable',
 		'surname' => 'string|nullable',
@@ -51,30 +51,6 @@ class Person extends Model
 		'phone' => 'required|string',
 		'status' => 'nullable',
     ];
-
-    //Funcion para sobreescribir la regla segun la seleccion en tipo de persona.
-    public static function boot()
-    {
-        parent::boot();
-
-        static::saving(function ($model) {
-            if ($model->person_type === 'Persona natural') {
-                $model::$rules['first_name'] = 'required|string';
-                $model::$rules['other_name'] = 'nullable|string';
-                $model::$rules['surname'] = 'required|string';
-                $model::$rules['second_surname'] = 'required|string';
-                $model::$rules['company_name'] = 'nullable|string';
-            } elseif ($model->person_type === 'Persona jurídica') {
-                $model::$rules['company_name'] = 'required|string';
-                $model::$rules['first_name'] = 'nullable|string';
-                $model::$rules['other_name'] = 'nullable|string';
-                $model::$rules['surname'] = 'nullable|string';
-                $model::$rules['second_surname'] = 'nullable|string';
-
-            }
-        });
-    }
-
 
     protected $perPage = 20;
 
