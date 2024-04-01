@@ -2,6 +2,7 @@
 @include('include.barra', ['modo'=>'Productos'])
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/css/bootstrap-select.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" ></script>
+<link href="{{asset('css/products/all.css')}}" rel="stylesheet" />
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-12">
@@ -9,14 +10,16 @@
                 <div class="card-body" >
                     <div class="row">
                         <div class="col-lg-2 col-md-2 col-sm-7" >
-                            <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">Nuevo
-                            <span class="visually-hidden">Nuevo</span>
+                            <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">Acciones
+                                <span class="visually-hidden">Nuevo</span>
                             </button>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="{{ route('products.create') }}">Crear Producto</a></li>
-                                <li><a class="dropdown-item" href="{{ route('category.index') }}">Crear Categoria</a></li>
-                                <li><a class="dropdown-item" href="{{ route('brand.index') }}">Crear Marca</a></li>
-                                <li><a class="dropdown-item" href="{{ route('units.index') }}"">Crear Unidad</a></li>
+                            <ul class="dropdown-menu desplegable_acciones">
+                                <div class="acciones_boton">
+                                    <li><a class="dropdown-item" href="{{ route('products.create') }}">Crear Producto</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('category.index') }}">Crear Categoria</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('brand.index') }}">Crear Marca</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('units.index') }}"">Crear Unidad</a></li>
+                                </div>
                             </ul>
                         </div>
                         <div class="col-lg-3 col-md-5 col-sm-9" >

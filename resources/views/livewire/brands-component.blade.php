@@ -15,7 +15,20 @@
                                 </button>
                                 <button type="button" class="btn btn-primary mx-2 rounded btn-lg" data-bs-toggle="modal" data-bs-target="#Modal">Crear Marca</button>
                                 <input type="text" wire:model.live='search'  class="form-control" placeholder="Buscar...">
+                                <button type="button" class="btn btn-warning mx-2 rounded" data-bs-toggle="modal" data-bs-target="#importBrands">
+                                    <i class="fa-solid fa-folder-open" style="color: #0a0a0a; width=24; height=24"; ></i>
+                                </button>
                             </div>
+                            @if ($message = Session::get('success'))
+                                <div class="alert alert-success">
+                                    <p>{{ $message }}</p>
+                                </div>
+                            @endif
+                            @if($message = Session::get('error'))
+                                <div class="alert alert-danger">
+                                    <p>{{ session('error') }}</p>
+                                </div>
+                            @endif
                             <table class="table table-striped table-hover">
                                 <thead class="thead">
                                     <tr>
@@ -75,4 +88,5 @@
         @enderror
     </div>
     @include('components.modalfooter')
+    @include('brand.modalImport')
 </div>

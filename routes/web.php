@@ -76,6 +76,11 @@ Route::resource('person', PersonController::class);
 Route::resource('customer', CustomerController::class);
 Route::resource('supplier', SupplierController::class);
 
+Route::get('/indexAll',[SubCategoryController::class, 'indexAll'])->name('indexAll');
+//Funcion Importar 
+Route::post('/importbrands',[BrandController::class, 'importbrands'])->name('importbrands');
+Route::post('/importCategory',[CategoryProductController::class, 'importCategory'])->name('importCategory');
+
 //Funcion Export Informes
 Route::get('export_index', [ExportController::class, 'index_informes'])->name('index_informes');
 Route::get('/export', [ExportController::class, 'export'])->name('export');

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\CategoryImport;
 use App\Models\CategoryProduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Maatwebsite\Excel\Facades\Excel;
 
 /**
  * Class CategoryProductController
@@ -106,5 +108,22 @@ class CategoryProductController extends Controller
 
         return redirect()->route('category.index')
             ->with('success', 'CategoryProduct deleted successfully');
+    }
+
+    public function importCategory(Request $request)
+    {
+        $request->validate([
+            'import_file' => 'required|mimes:xlsx'
+        ]);
+
+        try {
+            $file = $request->file('import_file');
+        
+            Excel::import(new CategoryImport, $file, 'xlsx');
+            
+            return redirect()->route('category.index')->with('success', 'Categorias Agregadas!');
+        } catch (\Exception $e){
+            return redirect()->route('category.index')->with('error', 'Archivo Incorrecto, el archivo debe ser un archivo Excel (.xlsx)');
+        }
     }
 }

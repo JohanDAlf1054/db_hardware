@@ -4,7 +4,7 @@
             <meta charset="UTF-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Inicio Producto</title>
+            <title>{{ $modo }}</title>
             <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet' >
             <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
             <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
@@ -66,7 +66,7 @@
                         </div>
                     </a>
 
-                    <a href="{{route('index_informes')}}" class="{{ request()->route()->named('index_informes') ? 'selected' : '' }}">
+                    <a href="{{route('index_informes')}}" class="{{ request()->route()->named('index_informes') ? 'selected' : '' }}"  class="submenu-toggle" id="submenu-toggle">
                         <div class="option">
                             <i class='bx bxs-notepad' ></i>
                             <h4>Informes</h4>

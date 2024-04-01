@@ -18,6 +18,13 @@ class SubCategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function indexAll()
+    {
+        $subCategories = SubCategory::all();
+
+        return view('sub-category.indexAll', compact('subCategories'));
+    }
+
     public function index()
     {
         $subCategories = SubCategory::where('category_id', Session::get("category_id") )->get();

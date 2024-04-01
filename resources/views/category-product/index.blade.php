@@ -76,6 +76,7 @@
 
 
 @include('include.barra', ['modo'=>'Categorias'])
+<link rel="stylesheet" href="{{asset('css/categorias/all.css')}}">
 <body>
     <div>
         @livewireStyles

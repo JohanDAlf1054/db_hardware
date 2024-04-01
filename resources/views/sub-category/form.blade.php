@@ -20,6 +20,6 @@
     </div>
     <div class="box-footer mt20">
         <a class="btn btn btn-primary " href="{{ route('categorySub.index') }}">Back</a>
-        <button type="submit" class="btn btn-primary">{{ __('Guardar') }}</button>
+        <button type="submit" class="btn btn-success">{{ __('Guardar') }}</button>
     </div>
 </div>

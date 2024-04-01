@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\BrandsImport;
 use App\Models\Brand;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 /**
  * Class BrandController
@@ -106,4 +108,22 @@ class BrandController extends Controller
         return redirect()->route('brands.index')
             ->with('success', 'Brand deleted successfully');
     }
+
+    public function importbrands(Request $request)
+    {
+        $request->validate([
+            'import_file' => 'required|mimes:xlsx'
+        ]);
+
+        try {
+            $file = $request->file('import_file');
+        
+            Excel::import(new BrandsImport, $file, 'xlsx');
+            
+            return redirect()->route('brand.index')->with('success', 'Marcas Agregadas!');
+        } catch (\Exception $e){
+            return redirect()->route('brand.index')->with('error', 'Archivo Incorrecto, el archivo debe ser un archivo Excel (.xlsx)');
+        }
+    }
+
 }
