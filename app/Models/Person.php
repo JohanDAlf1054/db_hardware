@@ -36,7 +36,7 @@ class Person extends Model
     public static $rules = [
 		'rol' => 'required',
 		'identification_type' => 'required',
-		'identification_number' => 'required|string',
+		'identification_number' => 'required|string|unique:people,identification_number',
 		'person_type' => 'required',
 		'company_name' => 'string|nullable',
         'comercial_name' => 'string|nullable',

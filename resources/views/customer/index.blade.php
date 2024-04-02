@@ -59,7 +59,7 @@
                     {{--  Div con las notificaciones nuevas  --}}
                     <div class="contenedor-notificacion" id="contenedor-notificacion">
                         {{--  Aqui trae las notificaciones por medio de javaescript  --}}
-                    
+
 
                     </div>
 
@@ -107,7 +107,7 @@
                                                 <td>{{ $cliente->phone }}</td>
                                                 <td>
                                                     @if($cliente->status == True)
-                                                    <p class="badge rounded-pill bg-success text-dark" style="font-size: 15px">Activo</p>
+                                                    <p class="badge rounded-pill bg-warning text-dark" style="font-size: 15px">Activo</p>
                                                     @else
                                                     <p class="badge rounded-pill bg-danger"  style="font-size: 15px">Inactivo</p>
                                                     @endif
