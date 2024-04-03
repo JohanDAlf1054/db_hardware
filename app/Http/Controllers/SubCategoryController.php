@@ -52,11 +52,12 @@ class SubCategoryController extends Controller
     public function store(Request $request)
     {
         $campos = [
-                'name' => 'required|string|max:100',
+                'name' => 'required|string|max:100|unique:sub_categories,name,',
                 'description' => 'required|max:100',
         ];
         $mensaje = [
             'name.required'=>'Escriba el nombre de la Sub categoria',
+            'name.unique'=>'Esta Sub Categoria ya existte!',
             'description.required'=>'Escriba una breve descripción',
         ];
         $this->validate($request, $campos, $mensaje);
@@ -105,13 +106,14 @@ class SubCategoryController extends Controller
     public function update(Request $request, SubCategory $subCategory, $id)
     {
         $campos = [
-            'name' => 'required|string|max:100',
+            'name' => 'required|string|max:100|unique:sub_categories,name,',
             'description' => 'required|max:100',
-        ];
-        $mensaje = [
-            'name.required'=>'Escriba el nombre de la Sub categoria',
-            'description.required'=>'Escriba una breve descripción',
-        ];
+    ];
+    $mensaje = [
+        'name.required'=>'Escriba el nombre de la Sub categoria',
+        'name.unique'=>'Esta Sub Categoria ya existte!',
+        'description.required'=>'Escriba una breve descripción',
+    ];
         $this->validate($request, $campos, $mensaje);
         $subCategory = SubCategory::find($id);
         $subCategory->update($request->all());

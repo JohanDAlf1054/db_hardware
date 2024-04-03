@@ -9,6 +9,7 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Builder;
+Use Illuminate\Support\Facades\Session;
 
 /**
  * Class ProductController
@@ -90,7 +91,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $campos=[
-            'name_product'=>'required|string|max:100',
+            'name_product'=>'required|string|max:100|unique:products,name_product',
             'description_long'=>'required|string|max:100',
             'factory_reference'=>'required|string|max:100',
             'classification_tax'=>'required|string|max:100',
@@ -102,7 +103,8 @@ class ProductController extends Controller
         ];
         $mensaje=[
             'name_product.required'=>'Escriba el nombre del producto',
-            'description_long.required'=>'Escriba una breve descripcion',
+            'name_product.unique'=>'Este producto ya existe!',
+            'description_long.required'=>'Escriba una breve descripción',
             'factory_reference.required'=>'Escriba la referencia del producto',
             'classification_tax.required'=>'Selecione la clasificacion',
             'selling_price.required' => 'Escriba el precio de venta',
@@ -121,7 +123,14 @@ class ProductController extends Controller
         }
         Product::create($datosProducto);
         // toast('Producto Creado!','success');
-        return redirect('products')->with('success', 'Producto Creado!');
+        Session::flash('notificacion', [
+            'tipo' => 'exito',
+            'titulo' => 'Éxito!',
+            'descripcion' => 'El producto se ha creado.',
+            'autoCierre' => 'true'
+        ]);
+        return redirect('products');
+        
     }
 
     /**
@@ -163,7 +172,7 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $campos=[
-            'name_product'=>'required|string|max:100',
+            'name_product'=>'required|string|max:100|unique:products,name_product',
             'description_long'=>'required|string|max:100',
             'factory_reference'=>'required|string|max:100',
             'classification_tax'=>'required|string|max:100',
@@ -175,7 +184,8 @@ class ProductController extends Controller
         ];
         $mensaje=[
             'name_product.required'=>'Escriba el nombre del producto',
-            'description_long.required'=>'Escriba una breve descripcion',
+            'name_product.unique'=>'Este producto ya existe!',
+            'description_long.required'=>'Escriba una breve descripción',
             'factory_reference.required'=>'Escriba la referencia del producto',
             'classification_tax.required'=>'Selecione la clasificacion',
             'selling_price.required' => 'Escriba el precio de venta',

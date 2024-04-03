@@ -23,10 +23,11 @@ class CategoriesComponent extends Component
 
     public function store(){
         $this->validate([
-            'name' => 'required|max:50',
+            'name' => 'required|max:50|unique:category_products,name',
             'description' => 'required|max:50'
         ],[
             'name.required' => 'El nombre es requerido',
+            'name.unique' => 'Esta categoria ya existe',
             'description.required' => 'La descripción es requerida'
         ]);
         $categories = New CategoryProduct();
@@ -58,10 +59,11 @@ class CategoriesComponent extends Component
 
     public function update($id){
         $this->validate([
-            'name' => 'required|max:50',
+            'name' => 'required|max:50|unique:category_products,name',
             'description' => 'required|max:50'
         ],[
             'name.required' => 'El nombre es requerido',
+            'name.unique' => 'Esta categoria ya existe',
             'description.required' => 'La descripción es requerida'
         ]);
         $categories = CategoryProduct::find($id);

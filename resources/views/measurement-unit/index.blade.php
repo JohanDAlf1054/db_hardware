@@ -9,6 +9,7 @@
 
 
 @include('include.barra', ['modo'=>'Unidades de Medida'])
+<br>
 <body>
     @livewireStyles
     @livewire('units-component');

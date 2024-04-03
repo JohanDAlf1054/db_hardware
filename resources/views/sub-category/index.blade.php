@@ -6,22 +6,30 @@
 
 @section('content') --}}
 @include('include.barra', ['modo'=>'Sub Categorias'])
+<br>
     <div class="container-fluid">
         <div class="row">
             <div class="col-10-sm">
                 <div class="card">
                     <div class="card-header">
-                        <div style="display: flex; align-items: center;">
+                        <div style="display: flex; align-items: center; justify-content: space-between">
                             <button type="button" class="btn btn-light">
-                            <a href="{{route('category.index')}}">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l14 0" /><path d="M5 12l6 6" /><path d="M5 12l6 -6" /></svg>
-                            </a>
-                        </button>
-                            <a href="{{ route('categorySub.create') }}" class="btn btn-primary " >
-                                  {{ __('Crear Sub Categoria') }}
-                            </a>
+                                <a href="{{route('category.index')}}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l14 0" /><path d="M5 12l6 6" /><path d="M5 12l6 -6" /></svg>
+                                </a>
+                            </button>
+                            @if (count($subCategories) > 0)
+                                <h2>Sub Categorías de {{ $subCategories[0]->categoryProduct->name }}</h2>
+                            @endif
+
+                            <span  class="card-title">
+                                <a href="{{ route('categorySub.create') }}" type="button" class="btn btn-primary mx-2 float-right " >
+                                    Crear Sub Categoria
+                                </a>
+                            </span>
                         </div>
                     </div>
+                    
                     @if ($message = Session::get('success'))
                         <div class="alert alert-success">
                             <p>{{ $message }}</p>
@@ -29,6 +37,7 @@
                     @endif
 
                     <div class="card-body">
+                        
                         <div class="table-responsive">
                             <table class="table table-striped table-hover">
                                 <thead class="thead">

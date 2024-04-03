@@ -1,15 +1,25 @@
 @auth
 @include('include.barra', ['modo'=>'Productos'])
+<br>
+<head>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/css/bootstrap-select.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" ></script>
 <link href="{{asset('css/products/all.css')}}" rel="stylesheet" />
+<link href="css/estilos_notificacion.css" rel="stylesheet"/>
+<script src="{{ asset('js/notificaciones.js')}}" defer></script>
+</head>
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-12">
-            <div class="card">
-                <div class="card-body" >
+            <div class="card card-default">
+                <div class="card-header">
+                    <h2 id="card_title">
+                        {{ __('Productos') }}
+                    </h2>
+                </div>
+                <div class="card-body">
                     <div class="row">
-                        <div class="col-lg-2 col-md-2 col-sm-7" >
+                        <div class="col-lg-1 col-md-2 col-sm-7" >
                             <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">Acciones
                                 <span class="visually-hidden">Nuevo</span>
                             </button>
@@ -22,7 +32,7 @@
                                 </div>
                             </ul>
                         </div>
-                        <div class="col-lg-3 col-md-5 col-sm-9" >
+                        <div class="col-lg-3 col-md-5 col-sm-7" >
                             <form action="{{ route('products.index') }}" method="GET">
                                 <div class="mb-3 row">
                                     <div class="col-sm-9"> 
@@ -41,10 +51,10 @@
                                 </div>
                             </form>
                         </div>
-                        <div class="col-lg-3 col-md-5 col-sm-9" >
+                        <div class="col-lg-2 col-md-5 col-sm-7" >
                             <form action="{{ route('products.index') }}" method="GET">
-                                <div class="mb-3 row" >
-                                    <div class="col-lg-3 col-md-4 col-sm-9" style="display: flex">
+                                <div class="mb-2 row" >
+                                    <div class="col-lg-4 col-md-4 col-sm-9" style="display: flex">
                                         <input name="check" class="form-check-input" type="checkbox" style="padding: 0.7rem" {{ request('check') ? 'checked' : '' }}>
                                         <label class="form-check-label" for="checkActivos" style="font-size: 1.1em; padding: 3%" >Activos</label>
                                     </div>
@@ -54,7 +64,7 @@
                                 </div>
                             </form>
                         </div>
-                        <div class="col-lg-3 col-md-5 col-sm-9" >
+                        <div class="col-lg-3 col-md-5 col-sm-7" >
                             <form action="{{ route('products.index') }}" method="get">
                                 <div class="mb-2 row">
                                     <div class="col-sm-9">
@@ -66,13 +76,41 @@
                                 </div>
                             </form>
                         </div>
+                        <div class="col-lg-1 col-md-1 col-sm-7"   style="display: flex;"> 
+                            <div class="mb-2 row"> 
+                                <div class=" col-sm-3 mx-2">
+                                    <button type="button" class="btn btn-danger mx-2 rounded" data-bs-toggle="modal" data-bs-target="#importUnits">
+                                        {{-- <a href="{{route('import')}}"><i class="fa-solid fa-folder-open" style="color: #0a0a0a; width=24; height=24"; ></i></a> --}}
+                                        <i class="fa-solid fa-folder-open" style="color: #0a0a0a; width=24; height=24"; ></i>
+                                    </button>
+                                </div>
+                                <div class=" col-sm-3 mx-2">
+                                    <button type="button" class="btn btn-warning mx-2 rounded" data-bs-toggle="modal" data-bs-target="#importUnits">
+                                        {{-- <a href="{{route('import')}}"><i class="fa-solid fa-folder-open" style="color: #0a0a0a; width=24; height=24"; ></i></a> --}}
+                                        <i class="fa-solid fa-folder-open" style="color: #0a0a0a; width=24; height=24"; ></i>
+                                    </button>
+                                </div>
+
+                            </div>
+                            
+                        </div>
+                        {{-- <div class="col-lg-1 col-md-1 col-sm-7"> 
+                            
+                        </div> --}}
+
                     </div>
                 </div>
-                @if ($message = Session::get('success'))
-                    <div class="alert alert-success">
-                        <p>{{ $message }}</p>
-                    </div>
-                @endif
+                {{-- Script  para mostrar la notificacion --}}
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        const mensajeFlash = {!! json_encode(Session::get('notificacion')) !!};
+                        if (mensajeFlash) {
+                            agregarnotificacion(mensajeFlash);
+                        }
+                    });
+                </script>
+                <div class="contenedor-notificacion" id="contenedor-notificacion">
+                </div>
                 <div class="table_container">
                     <div class="table-responsive">
                         <table class="table table-striped table-hover" style="justify-content: center">
