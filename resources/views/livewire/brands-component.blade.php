@@ -4,6 +4,9 @@
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-header">
+                        <h2 id="card_title">
+                            {{ __('Marcas Producto') }}
+                        </h2>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -32,20 +35,20 @@
                             <table class="table table-striped table-hover">
                                 <thead class="thead">
                                     <tr>
-                                        <th>No</th>
-                                        <th>Nombre</th>
+                                        {{-- <th>No</th> --}}
+                                        <th>Codigo</th>
                                         <th>Abreviacion</th>
-										<th>Codigo</th>
+                                        <th>Nombre</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach ($brands as $brand)
                                         <tr> 
-                                            <td>{{ $brand->id}}</td>
-											<td>{{ $brand->name }}</td>
-                                            <td>{{ $brand->abbrevation }}</td>
+                                            {{-- <td>{{ $brand->id}}</td> --}}
                                             <td>{{ $brand->code }}</td>
+                                            <td>{{ $brand->abbrevation }}</td>
+											<td>{{ $brand->name }}</td>
                                             <td>
                                                 <div class="btn-group" role="group" aria-label="Basic example">
                                                     <button type="button" class="btn btn-sm btn-success mx-2 rounded"  data-bs-toggle="modal" data-bs-target="#Modal"  wire:click='edit("{{ $brand->id }}")'><i class="fa fa-fw fa-edit"></i> </i> </button>
