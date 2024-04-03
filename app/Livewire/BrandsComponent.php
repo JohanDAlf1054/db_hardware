@@ -16,7 +16,7 @@ class BrandsComponent extends Component
     public $Id, $name, $code, $abbrevation;
 
     protected $rules = [
-        'name' => 'required|max:50',
+        'name' => 'required|max:50|unique:brands,name',
         'code' => 'required|max:50',
         'abbrevation' => 'required|max:50'
     ];
@@ -30,12 +30,14 @@ class BrandsComponent extends Component
 
     public function store(){
         $this->validate([
-            'name' => 'required|max:50',
+            'name' => 'required|max:50|unique:brands,name',
             'code' => 'required|max:50',
-            'abbrevation' => 'required|max:50'
+            'abbrevation' => 'required|max:50|unique:brands,abbrevation'
         ],[
             'abbrevation.required' => 'La abreviación es requerida',
+            'abbrevation.unique' => 'La abreviación ya exite!',
             'name.required' => 'El nombre es requerido',
+            'name.unique' => 'La marca ya existe!',
             'code.required' => 'El codigo es requerido'
         ]);
         $brand = New Brand();
@@ -65,12 +67,14 @@ class BrandsComponent extends Component
 
     public function update($id){
         $this->validate([
-            'name' => 'required|max:50',
+            'name' => 'required|max:50|unique:brands,name',
             'code' => 'required|max:50',
-            'abbrevation' => 'required|max:50'
+            'abbrevation' => 'required|max:50|unique:brands,abbrevation'
         ],[
             'abbrevation.required' => 'La abreviación es requerida',
+            'abbrevation.unique' => 'La abreviación ya exite!',
             'name.required' => 'El nombre es requerido',
+            'name.unique' => 'La marca ya existe!',
             'code.required' => 'El codigo es requerido'
         ]);
         $brand = Brand::find($id);
