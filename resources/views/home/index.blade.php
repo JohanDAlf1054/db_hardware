@@ -41,12 +41,7 @@
                     <i class="fa-solid fa-door-open"></i>
                 </a>
                 <p>Texto publico</p>
-                @role('admin')
-                <p>Contenido solo para Administrador</p>
-                @endrole
-                @role('trabajador')
-                <p>Contenido solo para el Trabajador</p>
-                @endrole
+                
             </div>
         </header>
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Person;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 
 class CustomerController extends Controller
 {
@@ -42,17 +43,29 @@ class CustomerController extends Controller
 
     public function update(Request $request, Person $person)
     {
-        request()->validate(Person::$rules);
+        $data = $request->all();
+        $data['id'] = $person->id;
+
+        $rules = Person::staticRules($data);
+
+        $validator = Validator::make($data, $rules);
+
+        if($validator->fails()){
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        // request()->validate(Person::staticRules($data));
 
         $person->update($request->all());
 
-        return redirect()->route('customer.index');
         Session::flash('notificacion', [
             'tipo' => 'exito',
             'titulo' => 'Éxito!',
             'descripcion' => 'La persona se ha modificado exitosamente.',
             'autoCierre' => 'true'
         ]);
+
+        return redirect()->route('customer.index');
     }
 
     public function destroy($id)

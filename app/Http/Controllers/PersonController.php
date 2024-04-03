@@ -6,6 +6,7 @@ use App\Models\Person;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Validator;
 
 /**
  * Class PersonController
@@ -59,26 +60,31 @@ class PersonController extends Controller
 
     public function store(Request $request)
     {
-
-        request()->validate(Person::$rules);
+        $rules = Person::staticRules($request->all());
 
         //Validacion de acuerdo a la seleccion de Persona natural o juridica
 
         if($request->input('person_type') === 'Persona natural'){
-            Person::$rules['first_name'] = 'required|string';
-            Person::$rules['other_name'] = 'nullable|string';
-            Person::$rules['surname'] = 'required|string';
-            Person::$rules['second_surname'] = 'nullable|string';
-            Person::$rules['company_name'] = 'nullable|string';
+            $rules['first_name'] = 'required|string';
+            $rules['other_name'] = 'nullable|string';
+            $rules['surname'] = 'required|string';
+            $rules['second_surname'] = 'nullable|string';
+            $rules['company_name'] = 'nullable|string';
         }elseif($request->input('person_type') === 'Persona jurídica'){
-            Person::$rules['company_name'] = 'required|string';
-            Person::$rules['first_name'] = 'nullable|string';
-            Person::$rules['other_name'] = 'nullable|string';
-            Person::$rules['surname'] = 'nullable|string';
-            Person::$rules['second_surname'] = 'nullable|string';
+            $rules['company_name'] = 'required|string';
+            $rules['first_name'] = 'nullable|string';
+            $rules['other_name'] = 'nullable|string';
+            $rules['surname'] = 'nullable|string';
+            $rules['second_surname'] = 'nullable|string';
         }
 
-        $request->validate((Person::$rules));
+        $request->validate($rules);
+
+        //Crear validación adicional para evitar la repetición de company_name
+        $existingCompanyNames = Person::where('company_name', $request->input('company_name'))->count();
+        if ($existingCompanyNames > 0) {
+            return redirect()->back()->withInput()->withErrors(['company_name' => 'El nombre de la compañía ya está en uso.']);
+        }
 
         $person = Person::create($request->all());
         Session::flash('notificacion', [
@@ -154,7 +160,17 @@ class PersonController extends Controller
      */
     public function update(Request $request, Person $person)
     {
-        request()->validate(Person::$rules);
+        $data = $request->all();
+        $data['id'] = $person->id;
+
+        $rules = Person::staticRules($data);
+
+        $validator = Validator::make($data, $rules);
+
+        if ($validator->fails()) {
+            // dd($validator->errors());
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
 
         $person->update($request->all());
 
