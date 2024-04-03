@@ -78,7 +78,7 @@
                     <i class="formulario__validacion-estado far fa-times-circle"></i>
                     <i class="formulario__icono-toggle fa-solid fa-eye-slash ojo_contrasena" id="togglePassword" onclick="togglePassword()"></i>
                 </div>
-                <p class="formulario__input-error">La contraseña tiene que ser de 4 a 12 dígitos.</p>
+                <p class="formulario__input-error">La contraseña tiene que ser de 8 a 12 dígitos.</p>
             </div>
 
             <!-- Mensaje de aviso -->
@@ -186,7 +186,7 @@
                     <i class="formulario__validacion-estado far fa-times-circle"></i>
                     <i class="formulario__icono-toggle fa-solid fa-eye-slash ojo_contrasena_register" id="togglePasswordRegi" onclick="togglePasswordRegister()"></i>
                 </div>
-                <p class="formulario__input-error">La contraseña debe conter 4 a 12 caracteres</p>
+                <p class="formulario__input-error">La contraseña debe conter 8 a 12 caracteres</p>
             </div>
 
             <!-- Mensaje de error -->
