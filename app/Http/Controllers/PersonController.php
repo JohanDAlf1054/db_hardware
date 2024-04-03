@@ -80,7 +80,11 @@ class PersonController extends Controller
 
         $request->validate($rules);
 
-        //Hacer validacion para que no se repita la informacion.
+        //Crear validación adicional para evitar la repetición de company_name
+        $existingCompanyNames = Person::where('company_name', $request->input('company_name'))->count();
+        if ($existingCompanyNames > 0) {
+            return redirect()->back()->withInput()->withErrors(['company_name' => 'El nombre de la compañía ya está en uso.']);
+        }
 
         $person = Person::create($request->all());
         Session::flash('notificacion', [
@@ -164,7 +168,7 @@ class PersonController extends Controller
         $validator = Validator::make($data, $rules);
 
         if ($validator->fails()) {
-            dd($validator->errors());
+            // dd($validator->errors());
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
