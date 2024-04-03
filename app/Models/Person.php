@@ -33,26 +33,36 @@ use Illuminate\Database\Eloquent\Model;
 class Person extends Model
 {
 
-    public static $rules = [
-		'rol' => 'required',
-		'identification_type' => 'required',
-		'identification_number' => 'required|string|unique:people,identification_number',
-		'person_type' => 'required',
-		'company_name' => 'string|nullable',
-        'comercial_name' => 'string|nullable',
-		'first_name' => 'string|nullable',
-		'other_name' => 'string|nullable',
-		'surname' => 'string|nullable',
-		'second_surname' => 'string|nullable',
-		'digit_verification' => 'required|string',
-		'email_address' => 'required|string',
-		'city' => 'required|string',
-		'address' => 'required|string',
-		'phone' => 'required|string',
-		'status' => 'nullable',
-    ];
+    public static function staticRules($data=[]){
 
-    protected $perPage = 20;
+        $rules = [
+            'rol' => 'required',
+            'identification_type' => 'required',
+            'identification_number' => 'required|string|unique:people,identification_number' . $data['id'],
+            'person_type' => 'required',
+            'company_name' => 'string|nullable',
+            'comercial_name' => 'string|nullable',
+            'first_name' => 'string|nullable',
+            'other_name' => 'string|nullable',
+            'surname' => 'string|nullable',
+            'second_surname' => 'string|nullable',
+            'digit_verification' => 'required|string',
+            'email_address' => 'required|string',
+            'city' => 'required|string',
+            'address' => 'required|string',
+            'phone' => 'required|string',
+            'status' => 'nullable',
+        ];
+
+        if ($data['identification_number'] == Person::find($data['id'])->identification_number) {
+            $rules['identification_number'] = 'required|string';
+        }
+
+    return $rules;
+
+    }
+
+    // protected $perPage = 20;
 
     /**
      * Attributes that should be mass-assignable.
