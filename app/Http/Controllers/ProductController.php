@@ -172,7 +172,7 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $campos=[
-            'name_product'=>'required|string|max:100|unique:products,name_product',
+            'name_product'=>'required|string|max:100',
             'description_long'=>'required|string|max:100',
             'factory_reference'=>'required|string|max:100',
             'classification_tax'=>'required|string|max:100',
@@ -184,7 +184,7 @@ class ProductController extends Controller
         ];
         $mensaje=[
             'name_product.required'=>'Escriba el nombre del producto',
-            'name_product.unique'=>'Este producto ya existe!',
+            // 'name_product.unique'=>'Este producto ya existe!',
             'description_long.required'=>'Escriba una breve descripción',
             'factory_reference.required'=>'Escriba la referencia del producto',
             'classification_tax.required'=>'Selecione la clasificacion',

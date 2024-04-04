@@ -19,7 +19,7 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-lg-1 col-md-2 col-sm-7" >
+                        <div class="col-lg-2 col-md-2 col-sm-7" >
                             <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">Acciones
                                 <span class="visually-hidden">Nuevo</span>
                             </button>
@@ -51,12 +51,12 @@
                                 </div>
                             </form>
                         </div>
-                        <div class="col-lg-2 col-md-5 col-sm-7" >
+                        <div class="col-lg-3 col-md-4 col-sm-7"  >
                             <form action="{{ route('products.index') }}" method="GET">
-                                <div class="mb-2 row" >
-                                    <div class="col-lg-4 col-md-4 col-sm-9" style="display: flex">
-                                        <input name="check" class="form-check-input" type="checkbox" style="padding: 0.7rem" {{ request('check') ? 'checked' : '' }}>
-                                        <label class="form-check-label" for="checkActivos" style="font-size: 1.1em; padding: 3%" >Activos</label>
+                                <div class="mb-3 row" >
+                                    <div class="col-sm-6" style="display: flex; margin-left: 1rem">
+                                        <input name="check" class="form-check-input" type="checkbox" style="padding: 0.7rem; " {{ request('check') ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="checkActivos" style="font-size: 1.1em; padding: 0.2rem; " >Activos</label>
                                     </div>
                                     <div class="col-sm-2">
                                         <button type="submit" class=" btn btn-dark">Filtrar</button>
@@ -76,28 +76,21 @@
                                 </div>
                             </form>
                         </div>
-                        <div class="col-lg-1 col-md-1 col-sm-7"   style="display: flex;"> 
+                        <div class="col-lg-2 col-md-3 col-sm-7" style="display: flex;"> 
                             <div class="mb-2 row"> 
-                                <div class=" col-sm-3 mx-2">
-                                    <button type="button" class="btn btn-danger mx-2 rounded" data-bs-toggle="modal" data-bs-target="#importUnits">
-                                        {{-- <a href="{{route('import')}}"><i class="fa-solid fa-folder-open" style="color: #0a0a0a; width=24; height=24"; ></i></a> --}}
-                                        <i class="fa-solid fa-folder-open" style="color: #0a0a0a; width=24; height=24"; ></i>
+                                {{-- <div class=" col-sm-3 mx-2">
+                                    <button type="button" class="btn btn-success mx-2 rounded" data-bs-toggle="modal" data-bs-target="#informes">
+                                        <i class="fa-solid fa-file-arrow-down" style="color: #ffffff; width=24; height=24"; ></i>
                                     </button>
-                                </div>
+                                </div> --}}
                                 <div class=" col-sm-3 mx-2">
                                     <button type="button" class="btn btn-warning mx-2 rounded" data-bs-toggle="modal" data-bs-target="#importUnits">
                                         {{-- <a href="{{route('import')}}"><i class="fa-solid fa-folder-open" style="color: #0a0a0a; width=24; height=24"; ></i></a> --}}
                                         <i class="fa-solid fa-folder-open" style="color: #0a0a0a; width=24; height=24"; ></i>
                                     </button>
                                 </div>
-
                             </div>
-                            
                         </div>
-                        {{-- <div class="col-lg-1 col-md-1 col-sm-7"> 
-                            
-                        </div> --}}
-
                     </div>
                 </div>
                 {{-- Script  para mostrar la notificacion --}}
@@ -171,6 +164,7 @@
 </div>
 {{-- @include('sweetalert::alert') --}}
 @include('product.modal')
+@include('product.modal_informes')
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js"></script>
 @endauth
 @guest
