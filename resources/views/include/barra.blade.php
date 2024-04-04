@@ -7,7 +7,7 @@
             <title>{{ $modo }}</title>
             <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet' >
             <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
-             <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script> 
+             <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
             {{--  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>  --}}
             {{--  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>  --}}
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -77,7 +77,7 @@
                     <br>
                     <span id="liPanel1" class="li" >Account</span>
                     <div id="onlinePanel1" class="online"></div>
-                    <a href="">
+                    <a href="{{route('usuarios.index')}}" class="{{ request()->route()->named('admin.usuarios.index') ? 'selected' : '' }}">
                         <div class="option">
                             <i class="fa-solid fa-users-gear"></i>
                             <h4>Roles</h4>
@@ -90,14 +90,14 @@
                             <h4>Configuración</h4>
                         </div>
                     </a>
-                    
+
                     <a href="#">
                         <div class="option">
                             <i class="fa-solid fa-circle-info"></i>
                             <h4>Ayuda</h4>
                         </div>
                     </a>
-                    
+
                     <a href="/logout">
                         <div class="option">
                             <i class="fa-solid fa-right-from-bracket"></i>
@@ -105,7 +105,7 @@
                         </div>
                     </a>
                 </div>
-                
+
             </div>
             <script src="{{ asset('js/acceso.js') }}"></script>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
