@@ -18,7 +18,11 @@ class Products extends Migration
             $table->string('description_long');
             $table->string('factory_reference');
             $table->string('classification_tax');
+<<<<<<< HEAD
             $table->decimal('selling_price',10,2);
+=======
+            $table->string('selling_price');
+>>>>>>> 3a6966a75a2488e27d83d21014ef8576ae476adc
             $table->string('photo')->nullable();
             $table->boolean('status')->default(True);
             $table->string('stock')->default(0);

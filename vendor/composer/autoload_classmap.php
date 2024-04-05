@@ -42,8 +42,12 @@ return array(
     'App\\Http\\Requests\\LoginRequest' => $baseDir . '/app/Http/Requests/LoginRequest.php',
     'App\\Http\\Requests\\ProfileUpdateRequest' => $baseDir . '/app/Http/Requests/ProfileUpdateRequest.php',
     'App\\Http\\Requests\\RegisterRequest' => $baseDir . '/app/Http/Requests/RegisterRequest.php',
+<<<<<<< HEAD
     'App\\Imports\\BrandsImport' => $baseDir . '/app/Imports/BrandsImport.php',
     'App\\Imports\\CategoryImport' => $baseDir . '/app/Imports/CategoryImport.php',
+=======
+    'App\\Imports\\BrandImport' => $baseDir . '/app/Imports/BrandImport.php',
+>>>>>>> 3a6966a75a2488e27d83d21014ef8576ae476adc
     'App\\Imports\\UnitsImpot' => $baseDir . '/app/Imports/UnitsImpot.php',
     'App\\Livewire\\BrandsComponent' => $baseDir . '/app/Livewire/BrandsComponent.php',
     'App\\Livewire\\CategoriesComponent' => $baseDir . '/app/Livewire/CategoriesComponent.php',

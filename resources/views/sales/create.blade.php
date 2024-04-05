@@ -28,7 +28,11 @@
                         
                         <!-----Producto---->
                         <div class="col-12">
+<<<<<<< HEAD
                             <select name="product_id" id="product_id" class="form-control selectpicker" data-live-search="true" data-size="1" title="Busque un producto aquí">
+=======
+                            <select name="producto_id" id="producto_id" class="form-control selectpicker" data-live-search="true" data-size="1" title="Busque un producto aquí">
+>>>>>>> 3a6966a75a2488e27d83d21014ef8576ae476adc
                                 @foreach ($products as $item)
                                 <option value="{{$item->id}}-{{$item->stock}}-{{$item->selling_price}}-{{$item->classification_tax}}-{{$item->factory_reference}}">{{$item->id.' '.$item->name_product}}</option>
                                 @endforeach
@@ -37,9 +41,15 @@
 
                         <!-----Impuesto---->
                         <div class="col-sm-4">
+<<<<<<< HEAD
                             <label for="tax" class="form-label">Impuesto:</label>   
                              <input disabled type="text" name="tax" id="tax" class="form-control" step="0.1">  
                              @error('tax')
+=======
+                            <label for="impuesto" class="form-label">Impuesto:</label>
+                             <input disabled type="text" name="impuesto" id="impuesto" class="form-control" step="0.1">  
+                             @error('impuesto')
+>>>>>>> 3a6966a75a2488e27d83d21014ef8576ae476adc
                              <small class="text-danger">{{ '*'.$message }}</small>
                              @enderror
                         </div>
@@ -53,20 +63,35 @@
 
                         <!-----Precio de venta---->
                         <div class="col-sm-4">
+<<<<<<< HEAD
                             <label for="selling_price" class="form-label">Precio de venta:</label>
                              <input type="number" name="selling_price" id="selling_price" class="form-control" step="0.1">  
+=======
+                            <label for="precio_venta" class="form-label">Precio de venta:</label>
+                             <input type="number" name="precio_venta" id="precio_venta" class="form-control" step="0.1">  
+>>>>>>> 3a6966a75a2488e27d83d21014ef8576ae476adc
                         </div>
 
                         <!-----Cantidad---->
                         <div class="col-sm-4">
+<<<<<<< HEAD
                             <label for="amount" class="form-label">Cantidad:</label>
                             <input type="number" name="amount" id="amount" class="form-control">
+=======
+                            <label for="cantidad" class="form-label">Cantidad:</label>
+                            <input type="number" name="cantidad" id="cantidad" class="form-control">
+>>>>>>> 3a6966a75a2488e27d83d21014ef8576ae476adc
                         </div>
 
                         <!----Descuento---->
                         <div class="col-sm-4">
+<<<<<<< HEAD
                             <label for="discounts" class="form-label">Descuento:</label>
                             <input type="number" name="discounts" id="discounts" class="form-control">
+=======
+                            <label for="descuento" class="form-label">Descuento:</label>
+                            <input type="number" name="descuento" id="descuento" class="form-control">
+>>>>>>> 3a6966a75a2488e27d83d21014ef8576ae476adc
                         </div>
 
                         
@@ -109,11 +134,16 @@
                                         <tr>
                                             <th></th>
                                             <th colspan="4">Total Bruto</th>
+<<<<<<< HEAD
                                             <th colspan="2"><input type="hidden" name="gross_totals" value="0" id="inputGross"><span id="gross_totals">0</span></th>
+=======
+                                            <th colspan="2"><span id="sumas">0</span></th>
+>>>>>>> 3a6966a75a2488e27d83d21014ef8576ae476adc
                                         </tr>
                                         <tr>
                                             <th></th>
                                             <th colspan="4">Total Iva %</th>
+<<<<<<< HEAD
                                             <th colspan="2"><input type="hidden" name="taxes_total" value="0" id="inputTaxes"><span id="taxes_total">0</span></th>
                                         </tr>
                                       
@@ -121,6 +151,19 @@
                                             <th></th>
                                             <th colspan="4">Total Neto</th>
                                             <th colspan="2"> <input type="hidden" name="net_total" value="0" id="inputTotal"><span id="net_total">0</span></th>
+=======
+                                            <th colspan="2"><span id="igv">0</span></th>
+                                        </tr>
+                                        <tr>
+                                            <th></th>
+                                            <th colspan="4">Total Descuento</th>
+                                            <th colspan="2"> <input type="hidden" name="total" value="0" id="totaldescuento"> <span id="total">0</span></th>
+                                        </tr>
+                                        <tr>
+                                            <th></th>
+                                            <th colspan="4">Total Neto</th>
+                                            <th colspan="2"> <input type="hidden" name="total" value="0" id="inputTotal"> <span id="total">0</span></th>
+>>>>>>> 3a6966a75a2488e27d83d21014ef8576ae476adc
                                         </tr>
                                         
                                     </tfoot>
@@ -149,6 +192,7 @@
                         
                         <!--Cliente-->
                         <div class="col-12">
+<<<<<<< HEAD
                             <label for="clients_id" class="form-label">Cliente:</label>
                             <select name="clients_id" id="clients_id" class="form-control selectpicker show-tick" data-live-search="true" title="Selecciona" data-size='2'>
                                 @foreach ($clients as $item)
@@ -156,27 +200,46 @@
                                 @endforeach
                             </select>
                             @error('clients_id')
+=======
+                            <label for="cliente_id" class="form-label">Cliente:</label>
+                            <select name="cliente_id" id="cliente_id" class="form-control selectpicker show-tick" data-live-search="true" title="Selecciona" data-size='2'>
+                                @foreach ($clientes as $item)
+                                <option value="{{$item->id}}">{{$item->first_name}}</option>
+                                @endforeach
+                            </select>
+                            @error('cliente_id')
+>>>>>>> 3a6966a75a2488e27d83d21014ef8576ae476adc
                             <small class="text-danger">{{ '*'.$message }}</small>
                             @enderror
                         </div>  
 
                         <!--Fecha--->
                         <div class="col-sm-12">
+<<<<<<< HEAD
                             <label for="dates" class="form-label">Fecha:</label>
                             <input readonly type="date" name="dates" id="dates" class="form-control border-success" value="<?php echo date("Y-m-d") ?>">
+=======
+                            <label for="fecha" class="form-label">Fecha:</label>
+                            <input readonly type="date" name="fecha" id="fecha" class="form-control border-success" value="<?php echo date("Y-m-d") ?>">
+>>>>>>> 3a6966a75a2488e27d83d21014ef8576ae476adc
                             <?php
 
                             use Carbon\Carbon;
 
                             $fecha_hora = Carbon::now()->toDateTimeString();
                             ?>
+<<<<<<< HEAD
                             <input type="hidden" name="dates" value="{{$fecha_hora}}">
+=======
+                            <input type="hidden" name="fecha_hora" value="{{$fecha_hora}}">
+>>>>>>> 3a6966a75a2488e27d83d21014ef8576ae476adc
                         </div>
 
                         
 
                         <!--Numero de comprobante-->
                         <div class="col-12">
+<<<<<<< HEAD
                             <label for="bill_numbers" class="form-label">Prefijo y Número:</label>
                             <div class="input-group">
                                 <select name="bill_prefix" class="form-control selectpicker">
@@ -187,10 +250,23 @@
                                 <input required type="text" name="bill_numbers" id="bill_numbers" class="form-control" placeholder="Número">
                             </div>
                             @error('bill_numbers')
+=======
+                            <label for="numero_comprobante" class="form-label">Prefijo:</label>
+                            <select class="form-control selectpicker" data-live-search="true">
+                                <option data-tokens="Pre">Pre</option>
+                                <option data-tokens="Po">Po</option>
+                                <option data-tokens="Es">Es</option>
+                            </select
+                        </div>
+                        <label for="numero_comprobante" class="form-label">Numero:</label>
+                            <input required type="text" name="numero_comprobante" id="numero_comprobante" class="form-control">
+                            @error('numero_comprobante')
+>>>>>>> 3a6966a75a2488e27d83d21014ef8576ae476adc
                             <small class="text-danger">{{ '*'.$message }}</small>
                             @enderror
                         </div>
 
+<<<<<<< HEAD
                         <!--Forma de pago-->
                         <div class="col-12">
                             <label for="payments_methods" class="form-label">Forma de pago:</label>
@@ -221,6 +297,27 @@
 
                        
 
+=======
+
+                        <!--Forma de pago-->
+                        <div class="col-12">
+                            <label for="forma_pago" class="form-label">Forma de pago:</label>
+                            <select class="form-control selectpicker" data-live-search="true">
+                                <option data-tokens="Efectivo">Efectivo</option>
+                                <option data-tokens="Consignacion">Consignacion</option>
+                                <option data-tokens="Tarjeta">Tarjeta</option>
+                            </select>
+                            @error('forma_pago')
+                            <small class="text-danger">{{ '*'.$message }}</small>
+                            @enderror
+                        </div> 
+
+                       
+
+                        <!----User--->
+                        <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+
+>>>>>>> 3a6966a75a2488e27d83d21014ef8576ae476adc
                         <!--Botones--->
                         <div class="col-12 text-center">
                             <button type="submit" class="btn btn-success" id="guardar">Realizar venta</button>
@@ -259,7 +356,11 @@
 <script>
     $(document).ready(function() {
 
+<<<<<<< HEAD
         $('#product_id').change(mostrarValores);
+=======
+        $('#producto_id').change(mostrarValores);
+>>>>>>> 3a6966a75a2488e27d83d21014ef8576ae476adc
 
 
         $('#btn_agregar').click(function() {
@@ -278,6 +379,7 @@
     let cont = 0;
     let subtotal = [];
     let sumas = 0;
+<<<<<<< HEAD
     let sumasdescuento=0;
     let igv = 0;
     let total = 0;
@@ -291,10 +393,24 @@
         $('#selling_price').val(dataProducto[2]);
         $('#tax').val(dataProducto[3]);
         $('#references').val(dataProducto[4]);
+=======
+    let igv = 0;
+    let total = 0;
+
+
+    function mostrarValores() {
+        let dataProducto = document.getElementById('producto_id').value.split('-');
+        console.log(dataProducto)     
+        $('#stock').val(dataProducto[1]);
+        $('#precio_venta').val(dataProducto[2]);
+        $('#impuesto').val(dataProducto[3]);
+        $('#referencia').val(dataProducto[4]);
+>>>>>>> 3a6966a75a2488e27d83d21014ef8576ae476adc
     }
     
 
          function agregarProducto() {  
+<<<<<<< HEAD
         let dataProducto = document.getElementById('product_id').value.split('-');
         //Obtener valores de los campos
         let idProducto = dataProducto[0];
@@ -302,6 +418,16 @@
         let cantidad = $('#amount').val();
         let precioVenta = $('#selling_price').val();
         let descuento = $('#discounts').val();
+=======
+        let dataProducto = document.getElementById('producto_id').value.split('-');
+        //Obtener valores de los campos
+        let idProducto = dataProducto[4];
+        let nameProducto = $('#producto_id option:selected').text();
+        let cantidad = $('#cantidad').val();
+        let precioVenta = $('#precio_venta').val();
+        let descuento = $('#descuento').val();
+        let impuesto = $('#impuesto').val();
+>>>>>>> 3a6966a75a2488e27d83d21014ef8576ae476adc
         let stock = $('#stock').val();
         
 
@@ -345,11 +471,18 @@
                     disableButtons();
 
                     //Mostrar los campos calculados
+<<<<<<< HEAD
                     $('#gross_totals').html(sumas);
                     $('#inputGross').val(sumas);
                     $('#taxes_total').html(igv);
                     $('#inputTaxes').val(igv);
                     $('#net_total').html(total);
+=======
+                    $('#sumas').html(sumas);
+                    $('#igv').html(igv);
+                    $('#total').html(total);
+                    $('#impuesto').val(igv);
+>>>>>>> 3a6966a75a2488e27d83d21014ef8576ae476adc
                     $('#inputTotal').val(total);
                 } else {
                     showModal('Cantidad incorrecta');
@@ -372,12 +505,20 @@
         total = round(sumas + igv);
 
         //Mostrar los campos calculados
+<<<<<<< HEAD
         $('#gross_totals').html(sumas);
         $('#inputGross').val(sumas);
         $('#taxes_total').html(igv);
         $('#inputTaxes').val(igv);
         $('#net_total').html(total);
         $('#inputTotal').val(total);
+=======
+        $('#sumas').html(sumas);
+        $('#igv').html(igv);
+        $('#total').html(total);
+        $('#impuesto').val(igv);
+        $('#InputTotal').val(total);
+>>>>>>> 3a6966a75a2488e27d83d21014ef8576ae476adc
 
         //Eliminar el fila de la tabla
         $('#fila' + indice).remove();
@@ -409,11 +550,18 @@
         total = 0;
 
         //Mostrar los campos calculados
+<<<<<<< HEAD
         $('#gross_totals').html(sumas);
         $('#inputGross').val(sumas);
         $('#taxes_total').html(igv);
         $('#inputTaxes').val(igv);
         $('#net_total').html(total);
+=======
+        $('#sumas').html(sumas);
+        $('#igv').html(igv);
+        $('#total').html(total);
+        $('#impuesto').val(impuesto + '%');
+>>>>>>> 3a6966a75a2488e27d83d21014ef8576ae476adc
         $('#inputTotal').val(total);
 
         limpiarCampos();
@@ -431,11 +579,19 @@
     }
 
     function limpiarCampos() {
+<<<<<<< HEAD
         let select = $('#product_id');
         select.selectpicker('val', '');
         $('#amount').val('');
         $('#selling_price').val('');
         $('#discounts').val('');
+=======
+        let select = $('#producto_id');
+        select.selectpicker('val', '');
+        $('#cantidad').val('');
+        $('#precio_venta').val('');
+        $('#descuento').val('');
+>>>>>>> 3a6966a75a2488e27d83d21014ef8576ae476adc
         $('#stock').val('');
     }
 

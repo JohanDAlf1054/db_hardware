@@ -3,7 +3,11 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-master',
         'version' => 'dev-master',
+<<<<<<< HEAD
         'reference' => '6e110d70a00487624b96359109a685e1fec6aea6',
+=======
+        'reference' => '863c80989bfb71c7ceced7bb0568ac82a4e56c07',
+>>>>>>> 3a6966a75a2488e27d83d21014ef8576ae476adc
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -418,7 +422,11 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-master',
             'version' => 'dev-master',
+<<<<<<< HEAD
             'reference' => '6e110d70a00487624b96359109a685e1fec6aea6',
+=======
+            'reference' => '863c80989bfb71c7ceced7bb0568ac82a4e56c07',
+>>>>>>> 3a6966a75a2488e27d83d21014ef8576ae476adc
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -1060,6 +1068,15 @@
             'install_path' => __DIR__ . '/../sebastian/version',
             'aliases' => array(),
             'dev_requirement' => true,
+        ),
+        'snapappointments/bootstrap-select' => array(
+            'pretty_version' => 'v1.13.18',
+            'version' => '1.13.18.0',
+            'reference' => '6c4c75f61e69ca54d5ab557a2b90ffdccf1c63cd',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../snapappointments/bootstrap-select',
+            'aliases' => array(),
+            'dev_requirement' => false,
         ),
         'spatie/backtrace' => array(
             'pretty_version' => '1.5.3',
