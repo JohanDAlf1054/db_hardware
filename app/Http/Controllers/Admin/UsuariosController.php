@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Session;
 
 class UsuariosController extends Controller
 {
@@ -57,7 +58,14 @@ class UsuariosController extends Controller
     {
     $usuario->roles()->sync($request->roles);
 
-    return redirect()->route('admin.usuarios.edit', $usuario)->with('info', 'Se asignaron los roles correctamente');
+    Session::flash('notificacion', [
+        'tipo' => 'exito',
+        'titulo' => 'Éxito!',
+        'descripcion' => 'Se asignaron los roles correctamente.',
+        'autoCierre' => 'true'
+    ]);
+    return redirect()->route('admin.usuarios.index', $usuario);
+
     }
 
 

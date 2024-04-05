@@ -1,5 +1,9 @@
 @auth
     @include('include.barra', ['modo'=>'Usuarios'])
+    <head>
+        <link href="css/estilos_notificacion.css" rel="stylesheet"/>
+        <script src="{{ asset('js/notificaciones.js')}}" defer></script>
+    </head>
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
@@ -26,6 +30,20 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                        {{-- Script  para mostrar la notificacion --}}
+                        <script>
+                            document.addEventListener('DOMContentLoaded', function () {
+                                const mensajeFlash = {!! json_encode(Session::get('notificacion')) !!};
+                                if (mensajeFlash) {
+                                    agregarnotificacion(mensajeFlash);
+                                }
+                            });
+                        </script>
+
+                        {{--  Div con las notificaciones nuevas  --}}
+                        <div class="contenedor-notificacion" id="contenedor-notificacion">
+                            {{--  Aqui trae las notificaciones por medio de javaescript  --}}
                         </div>
                         <div class="container_datos">
                             {{--  Validacion para cuando se busca una informacion y no se encuentra  --}}
