@@ -1,5 +1,5 @@
 @auth
-    @include('include.barra', ['modo'=>'Uusarios'])
+    @include('include.barra', ['modo'=>'Usuarios'])
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
@@ -28,6 +28,8 @@
                             </div>
                         </div>
                         <div class="container_datos">
+                            {{--  Validacion para cuando se busca una informacion y no se encuentra  --}}
+                            @if($usuarios->count())
                             <div class="table_container">
                                 <div class="table-responsive">
                                     <table class = "table table-striped table-hover" style="justify-content: center">
@@ -51,7 +53,7 @@
                                                 <td>{{$usuario -> document_type }}</td>
                                                 <td>{{$usuario -> identification_number }}</td>
                                                 <td>
-                                                    <a class="btn btn-sm btn-primary" href="#">Accesos <i class="fa-solid fa-people-line"></i></a>
+                                                    <a class="btn btn-sm btn-primary" href="{{route('admin.usuarios.edit', $usuario->id)}}">Accesos <i class="fa-solid fa-people-line"></i></a>
                                                 </td>
                                             </tr>
                                             @endforeach
@@ -59,6 +61,11 @@
                                     </table>
                                 </div>
                             </div>
+                            @else
+                                <div class="card-body">
+                                    <strong>No hay registros</strong>
+                                </div>
+                            @endif
                         </div>
                 </div>
                 {{--  {!! $usuario->links() !!}  --}}

@@ -17,10 +17,8 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\SupplierController;
-//Traer el controlador de la vista de los usuarios
-use App\Http\Controllers\Admin\UsuariosController;
-//Finaliza
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\UsuariosController;
 
 /*
 |--------------------------------------------------------------------------
@@ -86,8 +84,8 @@ Route::resource('sales', SalesController::class);
 Route::resource('person', PersonController::class);
 Route::resource('customer', CustomerController::class);
 Route::resource('supplier', SupplierController::class);
-//Ruta para ver la lista de los usuarios en la parte de administrador
-Route::resource('usuarios', UsuariosController::class);
+Route::resource('usuarios', UsuariosController::class)->only(['index', 'edit', 'update'])->names('admin.usuarios');
+
 
 Route::get('/indexAll',[SubCategoryController::class, 'indexAll'])->name('indexAll');
 //Funcion Importar
