@@ -125,7 +125,8 @@ class SupportMorphAwareIfStatement extends ComponentHook
 
         $prefixEscaped = preg_quote($prefix);
 
-        $foundWithPrefix = $prefix.$found;
+        // `preg_replace` replacement prop needs `$` and `\` to be escaped
+        $foundWithPrefix = addcslashes($prefix.$found, '$\\');
 
         $pattern = "/(?<!{$prefixEscaped}){$foundEscaped}(?![^<]*(?<![?=-])>)/mUi";
 
@@ -134,15 +135,20 @@ class SupportMorphAwareIfStatement extends ComponentHook
 
     protected static function suffixClosingDirective($found, $template)
     {
+        // Opening directives can contain a space before the parens, but that causes issues with closing
+        // directives. So we will just remove the trailing space if it exists...
+        $found = rtrim($found);
+
         $foundEscaped = preg_quote($found, '/');
 
         $suffix = '<!--[if ENDBLOCK]><![endif]-->';
 
         $suffixEscaped = preg_quote($suffix);
 
-        $foundWithSuffix = $found.$suffix;
+        // `preg_replace` replacement prop needs `$` and `\` to be escaped
+        $foundWithSuffix = addcslashes($found.$suffix, '$\\');
 
-        $pattern = "/{$foundEscaped}(?!{$suffixEscaped})(?![^<]*(?<![?=-])>)/mUi";
+        $pattern = "/{$foundEscaped}(?!\w)(?!{$suffixEscaped})(?![^<]*(?<![?=-])>)/mUi";
 
         return preg_replace($pattern, $foundWithSuffix, $template);
     }

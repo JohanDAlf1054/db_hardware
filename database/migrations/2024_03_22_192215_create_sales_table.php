@@ -18,12 +18,12 @@ return new class extends Migration
             $table->string('bill_numbers');    
             $table->string('sellers');
             $table->string('payments_methods');
-            $table->string('observations');
-            $table->decimal('discounts_total');
             $table->decimal('gross_totals');
             $table->decimal('taxes_total');
             $table->decimal('net_total');
-            $table->decimal('values_total');
+            $table->boolean('status')->default(true);
+            $table->bigInteger('clients_id')->unsigned();
+            $table->foreign('clients_id')->references('id')->on('people')->onDelete("no action");
         });
     }
 
