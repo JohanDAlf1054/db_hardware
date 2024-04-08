@@ -9,10 +9,21 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="card card-default">
-                <div class="card-header">
-                    <h2 id="card_title">
-                        {{ __('Informes Productos') }}
-                    </h2>
+                <div class="card-header" style="display: flex">
+                    {{-- <div class="row"> --}}
+                        {{-- <div class=" col col-lg-1 col-sm-2"> --}}
+                            <button type="button" class="btn btn-light">
+                                <a href="{{route('index_informes')}}">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-left" width="30" height="30" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l14 0" /><path d="M5 12l6 6" /><path d="M5 12l6 -6" /></svg>
+                                </a>
+                            </button>
+                        {{-- </div> --}}
+                        {{-- <div class="col col-lg-2"> --}}
+                            <h2 id="card_title">
+                                {{ __('Informes Productos') }}
+                            </h2>
+                        {{-- </div> --}}
+                    {{-- </div> --}}
                 </div>
                 <div class="card-body">
                     <div class="row">
