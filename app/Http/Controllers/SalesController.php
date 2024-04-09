@@ -2,17 +2,11 @@
 
 namespace App\Http\Controllers;
 
-<<<<<<< HEAD
 use App\Http\Requests\StoreSalesRequest;
 use App\Models\Person;
 use App\Models\Product;
 use App\Models\Sale;
 use Exception;
-=======
-use App\Http\Requests\StorePostRequest;
-use App\Models\Person;
-use App\Models\Product;
->>>>>>> 3a6966a75a2488e27d83d21014ef8576ae476adc
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -23,7 +17,6 @@ class SalesController extends Controller
      */
     public function index()
     {
-<<<<<<< HEAD
         $ventas = Sale::all();
         return view('sales.index',compact('ventas'));
     }
@@ -127,58 +120,5 @@ class SalesController extends Controller
         ]);
 
         return redirect()->route('ventas.index')->with('success','Venta eliminada');
-=======
-        return view('sales.index');
->>>>>>> 3a6966a75a2488e27d83d21014ef8576ae476adc
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        $clientes = Person::all();
-        $products = Product::all();
-        return view('sales.create', compact('clientes','products'));
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StorePostRequest $request)
-    {
-        dd($request->validated());
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
     }
 }

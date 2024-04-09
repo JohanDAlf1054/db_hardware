@@ -644,12 +644,9 @@ class ComposerStaticInitbc908a30823cd77698ce6bf9e13f7656
         'App\\Http\\Requests\\LoginRequest' => __DIR__ . '/../..' . '/app/Http/Requests/LoginRequest.php',
         'App\\Http\\Requests\\ProfileUpdateRequest' => __DIR__ . '/../..' . '/app/Http/Requests/ProfileUpdateRequest.php',
         'App\\Http\\Requests\\RegisterRequest' => __DIR__ . '/../..' . '/app/Http/Requests/RegisterRequest.php',
-<<<<<<< HEAD
+        'App\\Http\\Requests\\StoreSalesRequest' => __DIR__ . '/../..' . '/app/Http/Requests/StoreSalesRequest.php',
         'App\\Imports\\BrandsImport' => __DIR__ . '/../..' . '/app/Imports/BrandsImport.php',
         'App\\Imports\\CategoryImport' => __DIR__ . '/../..' . '/app/Imports/CategoryImport.php',
-=======
-        'App\\Imports\\BrandImport' => __DIR__ . '/../..' . '/app/Imports/BrandImport.php',
->>>>>>> 3a6966a75a2488e27d83d21014ef8576ae476adc
         'App\\Imports\\UnitsImpot' => __DIR__ . '/../..' . '/app/Imports/UnitsImpot.php',
         'App\\Livewire\\BrandsComponent' => __DIR__ . '/../..' . '/app/Livewire/BrandsComponent.php',
         'App\\Livewire\\CategoriesComponent' => __DIR__ . '/../..' . '/app/Livewire/CategoriesComponent.php',
