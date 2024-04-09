@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class RegisterController extends Controller
 {
@@ -19,7 +20,11 @@ class RegisterController extends Controller
     }
 
     public function register(RegisterRequest $request){
-        $user = User::create($request->validated());
-        return redirect('/login')->with('Exitoso','Usario creado correctamente');
+        try {
+            $user = User::create($request->validated());
+            return redirect('/login')->with('Exitoso', 'Usuario creado correctamente');
+        } catch (\Exception $e) {
+            return Redirect::back()->withErrors(['error' => $e->getMessage()]);
+        }
     }
 }
