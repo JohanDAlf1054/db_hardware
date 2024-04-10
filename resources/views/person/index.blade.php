@@ -44,7 +44,7 @@
                                             <div class="col-sm-9">
                                                 <input name="filtervalue" type="text" class="form-control" aria-label="Text input with segmented dropdown button"  placeholder="Buscar persona....">
                                             </div>
-                                            <div class=" col-sm-3">
+                                            <div class="col-sm-3">
                                                 <button type="submit" class=" btn btn-dark">Buscar</button>
                                             </div>
                                         </div>

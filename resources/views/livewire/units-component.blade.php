@@ -3,6 +3,11 @@
         <div class="row">
             <div class="col-sm-12">
                 <div class="card">
+                    <div class="card-header">
+                        <h2 id="card_title">
+                            {{ __('Unidades de Medida') }}
+                        </h2>
+                    </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <div class="input-group mb-3">

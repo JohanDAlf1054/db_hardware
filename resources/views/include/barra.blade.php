@@ -7,7 +7,7 @@
             <title>{{ $modo }}</title>
             <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet' >
             <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
-            {{--  <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>  --}}
+            <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
             {{--  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>  --}}
             {{--  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>  --}}
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -19,7 +19,7 @@
                     <i class='bx bx-menu' id="btn_open"></i>
                 </div>
                 <div class="titulo">
-                    <h1>{{ $modo }}</h1>
+                    <h1>Ferreteria La Excelencia</h1>
                 </div>
             </header>
 
@@ -30,7 +30,8 @@
                 </div>
 
                 <div class="options__menu">
-
+                    <span id="liPanel" class="li" >Panel</span>
+                    <div id="onlinePanel" class="online"></div>
                     <a href="/home" class="{{ request()->route()->named('home') ? 'selected' : '' }}">
                         <div class="option">
                             <i class="fas fa-home" title="Inicio"></i>
@@ -55,7 +56,7 @@
                     <a href="{{ route('person.index')}}" class="{{ request()->route()->named('person.index') ? 'selected' : '' }}">
                         <div class="option">
                             <i class='bx bxs-user-detail' title="usuarios" ></i>
-                            <h4>Usuarios</h4>
+                            <h4>Terceros</h4>
                         </div>
                     </a>
 
@@ -72,7 +73,45 @@
                             <h4>Informes</h4>
                         </div>
                     </a>
+
+                    <br>
+                    <span id="liPanel1" class="li" >Account</span>
+                    <div id="onlinePanel1" class="online"></div>
+
+                    {{--  Funcion para mostrar el link de roles solo para usuarios con el rol de administrador  --}}
+                    @can('admin.usuarios.index')
+
+                    <a href="{{ route('admin.usuarios.index') }}" class="{{ request()->route()->named('usuarios.index') ? 'selected' : '' }}">
+                        <div class="option">
+                                <i class="fa-solid fa-users-gear"></i>
+                                <h4>Roles</h4>
+                            </div>
+                        </a>
+
+                    @endcan
+
+                    <a href="">
+                        <div class="option">
+                            <i class="fa-solid fa-gear"></i>
+                            <h4>Configuración</h4>
+                        </div>
+                    </a>
+
+                    <a href="#">
+                        <div class="option">
+                            <i class="fa-solid fa-circle-info"></i>
+                            <h4>Ayuda</h4>
+                        </div>
+                    </a>
+
+                    <a href="/logout">
+                        <div class="option">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                            <h4>Cerrar Sesión </h4>
+                        </div>
+                    </a>
                 </div>
+
             </div>
             <script src="{{ asset('js/acceso.js') }}"></script>
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>

@@ -18,6 +18,7 @@ use App\Http\Controllers\SalesController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\UsuariosController;
 
 /*
 |--------------------------------------------------------------------------
@@ -83,12 +84,15 @@ Route::resource('sales', SalesController::class);
 Route::resource('person', PersonController::class);
 Route::resource('customer', CustomerController::class);
 Route::resource('supplier', SupplierController::class);
+Route::resource('usuarios', UsuariosController::class)->only(['index', 'edit', 'update'])->names('admin.usuarios');
+
 
 Route::get('/indexAll',[SubCategoryController::class, 'indexAll'])->name('indexAll');
-//Funcion Importar 
+//Funcion Importar
 Route::post('/importbrands',[BrandController::class, 'importbrands'])->name('importbrands');
 Route::post('/importCategory',[CategoryProductController::class, 'importCategory'])->name('importCategory');
 
 //Funcion Export Informes
 Route::get('export_index', [ExportController::class, 'index_informes'])->name('index_informes');
 Route::get('/export', [ExportController::class, 'export'])->name('export');
+Route::get('/report', [ExportController::class,'report'])->name('report');
