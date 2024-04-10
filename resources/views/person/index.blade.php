@@ -109,7 +109,6 @@
 
                                                 <td>
                                                         <a class="btn btn-sm btn-primary " href="{{ route('person.show',$person->id) }}"><i class="fa fa-fw fa-eye"></i></a>
-                                                        {{--  Se suspendieron las acciones de borrar y editar en la vista general de la tabla  --}}
                                                 </td>
                                             </tr>
                                         @endforeach

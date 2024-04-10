@@ -10,6 +10,7 @@ use App\Models\People;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class debitNoteSupplierController
@@ -22,13 +23,44 @@ class debitNoteSupplierController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $debitNoteSuppliers = debitNoteSupplier::paginate();
+    public function index(Request $request)
+{
+    $filtervalue = $request->get('filtervalue');
 
-        return view('debit-note-supplier.index', compact('debitNoteSuppliers'))
-            ->with('i', (request()->input('page', 1) - 1) * $debitNoteSuppliers->perPage());
+    if ($filtervalue) {
+        $status = $filtervalue == 'activo' ? 1 : ($filtervalue == 'inactivo' ? 0 : null);
+
+        $debitNoteSuppliers = DebitNoteSupplier::query()
+            ->when($status !== null, function($query) use ($status) {
+                return $query->where('status', $status);
+            })
+            ->when($filtervalue, function($query) use ($filtervalue) {
+                return $query->where('debit_note_code','like','%'.$filtervalue.'%')
+                    //->orWhere('quantity','like','%'.$filtervalue.'%')
+                    ->orWhere('description','like','%'.$filtervalue.'%');
+            })
+            ->paginate();
+    } else {
+        $uniqueDebitNoteSupplierIds = DB::table('debit_note_suppliers')
+            ->select(DB::raw('MAX(id) as id'))
+            ->groupBy('purchase_suppliers_id')
+            ->pluck('id');
+
+        $debitNoteSuppliers = DebitNoteSupplier::whereIn('id', $uniqueDebitNoteSupplierIds)->paginate();
     }
+
+    return view('debit-note-supplier.index', compact('debitNoteSuppliers'))
+        ->with('i', (request()->input('page', 1) - 1) * $debitNoteSuppliers->perPage());
+}
+
+    
+
+    
+    
+    
+    
+    
+
 
     /**
      * Show the form for creating a new resource.
@@ -37,6 +69,12 @@ class debitNoteSupplierController extends Controller
      */
     public function create()
     {
+        // Obtén el último DebitNoteSupplier de la base de datos
+        $lastDebitNoteSupplier = DebitNoteSupplier::orderBy('id', 'desc')->first();
+    
+        // Si existe, toma su id y agrégale 1. Si no existe, usa 1 como el primer id.
+        $debitNoteId = $lastDebitNoteSupplier ? $lastDebitNoteSupplier->id + 1 : 1;
+    
         $debitNoteSupplier = new debitNoteSupplier();
         $people = Person::where('rol', 'Proveedor')->get();
         $products = Product::all();
@@ -54,17 +92,24 @@ class debitNoteSupplierController extends Controller
         });
     
         $detailPurchaseData = [];
-        foreach ($detailPurchases as $detailPurchase) {
-            $purchaseSupplierId = $detailPurchase->purchaseSupplier->id;
-            $detailPurchaseData[$purchaseSupplierId] = [
-                'price_unit' => $detailPurchase->price_unit,
-                'product_tax' => $detailPurchase->product_tax,
-                'discount_total' => $detailPurchase->discount_total,
-            ];
-        }
+foreach ($detailPurchases as $detailPurchase) {
+    $purchaseSupplierId = $detailPurchase->purchaseSupplier->id;
+    if (!isset($detailPurchaseData[$purchaseSupplierId])) {
+        $detailPurchaseData[$purchaseSupplierId] = [];
+    }
+    $detailPurchaseData[$purchaseSupplierId][] = [
+        'product_name' => $detailPurchase->product->name_product,
+        'price_unit' => $detailPurchase->price_unit,
+        'product_tax' => $detailPurchase->product_tax,
+        'discount_total' => $detailPurchase->discount_total,
+    ];
+}
+
+        
     
         return view('debit-note-supplier.create', compact(
             'debitNoteSupplier',
+            'debitNoteId', 
             'purchaseSuppliers',
             'detailPurchases',
             'detailPurchase',
@@ -78,6 +123,7 @@ class debitNoteSupplierController extends Controller
     }
     
     
+    
 
     /**
      * Store a newly created resource in storage.
@@ -86,47 +132,58 @@ class debitNoteSupplierController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-{
-    $request->validate([
-        'producto' => 'required',
-        'cantidad' => 'required',
-        'descripcion' => 'required',
-        'precio_unitario' => 'required',
-        'descuento' => 'required',
-        'iva' => 'required',
-        'totalNeto' => 'required',
-        
-        'gross_total' => 'required',
-    ]);
-
-    $purchaseSupplierId = $request->input('factura');
-
-    $detailPurchase = DetailPurchase::where('purchase_suppliers_id', $purchaseSupplierId)->first();
-
-    $debitNoteSupplier = new debitNoteSupplier;
-    $debitNoteSupplier->debit_note_code = $request->input('debit_note_code');
-    $debitNoteSupplier->date_invoice = $request->input('date_invoice');
-    $debitNoteSupplier->users_id = $request->input('users_id');
-    $debitNoteSupplier->description = $request->input('descripcion');
-    $debitNoteSupplier->quantity = $request->input('cantidad');
-    $debitNoteSupplier->total = $request->input('total');
-    $debitNoteSupplier->net_total = $request->input('totalNeto');
-    $debitNoteSupplier->gross_total = $request->input('gross_total');
-    $debitNoteSupplier->updated_at = $request->input('updated_at');
-    $debitNoteSupplier->created_at = $request->input('created_at');
-    $debitNoteSupplier->purchase_suppliers_id = $purchaseSupplierId;
+    {
+        $request->validate([
+            'producto.*' => 'required',
+            'cantidad.*' => 'required',
+            'descripcion.*' => 'required',
+            'precio_unitario.*' => 'required',
+            'descuento.*' => 'required',
+            'iva.*' => 'required',
+            'totalNeto' => 'required',
+            'gross_total' => 'required',
+        ]);
     
-    if ($detailPurchase) {
-        $debitNoteSupplier->detail_purchase_id = $detailPurchase->id;
-    } else {
-        return redirect()->back()->withErrors(['factura' => 'No se encontró un detailPurchase para esta factura.']);
+        $purchaseSupplierId = $request->input('factura');
+        $detailPurchases = DetailPurchase::where('purchase_suppliers_id', $purchaseSupplierId)->get();
+    
+        if (count($detailPurchases) == 0) {
+            return redirect()->back()->withErrors(['factura' => 'No se encontró un detailPurchase para esta factura.']);
+        }
+    
+        $productos = $request->input('producto');
+        $cantidades = $request->input('cantidad');
+        $descripciones = $request->input('descripcion');
+        $precios_unitarios = $request->input('precio_unitario');
+        $descuentos = $request->input('descuento');
+        $ivas = $request->input('iva');
+    
+        for ($i = 0; $i < count($productos); $i++) {
+            if (!isset($detailPurchases[$i])) {
+                return redirect()->back()->withErrors(['producto' => 'No hay suficientes detailPurchases para los productos.']);
+            }
+    
+            $debitNoteSupplier = new debitNoteSupplier;
+            $debitNoteSupplier->debit_note_code = $request->input('debit_note_code');
+            $debitNoteSupplier->date_invoice = $request->input('date_invoice');
+            $debitNoteSupplier->users_id = $request->input('users_id');
+            $debitNoteSupplier->description = $descripciones[$i];
+            $debitNoteSupplier->quantity = $cantidades[$i];
+            $debitNoteSupplier->total = $request->input('total');
+            $debitNoteSupplier->net_total = $request->input('totalNeto');
+            $debitNoteSupplier->gross_total = $request->input('gross_total');
+            $debitNoteSupplier->updated_at = $request->input('updated_at');
+            $debitNoteSupplier->created_at = $request->input('created_at');
+            $debitNoteSupplier->purchase_suppliers_id = $purchaseSupplierId;
+            $debitNoteSupplier->detail_purchase_id = $detailPurchases[$i]->id;
+            $debitNoteSupplier->save();
+        }
+    
+        return redirect()->route('debit-note-supplier.index')
+            ->with('success', 'debitNoteSupplier created successfully.');
     }
+    
 
-    $debitNoteSupplier->save();
-
-    return redirect()->route('debit-note-supplier.index')
-        ->with('success', 'debitNoteSupplier created successfully.');
-}
 
     
 
@@ -140,50 +197,11 @@ class debitNoteSupplierController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-{
-    $debitNoteSupplier = debitNoteSupplier::find($id);
-    $detailPurchases = DetailPurchase::with('purchaseSupplier', 'product')->get();
-
-    $detailPurchaseData = [];
-    $detailPurchaseDates = [];
-    $detailPurchaseProducts = [];
-    foreach ($detailPurchases as $detailPurchase) {
-        $purchaseSupplierId = $detailPurchase->purchaseSupplier->id;
-        $detailPurchaseData[$purchaseSupplierId] = [
-            'price_unit' => $detailPurchase->price_unit,
-            'product_tax' => $detailPurchase->product_tax,
-            'discount_total' => $detailPurchase->discount_total,
-        ];
-        $detailPurchaseDates[$purchaseSupplierId] = $detailPurchase->date_purchase;
-        $detailPurchaseProducts[$purchaseSupplierId] = $detailPurchase->product->name_product;
-    }
-
-    if ($debitNoteSupplier !== null) {
-        $detailPurchase = DetailPurchase::with('purchaseSupplier')->where('id', $debitNoteSupplier->detail_purchase_id)->first();
-    }
-
-    $people = Person::where('rol', 'Proveedor')->get();
-    $products = Product::all();
-    $detailPurchases = DetailPurchase::with('purchaseSupplier')->get();
-    $users = User::all();
-    $purchaseSuppliers = PurchaseSupplier::all();
-
-    return view('debit-note-supplier.show', compact('debitNoteSupplier', 'detailPurchase', 'detailPurchases', 'people', 'products', 'users', 'purchaseSuppliers', 'detailPurchaseData', 'detailPurchaseDates', 'detailPurchaseProducts'));
-}
-
-    
-    
-
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
     {
         $debitNoteSupplier = debitNoteSupplier::find($id);
+        $purchaseSupplierId = $debitNoteSupplier->purchase_suppliers_id;
+        $debitNoteSuppliers = debitNoteSupplier::where('purchase_suppliers_id', $purchaseSupplierId)->get();
+    
         $detailPurchases = DetailPurchase::with('purchaseSupplier', 'product')->get();
     
         $detailPurchaseData = [];
@@ -210,8 +228,69 @@ class debitNoteSupplierController extends Controller
         $users = User::all();
         $purchaseSuppliers = PurchaseSupplier::all();
     
-        return view('debit-note-supplier.edit', compact('debitNoteSupplier', 'detailPurchase', 'detailPurchases', 'people', 'products', 'users', 'purchaseSuppliers', 'detailPurchaseData', 'detailPurchaseDates', 'detailPurchaseProducts'));
+        return view('debit-note-supplier.show', compact('debitNoteSuppliers', 'debitNoteSupplier', 'detailPurchase', 'detailPurchases', 'people', 'products', 'users', 'purchaseSuppliers', 'detailPurchaseData', 'detailPurchaseDates', 'detailPurchaseProducts'));
     }
+    
+
+    
+    
+
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $debitNoteSupplier = debitNoteSupplier::find($id);
+        if (!$debitNoteSupplier) {
+            return redirect()->back()->withErrors(['error' => 'No se encontró el DebitNoteSupplier con el id proporcionado.']);
+        }
+    
+        $purchaseSupplierId = $debitNoteSupplier->purchase_suppliers_id;
+        $debitNoteSuppliers = DebitNoteSupplier::where('purchase_suppliers_id', $purchaseSupplierId)->get();
+    
+        $detailPurchases = DetailPurchase::with('purchaseSupplier', 'product')->get();
+    
+        $detailPurchaseData = [];
+        foreach ($detailPurchases as $detailPurchase) {
+            $purchaseSupplierId = $detailPurchase->purchaseSupplier->id;
+            if (!isset($detailPurchaseData[$purchaseSupplierId])) {
+                $detailPurchaseData[$purchaseSupplierId] = [];
+            }
+            $detailPurchaseData[$purchaseSupplierId][] = [
+                'product_name' => $detailPurchase->product->name_product,
+                'price_unit' => $detailPurchase->price_unit,
+                'product_tax' => $detailPurchase->product_tax,
+                'discount_total' => $detailPurchase->discount_total,
+            ];
+        }
+    
+        $detailPurchaseDates = $detailPurchases->mapWithKeys(function ($item) {
+            return [$item->purchaseSupplier->id => $item->date_purchase];
+        });
+    
+        $detailPurchaseProducts = $detailPurchases->mapWithKeys(function ($item) {
+            return [$item->purchaseSupplier->id => $item->product->name_product];
+        });
+    
+        $people = Person::where('rol', 'Proveedor')->get();
+        $products = Product::all();
+        $users = User::all();
+        $purchaseSuppliers = PurchaseSupplier::all();
+    
+        // Obtén el último DebitNoteSupplier de la base de datos
+        $lastDebitNoteSupplier = DebitNoteSupplier::orderBy('id', 'desc')->first();
+    
+        // Si existe, toma su id y agrégale 1. Si no existe, usa 1 como el primer id.
+        $debitNoteId = $lastDebitNoteSupplier ? $lastDebitNoteSupplier->id + 1 : 1;
+    
+        return view('debit-note-supplier.edit', compact('debitNoteSuppliers','debitNoteSupplier', 'detailPurchases', 'people', 'products', 'users', 'purchaseSuppliers', 'detailPurchaseData', 'detailPurchaseDates', 'detailPurchaseProducts', 'debitNoteId'));
+    }
+    
+
     
 
     /**
@@ -221,46 +300,60 @@ class debitNoteSupplierController extends Controller
      * @param  debitNoteSupplier $debitNoteSupplier
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, debitNoteSupplier $debitNoteSupplier)
+    public function update(Request $request)
 {
     $request->validate([
-        'producto' => 'required',
-        'cantidad' => 'required',
-        'descripcion' => 'required',
-        'precio_unitario' => 'required',
-        'descuento' => 'required',
-        'iva' => 'required',
+       
+        'producto' => 'required|array',
+        'cantidad' => 'required|array',
+        'descripcion' => 'required|array',
+        'precio_unitario' => 'required|array',
+        'descuento' => 'required|array',
+        'iva' => 'required|array',
         'net_total' => 'required',
         'gross_total' => 'required',
     ]);
 
-    $purchaseSupplierId = $request->input('factura');
+    $ids = $request->input('id');
+    $productos = $request->input('producto');
+    $cantidades = $request->input('cantidad');
+    $descripciones = $request->input('descripcion');
+    $precios_unitarios = $request->input('precio_unitario');
+    $descuentos = $request->input('descuento');
+    $ivas = $request->input('iva');
 
-    $detailPurchase = DetailPurchase::where('purchase_suppliers_id', $purchaseSupplierId)->first();
+    for ($i = 0; $i < count($productos); $i++) {
+        $debitNoteSupplier = DebitNoteSupplier::find($ids[$i]);
 
-    $debitNoteSupplier->debit_note_code = $request->input('debit_note_code');
-    $debitNoteSupplier->date_invoice = $request->input('date_invoice');
-    $debitNoteSupplier->users_id = $request->input('users_id');
-    $debitNoteSupplier->description = $request->input('descripcion');
-    $debitNoteSupplier->quantity = $request->input('cantidad');
-    $debitNoteSupplier->total = $request->input('total');
-    $debitNoteSupplier->net_total = $request->input('net_total');
-    $debitNoteSupplier->gross_total = $request->input('gross_total');
-    $debitNoteSupplier->updated_at = $request->input('updated_at');
-    $debitNoteSupplier->created_at = $request->input('created_at');
-    $debitNoteSupplier->purchase_suppliers_id = $purchaseSupplierId;
-    
-    if ($detailPurchase) {
-        $debitNoteSupplier->detail_purchase_id = $detailPurchase->id;
-    } else {
-        return redirect()->back()->withErrors(['factura' => 'No se encontró un detailPurchase para esta factura.']);
+        $debitNoteSupplier->debit_note_code = $request->input('debit_note_code');
+        $debitNoteSupplier->date_invoice = $request->input('date_invoice');
+        $debitNoteSupplier->users_id = $request->input('users_id');
+        $debitNoteSupplier->description = $descripciones[$i];
+        $debitNoteSupplier->quantity = $cantidades[$i];
+        $debitNoteSupplier->total = $precios_unitarios[$i] * $cantidades[$i]; // o cualquier cálculo que necesites hacer
+        $debitNoteSupplier->net_total = $request->input('net_total');
+        $debitNoteSupplier->gross_total = $request->input('gross_total');
+        $debitNoteSupplier->updated_at = $request->input('updated_at');
+        $debitNoteSupplier->created_at = $request->input('created_at');
+        $debitNoteSupplier->purchase_suppliers_id = $request->input('factura');
+
+        $detailPurchase = DetailPurchase::where('purchase_suppliers_id', $debitNoteSupplier->purchase_suppliers_id)->first();
+        if ($detailPurchase) {
+            $debitNoteSupplier->detail_purchase_id = $detailPurchase->id;
+        } else {
+            return redirect()->back()->withErrors(['factura' => 'No se encontró un detailPurchase para esta factura.']);
+        }
+        
+        $debitNoteSupplier->save();
     }
 
-    $debitNoteSupplier->save();
-
     return redirect()->route('debit-note-supplier.index')
-        ->with('success', 'debitNoteSupplier updated successfully.');
+        ->with('success', 'DebitNoteSupplier updated successfully.');
 }
+
+    
+    
+
 
 
     /**
@@ -269,10 +362,24 @@ class debitNoteSupplierController extends Controller
      * @throws \Exception
      */
     public function destroy($id)
-    {
-        $debitNoteSupplier = debitNoteSupplier::find($id)->delete();
+{
+    $debitNoteSupplier = DebitNoteSupplier::find($id);
 
-        return redirect()->route('debit-note-supplier.index')
-            ->with('success', 'debitNoteSupplier deleted successfully');
+    if ($debitNoteSupplier) {
+        if ($debitNoteSupplier->status == 1) {
+            DebitNoteSupplier::where('id', $debitNoteSupplier->id)
+            ->update([
+                'status' => 0
+            ]);
+        } else {
+            DebitNoteSupplier::where('id', $debitNoteSupplier->id)
+            ->update([
+                'status' => 1
+            ]);
+        }
     }
-}
+
+    return redirect()->route('debit-note-supplier.index')
+        ->with('success', 'Estado de la nota de débito actualizado exitosamente');
+    }
+}  

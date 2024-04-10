@@ -30,19 +30,19 @@
                     </li>
                             </ul>
                     </div>
-                            <div class="col-lg-6 col-md-6 col-sm-12" >
-                                <form action="{{ route('debit-note-supplier.create') }}" method="get">
-                                    <div class="mb-3 row">
-                                        
-                                        <div class="col-sm-9">
-                                            <input name="filtervalue" type="text" class="form-control" aria-label="Text input with segmented dropdown button"  placeholder="Buscar Producto....">
-                                        </div>
-                                        <div class=" col-sm-3">
-                                            <button type="submit" class=" btn btn-dark">Buscar</button>
-                                        </div>
-                                    </div>
-                                </form>
+                    <div class="col-lg-6 col-md-6 col-sm-12" >
+                        <form action="{{ route('debit-note-supplier.index') }}" method="get">
+                            <div class="mb-3 row">
+                                <div class="col-sm-9">
+                                    <input name="filtervalue" type="text" class="form-control" aria-label="Text input with segmented dropdown button"  placeholder="Buscar Nota....">
+                                </div>
+                                <div class=" col-sm-3">
+                                    <button type="submit" class=" btn btn-dark">Buscar</button>
+                                </div>
                             </div>
+                        </form>
+                    </div>
+                    
                           </div>
                          
                     </div>
@@ -65,11 +65,12 @@
                                     <th>Empleado</th>
                                     <th>Numero de Nota</th>
                                     <th>Fecha De La Nota</th>
-                                    <th>Precio</th>
+                                    <th>Total</th>
                                     <th>Descuento Total</th>
                                     <th>Impuesto Producto</th>
                                     <th>Cantidad</th>
                                     <th>Método de Pago</th>
+                                    <th>Estado</th>
                                     <th>Acciones</th>
                                 </tr>
                             </thead>
@@ -83,18 +84,28 @@
                                     <td>{{ optional($debitNoteSupplier->detailPurchase->purchaseSupplier->person)->first_name ?? 'Error: No se encontró el proveedor' }}</td>
                                     <td>{{ $debitNoteSupplier->debit_note_code}}</td>
                                     <td>{{ $debitNoteSupplier->date_invoice }}</td>
-                                    <td>{{ $debitNoteSupplier->price}}</td>
+                                    <td>{{ round($debitNoteSupplier->total, 2) }}</td>
                                     <td>{{ $debitNoteSupplier->detailPurchase ? $debitNoteSupplier->detailPurchase->discount_total : 'N/A' }}</td>
                                     <td>{{ $debitNoteSupplier->detailPurchase ? $debitNoteSupplier->detailPurchase->product_tax : 'N/A' }}</td>
                                     <td>{{ $debitNoteSupplier->quantity}}</td>
                                     <td>{{ $debitNoteSupplier->detailPurchase ? $debitNoteSupplier->detailPurchase->form_of_payment : 'N/A' }}</td>
                                     <td>
+                                        @if ($debitNoteSupplier->status == 1)
+                                            <p class="badge rounded-pill bg-warning text-dark" style="font-size: 15px">Activo</p>
+                                        @else
+                                            <p class="badge rounded-pill bg-danger"  style="font-size: 15px">Inactivo</p>
+                                        @endif
+                                    </td>
+                                    <td>
                                         <form action="{{ route('debit-note-supplier.destroy',$debitNoteSupplier->id) }}" method="POST">
-                                            <a class="btn btn-sm btn-primary " href="{{ route('debit-note-supplier.show',$debitNoteSupplier->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
-                                            <a class="btn btn-sm btn-success" href="{{ route('debit-note-supplier.edit',$debitNoteSupplier->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
+                                            <a class="btn btn-sm btn-primary " href="{{ route('debit-note-supplier.show',$debitNoteSupplier->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('') }}</a>
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> {{ __('Delete') }}</button>
+                                            @if ($debitNoteSupplier->status == true)
+                                                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#confirmationDestroy-{{$debitNoteSupplier->id}}"><i class="fa fa-fw fa-trash"></i></button>
+                                            @else
+                                                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#confirmationDestroy-{{$debitNoteSupplier->id}}"><i class="fa-solid fa-rotate"></i></button>
+                                            @endif
                                         </form>
                                     </td>
                                 </tr>
@@ -108,6 +119,7 @@
     </div>
 </div>
 </div>
+@include('debit-note-supplier.modal')
     @endauth
     @guest
         @include('include.falta_sesion')

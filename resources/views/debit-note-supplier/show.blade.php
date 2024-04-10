@@ -206,6 +206,7 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+                                                    @foreach($debitNoteSuppliers as $debitNoteSupplier)
                                                     <tr>
                                                         <td><input type="text" name="producto" value="{{ $debitNoteSupplier->detailPurchase->product->name_product }}" class="form-control" readonly></td>
                                                         <td><input type="number" name="cantidad" value="{{ $debitNoteSupplier->quantity }}" class="form-control" readonly></td>
@@ -217,11 +218,12 @@
 
                                                         
                                                     </tr>
+                                                    @endforeach 
                                                 </tbody>
                                             </table>
                                             <div class="row">
                                                 <div class="col-md-12 text-end">
-                                                    <<div class="row">
+                                                    <div class="row">
                                                         <div class="col-md-6 text-end">
                                                             <label for="total" class="form-label">Total</label>
                                                         </div>

@@ -121,7 +121,7 @@
                                                     {{ __('Número de Nota Debito') }}
                                                     <span class="text-danger">*</span>
                                                 </label>
-                                                <input type="number" id="debit_note_code" name="debit_note_code" value="{{ old('debit_note_code', $debitNoteSupplier->debit_note_code) }}" class="form-control{{ $errors->has('debit_note_code') ? ' is-invalid' : '' }}" placeholder="Número de Nota Debito">
+                                                <input type="number" id="debit_note_code" name="debit_note_code" value="{{ $debitNoteId }}" class="form-control{{ $errors->has('debit_note_code') ? ' is-invalid' : '' }}" placeholder="Número de Nota Debito">
                                                 {!! $errors->first('debit_note_code', '<div class="invalid-feedback">:message</div>') !!}
                                             </div>
                                         </div>
@@ -249,102 +249,119 @@
     <script>
         var detailPurchaseData = @json($detailPurchaseData);
     </script>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    var facturaSelect = document.getElementById('factura');
-    if (facturaSelect) {
-    facturaSelect.addEventListener('change', function() {
-    var selectedOption = this.options[this.selectedIndex];
-    var usersId = selectedOption.getAttribute('data-users-id');
-    var peopleId = selectedOption.getAttribute('data-people-id');
-    var datePurchase = selectedOption.getAttribute('data-date-purchase');
-    var purchaseSupplierId = selectedOption.value;
-    var productName = selectedOption.getAttribute('data-product-name');
-    var productTax = selectedOption.getAttribute('data-product-tax');
-    var priceUnit = selectedOption.getAttribute('data-price-unit');
-    var discountTotal = selectedOption.getAttribute('data-discount-total');
+    <script>
+        console.log(detailPurchaseData);
+    </script>
 
-        var usersSelect = document.getElementById('users_id');
-        var peopleSelect = document.getElementById('people_id');
-        var datePurchaseInput = document.getElementById('date_purchase');
-        var productInput = document.querySelector('input[name="producto"]');
-
-      // Establecer el valor seleccionado en usersSelect
-        for (var i = 0; i < usersSelect.options.length; i++) {
-        if (usersSelect.options[i].value == String(usersId)) {
-            usersSelect.options[i].selected = true;
-            break;
-        }
-        }
-
-      // Establecer el valor seleccionado en peopleSelect
-        for (var i = 0; i < peopleSelect.options.length; i++) {
-        if (peopleSelect.options[i].value == String(peopleId)) {
-            peopleSelect.options[i].selected = true;
-            break;
-        }
-        }
-
-      // Obtener la fecha de detail_purchase desde el lado del cliente
-        var datePurchaseFromClient = @json($detailPurchaseDates)[purchaseSupplierId] || '';
-        datePurchaseInput.value = datePurchaseFromClient;
-
-      // Obtener el nombre del producto desde el lado del cliente
-        var productNameFromClient = @json($detailPurchaseProducts)[purchaseSupplierId] || '';
-        productInput.value = productNameFromClient;
-
-        var precioUnitarioInput = document.getElementById('precio_unitario');
-        var descuentoInput = document.getElementById('descuento');
-        var ivaInput = document.getElementById('iva');
-
-        if (precioUnitarioInput && descuentoInput && ivaInput) {
-        var purchaseData = detailPurchaseData[purchaseSupplierId] || {};
-        var priceUnit = purchaseData.price_unit || '';
-        var productTax = purchaseData.product_tax || '';
-        var discountTotal = purchaseData.discount_total || '';
-
-        // Asignar los valores a los campos de entrada
-        precioUnitarioInput.value = priceUnit;
-descuentoInput.value = discountTotal;
-ivaInput.value = productTax;
-
-        }
-    });
-    }
-});
-</script>
+    {{--SEGUN EL ID DE FACTURA  SE TRAEN LOS DATOS QUE SON EL EMPLEADO COMO USER
+        EL PROVEEDOR COMO PEOPLE LA FECHA DE COMPRA EL NOMBRE DEL PRODUCTO 
+        EL PRECIO DEL PRODUCTO EL DESCUENTO Y EL IVA--}}
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-    var cantidadInput = document.querySelector('input[name="cantidad"]');
-    var precioUnitarioInput = document.getElementById('precio_unitario');
-    var descuentoInput = document.getElementById('descuento');
-    var ivaInput = document.getElementById('iva');
+    var facturaSelect = document.getElementById('factura');
+    if (facturaSelect) {
+        facturaSelect.addEventListener('change', function() {
+            var selectedOption = this.options[this.selectedIndex];
+            var usersId = selectedOption.getAttribute('data-users-id');
+            var peopleId = selectedOption.getAttribute('data-people-id');
+            var datePurchase = selectedOption.getAttribute('data-date-purchase');
+            var purchaseSupplierId = selectedOption.value;
 
-    var totalInput = document.getElementById('total');
-    var totalBrutoInput = document.getElementById('totalBruto');
-    var totalNetoInput = document.getElementById('totalNeto');
+            var usersSelect = document.getElementById('users_id');
+            var peopleSelect = document.getElementById('people_id');
+            var datePurchaseInput = document.getElementById('date_purchase');
 
-  // Función para calcular los totales
-    var calcularTotales = function() {
-    var cantidad = parseFloat(cantidadInput.value) || 0;
-    var precioUnitario = parseFloat(precioUnitarioInput.value) || 0;
-    var descuento = parseFloat(descuentoInput.value) || 0;
-    var iva = parseFloat(ivaInput.value) || 0;
+            // Establecer el valor seleccionado en usersSelect
+            for (var i = 0; i < usersSelect.options.length; i++) {
+                if (usersSelect.options[i].value == String(usersId)) {
+                    usersSelect.options[i].selected = true;
+                    break;
+                }
+            }
 
-    var totalBruto = cantidad * precioUnitario;
-    var total = totalBruto - descuento;
-    var totalNeto = total + total * iva / 100;
+            // Establecer el valor seleccionado en peopleSelect
+            for (var i = 0; i < peopleSelect.options.length; i++) {
+                if (peopleSelect.options[i].value == String(peopleId)) {
+                    peopleSelect.options[i].selected = true;
+                    break;
+                }
+            }
 
-    totalInput.value = total.toFixed(2);
-    totalBrutoInput.value = totalBruto.toFixed(2);
-    totalNetoInput.value = totalNeto.toFixed(2);
-    };
+            // Obtener la fecha de detail_purchase desde el lado del cliente
+            var datePurchaseFromClient = @json($detailPurchaseDates)[purchaseSupplierId] || '';
+            datePurchaseInput.value = datePurchaseFromClient;
+        });
+    }
+});
 
-  // Agregar el evento 'input' a los campos
-    cantidadInput.addEventListener('input', calcularTotales);
-    precioUnitarioInput.addEventListener('input', calcularTotales);
-    descuentoInput.addEventListener('input', calcularTotales);
-    ivaInput.addEventListener('input', calcularTotales);
+
+</script>
+
+{{--EN ESTA PARTE DE CODIGO SEGUN EL NUMERO DE FACTURA Y LA VARIABLE.JSON 
+    NOS TRAEMOS TODOS LOS DATOS EN UN ARREGLO CONCATENADO Y DEPENDIENDO DEL 
+    ARREGLO ASOCIATIVO GENERAMOS LAS FILAS QUE NECESITAMOS MOSTRAR--}}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    var facturaSelect = document.getElementById('factura');
+    if (facturaSelect) {
+        facturaSelect.addEventListener('change', function() {
+            var selectedOption = this.options[this.selectedIndex];
+            var purchaseSupplierId = selectedOption.value;
+
+            var detailData = detailPurchaseData[purchaseSupplierId] || [];
+
+            var tbody = document.querySelector('#tabla_detalle tbody');
+            while (tbody.firstChild) {
+                tbody.removeChild(tbody.firstChild);
+            }
+
+            detailData.forEach(function(detail) {
+    var newRow = document.createElement('tr');
+
+    newRow.innerHTML = 
+        '<td><input type="text" name="producto[]" class="form-control" value="' + detail.product_name + '"></td>' +
+        '<td><input type="number" name="cantidad[]" class="form-control"></td>' +
+        '<td><input type="text" name="descripcion[]" class="form-control"></td>' +
+        '<td><input type="number" name="precio_unitario[]" class="form-control" value="' + detail.price_unit + '"></td>' +
+        '<td><input type="number" name="descuento[]" class="form-control" value="' + detail.discount_total + '"></td>' +
+        '<td><input type="number" name="iva[]" class="form-control" value="' + detail.product_tax + '"></td>';
+
+    tbody.appendChild(newRow);
+});
+
+
+            // Agrega un evento 'input' a cada campo de entrada para actualizar los totales cuando cambien los valores
+            var inputs = tbody.querySelectorAll('input[type="number"]');
+            inputs.forEach(function(input) {
+                input.addEventListener('input', updateTotals);
+            });
+
+            // Actualiza los totales
+            function updateTotals() {
+                var total = 0;
+                var totalBruto = 0;
+                var totalNeto = 0;
+
+                // Calcula los totales basándote en los valores actuales de los campos de entrada
+                inputs.forEach(function(input) {
+                    var value = parseFloat(input.value);
+                    if (!isNaN(value)) {
+                        total += value;
+                        totalBruto += value; // Ajusta esta línea según tu cálculo de total bruto
+                        totalNeto += value; // Ajusta esta línea según tu cálculo de total neto
+                    }
+                });
+
+                // Muestra los totales en el HTML
+                document.getElementById('total').value = total.toFixed(2);
+                document.getElementById('totalBruto').value = totalBruto.toFixed(2);
+                document.getElementById('totalNeto').value = totalNeto.toFixed(2);
+            }
+
+            // Llama a updateTotals una vez al inicio para calcular los totales iniciales
+            updateTotals();
+        });
+    }
 });
 
 </script>

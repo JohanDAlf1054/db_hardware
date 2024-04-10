@@ -17,6 +17,7 @@ return new class extends Migration
             $table->date('date_invoice_purchase');
             $table->string('code');
             $table->integer('users_id');
+            $table->boolean('status')->default(True);
             $table->integer('people_id');
             $table->timestamps();
         });

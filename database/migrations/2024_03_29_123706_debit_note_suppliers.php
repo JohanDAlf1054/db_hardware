@@ -25,7 +25,7 @@ return new class extends Migration
             $table->decimal('net_total', 20, 2);
             $table->decimal('gross_total', 20, 2);
             $table->timestamps();
-    
+            $table->boolean('status')->default(True);
             $table->foreign('detail_purchase_id')->references('id')->on('detail_purchase')->onDelete('cascade');
             $table->foreign('users_id')->references('id')->on('users');
             $table->foreign('purchase_suppliers_id')->references('id')->on('purchase_suppliers')->onDelete('cascade');

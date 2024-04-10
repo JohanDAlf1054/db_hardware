@@ -19,11 +19,11 @@
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end">    
                     <li>
-                        <a class="dropdown-item" href="{{ route('detail-purchases.create') }}">Crear Detalle De Compra</a>
+                        <a class="dropdown-item" href="{{ route('detail-purchases.create') }}">Crear Compra</a>
                     </li>
-                    <li>
+                  {{--   <li>
                         <a class="dropdown-item" href="{{ route('purchase_supplier.index') }}">Mostrar Compras a Proveedores</a>
-                    </li>
+                    </li>--}}
                     {{-- <li>
                         <a class="dropdown-item" href="{{ route('credit-note-supplier.index') }}">Crear Una nota Credito</a>
                     </li>--}}
@@ -38,7 +38,7 @@
                                 <div class="mb-3 row">
                                     
                                     <div class="col-sm-9">
-                                        <input name="filtervalue" type="text" class="form-control" aria-label="Text input with segmented dropdown button"  placeholder="Buscar Producto....">
+                                        <input name="filtervalue" type="text" class="form-control" aria-label="Text input with segmented dropdown button"  placeholder="Buscar Compra....">
                                     </div>
                                     <div class=" col-sm-3">
                                         <button type="submit" class=" btn btn-dark">Buscar</button>
@@ -74,6 +74,7 @@
                                             <th>Total</th>
                                             <th>Descuento</th>
                                             <th>Metodo de Pago</th>
+                                            <th>Estado</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
@@ -95,14 +96,25 @@
                                             <td>{{ $detailPurchase->total_value }}</td>
                                             <td>{{ $detailPurchase->discount_total }}</td>
                                             <td>{{ $detailPurchase->form_of_payment }}</td>
+                                            <td>@if ($detailPurchase->status == 1)
+                                                <p class="badge rounded-pill bg-warning text-dark" style="font-size: 15px">Activo</p>
+                                            @else
+                                                <p class="badge rounded-pill bg-danger"  style="font-size: 15px">Inactivo</p>
+                                            @endif
+                                            </td>
                                             <td>
                                                 <form action="{{ route('detail-purchases.destroy',$detailPurchase->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('detail-purchases.show',$detailPurchase->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Mostrar') }}</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('detail-purchases.edit',$detailPurchase->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Editar') }}</a>
-                                                    @csrf
+                                                    <a class="btn btn-sm btn-primary " href="{{ route('detail-purchases.show',$detailPurchase->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('') }}</a>
+                                                   {{-- <a class="btn btn-sm btn-success" href="{{ route('detail-purchases.edit',$detailPurchase->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Editar') }}</a>
+                                                   --}} @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i></button>
-                                                </form>
+                                                
+                                                @if ($detailPurchase->status == true)
+    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#confirmationDestroy-{{$detailPurchase->id}}"><i class="fa fa-fw fa-trash"></i></button>
+@else
+    <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#confirmationDestroy-{{$detailPurchase->id}}"><i class="fa-solid fa-rotate"></i></button>
+@endif
+</form>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -113,6 +125,7 @@
                     </div>
                 </div>
             </div>
+@include('detail-purchase.modal')
     @endauth
     @guest
         @include('include.falta_sesion')

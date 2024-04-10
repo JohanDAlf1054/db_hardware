@@ -28,7 +28,7 @@ return new class extends Migration
         $table->decimal('net_total', 20, 2);
         $table->decimal('total_value', 20, 2);
         $table->decimal('discount_total', 20, 2);
-
+        $table->boolean('status')->default(True);
         $table->string('method_of_payment',200);
         $table->unsignedInteger('purchase_suppliers_id'); 
         $table->unsignedBigInteger('products_id');

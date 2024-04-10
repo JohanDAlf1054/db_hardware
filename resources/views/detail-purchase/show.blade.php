@@ -73,6 +73,7 @@
                         </div>
                         
                         
+                        
                         <div class="col-6 mb-2">
                             <label for="identification_type" class="form-label">Tipo de identificación:</label>
                             <input type="text" id="identification_type" name="identification_type" class="form-control" value="{{ old('identification_type', isset($detailPurchase) && isset($detailPurchase->purchaseSupplier) && isset($detailPurchase->purchaseSupplier->person) ? $detailPurchase->purchaseSupplier->person->identification_type : '') }}" readonly>
@@ -91,10 +92,7 @@
                         </div>
                         
                         
-                        <div class="col-6 mb-4">
-                            <label for="fecha" class="form-label">Fecha de Compra:</label>
-                            <input type="date" id="fecha" name="fecha" class="form-control" value="{{ isset($detailPurchase) && isset($detailPurchase->purchaseSupplier) ? $detailPurchase->purchaseSupplier->date_invoice_purchase : '' }}" readonly>
-                        </div>
+                
                         
                         
                         <div class="col-6 mb-4">
@@ -102,6 +100,10 @@
                             <input type="text" id="factura" name="factura" class="form-control" value="{{ isset($detailPurchase) && isset($detailPurchase->purchaseSupplier) ? $detailPurchase->purchaseSupplier->invoice_number_purchase : '' }}" readonly>
                         </div>
                         
+                        <div class="col-6 mb-2">
+                            <label for="code" class="form-label">Prefijo:</label>
+                            <input type="text" id="code" name="code" class="form-control" value="{{ isset($detailPurchase) && isset($detailPurchase->purchaseSupplier) ? $detailPurchase->purchaseSupplier->code : '' }}" readonly>
+                        </div>
                         
                         
                         
@@ -142,7 +144,7 @@
                                 <table id="tabla_detalle" class="table table-hover">
                                     <thead class="bg-primary">
                                         <tr>
-                                            <th class="text-white">#</th>
+                                           {{-- <th class="text-white">#</th>--}}
                                             <th class="text-white">Producto</th>
                                             <th class="text-white">Cantidad</th>
                                             <th class="text-white">Descripcion</th>
@@ -153,43 +155,45 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <th>{{ $detailPurchase->id }}</th>
-                                            <td>{{ $detailPurchase->product->name_product }}</td>
-                                            <td>{{ $detailPurchase->quantity_units }}</td>
-                                            <td>{{ $detailPurchase->description }}</td>
-                                            <td>{{ $detailPurchase->product_tax.'%' }}</td>
-                                            <td>{{ $detailPurchase->price_unit }}</td>
-                                            <td>{{ $detailPurchase->quantity_units * $detailPurchase->price_unit }}</td>
-                                        </tr>
-                                        
+                                        @foreach ($detailPurchases as $detailPurchase)
+                                            <tr class="detailPurchase">
+                                               {{-- <th>{{ $detailPurchase->id }}</th>--}}
+                                                <td>{{ $detailPurchase->product->name_product }}</td>
+                                                <td class="quantity_units">{{ $detailPurchase->quantity_units }}</td>
+                                                <td>{{ $detailPurchase->description }}</td>
+                                                <td class="product_tax">{{ round($detailPurchase->product_tax, 2).'%' }}</td>
+                                                <td class="price_unit">{{ round($detailPurchase->price_unit, 2) }}</td>
+                                                <td class="subtotal">{{ $detailPurchase->quantity_units * $detailPurchase->price_unit }}</td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
+                                    
                                     <tfoot>
                                         <tr>
                                             <th></th>
                                             <th colspan="4">Sumas</th>
-                                            <th colspan="2"><span id="sumas">{{ $detailPurchase->total_value }}</span></th>
+                                            <th colspan="2"><span id="sumas">0</span></th>
                                         </tr>
                                         <tr>
                                             <th></th>
                                             <th colspan="4">IGV %</th>
-                                            <th colspan="2"><span id="igv">{{ $detailPurchase->total_tax }}</span></th>
+                                            <th colspan="2"><span id="igv">0</span></th>
                                         </tr>
                                         <tr>
                                             <th></th>
                                             <th colspan="4">Total</th>
-                                            <th colspan="2"><span id="total">{{ $detailPurchase->total_value + $detailPurchase->total_tax }}</span></th>
+                                            <th colspan="2"><input type="hidden"name="total" value="0" id="inputTotal"><span id="total">0</span></th>
                                         </tr>
                                         <tr>
                                             <th></th>
                                             <th colspan="4">Total Bruto</th>
-                                            <th colspan="2"> <span id="totalBruto"><input type="hidden" name="gross_total" id="gross_total">
-                                                {{ $detailPurchase->gross_total }}</span></th>
+                                            <th colspan="2"><span id="totalBruto"> 
+                                                0</span></th>
                                         </tr>
                                         <tr>
                                             <th></th>
                                             <th colspan="4">Total Neto</th>
-                                            <th colspan="2"> <span id="totalNeto">{{ $detailPurchase->net_total }}</span></th>
+                                            <th colspan="2"> <span id="totalNeto">0</span></th>
                                         </tr>
                                     </tfoot>
                                     
@@ -214,15 +218,27 @@
                 <div class="p-3 border border-3 border-success">
                     <div class="row">
                         <!--Proveedor-->
-                        <div class="col-12 mb-2">
+                        <div class="col-6 mb-2">
                             <label for="people_id" class="form-label">Proveedor:</label>
                             <input type="text" id="people_id" name="people_id" class="form-control" value="{{ isset($detailPurchase) && isset($detailPurchase->purchaseSupplier) && isset($detailPurchase->purchaseSupplier->person) ? $detailPurchase->purchaseSupplier->person->first_name : '' }}" readonly>
                         </div>
                         
+                        <div class="col-6 mb-2">
+                            <label for="user_id" class="form-label">Empleado a cargo:</label>
+                            <input type="text" id="user_id" name="user_id" class="form-control" value="{{ isset($detailPurchase) && isset($detailPurchase->purchaseSupplier) && isset($detailPurchase->purchaseSupplier->user) ? $detailPurchase->purchaseSupplier->user->name : '' }}" readonly>
+                        </div>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         <div class="col-6 mb-2">
-                            <label for="discount_total" class="form-label">Descuento Total (%):</label>
+                            <label for="discount_total" class="form-label">Descuento Total :</label>
                             <input type="text" id="discount_total" name="discount_total" class="form-control" value="{{ isset($detailPurchase) ? $detailPurchase->discount_total : '' }}" readonly>
                             @error('discount_total')
                             <small class="text-danger">{{ '*'.$message }}</small>
@@ -292,6 +308,46 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"></script>
     {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script> --}}
+    <script>
+function round(num, decimales = 2) {
+    var signo = (num >= 0 ? 1 : -1);
+    num = num * signo;
+    if (decimales === 0) //con 0 decimales
+        return signo * Math.round(num);
+    // round(x * 10 ^ decimales)
+    num = num.toString().split('e');
+    num = Math.round(+(num[0] + 'e' + (num[1] ? (+num[1] + decimales) : decimales)));
+    // x * 10 ^ (-decimales)
+    num = num.toString().split('e');
+    return signo * (num[0] + 'e' + (num[1] ? (+num[1] - decimales) : -decimales));
+}
+
+$(document).ready(function() {
+    var sumas = 0;
+    var totalTax = 0;
+
+    $('.detailPurchase').each(function() {
+        var priceUnit = parseFloat($(this).find('.price_unit').text());
+        var quantityUnits = parseFloat($(this).find('.quantity_units').text());
+        var productTax = parseFloat($(this).find('.product_tax').text()) / 100;
+
+        var subtotal = round(priceUnit * quantityUnits);
+        $(this).find('.subtotal').text(subtotal);
+
+        sumas += subtotal;
+        totalTax += round(subtotal * productTax);
+    });
+
+    $('#sumas').text(round(sumas));
+    $('#igv').text(round(totalTax));
+
+    var total = round(sumas + totalTax);
+    $('#total').text(total);
+    $('#totalBruto').text(round(sumas));
+    $('#totalNeto').text(total);
+});
+
+    </script>
     <script>
     $(document).ready(function(){
     $('#btn_agregar').click(function(){

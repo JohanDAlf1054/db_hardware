@@ -42,5 +42,17 @@ class PurchaseSupplier extends Model
     {
         return $this->belongsTo('App\Models\Person', 'people_id');
     }
+    public function detailPurchases()
+{
+    return $this->hasMany(DetailPurchase::class, 'purchase_suppliers_id', 'id');
+}
+public function user()
+{
+    return $this->belongsTo(User::class, 'users_id');
+}
+
+
+
+
 
 }

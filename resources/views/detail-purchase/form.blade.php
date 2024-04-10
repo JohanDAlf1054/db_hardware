@@ -6,6 +6,7 @@
 {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"> --}}
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script> --}}
 </head>
 <body>
@@ -40,17 +41,17 @@
                         
                         <div class="col-6 mb-4">
                             <label for="producto_id" class="form-label">Producto:</label>
-                            <select name="producto_id" id="producto_id" class="form-control selectpicker" data-live-search="true" data-size="1" title="Busque un producto aquí">
-                                <option value="">Seleccionar un producto</option>
+                            <select name="producto_id" id="producto_id" class="form-control selectpicker {{ $errors->has('producto_id') ? ' is-invalid' : '' }}" data-live-search="true" data-size="1" title="Busque un producto aquí">
+                                <option value="">Seleccione un producto</option>
                                 @foreach ($products as $item)
-                                    <option value="{{$item->id}}" data-selling-price="{{$item->selling_price}}" data-classification-tax="{{$item->classification_tax}}">
+                                    <option value="{{$item->id}}" data-selling-price="{{$item->selling_price}}" data-classification-tax="{{$item->classification_tax}}" {{ old('producto_id') == $item->id ? 'selected' : '' }}>
                                         {{$item->name_product}}
                                     </option>
                                 @endforeach
                             </select>
-                            
-                            
+                            {!! $errors->first('producto_id', '<div class="invalid-feedback">:message</div>') !!}
                         </div>
+                        
                         
                         <div class="col-6 mb-2">
                             <label for="identification_type" class="form-label">Tipo de identificación:</label>
@@ -68,26 +69,25 @@
                             @enderror
                         </div>
                         
-                        <div class="col-6 mb-4">
+                      {{--<div class="col-6 mb-4">
                             <label for="fecha" class="form-label">Fecha de Compra:</label>
                             <input type="date" id="fecha" name="fecha" class="form-control" value="{{ old('date_purchase', isset($detailPurchase) ? $detailPurchase->date_purchase : '') }}">
                             @error('fecha')
                             <small class="text-danger">{{ '*'.$message }}</small>
                             @enderror
-                        </div>
+                        </div>--}}  
                         <div class="col-6 mb-4">
-                            <label for="factura" class="form-label">Número de factura</label>
-                            <select id="factura" name="factura" class="form-control" data-size="2" title="Busque un Numero De Factura aquí">
-                                <option value="">Seleccionar un Numero De Factura</option>
-                                @foreach ($purchase_suppliers as $purchaseSupplier)
-                                    @if (!empty($purchaseSupplier->invoice_number_purchase))
-                                        <option value="{{ $purchaseSupplier->invoice_number_purchase }}" data-date="{{ $purchaseSupplier->date_invoice_purchase }}">
-                                            {{ $purchaseSupplier->invoice_number_purchase }}
-                                        </option>
-                                    @endif
-                                @endforeach
-                            </select>                            
-                            @error('factura')
+                            <label for="invoice_number_purchase" class="form-label">Número de factura</label>
+                            <input type="text" id="invoice_number_purchase" name="invoice_number_purchase" class="form-control {{ $errors->has('invoice_number_purchase') ? ' is-invalid' : '' }}" placeholder="Ingrese el número de factura" value="{{ old('invoice_number_purchase', isset($purchaseSupplier) ? $purchaseSupplier->invoice_number_purchase : '') }}">
+                            @error('invoice_number_purchase')
+                            <small class="text-danger">{{ '*'.$message }}</small>
+                            @enderror
+                        </div>
+                        
+                        <div class="col-6 mb-2">
+                            <label for="code" class="form-label">Prefijo:</label>
+                            <input type="text" id="code" name="code" class="form-control {{ $errors->has('code') ? ' is-invalid' : '' }}" placeholder="Ingrese el prefijo" value="{{ old('code', isset($purchaseSupplier) ? $purchaseSupplier->code : '') }}">
+                            @error('code')
                             <small class="text-danger">{{ '*'.$message }}</small>
                             @enderror
                         </div>
@@ -106,16 +106,19 @@
                             @enderror
                         </div>
                         
+                        <br>
+                        
                         <div class="col-sm-4 mb-2">
                             <label for="cantidad" class="form-label">Cantidad:</label>
                             <input type="number" name="cantidad" id="cantidad" class="form-control">
                         </div>
+                        
 
                         <div class="col-sm-4 mb-2">
                             <label for="precio_compra" class="form-label">Precio de Unitario:</label>
                             <input type="number" name="precio_compra" id="precio_compra" class="form-control" step="0.1">
                         </div>
-
+                        
                         <div class="col-sm-4 mb-2">
                             <label for="precio_venta" class="form-label"> Descripcion:</label>
                             <input type="text" name="precio_venta" id="precio_venta" class="form-control" step="0.1">
@@ -127,7 +130,7 @@
                         
                         
                         
-                       
+                    
                     
                         <div class="col-12">
                             <div class="table-responsive">
@@ -170,12 +173,12 @@
                                         <tr>
                                             <th></th>
                                             <th colspan="4">Total</th>
-                                            <th colspan="2"><span id="total">0</span></th>
+                                            <th colspan="2"><input type="hidden"name="total" value="0" id="inputTotal"><span id="total">0</span></th>
                                         </tr>
                                         <tr>
                                             <th></th>
                                             <th colspan="4">Total Bruto</th>
-                                            <th colspan="2"> <span id="totalBruto"><input type="hidden" name="gross_total" id="gross_total">
+                                            <th colspan="2"><span id="totalBruto"> 
                                                 0</span></th>
                                         </tr>
                                         <tr>
@@ -205,7 +208,7 @@
                 <div class="p-3 border border-3 border-success">
                     <div class="row">
                         <!--Proveedor-->
-                        <div class="col-12 mb-2">
+                        <div class="col-6 mb-2">
                             <label for="people_id" class="form-label">Proveedor:</label>
                             <select name="people_id" id="people_id" class="form-control selectpicker show-tick" data-live-search="true" title="Selecciona" data-size='2'>
                             <option value="">Seleccione un Proveedor</option>
@@ -220,8 +223,25 @@
                             <small class="text-danger">{{ '*'.$message }}</small>
                             @enderror
                         </div>
+                    
                         <div class="col-6 mb-2">
-                            <label for="discount_total" class="form-label">Descuento Total (%):</label>
+                            <label for="user_id" class="form-label">Usuario:</label>
+                            <select name="user_id" id="user_id" class="form-control selectpicker show-tick" data-live-search="true" title="Selecciona" data-size='2'>
+                                <option value="">Seleccione un Usuario</option>
+                                @foreach ($users as $user)
+                                    <option value="{{$user->id}}">
+                                        {{$user->name}}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('user_id')
+                                <small class="text-danger">{{ '*'.$message }}</small>
+                            @enderror
+                        </div>
+                        
+                        
+                        <div class="col-6 mb-2">
+                            <label for="discount_total" class="form-label">Descuento Total</label>
                             <input type="number" id="discount_total" name="discount_total" min="0" max="100" step="1" class="form-control" placeholder="Ingrese el porcentaje de descuento" oninput="this.value = Math.round(this.value)" value="{{ old('discount_total', isset($detailPurchase) ? $detailPurchase->discount_total : '') }}">
                             @error('discount_total')
                             <small class="text-danger">{{ '*'.$message }}</small>
@@ -235,7 +255,7 @@
                                 <div class="col-6 mb-2">
                                 
                                     <label for="form_of_payment" class="form-label">Formas de pago:</label>
-                                    <select id="form_of_payment" name="form_of_payment" class="form-control" onchange="checkPaymentMethod(this)">
+                                    <select id="form_of_payment" name="form_of_payment" class="form-control">
                                         <option value="">Seleccionar forma de pago</option>
                                         <option value="tarjeta" {{ old('form_of_payment', isset($detailPurchase) ? $detailPurchase->form_of_payment : '') == 'tarjeta' ? 'selected' : '' }}>Tarjeta</option>
                                         <option value="efectivo" {{ old('form_of_payment', isset($detailPurchase) ? $detailPurchase->form_of_payment : '') == 'efectivo' ? 'selected' : '' }}>Efectivo</option>
@@ -293,44 +313,89 @@
         {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js"></script> --}}
         
         <script>
-        $(document).ready(function(){
-        $('#btn_agregar').click(function(){
-            agregarProducto();
+            $(document).ready(function(){
+    $('#btn_agregar').click(function(){
+        agregarProducto();
+    });
+    $('#btnCancelarCompra').click(function() {
+            cancelarCompra();
         });
-        });
-        let cont=0;
-        let subtotal=[];
-        let sumas=0;
-        let igv=0;
-        let total=0;
-        let totalBruto=0;
-        let totalNeto = 0; 
+        //disableButtons();
+});
 
-        function agregarProducto(){
-            let idProducto = $('#producto_id').val();
-            let nameProducto = $('#producto_id option:selected').text();
-            let cantidad=$('#cantidad').val();
-            let descripcion=$('#precio_venta').val();
-            let impuesto=$('#product_tax').val();
-            let precioCompra=$('#precio_compra').val();
+let cont=0;
+let subtotal=[];
+let sumas=0;
+let igv=0;
+let total=0;
+let totalBruto=0;
+let totalNeto = 0; 
+function cancelarCompra() {
+        //Elimar el tbody de la tabla
+        $('#tabla_detalle tbody').empty();
+        //Añadir una nueva fila a la tabla
+        let fila = '<tr>' +
+            '<th></th>' +
+            '<td></td>' +
+            '<td></td>' +
+            '<td></td>' +
+            '<td></td>' +
+            '<td></td>' +
+            '<td></td>' +
+            '</tr>';
+        $('#tabla_detalle').append(fila);
+cont=0;
+subtotal=[];
+sumas=0;
+igv=0;
+total=0;
+totalBruto=0;
+totalNeto = 0; 
+
+$('#sumas').html(sumas);
+    $('#igv').html(igv);
+    $('#total').html(total);
+    $('#totalBruto').html(totalBruto);
+    $('#totalNeto').html(totalNeto);
+    $('#inputTotal').val(total);
+limpiarCampos();
+//disableButtons();
+}
+
+
+
+function agregarProducto(){
+    let idProducto = $('#producto_id').val();
+    let nameProducto = $('#producto_id option:selected').text();
+    let cantidad=$('#cantidad').val();
+    let descripcion=$('#precio_venta').val();
+    let impuesto=$('#product_tax').val();
+    let precioCompra=$('#precio_compra').val();
+
+    if (idProducto == '' || idProducto == undefined || nameProducto == '' || nameProducto == undefined || cantidad == '' || cantidad == undefined || descripcion == '' || descripcion == undefined || impuesto == '' || impuesto == undefined || precioCompra == '' || precioCompra == undefined) {
+        showModal('Le faltan campos por llenar');
+    } else if (!(parseInt(cantidad) > 0 && (cantidad % 1 == 0) && parseFloat(precioCompra) > 0)) {
+        showModal('Valores incorrectos');
+    } else {
         //calcular valores
-        subtotal[cont] = cantidad * precioCompra;
+        subtotal[cont] = round (cantidad * precioCompra);
         sumas += subtotal[cont]; 
-        igv = sumas * impuesto / 100; 
-        total = sumas + igv; 
-        totalBruto = sumas; 
+        igv = round (sumas * impuesto / 100); 
+        total = round(sumas + igv); 
+        totalBruto = round (sumas); 
         totalNeto = total; 
         $('#gross_total').val(totalBruto);
-        let fila='<tr>'+
-        '<th>'+ (cont+1) +'</th>'+
-        '<td>'+ nameProducto +'</td>'+
-        '<td>'+ cantidad +'</td>'+
-        '<td>'+ descripcion +'</td>'+
-        '<td>'+ impuesto +'</td>'+
-        '<td>'+ precioCompra +'</td>'+
-        '<td>'+ subtotal[cont] +'</td>'+
 
-        '</tr>';
+        let fila = '<tr id="fila' + cont + '">' +
+    '<th>' + (cont+1) + '</th>' +
+    '<td><input type="hidden" name="arrayidproducto[]" value="' + idProducto + '">' + nameProducto + '</td>' +
+    '<td><input type="hidden" name="arraycantidad[]" value="' + cantidad + '">' + cantidad + '</td>' +
+     '<td><input type="hidden" name="arrayprecioventa[]" value="' + descripcion + '">' + descripcion + '</td>' +
+    '<td><input type="hidden" name="arrayimpuesto[]" value="' + impuesto + '">' + impuesto + '</td>' +
+    '<td><input type="hidden" name="arraypreciocompra[]" value="' + precioCompra + '">' + precioCompra + '</td>' +
+    '<td>' + subtotal[cont] + '</td>' +
+    '<td><button class="btn btn-danger" type="button" onClick="eliminarProducto(' + cont + ', ' + impuesto + ')"><i class="fa-solid fa-trash"></i></button></td>' +
+    '</tr>';
         $('#tabla_detalle').append(fila);
         limpiarCampos();
         cont++;
@@ -339,22 +404,73 @@
         $('#total').html(total);
         $('#totalBruto').html(totalBruto);
         $('#totalNeto').html(totalNeto);
-        }
-        function limpiarCampos(){
-            //let select=$('#producto_id');
-            //select.val(''); // Restablece el valor a vacío
-            //$('#cantidad').val('');
-            //$('#precio_venta').val('');
-            //$('#precio_compra').val('');
-        }
+        $('#inputTotal').val(total);
+    }
+}
+
+function eliminarProducto(indice, impuesto) {
+    sumas -= round(subtotal[indice]);
+    igv = round(sumas / 100 * impuesto);
+    total = round(sumas + igv);
+    totalBruto = round(sumas);
+    totalNeto = total;
+
+    //Mostrar los campos calculados
+    $('#sumas').html(sumas);
+    $('#igv').html(igv);
+    $('#total').html(total);
+    $('#totalBruto').html(totalBruto);
+    $('#totalNeto').html(totalNeto);
+    $('#inputTotal').val(total);
+    //Eliminar el fila de la tabla
+    $('#fila'+indice).remove();
+}
+
+    function limpiarCampos(){
+        //let select=$('#producto_id');
+        //select.val(''); // Restablece el valor a vacío
+        //$('#cantidad').val('');
+        //$('#precio_venta').val('');
+        //$('#precio_compra').val('');
+    }
+    function round(num, decimales = 2) {
+        var signo = (num >= 0 ? 1 : -1);
+        num = num * signo;
+        if (decimales === 0) //con 0 decimales
+            return signo * Math.round(num);
+        // round(x * 10 ^ decimales)
+        num = num.toString().split('e');
+        num = Math.round(+(num[0] + 'e' + (num[1] ? (+num[1] + decimales) : decimales)));
+        // x * 10 ^ (-decimales)
+        num = num.toString().split('e');
+        return signo * (num[0] + 'e' + (num[1] ? (+num[1] - decimales) : -decimales));
+    }
+    function showModal(message, icon = 'error') {
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
+
+        Toast.fire({
+            icon: icon,
+            title: message
+        })
+    }
         </script>
-        <script>
+     {{-- /*   <script>
             document.getElementById('factura').addEventListener('change', function() {
             var selectedOption = this.options[this.selectedIndex];
             var date = selectedOption.getAttribute('data-date');
             document.getElementById('fecha').value = date;
             });
-        </script>
+        </script>--}}
         <script>
             document.getElementById('people_id').addEventListener('change', function() {
             var selectedOption = this.options[this.selectedIndex];
@@ -368,14 +484,14 @@
         document.getElementById('producto_id').addEventListener('change', function() {
             var selectedOption = this.options[this.selectedIndex];
             var sellingPrice = selectedOption.getAttribute('data-selling-price');
-            var classificationTax = selectedOption.getAttribute('data-classification-tax');
+           // var classificationTax = selectedOption.getAttribute('data-classification-tax');
             
             // Si classificationTax es nulo o vacío, establecerlo en 0
-            if (classificationTax === null || classificationTax === '') {
-                classificationTax = 0;
-            }
+           // if (classificationTax === null || classificationTax === '') {
+             //   classificationTax = 0;
+            
             document.getElementById('precio_compra').value = sellingPrice;
-            document.getElementById('product_tax').value = classificationTax;
+           // document.getElementById('product_tax').value = classificationTax;
             });
         </script>
     @endauth

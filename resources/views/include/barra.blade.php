@@ -45,12 +45,13 @@
                         </div>
                     </a>
 
-                    <a href="{{route('purchase_supplier.index') }}" class="{{ request()->route()->named('purchase_supplier.index') ? 'selected' : '' }}">
+                    <a href="{{ route('detail-purchases.index') }}" class="{{ request()->route()->named('detail-purchases.index') ? 'selected' : '' }}">
                         <div class="option">
                             <i class='bx bxs-dollar-circle' title="compras" ></i>
                             <h4>Compras</h4>
                         </div>
                     </a>
+                    
 
                     <a href="{{ route('person.index')}}" class="{{ request()->route()->named('person.index') ? 'selected' : '' }}">
                         <div class="option">
