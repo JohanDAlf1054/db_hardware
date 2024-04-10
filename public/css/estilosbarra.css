@@ -142,10 +142,10 @@ a.selected {
     font-size: 1.2rem;
     margin-bottom: -1px;
 }
- 
+
 .online{
     width: 100%;
-    border-bottom: 2px solid white; 
+    border-bottom: 2px solid white;
     border-bottom-left-radius: 5px;
     border-end-end-radius: 5px ;
     margin-bottom: 1px;
@@ -170,5 +170,9 @@ a.selected {
         width: 80px;
         left: -80px;
     }
-    
+
+}
+/* Separador para la vista de roles */
+.separador_usuarios{
+    padding-top: 2rem;
 }
