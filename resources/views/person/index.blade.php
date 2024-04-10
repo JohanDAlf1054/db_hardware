@@ -86,6 +86,7 @@
                                             <th>Otro nombre</th>
                                             <th>Apellido</th>
                                             <th>Segundo apellido</th>
+                                            <th>Nombre comercial</th>
                                             <th>Correo electrónico</th>
                                             <th>Ciudad</th>
                                             <th>Dirección</th>
@@ -106,6 +107,7 @@
                                                 <td>{{ $person->other_name }}</td>
                                                 <td>{{ $person->surname }}</td>
                                                 <td>{{ $person->second_surname }}</td>
+                                                <td>{{ $person->comercial_name }}</td>
                                                 <td>{{ $person->email_address }}</td>
                                                 <td>{{ $person->city }}</td>
                                                 <td>{{ $person->address }}</td>

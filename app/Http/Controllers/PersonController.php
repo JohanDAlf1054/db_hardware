@@ -181,7 +181,36 @@ class PersonController extends Controller
             'autoCierre' => 'true'
         ]);
 
-        return redirect()->route('person.index');
+        // Obtener el tipo de tercero seleccionado
+        $tipo_tercero = $request->input('rol');
+
+        // Redireccionar al índice correspondiente
+        if ($tipo_tercero === 'Cliente') {
+            return redirect()->route('customer.index');
+            Session::flash('notificacion', [
+                'tipo' => 'exito',
+                'titulo' => 'Éxito!',
+                'descripcion' => 'La persona se ha creado exitosamente.',
+                'autoCierre' => 'true'
+            ]);
+        } elseif ($tipo_tercero === 'Proveedor') {
+            return redirect()->route('supplier.index');
+            Session::flash('notificacion', [
+                'tipo' => 'exito',
+                'titulo' => 'Éxito!',
+                'descripcion' => 'La persona se ha creado exitosamente.',
+                'autoCierre' => 'true'
+            ]);
+        } else {
+            return redirect()->route('person.index');
+            Session::flash('notificacion', [
+                'tipo' => 'exito',
+                'titulo' => 'Éxito!',
+                'descripcion' => 'La persona se ha creado exitosamente.',
+                'autoCierre' => 'true'
+            ]);
+        }
+        
     }
 
     /**
