@@ -1,43 +1,59 @@
 @auth
     @include('include.barra', ['modo'=>'Permiso de usuarios'])
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="card">
-                    <div class="card-header">
-                    </div>
-                    <div class="container_datos">
-                        <div class="card">
-                            @if(session('info'))
-                                <div class="alert alert-success">
-                                    <strong>{{session('info')}}</strong>
-                                </div>
-                            @endif
-                            <div class="card-body">
-                                Asiganr un rol
-                                <p class="h5">Nombre:</p>
-                                <p class="form-control">{{$usuario->name}}</p>
-                                <h2 class="h5"> Listado de roles</h2>
-                                {!! Form::model($usuario, ['route' => ['admin.usuarios.update', $usuario->id], 'method' => 'put']) !!}
-                                    @foreach ($roles as $role )
-                                        <div>
-                                            <label>
-                                                {!! Form::checkbox('roles[]', $role->id, null, ['class' => 'mr-1']) !!}
-                                                {{$role->name}}
-                                            </label>
-                                        </div>
-                                    @endforeach
 
-                                    {!! Form::submit('Asignar rol', ['class' => 'btn btn-primary mt-2']) !!}
-
-                                {!! Form::close() !!}
+<div class="separador_usuarios">
+<div class="content container-fluid">
+    <div class="page-body">
+        <div class="container-x1">
+            <div class="row row-cards">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card card-default">
+                            <div class="card-header" style="display: flex">
+                                <h3 class="card-title">
+                                    Roles
+                                </h3>
                             </div>
                         </div>
+                        {!! Form::model($usuario, ['route' => ['admin.usuarios.update', $usuario->id], 'method' => 'put']) !!}
+                        <div class="card-body">
+                            <div class="row row-cards">
+
+                                <div class="col-sm-6 md-6">
+                                    <div class="md-3" style="margin-bottom: 16px">
+                                        <label class="form-label" style="font-weight: bolder">
+                                            Usuario:
+                                        </label>
+                                        <p class="form-control">{{$usuario->name}}</p>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 md-6">
+                                    <div class="md-3">
+                                        <label class="form-label" style="font-weight: bolder">
+                                            Roles:
+                                        </label>
+                                        <div>
+                                            @foreach ($roles as $role )
+                                                    {!! Form::checkbox('roles[]', $role->id, null, ['class' => 'mr-1']) !!}
+                                                    {{$role->name}}
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {!! Form::close() !!}
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
+<div class="card-footer text-end container_botones">
+    <a class="btn btn-primary caja_subir" style="margin-right: 5rem" href="{{ route('admin.usuarios.index') }}">Regresar</a>
+    {!! Form::submit('Asignar rol', ['class' => 'btn btn-success']) !!}
+</div>
+</div>
 @endauth
 @guest
     @include('include.falta_sesion')

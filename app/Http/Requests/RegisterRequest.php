@@ -32,4 +32,19 @@ class RegisterRequest extends FormRequest
             'password' => 'required|min:8'
         ];
     }
+    //Funcion para los mensajes de validacion. 
+    public function messages()
+    {
+        return [
+            'name.required' => 'El campo nombre es obligatorio.',
+            'email.required' => 'El campo correo electrónico es obligatorio.',
+            'email.unique' => 'El correo electrónico ya está registrado.',
+            'phone_number.required' => 'El campo número de teléfono es obligatorio.',
+            'document_type.required' => 'El campo tipo de documento es obligatorio.',
+            'identification_number.required' => 'El campo número de identificación es obligatorio.',
+            'identification_number.unique' => 'El número de identificación ya está registrado.',
+            'password.required' => 'El campo contraseña es obligatorio.',
+            'password.min' => 'La contraseña debe tener al menos :min caracteres.'
+        ];
+    }
 }

@@ -6,6 +6,8 @@
         <!-- <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet"/> -->
         <script src="https://kit.fontawesome.com/7604ee3851.js" crossorigin="anonymous"></script>
         <link href="css/estilos_inicio_sesion.css" rel="stylesheet" />
+        <link href="css/estilos_notificacion_login.css" rel="stylesheet" />
+        <script src="{{ asset('js/notificaciones.js')}}" defer></script>
 
         <title>ToryTech</title>
     </head>
@@ -30,31 +32,12 @@
             </div>
         </div>
 
-
         <div class="contenedor_login-registro">
             <!-- Formulario para el login del usuario -->
             <form action="/login" method="POST" class="formulario_login" id="formulario">
             @csrf
             <h2>Iniciar sesion</h2>
             <hr />
-
-            <!-- Div para el error de email. -->
-            <div>
-                <div class="aparecer_desaparecer error_email" id="error_email">
-                    @error('name')
-                        {{ $message }}
-                    @enderror
-                </div>
-            </div>
-
-            <!-- Div para el error de contraseña -->
-            <div>
-                <div class="aparecer_desaparecer error_password" id="error_password">
-                    @error('password')
-                        {{ $message }}
-                    @enderror
-                </div>
-            </div>
 
             <!-- Grupo para el input de usuario -->
             <div class="formulario__grupo" id="grupo__name">
@@ -204,5 +187,43 @@
         </div>
     </main>
     <script src="js/script_inicio_sesion.js"></script>
+    @if ($errors->any())
+
+    <div class="contenedor-notificacion" id="contenedor-notificacion">
+        <div class="notificacion error" id="1">
+            <div class="contenido">
+                <div class="icono">
+                    <svg
+						xmlns="http://www.w3.org/2000/svg"
+						fill="currentColor"
+						viewBox="0 0 16 16">
+						<path d="M11.46.146A.5.5 0 0 0 11.107 0H4.893a.5.5 0 0 0-.353.146L.146 4.54A.5.5 0 0 0 0 4.893v6.214a.5.5 0 0 0 .146.353l4.394 4.394a.5.5 0 0 0 .353.146h6.214a.5.5 0 0 0 .353-.146l4.394-4.394a.5.5 0 0 0 .146-.353V4.893a.5.5 0 0 0-.146-.353zM8 4c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995A.905.905 0 0 1 8 4m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+					</svg>
+                </div>
+                <div class="texto">
+                    <p class="titulo">Error!</p>
+                    <p class="descripcion">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                {{$error}}
+                                @endforeach
+                            </ul>
+                    </p>
+                </div>
+            </div>
+            <button class="boton-cerrar">
+                <div class="icono">
+                    <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="currentColor"
+                    viewBox="0 0 16 16">
+                        <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708"/>
+                    </svg>
+                </div>
+            </button>
+        </div>
+    </div>
+
+    @endif
     </body>
 </html>
