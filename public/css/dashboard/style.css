@@ -31,7 +31,7 @@
     --box-shadow: 0 2rem 3rem var(--color-light);
 }
 
-/* *{
+*{
     margin: 0;
     padding: 0;
     outline: 0;
@@ -39,11 +39,7 @@
     border: 0;
     text-decoration: none;
     box-sizing: border-box;
-} */
-
-/* html{
-    font-size: 14px;
-} */
+}
 
 body{
     width: 100vw;
@@ -71,7 +67,7 @@ img{
     font-size: 1.8rem;
 } */
 
-h2{
+/* h2{
     font-weight: 600;
     font-size: 1.4rem;
 }
@@ -91,7 +87,7 @@ p{
 
 b{
     color: var(--color-dark);
-}
+} */
 
 .text-muted{
     color: var(--color-info-dark);
@@ -360,7 +356,7 @@ main .recent-orders a{
 .right-section .user-profile img{
     width: 11rem;
     height: 11rem;
-    margin: 0.8rem 4rem;
+    margin: 0.8rem 25%;
     border-radius: 50%;
     
 }
@@ -448,7 +444,7 @@ main .recent-orders a{
 @media screen and (max-width: 1200px) {
     .container{
         width: 95%;
-        grid-template-columns: auto auto ;
+        grid-template-columns: auto auto;
     }
 
 
@@ -462,15 +458,15 @@ main .recent-orders a{
     }
 
     main .recent-orders {
-        width: 94%;
+        width: 60%;
         position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
+        /* right: 10%; */
+        /* transform: translateX(-50%); */
         margin: 2rem 0 0 0.8rem;
     }
 
     main .recent-orders table{
-        width: 83vw;
+        width: 65vw;
     }
 
     main table thead tr th:last-child,
@@ -483,21 +479,26 @@ main .recent-orders a{
         display: none;
     }
 
+    .right-section{
+        width: 95%;
+    }
+
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 800px) {
     .container{
         width: 100%;
         grid-template-columns: 1fr;
-        padding: 0 var(--padding-1);
+        padding: 0 2rem;
+
     }
 
 
-    @keyframes showMenu {
+    /* @keyframes showMenu {
        to{
         left: 0;
        } 
-    }
+    } */
 
     main{
         margin-top: 8rem;
@@ -521,44 +522,12 @@ main .recent-orders a{
 
     .right-section{
         width: 94%;
-        margin: 0 1.5rem;
+        padding: 0 1rem;
     }
     
-    .right-section .nav{
-        position: fixed;
-        top: 0;
-        left: 0;
-        align-items: center;
-        background-color: var(--color-white);
-        padding: 0 var(--padding-1);
-        height: 4.6rem;
-        width: 100%;
-        z-index: 2;
-        box-shadow: 0 1rem 1rem var(--color-light);
-        margin: 0;
-    }
-
-    .right-section .nav .dark-mode{
-        width: 4.4rem;
-        position: absolute;
-        left: 66%;
-    }
-
     .right-section .profile .info{
         display: none;
     }
 
-    .right-section .nav button{
-        display: inline-block;
-        background-color: transparent;
-        cursor: pointer;
-        color: var(--color-dark);
-        position: absolute;
-        left: 1rem;
-    }
-
-    .right-section .nav button span{
-        font-size: 2rem;
-    }
 
 }

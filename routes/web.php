@@ -95,3 +95,4 @@ Route::post('/importCategory',[CategoryProductController::class, 'importCategory
 //Funcion Export Informes
 Route::get('export_index', [ExportController::class, 'index_informes'])->name('index_informes');
 Route::get('/export', [ExportController::class, 'export'])->name('export');
+Route::get('/report', [ExportController::class,'report'])->name('report');
