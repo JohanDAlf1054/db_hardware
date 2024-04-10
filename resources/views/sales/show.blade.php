@@ -2,11 +2,20 @@
 
 @section('title','Ver venta')
 
-
 @section('content')
 
+@push('css')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+@endpush
 <div class="container-fluid">
+        <div class="col-sm-6">
+            <div class="input-group">
+                <input type="hidden"   id="input-impuesto" disabled type="text" class="form-control" value="{{ $sale->taxes_total }}">
+            </div>
 
+        </div>
+    </div>
+</div>
     <!---Tabla--->
     <div class="card mb-2">
         <div class="card-header">
@@ -26,7 +35,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($venta->productos as $item)
+                    @foreach ($sale->productos as $item)
                     <tr>
                         <td>
                             {{$item->name_product}}
@@ -39,6 +48,9 @@
                         </td>
                         <td>
                             {{$item->pivot->discounts}}
+                        </td>
+                        <td>
+                            {{$item->pivot->tax}}
                         </td>
                         <td class="td-subtotal">
                             {{($item->pivot->amount) * ($item->pivot->selling_price) - ($item->pivot->discounts)}}

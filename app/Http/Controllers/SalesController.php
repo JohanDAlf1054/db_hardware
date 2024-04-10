@@ -88,9 +88,9 @@ class SalesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Sale $venta)
+    public function show(Sale $sale)
     {
-        return view('sales.show',compact('venta'));
+        return view('sales.show',compact('sale'));
     }
 
     /**
@@ -114,11 +114,5 @@ class SalesController extends Controller
      */
     public function destroy(string $id)
     {
-       Sale::where('id',$id)
-        ->update([
-            'estado' => 0
-        ]);
-
-        return redirect()->route('ventas.index')->with('success','Venta eliminada');
     }
 }
