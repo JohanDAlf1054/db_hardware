@@ -17,9 +17,12 @@
                     <span class="visually-hidden">Acciones</span>
                 {{-- <div style="display: flex; justify-content: space-between; align-items: center;"> --}}
                 </button>
-                <ul class="dropdown-menu dropdown-menu-end">    
+                <ul class="dropdown-menu dropdown-menu-end">  
                     <li>
-                        <a class="dropdown-item" href="{{ route('detail-purchases.create') }}">Crear Compra</a>
+                        <a class="dropdown-item" href="{{ route('purchase_supplier.index') }}">Mostrar Compras</a>
+                    </li>  
+                    <li>
+                        <a class="dropdown-item" href="{{ route('detail-purchases.create') }}">Crear Detalle Compra</a>
                     </li>
                   {{--   <li>
                         <a class="dropdown-item" href="{{ route('purchase_supplier.index') }}">Mostrar Compras a Proveedores</a>

@@ -17,9 +17,9 @@
                         {{-- <div style="display: flex; justify-content: space-between; align-items: center;"> --}}
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end">    
-                            <li>
+                            {{-- <li>
                                 <a class="dropdown-item" href="{{ route('purchase_supplier.create') }}">Crear Compra A Proveedor</a>
-                            </li>
+                            </li> --}}
                             <li>
                                 <a class="dropdown-item" href="{{ route('detail-purchases.index') }}">Mostrar Detalles De Compras</a>
                             </li>
