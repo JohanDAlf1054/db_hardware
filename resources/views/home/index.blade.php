@@ -120,21 +120,6 @@
                 </div>
                 <!-- End of Analyses -->
 
-<<<<<<< HEAD
-            <ul id="settings-menu" style="display: none;">
-                <li><a href="#">Cerrar sesión</a></li>
-                <li><a href="#">Salir</a></li>
-            </ul>
-            <div class="cerrar_sesion">
-                <a href="/logout">
-                    Cerrar sesion
-                    <i class="fa-solid fa-door-open"></i>
-                </a>
-                <p>Texto publico</p>
-                
-            </div>
-        </header>
-=======
                 <!-- New Users Section -->
                 {{-- <div class="new-users">
                     <h2>Nuevos Usuarios</h2>
@@ -162,7 +147,6 @@
                     </div>
                 </div> --}}
                 <!-- End of New Users Section -->
->>>>>>> master
 
                 <!-- Recent Orders Table -->
                 <div class="recent-orders">
