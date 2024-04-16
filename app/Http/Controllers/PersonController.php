@@ -63,27 +63,25 @@ class PersonController extends Controller
         $rules = Person::staticRules($request->all());
 
         //Validacion de acuerdo a la seleccion de Persona natural o juridica
-
-        if($request->input('person_type') === 'Persona natural'){
-            $rules['first_name'] = 'required|string';
-            $rules['other_name'] = 'nullable|string';
-            $rules['surname'] = 'required|string';
-            $rules['second_surname'] = 'nullable|string';
-            $rules['company_name'] = 'nullable|string';
-        }elseif($request->input('person_type') === 'Persona jurídica'){
-            $rules['company_name'] = 'required|string';
-            $rules['first_name'] = 'nullable|string';
-            $rules['other_name'] = 'nullable|string';
-            $rules['surname'] = 'nullable|string';
-            $rules['second_surname'] = 'nullable|string';
+        if ($request->input('person_type') === 'Persona natural') {
+            // Hacer que los campos relacionados con la persona jurídica sean opcionales
+            unset($rules['company_name']);
+        } elseif ($request->input('person_type') === 'Persona jurídica') {
+            // Hacer que los campos relacionados con la persona natural sean opcionales
+            unset($rules['first_name']);
+            unset($rules['other_name']);
+            unset($rules['surname']);
+            unset($rules['second_surname']);
         }
 
         $request->validate($rules);
 
-        //Crear validación adicional para evitar la repetición de company_name
-        $existingCompanyNames = Person::where('company_name', $request->input('company_name'))->count();
-        if ($existingCompanyNames > 0) {
-            return redirect()->back()->withInput()->withErrors(['company_name' => 'El nombre de la compañía ya está en uso.']);
+        // Crear validación adicional para evitar la repetición de company_name
+        if ($request->input('person_type') === 'Persona jurídica') {
+            $existingCompanyNames = Person::where('company_name', $request->input('company_name'))->count();
+            if ($existingCompanyNames > 0) {
+                return redirect()->back()->withInput()->withErrors(['company_name' => 'El nombre de la compañía ya está en uso.']);
+            }
         }
 
         $person = Person::create($request->all());
@@ -100,30 +98,13 @@ class PersonController extends Controller
         // Redireccionar al índice correspondiente
         if ($tipo_tercero === 'Cliente') {
             return redirect()->route('customer.index');
-            Session::flash('notificacion', [
-                'tipo' => 'exito',
-                'titulo' => 'Éxito!',
-                'descripcion' => 'La persona se ha creado exitosamente.',
-                'autoCierre' => 'true'
-            ]);
         } elseif ($tipo_tercero === 'Proveedor') {
             return redirect()->route('supplier.index');
-            Session::flash('notificacion', [
-                'tipo' => 'exito',
-                'titulo' => 'Éxito!',
-                'descripcion' => 'La persona se ha creado exitosamente.',
-                'autoCierre' => 'true'
-            ]);
         } else {
             return redirect()->route('person.index');
-            Session::flash('notificacion', [
-                'tipo' => 'exito',
-                'titulo' => 'Éxito!',
-                'descripcion' => 'La persona se ha creado exitosamente.',
-                'autoCierre' => 'true'
-            ]);
         }
     }
+
 
     /**
      * Display the specified resource.
