@@ -46,12 +46,13 @@
                         </div>
                     </a>
 
-                    <a href="#">
+                    <a href="{{ route('purchase_supplier.index') }}" class="{{ request()->route()->named('purchase_supplier.index') ? 'selected' : '' }}">
                         <div class="option">
                             <i class='bx bxs-dollar-circle' title="compras" ></i>
                             <h4>Compras</h4>
                         </div>
                     </a>
+                    
 
                     <a href="{{ route('person.index')}}" class="{{ request()->route()->named('person.index') ? 'selected' : '' }}">
                         <div class="option">
@@ -90,7 +91,7 @@
 
                     @endcan
 
-                    <a href="">
+                    <a href="#">
                         <div class="option">
                             <i class="fa-solid fa-gear"></i>
                             <h4>Configuración</h4>

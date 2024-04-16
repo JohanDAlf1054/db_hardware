@@ -17,6 +17,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\PurchaseSupplierController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UsuariosController;
 use App\Http\Controllers\CreditNoteSalesController;
@@ -97,4 +98,9 @@ Route::post('/importCategory',[CategoryProductController::class, 'importCategory
 //Funcion Export Informes
 Route::get('export_index', [ExportController::class, 'index_informes'])->name('index_informes');
 Route::get('/export', [ExportController::class, 'export'])->name('export');
-Route::get('/report', [ExportController::class,'report'])->name('report');
+
+//Funciones De Compras
+Route::resource('purchase_supplier', App\Http\Controllers\PurchaseSupplierController::class);
+Route::resource('detail-purchases', App\Http\Controllers\DetailPurchaseController::class);
+Route::resource('debit-note-supplier', App\Http\Controllers\DebitNoteSupplierController::class);
+Route::post('/guardar-datos', 'DatosController@guardarDatos');
