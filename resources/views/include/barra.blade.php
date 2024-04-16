@@ -90,7 +90,7 @@
 
                     @endcan
 
-                    <a href="">
+                    <a href="#">
                         <div class="option">
                             <i class="fa-solid fa-gear"></i>
                             <h4>Configuración</h4>

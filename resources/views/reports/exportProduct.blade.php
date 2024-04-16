@@ -1,3 +1,5 @@
+@auth
+
 <table class="table table-striped table-hover" style="justify-content: center">
     <thead class="table-dark">
         <tr style="text-align: center">
@@ -28,3 +30,7 @@
         @endforeach
     </tbody>
 </table>
+@endauth
+@guest
+    @include('include.falta_sesion')
+@endguest

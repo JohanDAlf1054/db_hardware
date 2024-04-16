@@ -97,9 +97,6 @@ a {
 }
 /* Estilos para el div endgued */
 .div-endguest{
-    border:1px solid black;
-    border-radius: 30px;
-    background-color: #C7C6C5;
     width: 70%;
     height: 8rem;
     margin: auto;
@@ -108,9 +105,16 @@ a {
     padding-top: 3%;
     font-size: 25px;
 }
-.div-endguest a{
+.boton_inicio_sesion{
     color: white;
-    text-decoration: underline;
-    font-weight: bolder;
-
+    background-color: #004080;
+    text-decoration: none;
+    width: 15rem;
+    margin: auto;
+    margin-top: 1rem;
+    border: 2px solid black;
+    border-radius: 10px;
+}
+.boton_inicio_sesion a{
+    color: white;
 }
