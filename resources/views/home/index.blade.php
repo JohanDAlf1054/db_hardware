@@ -287,6 +287,45 @@
                     </div>
 
                 </div>
+<<<<<<< HEAD
+=======
+                    </a>
+
+                <a href="{{ route('products.index') }}">
+                    <div class="option">
+                        <i class="bx bxs-package" title="Productos"></i>
+                        <h4>Productos</a></h4>
+                    </div>
+                </a>
+
+                <a href="{{ route('purchase_supplier.index') }}">
+                    <div class="option">
+                    <i class='bx bxs-dollar-circle'></i>
+                   <h4>  Compras </h4>
+                    </div>
+                </a>
+
+                <a href="{{ route('person.index')}}">
+                    <div class="option">
+                        <i class="bx bxs-user-detail" title="usuarios"></i>
+                        <h4>Usuarios</h4>
+                    </div>
+                </a>
+
+                <a href="{{route('sales.index')}}">
+                    <div class="option">
+                        <i class="bx bxs-business" title="ventas"></i>
+                        <h4>Ventas</h4>
+                    </div>
+                </a>
+
+                <a href="{{route('index_informes')}}">
+                    <div class="option">
+                        <i class="bx bxs-notepad" title="Informes"></i>
+                        <h4>Informes</h4>
+                    </div>
+                </a>
+>>>>>>> Cristian
             </div>
         </div>
         <script src="{{asset('js/orders.js')}}"></script>
