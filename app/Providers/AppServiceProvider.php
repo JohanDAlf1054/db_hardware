@@ -3,11 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-<<<<<<< HEAD
 use Illuminate\Support\Facades\Validator;
-=======
-use Illuminate\Pagination\Paginator;
->>>>>>> Cristian
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,12 +20,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-<<<<<<< HEAD
         Validator::extend('greater_than_zero', function ($attribute, $value, $parameters, $validator) {
             return $value > 0;
         });
-=======
-        Paginator::useBootstrap();
->>>>>>> Cristian
     }
 }
