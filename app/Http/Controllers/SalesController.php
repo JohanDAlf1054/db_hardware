@@ -15,11 +15,33 @@ class SalesController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $ventas = Sale::all();
-        return view('sales.index',compact('ventas'));
+        if ($request->filled('filtervalue')) {
+            // Obtener el valor del campo de búsqueda
+            $filtro = $request->input('filtervalue');
+            // Filtrar las ventas por el número de factura
+            $ventas = $ventas->filter(function ($venta) use ($filtro) {
+                return stripos($venta->bill_numbers, $filtro) !== false;
+            });
+        }
+    
+        // Verificar si el checkbox de ventas activas está marcado
+        if ($request->has('check')) {
+            // Filtrar solo las ventas activas
+            $ventas = $ventas->filter(function ($venta) {
+                return $venta->status === 1;
+            });
+        }
+    
+        // Convertir la colección de ventas filtradas en una matriz
+        $ventasFiltradas = $ventas->values()->all();
+    
+        // Devolver la vista con las ventas filtradas
+        return view('sales.index', compact('ventasFiltradas','ventas'));
     }
+    
 
     /**
      * Show the form for creating a new resource.
@@ -114,5 +136,18 @@ class SalesController extends Controller
      */
     public function destroy(string $id)
     {
+        $sale = Sale::find($id);
+        if ($sale->status == 1) {
+            Sale::where('id', $sale->id)
+            ->update([
+                'status' => 0
+            ]);
+        } else {
+            Sale::where('id', $sale->id)
+            ->update([
+                'status' => 1
+            ]);
+        }
+        return redirect()->route('sales.index')->with('success','Venta eliminada');
     }
 }

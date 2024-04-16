@@ -1,5 +1,4 @@
 @auth
-
 @include('include.barra',['modo'=>'Ventas'])
 <!DOCTYPE html>
 <html lang="en">

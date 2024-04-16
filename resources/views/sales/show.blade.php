@@ -27,6 +27,7 @@
                 <thead class="bg-primary text-white">
                     <tr class="align-top">
                         <th class="text-white">Producto</th>
+                        <th class="text-white">Referencia</th>
                         <th class="text-white">Cantidad</th>
                         <th class="text-white">Precio de venta</th>
                         <th class="text-white">Descuento</th>
@@ -39,6 +40,9 @@
                     <tr>
                         <td>
                             {{$item->name_product}}
+                        </td>
+                        <td>
+                            {{$item->pivot->references}}
                         </td>
                         <td>
                             {{$item->pivot->amount}}
