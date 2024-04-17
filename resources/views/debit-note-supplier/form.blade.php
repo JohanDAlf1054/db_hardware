@@ -196,7 +196,8 @@
                                                         <th class="text-white">Precio Unitario</th>
                                                         <th class="text-white">Descuento</th>
                                                         <th class="text-white">Iva</th>
-                                                        <th></th>
+                                                        <th class="text-white">Accion</th>
+
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -207,6 +208,7 @@
                                                         <td><input type="number" id="precio_unitario" name="precio_unitario" class="form-control"></td>
                                                         <td><input type="number" id="descuento" name="descuento" class="form-control"></td>
                                                         <td><input type="number" id="iva" name="iva" class="form-control"></td>
+                                                        <td><button class="btn btn-danger" type="button"><i class="fa-solid fa-trash"></i></button></td>
 
                                                         
                                                     </tr>
@@ -301,7 +303,7 @@
     NOS TRAEMOS TODOS LOS DATOS EN UN ARREGLO CONCATENADO Y DEPENDIENDO DEL 
     ARREGLO ASOCIATIVO GENERAMOS LAS FILAS QUE NECESITAMOS MOSTRAR--}}
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+   document.addEventListener('DOMContentLoaded', function() {
     var facturaSelect = document.getElementById('factura');
     if (facturaSelect) {
         facturaSelect.addEventListener('change', function() {
@@ -316,53 +318,65 @@
             }
 
             detailData.forEach(function(detail) {
-    var newRow = document.createElement('tr');
+                var newRow = document.createElement('tr');
 
-    newRow.innerHTML = 
-        '<td><input type="text" name="producto[]" class="form-control" value="' + detail.product_name + '"></td>' +
-        '<td><input type="number" name="cantidad[]" class="form-control"></td>' +
-        '<td><input type="text" name="descripcion[]" class="form-control"></td>' +
-        '<td><input type="number" name="precio_unitario[]" class="form-control" value="' + detail.price_unit + '"></td>' +
-        '<td><input type="number" name="descuento[]" class="form-control" value="' + detail.discount_total + '"></td>' +
-        '<td><input type="number" name="iva[]" class="form-control" value="' + detail.product_tax + '"></td>';
+                newRow.innerHTML = 
+                    '<td><input type="text" name="producto[]" class="form-control" value="' + detail.product_name + '"></td>' +
+                    '<td><input type="number" name="cantidad[]" class="form-control"></td>' +
+                    '<td><input type="text" name="descripcion[]" class="form-control"></td>' +
+                    '<td><input type="number" name="precio_unitario[]" class="form-control" value="' + detail.price_unit + '"></td>' +
+                    '<td><input type="number" name="descuento[]" class="form-control" value="' + detail.discount_total + '"></td>' +
+                    '<td><input type="number" name="iva[]" class="form-control" value="' + detail.product_tax + '"></td>' +
+                    '<td><button class="btn btn-danger" type="button"><i class="fa-solid fa-trash"></i></button></td>';
 
-    tbody.appendChild(newRow);
-});
+                tbody.appendChild(newRow);
 
+                // Agrega un evento 'click' al botón
+                newRow.querySelector('button').addEventListener('click', function() {
+                    // Elimina la fila
+                    newRow.remove();
 
-            // Agrega un evento 'input' a cada campo de entrada para actualizar los totales cuando cambien los valores
-            var inputs = tbody.querySelectorAll('input[type="number"]');
-            inputs.forEach(function(input) {
-                input.addEventListener('input', updateTotals);
-            });
-
-            // Actualiza los totales
-            function updateTotals() {
-                var total = 0;
-                var totalBruto = 0;
-                var totalNeto = 0;
-
-                // Calcula los totales basándote en los valores actuales de los campos de entrada
-                inputs.forEach(function(input) {
-                    var value = parseFloat(input.value);
-                    if (!isNaN(value)) {
-                        total += value;
-                        totalBruto += value; // Ajusta esta línea según tu cálculo de total bruto
-                        totalNeto += value; // Ajusta esta línea según tu cálculo de total neto
-                    }
+                    // Recalcula los totales
+                    calcularTotales();
                 });
 
-                // Muestra los totales en el HTML
-                document.getElementById('total').value = total.toFixed(2);
-                document.getElementById('totalBruto').value = totalBruto.toFixed(2);
-                document.getElementById('totalNeto').value = totalNeto.toFixed(2);
-            }
-
-            // Llama a updateTotals una vez al inicio para calcular los totales iniciales
-            updateTotals();
+                // Agrega un evento 'input' a cada campo de entrada
+                newRow.querySelectorAll('input[type=number]').forEach(function(input) {
+                    input.addEventListener('input', function(e) {
+                        calcularTotales();
+                    });
+                });
+            });
         });
     }
 });
+
+function calcularTotales() {
+    var total = 0;
+    var totalBruto = 0;
+    var totalNeto = 0;
+
+    // Calcula los totales
+    document.querySelectorAll('#tabla_detalle tbody tr').forEach(function(row) {
+        var cantidad = Number(row.querySelector('input[name="cantidad[]"]').value);
+        var precio_unitario = Number(row.querySelector('input[name="precio_unitario[]"]').value);
+        var descuento = Number(row.querySelector('input[name="descuento[]"]').value);
+        var iva = Number(row.querySelector('input[name="iva[]"]').value);
+
+        var subtotal = cantidad * precio_unitario;
+        var descuentoTotal = subtotal * descuento / 100;
+        var ivaTotal = subtotal * iva / 100;
+
+        total += subtotal;
+        totalBruto += subtotal - descuentoTotal;
+        totalNeto += subtotal - descuentoTotal + ivaTotal;
+    });
+
+    // Redondea y muestra los totales
+    document.getElementById('total').value = Math.round(total);
+    document.getElementById('totalBruto').value = Math.round(totalBruto);
+    document.getElementById('totalNeto').value = Math.round(totalNeto);
+}
 
 </script>
 </body>

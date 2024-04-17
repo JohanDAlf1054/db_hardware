@@ -1,18 +1,31 @@
 @auth
 @include('include.barra', ['modo'=>'Notas Debito'])
 
-
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/css/bootstrap-select.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" ></script>
+<link href="{{asset('css/products/all.css')}}" rel="stylesheet" />
+<link href="css/estilos_notificacion.css" rel="stylesheet"/>
+    <script src="{{ asset('js/notificaciones.js')}}" defer></script>
+</head>
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-12">
+            <br>
+            
             <div class="card">
-                <div class="card-header">
-                </div>
+            <div class="card-header">
+                <h2 id="card_title">
+                    {{ __('Notas Debito') }}
+                </h2>
+            </div>
+                
              <div class="card-body"></div>
              <div class="row">
                
             <div class="col-lg-6 col-md-6 col-sm-12" >
-                    
+             
+
                 <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">Acciones
                     <span class="visually-hidden">Acciones</span>
                 {{-- <div style="display: flex; justify-content: space-between; align-items: center;"> --}}
@@ -47,11 +60,21 @@
                          
                     </div>
                 </div>
-                @if ($message = Session::get('success'))
+               {{--@if ($message = Session::get('success'))
                     <div class="alert alert-success">
                         <p>{{ $message }}</p>
                     </div>
-                @endif
+                @endif--}} 
+            </div>
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const mensajeFlash = {!! json_encode(Session::get('notificacion')) !!};
+                    if (mensajeFlash) {
+                        agregarnotificacion(mensajeFlash);
+                    }
+                });
+            </script>
+            <div class="contenedor-notificacion" id="contenedor-notificacion">
             </div>
             <div class="container_datos">
                 <div class="table_container">

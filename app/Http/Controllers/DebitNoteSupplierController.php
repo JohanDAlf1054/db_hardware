@@ -10,6 +10,7 @@ use App\Models\People;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -178,9 +179,14 @@ foreach ($detailPurchases as $detailPurchase) {
             $debitNoteSupplier->detail_purchase_id = $detailPurchases[$i]->id;
             $debitNoteSupplier->save();
         }
-    
-        return redirect()->route('debit-note-supplier.index')
-            ->with('success', 'debitNoteSupplier created successfully.');
+        Session::flash('notificacion', [
+            'tipo' => 'exito',
+            'titulo' => 'Éxito!',
+            'descripcion' => 'Nota Debito Creada Exitosamente',
+            'autoCierre' => 'true'
+        ]);
+        return redirect()->route('debit-note-supplier.index');
+            
     }
     
 
@@ -371,15 +377,28 @@ foreach ($detailPurchases as $detailPurchase) {
             ->update([
                 'status' => 0
             ]);
+
+            Session::flash('notificacion', [
+                'tipo' => 'error',
+                'titulo' => 'Atencion!',
+                'descripcion' => 'La nota debito se ha inactivado correctamente.',
+                'autoCierre' => 'true'
+            ]);
         } else {
             DebitNoteSupplier::where('id', $debitNoteSupplier->id)
             ->update([
                 'status' => 1
             ]);
+
+            Session::flash('notificacion', [
+                'tipo' => 'exito',
+                'titulo' => 'Éxito!',
+                'descripcion' => 'La nota debito se ha vuelto a activar.',
+                'autoCierre' => 'true'
+            ]);
         }
     }
 
-    return redirect()->route('debit-note-supplier.index')
-        ->with('success', 'Estado de la nota de débito actualizado exitosamente');
+    return redirect()->route('debit-note-supplier.index');
     }
-}  
+}

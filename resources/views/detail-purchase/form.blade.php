@@ -292,7 +292,7 @@
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Advertencia</h1>
+                            <h1 class="modal-title fs-5" id="examplebtnModalLabel">Advertencia</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
@@ -317,10 +317,11 @@
     $('#btn_agregar').click(function(){
         agregarProducto();
     });
+    
     $('#btnCancelarCompra').click(function() {
             cancelarCompra();
         });
-        //disableButtons();
+        disableButtons();
 });
 
 let cont=0;
@@ -359,9 +360,15 @@ $('#sumas').html(sumas);
     $('#totalNeto').html(totalNeto);
     $('#inputTotal').val(total);
 limpiarCampos();
-//disableButtons();
+disableButtons();
 }
-
+function disableButtons() {
+        if (total == 0) {
+            $('#guardar').hide();
+        } else {
+            $('#guardar').show();
+        }
+    }
 
 
 function agregarProducto(){
@@ -399,6 +406,7 @@ function agregarProducto(){
         $('#tabla_detalle').append(fila);
         limpiarCampos();
         cont++;
+        disableButtons();
         $('#sumas').html(sumas);
         $('#igv').html(igv);
         $('#total').html(total);
