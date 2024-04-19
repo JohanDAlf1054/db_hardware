@@ -21,6 +21,19 @@
                 <div class="titulo">
                     <h1>Ferreteria La Excelencia</h1>
                 </div>
+
+                <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split accesibilidad header-button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fa-solid fa-universal-access fa-2xl" style="color: #74C0FC;"></i>
+                    <span class="visually-hidden">Accesibilidad</span>
+                </button>
+                <ul class="dropdown-menu">
+                    <div class="acciones_boton">
+                        <li><a class="dropdown-item" id="alto-contraste-button">Alto contraste <i class="fa-solid fa-palette"></i></a></li>
+                        <li><a class="dropdown-item" id="font-larger-button">Aumentar letra <i class="fa-solid fa-plus"></i></a></li>
+                        <li><a class="dropdown-item" id="font-smaller-button">Disminuir letra <i class="fa-solid fa-minus"></i></a></li>
+                    </div>
+                </ul>
+
             </header>
 
             <div class="menu__side" id="menu_side">
@@ -52,7 +65,7 @@
                             <h4>Compras</h4>
                         </div>
                     </a>
-                    
+
 
                     <a href="{{ route('person.index')}}" class="{{ request()->route()->named('person.index') ? 'selected' : '' }}">
                         <div class="option">
@@ -101,7 +114,7 @@
                     <a href="#">
                         <div class="option">
                             <i class="fa-solid fa-circle-info"></i>
-                            <h4>Ayuda</h4>
+                            <h4>Accesibilidad</h4>
                         </div>
                     </a>
 

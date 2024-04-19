@@ -95,7 +95,45 @@ function hideSettingsMenu() {
 
 }
 
-document.getElementById('settings-button').addEventListener('click', showSettingsMenu);
-document.getElementById('settings-menu').addEventListener('click', hideSettingsMenu);
+
+
+// Funcion para aumentar la letra
+document.addEventListener('DOMContentLoaded', function() {
+    var fontLargerButton = document.querySelector('#font-larger-button');
+    var fontIncreaseStep = 1;
+    if (fontLargerButton) {
+    fontLargerButton.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.body.classList.remove(`font-increase-${fontIncreaseStep}`);
+        fontIncreaseStep = (fontIncreaseStep % 4) + 1;
+        document.body.classList.add(`font-increase-${fontIncreaseStep}`);
+    });
+    }
+});
+
+//Funcion para disminuir la letra
+document.addEventListener('DOMContentLoaded', function() {
+    var fontDecreaseButton = document.querySelector('#font-smaller-button');
+    var fontDecreaseStep = 1;
+    if (fontDecreaseButton) {
+        fontDecreaseButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.body.classList.remove(`font-decrease-${fontDecreaseStep}`);
+            fontDecreaseStep = (fontDecreaseStep % 4) + 1; // Cambia de pasos que va a dar 4
+            document.body.classList.add(`font-decrease-${fontDecreaseStep}`);
+        });
+    }
+});
+
+//Funcion para alto contraste
+document.addEventListener('DOMContentLoaded', function(){
+    var altoContrasteButton = document.querySelector('#alto-contraste-button');
+    if(altoContrasteButton){
+        altoContrasteButton.addEventListener('click', function(e){
+            e.preventDefault();
+            document.documentElement.classList.toggle('alto-contraste');
+        });
+    }
+});
 
 

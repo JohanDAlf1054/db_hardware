@@ -46,7 +46,7 @@ class UsuariosController extends Controller
         //Traer el usuario por medio del id
         $usuario = User::findOrFail($id);
 
-        //Traer losroles pormedio del modelo y gurdarlos en la variable
+        //Traer los roles pormedio del modelo y gurdarlos en la variable
         $roles = Role::all();
         return view('admin.usuarios.edit', compact('usuario', 'roles'));
     }
