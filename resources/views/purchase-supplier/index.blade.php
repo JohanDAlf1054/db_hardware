@@ -5,8 +5,14 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-12">
-            <div class="card">
+          
+               <br>
+                
+                <div class="card">
                 <div class="card-header">
+                    <h2 id="card_title">
+                        {{ __('Compra Proveedores') }}
+                    </h2>
                 </div>
                 <div class="card-body"></div>
                 <div class="row">
