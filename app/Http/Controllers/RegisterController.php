@@ -7,6 +7,7 @@ use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 
 class RegisterController extends Controller
 {
@@ -22,7 +23,13 @@ class RegisterController extends Controller
     public function register(RegisterRequest $request){
         try {
             $user = User::create($request->validated());
-            return redirect('/login')->with('Exitoso', 'Usuario creado correctamente');
+            Session::flash('notificacion', [
+                'tipo' => 'exito',
+                'titulo' => 'Éxito!',
+                'descripcion' => 'Se ha creado el usuario correctamente',
+                'autoCierre' => 'true'
+            ]);
+            return redirect('/login');
         } catch (\Exception $e) {
             return Redirect::back()->withErrors(['error' => $e->getMessage()]);
         }
