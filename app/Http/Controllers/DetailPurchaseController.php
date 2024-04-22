@@ -9,6 +9,7 @@ use App\Models\PurchaseSupplier;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator; 
 use Illuminate\Support\Facades\DB;
 
@@ -170,8 +171,14 @@ class DetailPurchaseController extends Controller
         // Aquí es donde puedes manejar el error
         return redirect()->back()->withInput()->withErrors(['error' => 'Error: ' . $e->getMessage()]);
     }
-
-    return redirect()->route('detail-purchases.index')->with('success', 'Compra realizada con éxito.');
+    Session::flash('notificacion', [
+        'tipo' => 'exito',
+        'titulo' => 'Éxito!',
+        'descripcion' => 'Compra Creada Exitosamente',
+        'autoCierre' => 'true'
+    ]);
+    return redirect()->route('detail-purchases.index');
+    
 }
 
 
@@ -214,7 +221,7 @@ class DetailPurchaseController extends Controller
     public function edit($id)
     {
         $detailPurchase = DetailPurchase::find($id);
-        $people = People::all();
+        $people = Person::all(); // Cambiado de People a Person
         $products = Product::all();
         $purchase_suppliers = PurchaseSupplier::all();
         $users=User::all();
@@ -279,39 +286,53 @@ class DetailPurchaseController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Exception
      */
-   public function destroy($id)
-{
-    $detailPurchase = DetailPurchase::find($id);
-
-    if ($detailPurchase) {
-        if ($detailPurchase->status == 1) {
-            DetailPurchase::where('id', $detailPurchase->id)
-            ->update([
-                'status' => 0
-            ]);
-
-            // Cambia el estado del purchase supplier asociado
-            PurchaseSupplier::where('id', $detailPurchase->purchase_suppliers_id)
-            ->update([
-                'status' => 0
-            ]);
-        } else {
-            DetailPurchase::where('id', $detailPurchase->id)
-            ->update([
-                'status' => 1
-            ]);
-
-            // Cambia el estado del purchase supplier asociado
-            PurchaseSupplier::where('id', $detailPurchase->purchase_suppliers_id)
-            ->update([
-                'status' => 1
-            ]);
+    public function destroy($id)
+    {
+        $detailPurchase = DetailPurchase::find($id);
+    
+        if ($detailPurchase) {
+            if ($detailPurchase->status == 1) {
+                DetailPurchase::where('id', $detailPurchase->id)
+                ->update([
+                    'status' => 0
+                ]);
+    
+                // Cambia el estado del purchase supplier asociado
+                PurchaseSupplier::where('id', $detailPurchase->purchase_suppliers_id)
+                ->update([
+                    'status' => 0
+                ]);
+    
+                Session::flash('notificacion', [
+                    'tipo' => 'error',
+                    'titulo' => 'Atencion!',
+                    'descripcion' => 'La Compra se ha inactivado.',
+                    'autoCierre' => 'true'
+                ]);
+            } else {
+                DetailPurchase::where('id', $detailPurchase->id)
+                ->update([
+                    'status' => 1
+                ]);
+    
+                // Cambia el estado del purchase supplier asociado
+                PurchaseSupplier::where('id', $detailPurchase->purchase_suppliers_id)
+                ->update([
+                    'status' => 1
+                ]);
+    
+                Session::flash('notificacion', [
+                    'tipo' => 'exito',
+                    'titulo' => 'Éxito!',
+                    'descripcion' => 'La compra se ha vuelto a activar.',
+                    'autoCierre' => 'true'
+                ]);
+            }
         }
+    
+        return redirect()->route('detail-purchases.index');
     }
-
-    return redirect()->route('detail-purchases.index')
-        ->with('success', 'Estado del detalle de compra y del proveedor actualizado exitosamente');
-}
+    
 
     
 } 
