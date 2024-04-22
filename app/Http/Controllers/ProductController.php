@@ -8,7 +8,6 @@ use App\Models\MeasurementUnit;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Database\Eloquent\Builder;
 Use Illuminate\Support\Facades\Session;
 
 /**
@@ -54,17 +53,6 @@ class ProductController extends Controller
             ->paginate(5); 
 
             $categories = CategoryProduct::all();
-            // $productos = Product::query() 
-            // ->when($categoryId, function($query) use ($categoryId) {
-            //     return $query->where('category_products_id', $categoryId);
-            // })->paginate(5); 
-
-            //filtrar los productos activos
-            // $productos = Product::query() 
-            // ->when($activeCheck, function($query) {
-            //     return $query->where('status', True);
-            // })->paginate(5);
-
         return view('product.index', compact('productos', 'categories'));
     }
 
@@ -82,6 +70,7 @@ class ProductController extends Controller
         return view('product.create', compact('producto', 'categorias','marcas','unidades'));
     }
 
+
     /**
      * Store a newly created resource in storage.
      *
@@ -96,6 +85,7 @@ class ProductController extends Controller
             'factory_reference'=>'required|string|max:100',
             'classification_tax'=>'required|string|max:100',
             'selling_price' => 'required|numeric|greater_than_zero',
+            'subcategory_product' => 'required|string|max:100',
             'category_products_id'=>'required|max:100',
             'brands_id'=>'required|max:100',
             'measurement_units_id'=>'required|max:100',
@@ -110,9 +100,10 @@ class ProductController extends Controller
             'selling_price.required' => 'Escriba el precio de venta',
             'selling_price.numeric' => 'El precio de venta debe ser numérico',
             'selling_price.greater_than_zero' => 'El precio de venta debe ser mayor a 0',
-            'category_products_id.required'=>'Selecione la categoria',
+            'subcategory_product.required'=>'Selecione la Sub Categoría',
+            'category_products_id.required'=>'Selecione la Categoría',
             'brands_id.required'=>'Selecione la marca',
-            'measurement_units_id.required'=>'Selecione la unidad de medida',
+            'measurement_units_id.required'=>'Selecione la Unidad de Medida',
         ];
         $this->validate($request, $campos, $mensaje);
 
@@ -122,7 +113,6 @@ class ProductController extends Controller
             $datosProducto['photo']=$request->file('photo')->store('products','public');
         }
         Product::create($datosProducto);
-        // toast('Producto Creado!','success');
         Session::flash('notificacion', [
             'tipo' => 'exito',
             'titulo' => 'Éxito!',
@@ -231,4 +221,5 @@ class ProductController extends Controller
         }
         return redirect()->route('products.index')->with('success', 'Actualización estado Producto!');
     }
+
 }

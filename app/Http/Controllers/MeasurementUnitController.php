@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Imports\UnitsImpot;
 use App\Models\MeasurementUnit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Facades\Excel;
 
 /**
@@ -48,8 +49,13 @@ class MeasurementUnitController extends Controller
         $file = $request->file('import_file');
         
         Excel::import(new UnitsImpot, $file, 'xlsx');
-        
-        return redirect()->route('units.index')->with('success', 'Unidades Agregadas!');
+        Session::flash('notificacion', [
+            'tipo' => 'exito',
+            'titulo' => 'Éxito!',
+            'descripcion' => 'Unidades Agregadas!.',
+            'autoCierre' => 'true'
+        ]);
+        return redirect()->route('units.index');
     }
 
 

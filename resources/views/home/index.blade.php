@@ -6,16 +6,12 @@
     </div>
     <!DOCTYPE html>
     <html lang="en">
-
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
     <body>
-
         <div class="container">
-
-
             <!-- Main Content -->
             <main>
                 <h1>Panel Estadisticas</h1>
@@ -23,16 +19,18 @@
                 <div class="analyse">
                     <div class="sales">
                         <div class="status">
-                            <div class="info">
+                            <a class="info" href="{{route('sales.index')}}">
                                 <h3>Total Ventas</h3>
-                                <h1>$65,024</h1>
-                            </div>
+                                <h1>
+                                    {{{'$' . $sales}}}
+                                </h1>
+                            </a>
                             <div class="progresss">
                                 <svg>
                                     <circle cx="38" cy="38" r="36"></circle>
                                 </svg>
                                 <div class="percentage">
-                                    <p>+81%</p>
+                                    <p>{{$sales . '%'}}</p>
                                 </div>
                             </div>
                         </div>
@@ -40,81 +38,37 @@
                     <div class="visits">
                         <div class="status">
                             <div class="info">
-                                <h3>Productos</h3>
-                                <h1>24,981</h1>
+                                <h3>Total Compras</h3>
+                                <h1>
+                                    {{'$' . $productos}}
+                                </h1>
                             </div>
                             <div class="progresss">
                                 <svg>
                                     <circle cx="38" cy="38" r="36"></circle>
                                 </svg>
                                 <div class="percentage">
-                                    <p>-48%</p>
+                                    <p>{{$productos . '%'}}</p>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="searches">
                         <div class="status">
-                            <div class="info">
-                                <h3>Searches</h3>
-                                <h1>14,147</h1>
-                            </div>
-                            <div class="progresss">
-                                <svg>
-                                    <circle cx="38" cy="38" r="36"></circle>
-                                </svg>
-                                <div class="percentage">
-                                    <p>+21%</p>
+                                <a class="info" href="{{route('products.index')}}">
+                                    <h3>Productos</h3>
+                                    <h1>
+                                        {{'$' . $productos}}
+                                    </h1>
+                                </a>
+                                <div class="progresss">
+                                    <svg>
+                                        <circle cx="38" cy="38" r="36"></circle>
+                                    </svg>
+                                    <div class="percentage">
+                                        <p>{{$productos . '%'}}</p>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="searches">
-                        <div class="status">
-                            <div class="info">
-                                <h3>Searches</h3>
-                                <h1>14,147</h1>
-                            </div>
-                            <div class="progresss">
-                                <svg>
-                                    <circle cx="38" cy="38" r="36"></circle>
-                                </svg>
-                                <div class="percentage">
-                                    <p>+21%</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="visits">
-                        <div class="status">
-                            <div class="info">
-                                <h3>Site Visit</h3>
-                                <h1>24,981</h1>
-                            </div>
-                            <div class="progresss">
-                                <svg>
-                                    <circle cx="38" cy="38" r="36"></circle>
-                                </svg>
-                                <div class="percentage">
-                                    <p>-48%</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="sales">
-                        <div class="status">
-                            <div class="info">
-                                <h3>Total Sales</h3>
-                                <h1>$65,024</h1>
-                            </div>
-                            <div class="progresss">
-                                <svg>
-                                    <circle cx="38" cy="38" r="36"></circle>
-                                </svg>
-                                <div class="percentage">
-                                    <p>+81%</p>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -150,40 +104,55 @@
 
                 <!-- Recent Orders Table -->
                 <div class="recent-orders">
-                    <h2>Recent Orders</h2>
+                    <h2>Ventas Recientes</h2>
                     <table>
                         <thead>
                             <tr>
-                                <th>Course Name</th>
-                                <th>Course Number</th>
-                                <th>Payment</th>
-                                <th>Status</th>
-
+                                <th>N° Factura</th>
+                                <th>Fecha</th>
+                                <th>Vendedor</th>
+                                <th>Forma de Pago</th>
+                                <th>Total</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <td>HLF</td>
-                            <td>001</td>
-                            <td>Master Card</td>
-                            <td>Pending</td>
+                            @foreach ( $dataSales as $data )
+                                <tr>
+                                    <td>{{ $data->bill_numbers}}</td>
+                                    <td>{{ $data->dates}}</td>
+                                    <td>{{ $data->sellers}}</td>
+                                    <td>{{ $data->payments_methods}}</td>
+                                    <td>{{ $data->net_total}}</td>
+                                </tr>
+                            @endforeach
+                            
                         </tbody>
+                    </table>
+                    <a href="#">Show All</a>
+                </div>
+                <div class="recent-orders">
+                    <h2>Compras Recientes</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>N° Factura</th>
+                                <th>Fecha</th>
+                                <th>Vendedor</th>
+                                <th>Forma de Pago</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
                         <tbody>
-                            <td>HLF</td>
-                            <td>001</td>
-                            <td>Master Card</td>
-                            <td>Pending</td>
-                        </tbody>
-                        <tbody>
-                            <td>HLF</td>
-                            <td>001</td>
-                            <td>Master Card</td>
-                            <td>Pending</td>
-                        </tbody>
-                        <tbody>
-                            <td>HLF</td>
-                            <td>001</td>
-                            <td>Master Card</td>
-                            <td>Pending</td>
+                            @foreach ( $dataSales as $data )
+                                <tr>
+                                    <td>{{ $data->bill_numbers}}</td>
+                                    <td>{{ $data->dates}}</td>
+                                    <td>{{ $data->sellers}}</td>
+                                    <td>{{ $data->payments_methods}}</td>
+                                    <td>{{ $data->net_total}}</td>
+                                </tr>
+                            @endforeach
+                            
                         </tbody>
                     </table>
                     <a href="#">Show All</a>
@@ -221,19 +190,28 @@
                     </div>
 
                 </div>
-                <!-- End of Nav -->
-     --}}
+                <!-- End of Nav -->--}}
                 <div class="user-profile">
                     <div class="logo">
-                        <img src="{{asset('img/logo2.png')}}">
-                        <h2>AsmrProg</h2>
-                        <p>Fullstack Web Developer</p>
+                        @if(auth()->user()->hasRole('Administrador'))
+                            <img src="{{ asset('img/dashboard/logo_admin.png') }}">
+                        @elseif(auth()->user()->hasRole('Trabajador'))
+                            <img src="{{ asset('img/dashboard/logo_empleado.png') }}">
+                        @else
+                            <img src="{{ asset('img/dashboard/logo_panel.png') }}">
+                        @endif
+                        <h2>
+                            @foreach (auth()->user()->roles as $role)
+                                <p class="badge bg-dark">{{ $role->name }}</p>
+                            @endforeach
+                        </h2>
+                        <p>{{ auth()->user()->name }}</p>
                     </div>
                 </div>
 
                 <div class="reminders">
                     <div class="header">
-                        <h2>Reminders</h2>
+                        <h2>Notificaciones</h2>
                         <span class="material-icons-sharp">
                             notifications_none
                         </span>
@@ -295,7 +273,6 @@
     </html>
 
 @endauth
-{{--  Creacion de la vista cuendo la persona no esta registrada  --}}
 @guest
     @include('include.falta_sesion')
 @endguest

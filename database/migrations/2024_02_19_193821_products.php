@@ -22,6 +22,7 @@ class Products extends Migration
             $table->string('photo')->nullable();
             $table->boolean('status')->default(True);
             $table->string('stock')->default(0);
+            $table->string('subcategory_product');
             $table->bigInteger('category_products_id')->unsigned();
             $table->bigInteger('brands_id')->unsigned();
             $table->bigInteger('measurement_units_id')->unsigned();

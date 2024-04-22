@@ -62,6 +62,9 @@ img{
     object-fit: cover;
 }
 
+.status a{
+    text-decoration: none;
+}
 /* h1{
     font-weight: 800;
     font-size: 1.8rem;
@@ -113,9 +116,9 @@ b{
     display: grid;
     width: 100%;
     height: auto;
-    margin: 0 10rem;
+    margin: 0 5rem;
     gap: 2rem;
-    grid-template-columns: auto auto;
+    grid-template-columns: 80rem auto;
 }
 
 
@@ -441,10 +444,10 @@ main .recent-orders a{
     gap: 0.6rem;
 }
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1000px) {
     .container{
         width: 95%;
-        grid-template-columns: auto auto;
+        grid-template-columns: 20rem auto;
     }
 
 
@@ -480,12 +483,13 @@ main .recent-orders a{
     }
 
     .right-section{
-        width: 95%;
+        grid-template-columns: 1fr;
+
     }
 
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 750px) {
     .container{
         width: 100%;
         grid-template-columns: 1fr;
@@ -501,7 +505,7 @@ main .recent-orders a{
     } */
 
     main{
-        margin-top: 8rem;
+        margin-top: 0rem;
         padding: 0 1rem;
     }
 

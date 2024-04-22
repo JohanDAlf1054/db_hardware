@@ -20,14 +20,14 @@ class SubCategoryController extends Controller
      */
     public function indexAll()
     {
-        $subCategories = SubCategory::all();
+        $subCategories = SubCategory::paginate(10);
 
         return view('sub-category.indexAll', compact('subCategories'));
     }
 
     public function index()
     {
-        $subCategories = SubCategory::where('category_id', Session::get("category_id") )->get();
+        $subCategories = SubCategory::where('category_id', Session::get("category_id") )->paginate(10);
 
         return view('sub-category.index', compact('subCategories'));
     }
@@ -64,9 +64,13 @@ class SubCategoryController extends Controller
         $subCategory = new SubCategory($request->all());
         $subCategory->category_id = Session::get("category_id");
         $subCategory->save();
-         return redirect()->route('categorySub.index')
-            ->with('success', 'SubCategory created successfully.');
-
+        Session::flash('notificacion', [
+            'tipo' => 'exito',
+            'titulo' => 'Éxito!',
+            'descripcion' => 'Sub Categoría Creada',
+            'autoCierre' => 'true'
+        ]);
+         return redirect()->route('categorySub.index');
     }
 
 
@@ -118,9 +122,14 @@ class SubCategoryController extends Controller
         $subCategory = SubCategory::find($id);
         $subCategory->update($request->all());
         $subCategory->save();
-        return redirect()->route('categorySub.index')
-            ->with('success', 'SubCategory updated successfully');
-    }
+        Session::flash('notificacion', [
+            'tipo' => 'exito',
+            'titulo' => 'Éxito!',
+            'descripcion' => 'Sub Categoría Modificada',
+            'autoCierre' => 'true'
+        ]);
+        return redirect()->route('categorySub.index');
+        }
 
     /**
      * @param int $id
@@ -131,8 +140,12 @@ class SubCategoryController extends Controller
     {
         $subCategory = SubCategory::find($id);
         $subCategory->delete();
-
-        return redirect()->route('categorySub.index')
-            ->with('success', 'SubCategory deleted successfully');
+        Session::flash('notificacion', [
+            'tipo' => 'exito',
+            'titulo' => 'Éxito!',
+            'descripcion' => 'Sub Categoría Eliminada',
+            'autoCierre' => 'true'
+        ]);
+        return redirect()->route('categorySub.index');
     }
 }

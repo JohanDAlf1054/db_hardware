@@ -9,7 +9,6 @@
                         </h2>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive">
                             <div class="input-group mb-3">
                                 <button type="button" class="btn btn-light">
                                     <a href="{{route('products.index')}}" class="back">
@@ -33,10 +32,13 @@
                                     <p>{{ session('error') }}</p>
                                 </div>
                             @endif
-                            <table class="table table-striped table-hover">
-                                <thead class="thead">
+                    </div>
+                    <div class="table_container">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover"  style="justify-content: center">
+                                <thead class="table-dark">
                                     <tr>
-										<th>Nombre</th>
+                                        <th>Nombre</th>
                                         <th>Descripción</th>
                                         <th>Acciones</th>
                                     </tr>
@@ -45,13 +47,13 @@
                                     @foreach ($categories as $category)
                                         <tr> 
                                             <td>{{ $category->name}}</td>
-											<td>{{ $category->description }}</td>
+                                            <td>{{ $category->description }}</td>
                                             <td>
                                                 <div class="btn-group" role="group" aria-label="Basic example">
                                                     <button type="button" class="btn btn-sm btn-warning mx-2 rounded" wire:click='show("{{ $category->id }}")'>Subcategorias</button>
                                                     <button type="button" class="btn btn-sm btn-success mx-2 rounded"  data-bs-toggle="modal" data-bs-target="#Modal"  wire:click='edit("{{ $category->id }}")'><i class="fa fa-fw fa-edit"></i> </i> </button>
                                                     <button type="button" class="btn btn-danger btn-sm mx-2 rounded" wire:click='delete("{{ $category->id }}")'><i class="fa fa-fw fa-trash"></i></button>
-                                                  </div>
+                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach

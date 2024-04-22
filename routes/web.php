@@ -104,3 +104,9 @@ Route::resource('purchase_supplier', App\Http\Controllers\PurchaseSupplierContro
 Route::resource('detail-purchases', App\Http\Controllers\DetailPurchaseController::class);
 Route::resource('debit-note-supplier', App\Http\Controllers\DebitNoteSupplierController::class);
 Route::post('/guardar-datos', 'DatosController@guardarDatos');
+
+Route::get('/report', [ExportController::class,'report'])->name('report');
+
+//Ruta para traer la informacion de las subcategorias
+Route::get('/products/create/categoryProduct/{categoryProduct}/subCategories', [CategoryProductController::class,'subCategories']);
+Route::get('/products/{id}/edit/categoryProduct/{categoryProduct}/subCategories', [CategoryProductController::class,'subCategoriesEdit']);

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Imports\CategoryImport;
 use App\Models\CategoryProduct;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Facades\Excel;
@@ -120,10 +121,34 @@ class CategoryProductController extends Controller
             $file = $request->file('import_file');
         
             Excel::import(new CategoryImport, $file, 'xlsx');
-            
-            return redirect()->route('category.index')->with('success', 'Categorias Agregadas!');
+            Session::flash('notificacion', [
+                'tipo' => 'exito',
+                'titulo' => 'Éxito!',
+                'descripcion' => 'Categorías Agregadas!',
+                'autoCierre' => 'true'
+            ]);
+            return redirect()->route('category.index');
         } catch (\Exception $e){
-            return redirect()->route('category.index')->with('error', 'Archivo Incorrecto, el archivo debe ser un archivo Excel (.xlsx)');
+            Session::flash('notificacion', [
+                'tipo' => 'error',
+                'titulo' => 'Éxito!',
+                'descripcion' => 'Archivo Incorrecto!',
+                'autoCierre' => 'true'
+            ]);
+            return redirect()->route('category.index');
         }
+    }
+
+    public function subCategories(categoryProduct $categoryProduct)
+    {
+        return response()->json($categoryProduct->subCategories);
+    }
+
+    public function subCategoriesEdit($id, $category)
+    {
+        $producto = Product::find($id);
+        $category = CategoryProduct::find($category); // Asumiendo que hay una relación en tu modelo Product
+        $subCategories = $category->subCategories;
+        return response()->json($subCategories);
     }
 }

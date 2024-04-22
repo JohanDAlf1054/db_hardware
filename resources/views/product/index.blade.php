@@ -51,45 +51,35 @@
                                 </div>
                             </form>
                         </div>
-                        <div class="col-lg-3 col-md-4 col-sm-7"  >
+                        <div class="col-lg-2     col-md-4 col-sm-7"  >
                             <form action="{{ route('products.index') }}" method="GET">
                                 <div class="mb-3 row" >
                                     <div class="col-sm-6" style="display: flex; margin-left: 1rem">
                                         <input name="check" class="form-check-input" type="checkbox" style="padding: 0.7rem; " {{ request('check') ? 'checked' : '' }}>
                                         <label class="form-check-label" for="checkActivos" style="font-size: 1.1em; padding: 0.2rem; " >Activos</label>
-                                    </div>
-                                    <div class="col-sm-2">
                                         <button type="submit" class=" btn btn-dark">Filtrar</button>
                                     </div>
                                 </div>
                             </form>
                         </div>
-                        <div class="col-lg-3 col-md-5 col-sm-7" >
+                        <div class="col-lg-4 col-md-5 col-sm-7">
                             <form action="{{ route('products.index') }}" method="get">
                                 <div class="mb-2 row">
                                     <div class="col-sm-9">
                                         <input name="filtervalue" type="text" class="form-control" aria-label="Text input with segmented dropdown button"  placeholder="Buscar Producto....">
                                     </div>
-                                    <div class=" col-sm-3">
+                                    <div class=" col-sm-3" style="display: flex">
                                         <button type="submit" class=" btn btn-dark">Buscar</button>
+                                        <button type="button" class="btn btn-warning mx-2 rounded" data-bs-toggle="modal" data-bs-target="#importUnits">
+                                            <i class="fa-solid fa-folder-open" style="color: #0a0a0a; width:24; height:24"; ></i>
+                                        </button>
+                                        {{-- <button type="button" class="btn btn-warning rounded" data-bs-toggle="modal" data-bs-target="#importUnits">
+                                            <i class="fa-solid fa-folder-open" style="color: #0a0a0a; width:24; height:24"; ></i>
+                                        </button> --}}
                                     </div>
+
                                 </div>
                             </form>
-                        </div>
-                        <div class="col-lg-2 col-md-3 col-sm-7" style="display: flex;"> 
-                            <div class="mb-2 row"> 
-                                {{-- <div class=" col-sm-3 mx-2">
-                                    <button type="button" class="btn btn-success mx-2 rounded" data-bs-toggle="modal" data-bs-target="#informes">
-                                        <i class="fa-solid fa-file-arrow-down" style="color: #ffffff; width=24; height=24"; ></i>
-                                    </button>
-                                </div> --}}
-                                <div class=" col-sm-3 mx-2">
-                                    <button type="button" class="btn btn-warning mx-2 rounded" data-bs-toggle="modal" data-bs-target="#importUnits">
-                                        {{-- <a href="{{route('import')}}"><i class="fa-solid fa-folder-open" style="color: #0a0a0a; width=24; height=24"; ></i></a> --}}
-                                        <i class="fa-solid fa-folder-open" style="color: #0a0a0a; width=24; height=24"; ></i>
-                                    </button>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -109,7 +99,8 @@
                         <table class="table table-striped table-hover" style="justify-content: center">
                             <thead class="table-dark">
                                 <tr style="text-align: center">
-                                    <th>Categoria </th>
+                                    <th>Categoría </th>
+                                    <th>Sub Categoría</th>
                                     <th>Nombre</th>
                                     <th>Referencia Fabrica</th>
                                     <th>Clasificación Tributaria</th>
@@ -126,6 +117,7 @@
                                 @foreach ($productos as $producto)
                                     <tr style="text-align: center">
                                         <td>{{ $producto->categoryProduct->name}}</td>
+                                        <td>{{ $producto->subcategory_product}}</td>
                                         <td>{{ $producto->name_product }}</td>
                                         <td>{{ $producto->factory_reference }}</td>
                                         <td>{{ $producto->classification_tax }}</td>
