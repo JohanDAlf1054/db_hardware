@@ -88,6 +88,8 @@
                         </div>
                     </a>
 
+                    <br> 
+                    <br>
                     <br>
                     <span id="liPanel1" class="li" >Account</span>
                     <div id="onlinePanel1" class="online"></div>
@@ -108,13 +110,6 @@
                         <div class="option">
                             <i class="fa-solid fa-gear"></i>
                             <h4>Configuración</h4>
-                        </div>
-                    </a>
-
-                    <a href="#">
-                        <div class="option">
-                            <i class="fa-solid fa-circle-info"></i>
-                            <h4>Accesibilidad</h4>
                         </div>
                     </a>
 
