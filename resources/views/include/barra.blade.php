@@ -23,7 +23,7 @@
                 </div>
 
                 <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split accesibilidad header-button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="fa-solid fa-universal-access fa-2xl" style="color: #74C0FC;"></i>
+                    <i class="fa-solid fa-universal-access fa-2xl icono_accesibilidad" style="color: #74C0FC;"></i>
                     <span class="visually-hidden">Accesibilidad</span>
                 </button>
                 <ul class="dropdown-menu">
@@ -39,7 +39,7 @@
             <div class="menu__side" id="menu_side">
 
                 <div class="name__page">
-                    <i><img class="logos" src="{{ asset('img/Logo.png') }}" alt=""></i>
+                    <i><img class="logos" src="{{ asset('img/Fondo_negro.png') }}" alt=""></i>
                 </div>
 
                 <div class="options__menu">

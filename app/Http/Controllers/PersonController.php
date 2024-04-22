@@ -149,7 +149,6 @@ class PersonController extends Controller
         $validator = Validator::make($data, $rules);
 
         if ($validator->fails()) {
-            // dd($validator->errors());
             return redirect()->back()->withErrors($validator)->withInput();
         }
 

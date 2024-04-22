@@ -225,5 +225,18 @@
     </div>
 
     @endif
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const mensajeFlash = {!! json_encode(Session::get('notificacion')) !!};
+            if (mensajeFlash) {
+                agregarnotificacion(mensajeFlash);
+            }
+        });
+    </script>
+
+    {{--  Div con las notificaciones nuevas  --}}
+    <div class="contenedor-notificacion" id="contenedor-notificacion">
+        {{--  Aqui trae las notificaciones por medio de javaescript  --}}
+    </div>
     </body>
 </html>

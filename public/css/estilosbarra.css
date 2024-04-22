@@ -38,11 +38,16 @@
     color: #b93c3c;
 }
 .alto-contraste .menu__side{
-    background-color: #fc0000;
+    background-color: #747373;
 }
 .alto-contraste .logos{
-    background-color: #101010;
+    background-color: #747373;
 }
+.alto-contraste header {
+    border-bottom-color: #747373;
+}
+
+
 body {
     margin-left: 5rem;
     margin-top: 5rem;
@@ -215,7 +220,8 @@ a.selected {
 /* Estilos para el boton de accesibilidad */
 .accesibilidad {
     border: none;
-    margin-left: 69rem;
+    position: fixed;
+    right: 5rem;
 }
 .header-button.btn.btn-outline-secondary.dropdown-toggle:hover{
     background-color: white;
