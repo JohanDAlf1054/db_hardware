@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property $created_at
  * @property $updated_at
  *
+ * @property Product[] $products
  * @property CategoryProduct $categoryProduct
  * @package App
  * @mixin \Illuminate\Database\Eloquent\Builder
@@ -43,6 +44,14 @@ class SubCategory extends Model
     public function categoryProduct()
     {
         return $this->belongsTo(\App\Models\CategoryProduct::class, 'category_id', 'id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function products()
+    {
+        return $this->hasMany(\App\Models\Product::class, 'id', 'subcategory_product_id');
     }
     
 

@@ -5,7 +5,12 @@
 @endsection
 
 @section('content') --}}
+@auth
 @include('include.barra', ['modo'=>'Sub Categorias'])
+<head>
+    <link href="{{asset('css/estilos_notificacion.css')}}" rel="stylesheet"/>
+    <script src="{{ asset('js/notificaciones.js')}}" defer></script>
+</head>
 <br>
     <div class="container-fluid">
         <div class="row">
@@ -29,25 +34,25 @@
                             </span>
                         </div>
                     </div>
-                    
-                    @if ($message = Session::get('success'))
-                        <div class="alert alert-success">
-                            <p>{{ $message }}</p>
-                        </div>
-                    @endif
-
-                    <div class="card-body">
-                        
+                    {{-- Script  para mostrar la notificacion --}}
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function () {
+                            const mensajeFlash = {!! json_encode(Session::get('notificacion')) !!};
+                            if (mensajeFlash) {
+                                agregarnotificacion(mensajeFlash);
+                            }
+                        });
+                    </script>
+                    <div class="contenedor-notificacion" id="contenedor-notificacion">
+                    </div>
+                    <div class="table_container">
                         <div class="table-responsive">
-                            <table class="table table-striped table-hover">
-                                <thead class="thead">
+                            <table  class="table table-striped  style="justify-content: center">
+                                <thead class="table-dark">
                                     <tr>
-                                        
 										<th>Nombre de la Sub Categoria</th>
 										<th>Descripción</th>
                                         <th>Acciones</th>
-
-                                        <th></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -56,10 +61,8 @@
                                             
 											<td>{{ $subCategory->name }}</td>
 											<td>{{ $subCategory->description }}</td>
-
                                             <td>
                                                 <form action="{{ route('categorySub.destroy',$subCategory->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('categorySub.show',$subCategory->id) }}"><i class="fa fa-fw fa-eye"></i></a>
                                                     <a class="btn btn-sm btn-success" href="{{ route('categorySub.edit',$subCategory->id) }}"><i class="fa fa-fw fa-edit"></i></a>
                                                     @csrf
                                                     @method('DELETE')
@@ -70,11 +73,14 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            {{ $subCategories->links() }}
                         </div>
                     </div>
                 </div>
-                {{-- {!! $subCategories->links() !!} --}}
             </div>
         </div>
     </div>
-{{-- @endsection --}}
+@endauth
+@guest
+    @include('include.falta_sesion')
+@endguest

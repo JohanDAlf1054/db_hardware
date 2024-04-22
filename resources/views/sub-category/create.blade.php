@@ -15,6 +15,9 @@
 
                 <div class="card card-default">
                     <div class="card-header">
+                        <h2 id="card_title">
+                            {{ __('Sub Categoría') }}
+                        </h2>
                     </div>
                     <div class="card-body">
                         <form method="POST" action="{{ route('categorySub.store') }}"  role="form" enctype="multipart/form-data">

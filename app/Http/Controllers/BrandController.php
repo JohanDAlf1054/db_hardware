@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Imports\BrandsImport;
 use App\Models\Brand;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Facades\Excel;
 
 /**
@@ -119,8 +120,13 @@ class BrandController extends Controller
             $file = $request->file('import_file');
         
             Excel::import(new BrandsImport, $file, 'xlsx');
-            
-            return redirect()->route('brand.index')->with('success', 'Marcas Agregadas!');
+            Session::flash('notificacion', [
+                'tipo' => 'exito',
+                'titulo' => 'Éxito!',
+                'descripcion' => 'Marcas Agregadas',
+                'autoCierre' => 'true'
+            ]);
+            return redirect()->route('brand.index');
         } catch (\Exception $e){
             return redirect()->route('brand.index')->with('error', 'Archivo Incorrecto, el archivo debe ser un archivo Excel (.xlsx)');
         }

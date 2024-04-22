@@ -49,7 +49,7 @@ class CategoryProduct extends Model
      */
     public function subCategories()
     {
-        return $this->hasMany(\App\Models\SubCategory::class, 'id', 'category_id');
+        return $this->hasMany(\App\Models\SubCategory::class, 'category_id', 'id' );
     }
     
 

@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Brand;
+use Illuminate\Support\Facades\Session;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -24,7 +25,7 @@ class BrandsComponent extends Component
 
     public function render()
     {
-        $brands = Brand::where('name','like', '%'.$this->search.'%')->paginate(5);
+        $brands = Brand::where('name','like', '%'.$this->search.'%')->paginate(15);
         return view('livewire.brands-component', compact('brands'));
     }
 
@@ -46,7 +47,12 @@ class BrandsComponent extends Component
         $brand->abbrevation = $this ->abbrevation;
         $brand->save();
         $this->clear();
-        $this->flash('success', 'Marca Creada');
+        Session::flash('notificacion', [
+            'tipo' => 'exito',
+            'titulo' => 'Éxito!',
+            'descripcion' => 'Marca Agregada!',
+            'autoCierre' => 'true'
+        ]);
         return redirect()->to('brand');
     }
 
@@ -83,7 +89,12 @@ class BrandsComponent extends Component
         $brand->abbrevation = $this ->abbrevation;
         $brand->save();
         $this->clear();
-        $this->flash('success', 'Marca Modificada');
+        Session::flash('notificacion', [
+            'tipo' => 'exito',
+            'titulo' => 'Éxito!',
+            'descripcion' => 'Marca Modificada!',
+            'autoCierre' => 'true'
+        ]);
         return redirect()->to('brand');
     }
     

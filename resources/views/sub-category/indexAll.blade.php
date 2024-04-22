@@ -1,4 +1,4 @@
-@include('include.barra', ['modo'=>'Sub Categorias'])
+@include('include.barra', ['modo'=>'Sub Categorías'])
 <br>
     <div class="container-fluid">
         <div class="row">
@@ -12,10 +12,10 @@
                                 </a>
                             </button>
                             <h2 id="card_title">
-                                {{ __('Todas Las Sub Categorias') }}
+                                {{ __('Todas Las Sub Categorías') }}
                             </h2>
                             <button type="button" class="btn btn-warning mx-2 rounded" data-bs-toggle="modal" data-bs-target="#importCategory">
-                                Importar <i class="fa-solid fa-folder-open" style="color: #0a0a0a; width=24; height=24"; ></i>
+                                <i class="fa-solid fa-folder-open" style="color: #0a0a0a; width:24; height:24"; ></i>
                             </button>
                         </div>
                     </div>
@@ -24,15 +24,24 @@
                             <p>{{ $message }}</p>
                         </div>
                     @endif
-
-                    <div class="card-body">
+                    {{-- Script  para mostrar la notificacion --}}
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function () {
+                            const mensajeFlash = {!! json_encode(Session::get('notificacion')) !!};
+                            if (mensajeFlash) {
+                                agregarnotificacion(mensajeFlash);
+                            }
+                        });
+                    </script>
+                    <div class="contenedor-notificacion" id="contenedor-notificacion">
+                    </div>
+                    <div class="table_container">
                         <div class="table-responsive">
                             <table class="table table-striped table-hover">
-                                <thead class="thead">
+                                <thead class="table-dark">
                                     <tr>
-                                        <th>Categoria</th>
-										<th>Sub Categoria</th>
-										{{-- <th>Descripción</th> --}}
+                                        <th>Categoría</th>
+										<th>Sub Categoría</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -40,15 +49,6 @@
                                         <tr>
                                             <td>{{ $subCategory->categoryProduct->name }}</td>
 											<td>{{ $subCategory->name }}</td>
-                                            {{-- <td>
-                                                <form action="{{ route('categorySub.destroy',$subCategory->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-primary " href="{{ route('categorySub.show',$subCategory->id) }}"><i class="fa fa-fw fa-eye"></i></a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('categorySub.edit',$subCategory->id) }}"><i class="fa fa-fw fa-edit"></i></a>
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i></button>
-                                                </form>
-                                            </td> --}}
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -56,8 +56,7 @@
                         </div>
                     </div>
                 </div>
-                {{-- {!! $subCategories->links() !!} --}}
+                {{ $subCategories->links() }}
             </div>
         </div>
     </div>
-{{-- @endsection --}}

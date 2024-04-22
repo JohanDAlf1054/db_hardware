@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\MeasurementUnit;
+use Illuminate\Support\Facades\Session;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -39,7 +40,12 @@ class UnitsComponent extends Component
         $unit->code = $this -> code;
         $unit->save();
         $this->clear();
-        $this->flash('success', 'Unidad Creada');
+        Session::flash('notificacion', [
+            'tipo' => 'exito',
+            'titulo' => 'Éxito!',
+            'descripcion' => 'Unidad Agregada!.',
+            'autoCierre' => 'true'
+        ]);
         return redirect()->to('units');
     }
 
@@ -71,7 +77,12 @@ class UnitsComponent extends Component
         $unit->code = $this->code;
         $unit->save();
         $this->clear();
-        $this->flash('success', 'Unidad Modificada');
+        Session::flash('notificacion', [
+            'tipo' => 'error',
+            'titulo' => 'Éxito!',
+            'descripcion' => 'Unidad Modificada!.',
+            'autoCierre' => 'true'
+        ]);
         return redirect()->to('units');
     }
     

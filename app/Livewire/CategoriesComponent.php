@@ -17,7 +17,7 @@ class CategoriesComponent extends Component
 
     public function render()
     {   
-        $categories = CategoryProduct::where('name','like', '%'.$this->search.'%')->paginate(5);
+        $categories = CategoryProduct::where('name','like', '%'.$this->search.'%')->paginate(15);
         return view('livewire.categories-component', compact('categories'));
     }
 
@@ -35,8 +35,12 @@ class CategoriesComponent extends Component
         $categories->description = $this -> description;
         $categories->save();
         $this->clear();
-        $this->flash('success', 'Categoria Creada');
-        return redirect()->to('category');
+        Session::flash('notificacion', [
+            'tipo' => 'exito',
+            'titulo' => 'Éxito!',
+            'descripcion' => 'Categoría Agregada!',
+            'autoCierre' => 'true'
+        ]);        return redirect()->to('category');
     }
 
     public function clear(){
@@ -71,7 +75,12 @@ class CategoriesComponent extends Component
         $categories->description = $this->description;
         $categories->save();
         $this->clear();
-        $this->flash('success', 'Categoria Modificada');
+        Session::flash('notificacion', [
+            'tipo' => 'exito',
+            'titulo' => 'Éxito!',
+            'descripcion' => 'Categoría Modificada!',
+            'autoCierre' => 'true'
+        ]);        
         return redirect()->to('category');
     }
     
@@ -79,5 +88,12 @@ class CategoriesComponent extends Component
         $categories = CategoryProduct::find($id);
         $categories->delete();
         $this->clear();
+        Session::flash('notificacion', [
+            'tipo' => 'error',
+            'titulo' => 'Éxito!',
+            'descripcion' => 'Categoría Eliminada',
+            'autoCierre' => 'true'
+        ]);
+        return redirect()->to('category');
     }
 }
