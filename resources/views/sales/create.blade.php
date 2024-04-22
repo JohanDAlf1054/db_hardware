@@ -7,9 +7,14 @@
 @endpush
 
 @section('content')
-<div class="container-fluid px-4">
-    <h1 class="mt-4 text-center">Factura de Venta</h1>
-</div>
+<div class="card">
+             
+    <div class="card-header">
+        <h2 id="card_title">
+            {{ __('Detalle de Venta') }}
+        </h2>
+    </div>
+    </div>
 
 
 <form action="{{ route('sales.store') }}" method="post">
@@ -28,9 +33,9 @@
                         
                         <!-----Producto---->
                         <div class="col-12">
-                            <select name="product_id" id="product_id" class="form-control selectpicker" data-live-search="true" data-size="1" title="Busque un producto aquí">
+                            <select name="product_id" id="product_id" class="form-control selectpicker" data-live-search="true" data-size="3" title="Busque un producto aquí">
                                 @foreach ($products as $item)
-                                <option value="{{$item->id}}-{{$item->stock}}-{{$item->selling_price}}-{{$item->classification_tax}}-{{$item->factory_reference}}">{{$item->id.' '.$item->name_product}}</option>
+                                <option value="{{$item->id}}-{{$item->stock}}-{{$item->selling_price}}-{{$item->classification_tax}}-{{$item->factory_reference}}">{{$item->name_product}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -84,7 +89,7 @@
                                         <tr>
                                             <th>#</th>
                                             <th>Producto</th>
-                                            <th>Descripción</th>
+                                            <th>Referencia</th>
                                             <th>Cant</th>
                                             <th>Valor Unitario</th>
                                             <th>% Desc</th>
@@ -150,9 +155,9 @@
                         <!--Cliente-->
                         <div class="col-12">
                             <label for="clients_id" class="form-label">Cliente:</label>
-                            <select name="clients_id" id="clients_id" class="form-control selectpicker show-tick" data-live-search="true" title="Selecciona" data-size='2'>
+                            <select name="clients_id" id="clients_id" class="form-control selectpicker show-tick" data-live-search="true" title="Selecciona" data-size='3'>
                                 @foreach ($clients as $item)
-                                <option value="{{$item->id}}">{{$item->first_name}}</option>
+                                <option value="{{$item->id}}">{{$item->identification_number}}</option>
                                 @endforeach
                             </select>
                             @error('clients_id')
@@ -218,7 +223,7 @@
                         </div>
 
                         
-
+                     <input type="hidden" name="factory_reference"  id="factory_reference">
                        
 
                         <!--Botones--->
@@ -272,6 +277,7 @@
 
         disableButtons();
 
+
     });
 
     //Variables
@@ -281,7 +287,7 @@
     let sumasdescuento=0;
     let igv = 0;
     let total = 0;
-    const impuesto = 19;
+
 
 
     function mostrarValores() {
@@ -290,100 +296,93 @@
         $('#stock').val(dataProducto[1]);
         $('#selling_price').val(dataProducto[2]);
         $('#tax').val(dataProducto[3]);
-        $('#references').val(dataProducto[4]);
+        $('#factory_reference').val(dataProducto[4]);
     }
     
+    function agregarProducto() {  
+    let dataProducto = document.getElementById('product_id').value.split('-');
+    // Obtener valores de los campos
+    let idProducto = dataProducto[0];
+    let nameProducto = $('#product_id option:selected').text();
+    let cantidad = $('#amount').val();
+    let precioVenta = $('#selling_price').val();
+    let descuento = $('#discounts').val();
+    let stock = $('#stock').val();
+    let factoryreference = $('#factory_reference').val();
+    let impuesto = parseFloat(dataProducto[3]); // Obtener el impuesto del array
 
-         function agregarProducto() {  
-        let dataProducto = document.getElementById('product_id').value.split('-');
-        //Obtener valores de los campos
-        let idProducto = dataProducto[0];
-        let nameProducto = $('#product_id option:selected').text();
-        let cantidad = $('#amount').val();
-        let precioVenta = $('#selling_price').val();
-        let descuento = $('#discounts').val();
-        let stock = $('#stock').val();
-        
+    if (descuento == '') {
+        descuento = 0;
+    }
 
-        
-        if (descuento == '') {
-            descuento = 0;
-        }
+    // Validaciones 
+    if (idProducto != '' && cantidad != '') {
+        if (parseInt(cantidad) > 0 && (cantidad % 1 == 0) && parseFloat(descuento) >= 0) {
+            if (parseInt(cantidad) <= parseInt(stock)) {
+                // Calcular subtotal del producto
+                let subtotalProducto = round(cantidad * precioVenta - descuento);
+                subtotal[cont] = subtotalProducto;
+                sumas += subtotal[cont];
+                igv += round(subtotalProducto / 100 * impuesto); // Ajustar el impuesto acumulativo
+                total = round(sumas + igv);
 
-        //Validaciones 
-        //1.Para que los campos no esten vacíos
-        if (idProducto != '' && cantidad != '') {
+                // Crear la fila
+                let fila = '<tr id="fila' + cont + '">' +
+                    '<th>' + (cont + 1) + '</th>' +
+                    '<td><input type="hidden" name="arrayidproducto[]" value="' + idProducto + '">' + nameProducto + '</td>' +
+                    '<td><input type="hidden" name="arrayname[]" value="' + factoryreference + '">' + factoryreference + '</td>' +
+                    '<td><input type="hidden" name="arraycantidad[]" value="' + cantidad + '">' + cantidad + '</td>' +
+                    '<td><input type="hidden" name="arrayprecioventa[]" value="' + precioVenta + '">' + precioVenta + '</td>' +
+                    '<td><input type="hidden" name="arraydescuento[]" value="' + descuento + '">' + descuento + '</td>' +
+                    '<td><input type="hidden" name="arrayimpuesto[]" value="' + impuesto + '">' + impuesto + '%'+ '</td>' +
+                    '<td>' + subtotalProducto + '</td>' +
+                    '<td><button class="btn btn-danger" type="button" onClick="eliminarProducto(' + cont + ', ' + subtotalProducto + ', ' + impuesto + ')"><i class="fa-solid fa-trash"></i></button></td>' +
+                    '</tr>';
 
-            //2. Para que los valores ingresados sean los correctos
-            if (parseInt(cantidad) > 0 && (cantidad % 1 == 0) && parseFloat(descuento) >= 0) {
+                // Acciones después de añadir la fila
+                $('#tabla_detalle').append(fila);
+                limpiarCampos();
+                cont++;
+                disableButtons();
 
-                //3. Para que la cantidad no supere el stock
-                if (parseInt(cantidad) <= parseInt(stock)) {
-                    //Calcular valores
-                    subtotal[cont] = round(cantidad * precioVenta - descuento);
-                    sumas += subtotal[cont];
-                    igv = round(sumas / 100 * impuesto);
-                    total = round(sumas + igv);
-
-                    //Crear la fila
-                    let fila = '<tr id="fila' + cont + '">' +
-                        '<th>' + (cont + 1) + '</th>' +
-                        '<td><input type="hidden" name="arrayidproducto[]" value="' + idProducto + '">' + idProducto + '</td>' +
-                        '<td><input type="hidden" name="arrayname[]" value="' + nameProducto + '">' + nameProducto + '</td>' +
-                        '<td><input type="hidden" name="arraycantidad[]" value="' + cantidad + '">' + cantidad + '</td>' +
-                        '<td><input type="hidden" name="arrayprecioventa[]" value="' + precioVenta + '">' + precioVenta + '</td>' +
-                        '<td><input type="hidden" name="arraydescuento[]" value="' + descuento + '">' + descuento + '</td>' +
-                        '<td><input type="hidden" name="arrayimpuesto[]" value="' + impuesto + '">' + impuesto + '</td>' +
-                        '<td>' + subtotal[cont] + '</td>' +
-                        '<td><button class="btn btn-danger" type="button" onClick="eliminarProducto(' + cont + ')"><i class="fa-solid fa-trash"></i></button></td>' +
-                        '</tr>';
-
-                    //Acciones después de añadir la fila
-                    $('#tabla_detalle').append(fila);
-                    limpiarCampos();
-                    cont++;
-                    disableButtons();
-
-                    //Mostrar los campos calculados
-                    $('#gross_totals').html(sumas);
-                    $('#inputGross').val(sumas);
-                    $('#taxes_total').html(igv);
-                    $('#inputTaxes').val(igv);
-                    $('#net_total').html(total);
-                    $('#inputTotal').val(total);
-                } else {
-                    showModal('Cantidad incorrecta');
-                }
-
+                // Actualizar los campos calculados
+                $('#gross_totals').html(sumas);
+                $('#inputGross').val(sumas);
+                $('#taxes_total').html(igv);
+                $('#inputTaxes').val(igv);
+                $('#net_total').html(total);
+                $('#inputTotal').val(total);
             } else {
-                showModal('Valores incorrectos');
+                showModal('Cantidad incorrecta');
             }
-
         } else {
-            showModal('Le faltan campos por llenar');
+            showModal('Valores incorrectos');
         }
-
+    } else {
+        showModal('Le faltan campos por llenar');
     }
+}
 
-    function eliminarProducto(indice) {
-        //Calcular valores
-        sumas -= round(subtotal[indice]);
-        igv = round(sumas / 100 * impuesto);
-        total = round(sumas + igv);
+function eliminarProducto(indice, subtotalProducto, impuesto) {
+    // Restar el subtotal del producto eliminado de la suma total
+    sumas -= round(subtotalProducto);
+    igv -= round(subtotalProducto / 100 * impuesto); // Restar el impuesto correspondiente al producto eliminado
+    total = round(sumas + igv);
 
-        //Mostrar los campos calculados
-        $('#gross_totals').html(sumas);
-        $('#inputGross').val(sumas);
-        $('#taxes_total').html(igv);
-        $('#inputTaxes').val(igv);
-        $('#net_total').html(total);
-        $('#inputTotal').val(total);
+    // Actualizar los campos mostrados
+    $('#gross_totals').html(sumas);
+    $('#inputGross').val(sumas);
+    $('#taxes_total').html(igv);
+    $('#inputTaxes').val(igv);
+    $('#net_total').html(total);
+    $('#inputTotal').val(total);
 
-        //Eliminar el fila de la tabla
-        $('#fila' + indice).remove();
+    // Eliminar el fila de la tabla
+    $('#fila' + indice).remove();
 
-        disableButtons();
-    }
+    disableButtons();
+}
+
 
     function cancelarVenta() {
         //Elimar el tbody de la tabla
@@ -437,6 +436,7 @@
         $('#selling_price').val('');
         $('#discounts').val('');
         $('#stock').val('');
+        $('#tax').val('');
     }
 
     function showModal(message, icon = 'error') {

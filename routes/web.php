@@ -20,6 +20,7 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\PurchaseSupplierController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UsuariosController;
+use App\Http\Controllers\CreditNoteSalesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -82,6 +83,7 @@ Route::resource('brand', BrandController::class);
 Route::resource('units', MeasurementUnitController::class);
 Route::resource('categorySub', SubCategoryController::class);
 Route::resource('sales', SalesController::class);
+Route::resource('credit-note-sales', CreditNoteSalesController::class);
 Route::resource('person', PersonController::class);
 Route::resource('customer', CustomerController::class);
 Route::resource('supplier', SupplierController::class);
