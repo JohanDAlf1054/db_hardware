@@ -31,7 +31,9 @@
                                                 <span class="text-danger">*</span>
                                             </label>
                                             <select name="sale_id" id="sale_id" class="form-control selectpicker" data-live-search="true" data-size="3" title="Busque una venta aquí">
-                                    
+                                                @foreach ($sales as $item)
+                                                <option value="{{$item->id}}-{{$item->dates}}-{{$item->sellers}}-{{$item->clients_id}}-{{$item->payments_methods}}">{{$item->bill_numbers}}</option>
+                                                @endforeach
                                             </select>
                                             {!! $errors->first('sale_id', '<div class="invalid-feedback">:message</div>') !!}
                                         </div>
@@ -65,9 +67,7 @@
                                                 {{ __('Cliente') }}
                                                 <span class="text-danger">*</span>
                                             </label>
-                                            <select name="clients_id" id="clients_id" class="form-control selectpicker" data-live-search="true" data-size="3" title="Cliente ...">
-                                               
-                                            </select>
+                                            <input type="text" name="clients_id" id="clients_id" class="form-control">
                                             {!! $errors->first('clients_id', '<div class="invalid-feedback">:message</div>') !!}
                                         </div>
                                     </div>
@@ -79,8 +79,12 @@
                                                     {{ __('Motivo')}}
                                                     <span class="text-danger">*</span>
                                                 </label>
-                                                <select name="reason" id="reason" class="form-control selectpicker" data-live-search="true" data-size="3" title="Motivo ...">
-                                                    
+                                                <select name="reason" id="reason" class="form-control selectpicker" data-live-search="true" data-size="6" title="Motivo ...">
+                                                    <option value="Devolucion de parte de los bienes">Devolución de parte de los bienes</option>
+                                                    <option value="Anulacion de factura electronica">Anulación de factura electrónica</option>
+                                                    <option value="Rebaja o descuento parcial o total">Rebaja o descuento parcial o total</option>
+                                                    <option value="Ajuste de precio">Ajuste de precio</option>
+                                                    <option value="Otros">Otros</option>
                                                 </select>
                                                 {!! $errors->first('reason', '<div class="invalid-feedback">:message</div>') !!}
                                             </div> 
@@ -94,9 +98,7 @@
                                                         {{ __('Vendedor') }}
                                                         <span class="text-danger">*</span>
                                                     </label>
-                                                    <select name="sellers" id="sellers" class="form-control selectpicker" data-live-search="true" data-size="3" title="Vendedor ...">
-                                                    
-                                                    </select>
+                                                    <input type="text" name="sellers" id="sellers" class="form-control">
                                                     {!! $errors->first('sellers', '<div class="invalid-feedback">:message</div>') !!}
                                                 </div>
                                             </div>
@@ -109,9 +111,7 @@
                                                 {{ __('Metodo de Pago')}}
                                                 <span class="text-danger">*</span>
                                             </label>
-                                            <select name="payments_methods" id="payments_methods" class="form-control selectpicker" data-live-search="true" data-size="3" title="Metodo de pago ...">
-                                              
-                                            </select>
+                                            <input type="text" name="payments_methods" id="payments_methods" class="form-control">  
                                             {!! $errors->first('payments_methods', '<div class="invalid-feedback">:message</div>') !!}
                                         </div> 
                                     </div>
@@ -127,7 +127,7 @@
                                                 {{ __('Fecha de Compra') }}
                                                 <span class="text-danger">*</span>
                                             </label>
-                                            <input type="date" id="date_invoice" name="date_invoice" class="form-control{{ $errors->has('date_purchase') ? ' is-invalid' : '' }}" >
+                                            <input type="date" name="dates" id="dates" class="form-control">
                                             {!! $errors->first('date_invoice', '<div class="invalid-feedback">:message</div>') !!}
                                         </div>
                                     </div>
@@ -154,15 +154,31 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                {{-- @foreach ($sale->productos as $item)
                                                 <tr>
-                                                    <td><input type="text" id="name_product" name="name_product" class="form-control"></td>
-                                                    <td><input type="text" id="references"  name="references" class="form-control"></td>
-                                                    <td><input type="number" id="amount" name="amount" class="form-control"></td>
-                                                    <td><input type="number" id="selling_price" name="selling_price" class="form-control"></td>
-                                                    <td><input type="number" id="discounts" name="discounts" class="form-control"></td>
-                                                    <td><input type="number" id="tax" name="tax" class="form-control"></td>
-                                                    <td><input type="number" id="td-subtotal" name="td-subtotal" class="form-control"></td>
+                                                    <td>
+                                                        {{$item->name_product}}
+                                                    </td>
+                                                    <td>
+                                                        {{$item->pivot->references}}
+                                                    </td>
+                                                    <td>
+                                                        {{$item->pivot->amount}}
+                                                    </td>
+                                                    <td>
+                                                        {{$item->pivot->selling_price}}
+                                                    </td>
+                                                    <td>
+                                                        {{$item->pivot->discounts}}
+                                                    </td>
+                                                    <td>
+                                                        {{$item->pivot->tax}}
+                                                    </td>
+                                                    <td class="td-subtotal">
+                                                        {{($item->pivot->amount) * ($item->pivot->selling_price) - ($item->pivot->discounts)}}
+                                                    </td>
                                                 </tr>
+                                                @endforeach --}}
                                             </tbody>
                                         </table>
                                         <div class="row">
@@ -195,13 +211,37 @@
                                         </div>
                                         
                                         <div class="card-footer text-end">
+                                          
+                                                <a class="btn btn-primary" style="margin-right: 2rem" href="{{ route('credit-note-sales.index') }}">Regresar</a>
                                             {{-- <a class="btn btn-primary" style="margin-right: 5rem" href="{{ route('debit-note-supplier.index') }}">Regresar</a> --}}
                                             <button type="submit" class="btn btn-success">{{ __('Guardar') }}</button>
                                         </div>
+                                        
                                     </div>
                                 </form>
                                 
 @endsection
 @push('js')
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/js/bootstrap-select.min.js"></script>
-@endpush
+<script>
+     $(document).ready(function() {
+
+$('#sale_id').change(mostrarValores);
+
+
+});
+
+function mostrarValores() {
+        let dataVenta= document.getElementById('sale_id').value.split('-');
+        console.log(dataVenta)     
+        let fecha = dataVenta.slice(1, 4).join('-'); // Unir los elementos de la fecha con '-'
+         console.log(fecha);
+        $('#clients_id').val(dataVenta[5]);
+        $('#dates').val(fecha);
+        $('#sellers').val(dataVenta[4]);
+        $('#payments_methods').val(dataVenta[6]);
+
+    }
+
+</script>
+@endpush    

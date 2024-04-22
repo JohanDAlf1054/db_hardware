@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\credit_note_sales;
+use App\Models\Sale;
 use Illuminate\Http\Request;
 
 class CreditNoteSalesController extends Controller
@@ -20,7 +21,8 @@ class CreditNoteSalesController extends Controller
      */
     public function create()
     {
-        return view('credit-note-sales.create');
+        $sales = Sale::all();
+        return view('credit-note-sales.create', compact('sales'));
     }
 
     /**
