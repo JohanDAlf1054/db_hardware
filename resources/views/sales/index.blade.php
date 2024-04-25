@@ -8,23 +8,58 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-12">
+            <br>
             <div class="card">
+             
                 <div class="card-header">
-                 
+                    <h2 id="card_title">
+                        {{ __('Ventas') }}
+                    </h2>
+                </div>
                 </div>
                 <div class="card-body" >
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-12" >
-                            <a href="{{route('sales.create')}}">
-                                <button type="button" class="btn btn-primary mx-2 rounded btn-lg">Añadir nuevo registro</button>
-                            </a>
+                            <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">Acciones
+                                <span class="visually-hidden">Acciones</span>
+                            </button>
+                                <ul class="dropdown-menu desplegable_acciones">
+                                    <div class="acciones_boton">
+                                        <li><a class="dropdown-item" href="{{ route('sales.create') }}">Crear nueva venta</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('credit-note-sales.index') }}">Nota credito</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('credit-note-sales.create') }}">Crear nota credito</a></li>
+                                    </div>
+                                </ul>
                         </div>
                         
-                        <!-- <div class="col-lg-6 col-md-6 col-sm-12" >
-                           <input type="text" wire:model.live='criterio' class="form-control" placeholder="Buscar ...">
+                        <div class="col-lg-3 col-md-5 col-sm-7" >
+                            <form action="{{ route('sales.index') }}" method="get">
+                                <div class="mb-2 row">
+                                    <div class="col-sm-9">
+                                        <input name="filtervalue" type="text" class="form-control" aria-label="Text input with segmented dropdown button"  placeholder="Buscar Factura....">
+                                    </div>
+                                    <div class=" col-sm-3">
+                                        <button type="submit" class=" btn btn-dark">Buscar</button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-                        {{--  {{$criterio}}  --}}
-                      </div> -->
+                        <div class="col-lg-2 col-md-4 col-sm-6"  >
+                            <form action="{{ route('sales.index') }}" method="GET">
+                                <div class="mb-3 row" >
+                                    <div class="col-sm-4" style="display: flex; margin-left: 1rem">
+                                        <input name="check" class="form-check-input" type="checkbox" style="padding: 0.7rem; " {{ request('check') ? 'checked' : '' }}>
+                                        <label class="form-check-label" for="checkActivos" style="font-size: 1.1em; padding: 0.2rem; " >Activos</label>
+                                    </div>
+                                    <div class="col-sm-2">
+                                        <button type="submit" class=" btn btn-dark">Filtrar</button>
+                                    </div>
+                            </form>
+                        </div>
+
+
+                        
+                      </div>
                 </div>
 
                 <div class="container_datos">
@@ -41,6 +76,7 @@
                                     <th>Total Bruto</th>
                                     <th>Total Impuesto</th>
                                     <th>Total Neto</th>
+                                    <th>Estado</th>
                                     <th>Acciones</th> 
                                 </tr>
                             </thead>
@@ -55,14 +91,27 @@
                                         <td>{{$sale->gross_totals}}</td>
                                         <td>{{$sale->taxes_total}}</td>
                                         <td>{{$sale->net_total}}</td>
-                                          <td class="border px-4 py-2 text-center">
-                                            <form action="{{route('sales.show', ['sale'=>$sale]) }}" method="get">
-                                                <button type="submit" class="btn btn-success">
-                                                    Ver
+                                        <td>
+                                            @if($sale->status == True)
+                                            <p class="badge rounded-pill bg-warning text-dark" style="font-size: 15px">Activo</p>
+                                            @else
+                                            <p class="badge rounded-pill bg-danger"  style="font-size: 15px">Inactivo</p>
+                                            @endif
+                                        </td>
+                                        <td class="border px-4 py-2 text-center">
+                                            <div class="d-inline-block">
+                                                <form action="{{ route('sales.show', ['sale' => $sale]) }}" method="get">
+                                                    <button type="submit" class="btn btn-success">
+                                                        <i class="fa fa-fw fa-eye"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                            <div class="d-inline-block">
+                                                <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmModal-{{$sale->id}}">
+                                                    <i class="fa fa-fw fa-trash"></i>
                                                 </button>
-                                            </form>
-                                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmModal-{{$sale->id}}">Eliminar</button>
-                                        </td> 
+                                            </div>
+                                        </td>
                                     </tr>
                                     <div class="modal fade" id="confirmModal-{{$sale->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
@@ -72,7 +121,7 @@
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    ¿Seguro que quieres eliminar el registro?
+                                                    ¿Seguro que quieres inactivar el registro?
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
