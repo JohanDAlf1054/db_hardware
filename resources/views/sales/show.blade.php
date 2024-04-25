@@ -8,6 +8,76 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 @endpush
 <div class="container-fluid">
+
+    <div class="card mb-4">
+
+        <div class="card-header">
+            Datos generales de la venta
+        </div>
+
+        <div class="card-body">
+     <!---Numero comprobante--->
+     <div class="row mb-4">
+        <div class="col-sm-6">
+            <div class="input-group" id="hide-group">
+                <span class="input-group-text"><i class="fa-solid fa-hashtag"></i></span>
+                <input disabled type="text" class="form-control" value="Número de comprobante: ">
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span title="Número de comprobante" id="icon-form" class="input-group-text"><i class="fa-solid fa-hashtag"></i></span>
+                <input disabled type="text" class="form-control" value="{{$sale->bill_numbers}}">
+            </div>
+        </div>
+    </div>
+
+    <!---Cliente--->
+    <div class="row mb-4">
+        <div class="col-sm-6">
+            <div class="input-group" id="hide-group">
+                <span class="input-group-text"><i class="fa-solid fa-user-tie"></i></span>
+                <input disabled type="text" class="form-control" value="Cliente: ">
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span title="Cliente" class="input-group-text" id="icon-form"><i class="fa-solid fa-user-tie"></i></span>
+                <input disabled type="text" class="form-control" value="{{$sale->cliente->identification_number}}">
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-sm-6">
+            <div class="input-group" id="hide-group">
+                <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
+                <input disabled type="text" class="form-control" value="Vendedor: ">
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span title="Vendedor" class="input-group-text" id="icon-form"><i class="fa-solid fa-user"></i></span>
+                <input disabled type="text" class="form-control" value="{{$sale->sellers}}">
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-sm-6">
+            <div class="input-group" id="hide-group">
+                <span class="input-group-text"><i class="fa-solid fa-calendar-days"></i></span>
+                <input disabled type="text" class="form-control" value="Fecha: ">
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span title="Fecha" class="input-group-text" id="icon-form"><i class="fa-solid fa-calendar-days"></i></span>
+                <input disabled type="text" class="form-control" value="{{ \Carbon\Carbon::parse($sale->fecha_hora)->format('d-m-Y') }}">
+            </div>
+        </div>
+    </div>
+
         <div class="col-sm-6">
             <div class="input-group">
                 <input type="hidden"   id="input-impuesto" disabled type="text" class="form-control" value="{{ $sale->taxes_total }}">
@@ -15,6 +85,7 @@
 
         </div>
     </div>
+</div>
 </div>
     <!---Tabla--->
     <div class="card mb-2">
@@ -64,18 +135,18 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th colspan="5"></th>
+                        <th colspan="8"></th>
                     </tr>
                     <tr>
-                        <th colspan="4">Sumas:</th>
+                        <th colspan="6">Sumas:</th>
                         <th id="th-suma"></th>
                     </tr>
                     <tr>
-                        <th colspan="4">IGV:</th>
+                        <th colspan="6">IGV:</th>
                         <th id="th-igv"></th>
                     </tr>
                     <tr>
-                        <th colspan="4">Total:</th>
+                        <th colspan="6">Total:</th>
                         <th id="th-total"></th>
                     </tr>
                 </tfoot>

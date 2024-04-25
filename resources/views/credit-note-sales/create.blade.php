@@ -7,7 +7,7 @@
 @endpush
 
 @section('content')
-<form method="POST" action="{{ route('credit-note-sales.store') }}"> 
+<form method="POST" action="{{ route('credit-note-sales.store') }}">
 <div class="content container-fluid">
     <div class="page-body">
         <div class="container-x1">
@@ -31,8 +31,8 @@
                                                 <span class="text-danger">*</span>
                                             </label>
                                             <select name="sale_id" id="sale_id" class="form-control selectpicker" data-live-search="true" data-size="3" title="Busque una venta aquí">
-                                                @foreach ($sales as $item)
-                                                <option value="{{$item->id}}-{{$item->dates}}-{{$item->sellers}}-{{$item->clients_id}}-{{$item->payments_methods}}">{{$item->bill_numbers}}</option>
+                                                @foreach ($sales as $key => $sale)
+                                                    <option value="{{$sale->id}}-{{$sale->dates}}-{{$sale->sellers}}-{{$sale->cliente->identification_number}}-{{$sale->payments_methods}}">{{$sale->bill_numbers}}</option>
                                                 @endforeach
                                             </select>
                                             {!! $errors->first('sale_id', '<div class="invalid-feedback">:message</div>') !!}
@@ -67,28 +67,13 @@
                                                 {{ __('Cliente') }}
                                                 <span class="text-danger">*</span>
                                             </label>
-                                            <input type="text" name="clients_id" id="clients_id" class="form-control">
+                                            <input disabled type="text" name="clients_id" id="clients_id" class="form-control">
                                             {!! $errors->first('clients_id', '<div class="invalid-feedback">:message</div>') !!}
                                         </div>
                                     </div>
                                     
                                         {{--  Motivo --}}
-                                        <div class="col-sm-6 md-6">
-                                            <div class="mb-3">
-                                                <label for="reason" class="form-label" style="font-weight: bolder">
-                                                    {{ __('Motivo')}}
-                                                    <span class="text-danger">*</span>
-                                                </label>
-                                                <select name="reason" id="reason" class="form-control selectpicker" data-live-search="true" data-size="6" title="Motivo ...">
-                                                    <option value="Devolucion de parte de los bienes">Devolución de parte de los bienes</option>
-                                                    <option value="Anulacion de factura electronica">Anulación de factura electrónica</option>
-                                                    <option value="Rebaja o descuento parcial o total">Rebaja o descuento parcial o total</option>
-                                                    <option value="Ajuste de precio">Ajuste de precio</option>
-                                                    <option value="Otros">Otros</option>
-                                                </select>
-                                                {!! $errors->first('reason', '<div class="invalid-feedback">:message</div>') !!}
-                                            </div> 
-                                        </div>
+                                        
 
                                     {{--  Vendedor --}}
                                     
@@ -98,7 +83,7 @@
                                                         {{ __('Vendedor') }}
                                                         <span class="text-danger">*</span>
                                                     </label>
-                                                    <input type="text" name="sellers" id="sellers" class="form-control">
+                                                    <input disabled type="text" name="sellers" id="sellers" class="form-control">
                                                     {!! $errors->first('sellers', '<div class="invalid-feedback">:message</div>') !!}
                                                 </div>
                                             </div>
@@ -111,7 +96,7 @@
                                                 {{ __('Metodo de Pago')}}
                                                 <span class="text-danger">*</span>
                                             </label>
-                                            <input type="text" name="payments_methods" id="payments_methods" class="form-control">  
+                                            <input disabled type="text" name="payments_methods" id="payments_methods" class="form-control">  
                                             {!! $errors->first('payments_methods', '<div class="invalid-feedback">:message</div>') !!}
                                         </div> 
                                     </div>
@@ -127,13 +112,31 @@
                                                 {{ __('Fecha de Compra') }}
                                                 <span class="text-danger">*</span>
                                             </label>
-                                            <input type="date" name="dates" id="dates" class="form-control">
+                                            <input disabled type="date" name="dates" id="dates" class="form-control">
                                             {!! $errors->first('date_invoice', '<div class="invalid-feedback">:message</div>') !!}
                                         </div>
                                     </div>
+
+                                    <div class="col-sm-6 md-6">
+                                        <div class="mb-3">
+                                            <label for="reason" class="form-label" style="font-weight: bolder">
+                                                {{ __('Motivo')}}
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <select name="reason" id="reason" class="form-control selectpicker" data-live-search="true" data-size="6" title="Motivo ...">
+                                                <option value="Devolucion de parte de los bienes">Devolución de parte de los bienes</option>
+                                                <option value="Anulacion de factura electronica">Anulación de factura electrónica</option>
+                                                <option value="Rebaja o descuento parcial o total">Rebaja o descuento parcial o total</option>
+                                                <option value="Ajuste de precio">Ajuste de precio</option>
+                                                <option value="Otros">Otros</option>
+                                            </select>
+                                            {!! $errors->first('reason', '<div class="invalid-feedback">:message</div>') !!}
+                                        </div> 
+                                        <br>
+                                    </div>
                                     
                                     <div class="col-12">
-                                        <table id="tabla_detalle" class="table table-hover w-100">
+                                        <table id="tablaDetalleVenta" class="table table-hover w-100">
                                             <style>
                                                 .bg-dark-blue {
                                                     background-color: #004080; /* Este es el código de color hexadecimal para azul oscuro */
@@ -149,62 +152,37 @@
                                                     <th class="text-white">Precio de Venta</th>
                                                     <th class="text-white">Descuento</th>
                                                     <th class="text-white">Impuesto</th>
+                                                    <th class="text-white">Impuesto Unit.</th>
                                                     <th class="text-white">Subtototal</th>
-                                                    <th></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {{-- @foreach ($sale->productos as $item)
-                                                <tr>
-                                                    <td>
-                                                        {{$item->name_product}}
-                                                    </td>
-                                                    <td>
-                                                        {{$item->pivot->references}}
-                                                    </td>
-                                                    <td>
-                                                        {{$item->pivot->amount}}
-                                                    </td>
-                                                    <td>
-                                                        {{$item->pivot->selling_price}}
-                                                    </td>
-                                                    <td>
-                                                        {{$item->pivot->discounts}}
-                                                    </td>
-                                                    <td>
-                                                        {{$item->pivot->tax}}
-                                                    </td>
-                                                    <td class="td-subtotal">
-                                                        {{($item->pivot->amount) * ($item->pivot->selling_price) - ($item->pivot->discounts)}}
-                                                    </td>
-                                                </tr>
-                                                @endforeach --}}
                                             </tbody>
                                         </table>
                                         <div class="row">
                                             <div class="col-md-12 text-end">
                                                 <div class="row">
                                                     <div class="col-md-6 text-end">
-                                                        <label for="total" class="form-label">Total</label>
+                                                        <label for="th-suma" class="form-label">Sumas:</label>
+                                                    </div>
+                                                    <div class="col-md-6 text-end">
+                                                        <input type="number" id="th-suma" name="th-suma" value="0" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6 text-end">
+                                                        <label for="impuesto" class="form-label">Impuesto:</label>
+                                                    </div>
+                                                    <div class="col-md-6 text-end">
+                                                        <input type="number" id="th-impuesto" name="th-impuesto" value="0" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6 text-end">
+                                                        <label for="total" class="form-label">Total:</label>
                                                     </div>
                                                     <div class="col-md-6 text-end">
                                                         <input type="number" id="total" name="total" value="0" class="form-control">
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-6 text-end">
-                                                        <label for="totalBruto" class="form-label">Total Bruto</label>
-                                                    </div>
-                                                    <div class="col-md-6 text-end">
-                                                        <input type="number" id="totalBruto" name="gross_total" value="0" class="form-control">
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-6 text-end">
-                                                        <label for="totalNeto" class="form-label">Total Neto</label>
-                                                    </div>
-                                                    <div class="col-md-6 text-end">
-                                                        <input type="number" id="totalNeto" name="totalNeto" value="0" class="form-control">
                                                     </div>
                                                 </div>
                                             </div>
@@ -224,24 +202,116 @@
 @push('js')
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/js/bootstrap-select.min.js"></script>
 <script>
-     $(document).ready(function() {
-
-$('#sale_id').change(mostrarValores);
-
-
-});
-
-function mostrarValores() {
-        let dataVenta= document.getElementById('sale_id').value.split('-');
-        console.log(dataVenta)     
-        let fecha = dataVenta.slice(1, 4).join('-'); // Unir los elementos de la fecha con '-'
-         console.log(fecha);
-        $('#clients_id').val(dataVenta[5]);
+    $(document).ready(function() {
+        // Capturar el evento change del select #sale_id
+        $('#sale_id').change(mostrarValores);
+        
+        // Adjuntar evento input a los inputs de cantidad
+        $(document).on('input', 'input[name="amount"]', recalcularPrecios);
+    });
+    
+    function mostrarValores() {
+        let dataVenta = document.getElementById('sale_id').value.split('-');
+        let fecha = dataVenta.slice(1, 4).join('-');
+        $('#clients_id').val(dataVenta[5]); // suponiendo que dataVenta[3] es el ID del cliente
         $('#dates').val(fecha);
-        $('#sellers').val(dataVenta[4]);
-        $('#payments_methods').val(dataVenta[6]);
+        $('#sellers').val(dataVenta[4]); // suponiendo que dataVenta[2] es el ID del vendedor
+        $('#payments_methods').val(dataVenta[6]); // suponiendo que dataVenta[4] es el método de pago
+        let selectedSaleId = dataVenta[0]; // Guardar el ID de la venta seleccionada en la variable selectedSaleId
+            
+        console.log(dataVenta);
+        console.log(selectedSaleId); // Esto imprimirá el ID de la venta seleccionada en la consola 
+    
+        // Realizar una solicitud AJAX al servidor para obtener el detalle de la venta
+        $.ajax({
+            url: '/obtener-detalle-venta',
+            type: 'GET',
+            data: { sale_id: selectedSaleId },
+            success: function(response) {
+                // Limpiar la tabla de productos antes de agregar los nuevos
+                $('#tablaDetalleVenta tbody').empty();
 
+                // Variables para almacenar el total de los subtotales, el total de impuestos y el total final
+                var totalSubtotales = 0;
+                var totalImpuestos = 0;
+
+                // Iterar sobre los detalles de venta y agregarlos a la tabla
+                response.detallesVenta.forEach(function(detalle) {
+                    // Calcular subtotal
+                    var subtotal = (detalle.amount * detalle.selling_price) - detalle.discounts;
+                    totalSubtotales += subtotal;
+
+                    // Calcular impuesto
+                    var impuesto = (detalle.selling_price * detalle.tax) / 100;
+                    totalImpuestos += impuesto;
+
+                    $('#tablaDetalleVenta tbody').append(`  
+                        <tr>
+                            <td>${detalle.product_id}</td>
+                            <td>${detalle.references}</td>
+                            <td><input type="text" name="amount" class="form-control" value="${detalle.amount}"></td>
+                            <td>${detalle.selling_price}</td>
+                            <td>${detalle.discounts}</td>
+                            <td>${detalle.tax}</td>
+                            <td class="td-impuesto">${impuesto.toFixed(2)}</td>
+                            <td class="td-subtotal">${subtotal.toFixed(2)}</td>
+                        </tr>   
+                    `);
+                });
+
+                // Calcular el total final sumando el total de subtotales y el total de impuestos
+                var total = totalSubtotales + totalImpuestos;
+
+                // Actualizar el valor del input de total de subtotales
+                $('#th-suma').val(totalSubtotales.toFixed(2));
+
+                // Actualizar el valor del input de total de impuestos
+                $('#th-impuesto').val(totalImpuestos.toFixed(2));
+
+                // Actualizar el valor del input de total final
+                $('#total').val(total.toFixed(2));
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
+    }
+    
+    function recalcularPrecios() {
+        var fila = $(this).closest('tr');
+
+        var cantidad = parseInt(fila.find('input[name="amount"]').val());
+        var precioVenta = parseFloat(fila.find('td:eq(3)').text());
+        var descuento = parseFloat(fila.find('td:eq(4)').text());
+        var impuesto = parseFloat(fila.find('td:eq(5)').text());
+
+        var subtotal = (cantidad * precioVenta) - descuento;
+        var impuestoTotal = (precioVenta * impuesto * cantidad) / 100;
+
+        fila.find('.td-subtotal').text(subtotal.toFixed(2));
+        fila.find('.td-impuesto').text(impuestoTotal.toFixed(2));
+
+        recalcularTotales();
     }
 
+    function recalcularTotales() {
+        var totalSubtotales = 0;
+        var totalImpuestos = 0;
+
+        $('#tablaDetalleVenta tbody tr').each(function() {
+            var subtotalFila = parseFloat($(this).find('.td-subtotal').text());
+            var impuestoFila = parseFloat($(this).find('.td-impuesto').text());
+
+            totalSubtotales += subtotalFila;
+            totalImpuestos += impuestoFila;
+        });
+
+        var totalFinal = totalSubtotales + totalImpuestos;
+
+        $('#th-suma').val(totalSubtotales.toFixed(2));
+        $('#th-impuesto').val(totalImpuestos.toFixed(2));
+        $('#total').val(totalFinal.toFixed(2));
+    }
 </script>
+
 @endpush    

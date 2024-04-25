@@ -11,11 +11,16 @@ class Sale extends Model
     protected $guarded = ['id'];
 
     public function cliente(){
-        return $this->belongsTo(Person::class);
+        return $this->belongsTo(Person::class, 'clients_id');
     }
 
     public function productos(){
         return $this->belongsToMany(Product::class)->withTimestamps()
         ->withPivot('references','amount','selling_price','discounts','tax');
+    }
+
+    public function detallesVentas()
+    {
+        return $this->hasMany(DetalleVenta::class);
     }
 }

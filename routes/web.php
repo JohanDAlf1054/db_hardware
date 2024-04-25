@@ -3,8 +3,6 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BrandController;
 use App\Http\Controllers\CategoryProductController;
-use App\Http\Controllers\CategoryProductsSubController;
-use App\Http\Controllers\CategorySubController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\HomeController;
@@ -17,7 +15,6 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\SupplierController;
-use App\Http\Controllers\PurchaseSupplierController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UsuariosController;
 use App\Http\Controllers\CreditNoteSalesController;
@@ -88,6 +85,8 @@ Route::resource('person', PersonController::class);
 Route::resource('customer', CustomerController::class);
 Route::resource('supplier', SupplierController::class);
 Route::resource('usuarios', UsuariosController::class)->only(['index', 'edit', 'update'])->names('admin.usuarios');
+Route::get('/obtener-detalle-venta', [CreditNoteSalesController::class, 'obtenerDetalleVenta']);
+
 
 
 Route::get('/indexAll',[SubCategoryController::class, 'indexAll'])->name('indexAll');

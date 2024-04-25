@@ -78,6 +78,11 @@ class Product extends Model
     {
         return $this->hasOne('App\Models\MeasurementUnit', 'id', 'measurement_units_id');
     }
+
+    public function detalleVenta()
+    {
+        return $this->hasMany(DetalleVenta::class);
+    }
     
 
 }
