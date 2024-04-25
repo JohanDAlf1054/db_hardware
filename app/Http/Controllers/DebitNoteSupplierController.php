@@ -136,7 +136,12 @@ foreach ($detailPurchases as $detailPurchase) {
     {
         $request->validate([
             'producto.*' => 'required',
-            'cantidad.*' => 'required',
+            'cantidad.*' => ['required', function ($attribute, $value, $fail) {
+                if ($value < 0) {
+                    $fail('La cantidad no puede ser negativa.');
+                }
+            }],
+            
             'descripcion.*' => 'required',
             'precio_unitario.*' => 'required',
             'descuento.*' => 'required',
