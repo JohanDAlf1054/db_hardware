@@ -1,10 +1,3 @@
-{{--  @extends('layouts.app')
-
-@section('template_title')
-    Person
-@endsection
-
-@section('content')  --}}
 @auth
 
 
@@ -23,7 +16,7 @@
                     <div class="card-header">
                         <h3 class="card-title">
                             {{__('Personas')}}
-                        </h3> 
+                        </h3>
                     </div>
                     <div class="card-body">
                         <div class="row">
