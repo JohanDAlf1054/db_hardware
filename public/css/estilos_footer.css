@@ -1,0 +1,59 @@
+footer{
+    position: fixed;
+    bottom: 0;
+    width: 100vh;
+    height: 2rem;
+    color: #2b2b2b;
+}
+/* .logo_footer{
+    width: 8rem;
+    margin: auto;
+    padding-top: 5px;
+    padding-bottom: 10px;
+}
+.socials{
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding-top: 5px;
+    padding-bottom: 10px;
+}
+.socials .iconos_footer{
+    padding-right: 4rem;
+}
+.socials .Telefono_footer{
+    padding-right: 0.3rem;
+}
+.socials .Correo_footer{
+    padding-right: 0.3rem;
+}
+.socials i{
+    font-size: 1.1rem;
+    transition: color .4s ease;
+}
+.socials i:hover{
+    color: aqua;
+} */
+.footer-bottom{
+    background: #E5E8E8;
+    width: 100vw;
+    height: 2rem;
+    text-align: center;
+}
+.footer-bottom p{
+    /* padding-top: 10px; */
+    font-size: 15px;
+    word-spacing: 2px;
+    text-transform: capitalize;
+}
+.footer-bottom .spanTory{
+    color: black;
+    font-weight: bolder;
+}
+/* .footer-bottom .spanTory{
+    opacity: .4;
+    color: black;
+    font-weight: 400;
+} */
