@@ -31,8 +31,8 @@
                                                 persona</a></li>
                                         <li><a class="dropdown-item" href="{{ route('person.index') }}">Mostrar tabla
                                                 general</a></li>
-                                        <li><a class="dropdown-item" href="{{ route('customer.index') }}">Mostrar
-                                                clientes</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('supplier.index') }}">Mostrar
+                                                proveedores</a></li>
                                     </ul>
                                 </div>
                             </div>

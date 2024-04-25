@@ -37,8 +37,7 @@
                                     <ul class="dropdown-menu">
                                         <li><a class="dropdown-item" href="{{ route('person.create') }}">Crear nueva
                                                 persona</a></li>
-                                        <li><a class="dropdown-item" href="{{ route('person.index') }}">Mostrar tabla
-                                                general</a></li>
+                                                <li><a class="dropdown-item" href="{{ route('supplier.index') }}">Mostrar proveedores</a></li>
                                         <li><a class="dropdown-item" href="{{ route('customer.index') }}">Mostrar
                                                 clientes</a></li>
                                     </ul>
