@@ -12,7 +12,13 @@
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/css/bootstrap-select.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+    
 </head>
 <br>
 <style>
@@ -62,6 +68,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                
                                 <div class="card-body">
                                     <div class="row row-cards">
                                     {{--  Buscar Un Numero De Factura  --}}
@@ -71,7 +78,7 @@
                                                     {{ __('Buscar Factura') }}
                                                     <span class="text-danger">*</span>
                                                 </label>
-                                                <select id="factura" name="factura" class="form-control{{ $errors->has('factura') ? ' is-invalid' : '' }}">
+                                                <select id="factura" name="factura"  class="form-control selectpicker show-tick {{ $errors->has('factura') ? ' is-invalid' : '' }}"data-live-search="true" data-size="5" title="Seleccione una factura">
                                                     <option value="">Seleccione un prefijo y número de factura</option>
                                                     @foreach($purchaseSuppliers as $purchaseSupplier)
                                                     <option value="{{ $purchaseSupplier->id }}" 
@@ -85,20 +92,11 @@
                                                         {{ $purchaseSupplier->code . '-' . $purchaseSupplier->invoice_number_purchase }}
                                                     </option>
                                                     @endforeach
-
-                                                
-
                                                 </select>
                                                 {!! $errors->first('factura', '<div class="invalid-feedback">:message</div>') !!}
                                             </div>
                                         </div>
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
+
                                     
                                             {{--  Fecha De Elaboracion Nota Debito  --}}
                                             <div class="col-sm-6 md-6">
@@ -248,6 +246,10 @@
                                                 <button type="submit" class="btn btn-success">{{ __('Guardar') }}</button>
                                             </div>
                                         </div>
+  
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js"></script> 
+
     <script>
         var detailPurchaseData = @json($detailPurchaseData);
     </script>
@@ -343,8 +345,10 @@
                 // Agrega un evento 'input' a cada campo de entrada
                 newRow.querySelectorAll('input[type=number]').forEach(function(input) {
                     input.addEventListener('input', function(e) {
+                        
                         calcularTotales();
                     });
+                    
                 });
             });
         });
