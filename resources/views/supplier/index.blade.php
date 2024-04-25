@@ -7,6 +7,7 @@
         <link href="css/estilos_vista_persona.css" rel="stylesheet" />
         <link href="css/estilos_notificacion.css" rel="stylesheet" />
         <script src="{{ asset('js/notificaciones.js') }}" defer></script>
+        <script src="{{ asset('js/tooltips.js') }}" defer></script>
     </head>
     <br>
     <div class="container-fluid">
@@ -23,30 +24,38 @@
                             <div class="col-lg-6 col-md-6 col-sm-12">
                                 {{-- Desplegable de opciones --}}
                                 <div class="dropdown">
-                                    <button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" >Acciones</button>
+                                    <button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown"
+                                        aria-expanded="false">Acciones</button>
                                     <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="{{ route('person.create') }}">Crear nueva persona</a></li>
-                                        <li><a class="dropdown-item" href="{{ route('person.index') }}">Mostrar tabla general</a></li>
-                                        <li><a class="dropdown-item" href="{{ route('customer.index') }}">Mostrar clientes</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('person.create') }}">Crear nueva
+                                                persona</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('person.index') }}">Mostrar tabla
+                                                general</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('customer.index') }}">Mostrar
+                                                clientes</a></li>
                                     </ul>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-12">
-                                <form action="{{ route('supplier.index') }}" method="get" class="d-flex align-items-center">
-                                    <input name="filtervalue" type="text" class="form-control me-2" aria-label="Buscar persona" placeholder="Buscar persona....">
+                                <form action="{{ route('supplier.index') }}" method="get"
+                                    class="d-flex align-items-center">
+                                    <input name="filtervalue" type="text" class="form-control me-2"
+                                        aria-label="Buscar persona" placeholder="Buscar persona....">
                                     <button type="submit" class="btn btn-dark">Buscar</button>
                                     {{-- Botones IMPORTAR Y EXPORTAR --}}
-                                    <button type="button" class="btn btn-success ms-2 rounded" data-bs-toggle="modal" data-bs-target="#informes">
+                                    <button type="button" class="btn btn-success ms-2 rounded" data-bs-toggle="tooltip"
+                                        title="Exportar" data-bs-toggle="modal" data-bs-target="#informes">
                                         <i class="fa-solid fa-file-arrow-down"></i>
                                     </button>
-                                    <button type="button" class="btn btn-warning ms-2 rounded" data-bs-toggle="modal" data-bs-target="#">
+                                    <button type="button" class="btn btn-warning ms-2 rounded" data-bs-toggle="tooltip"
+                                        title="Importar" data-bs-toggle="modal" data-bs-target="#">
                                         <i class="fa-solid fa-folder-open"></i>
                                     </button>
                                 </form>
                             </div>
                         </div>
                     </div>
-                    
+
 
                     {{-- Script  para mostrar la notificacion --}}
                     <script>
@@ -60,7 +69,7 @@
 
                     {{--  Div con las notificaciones nuevas  --}}
                     <div class="contenedor-notificacion" id="contenedor-notificacion">
-                        {{--  Aqui trae las notificaciones por medio de javaescript  --}}
+                        {{--  Aqui trae las notificaciones por medio de javascript  --}}
                     </div>
 
                     <div class="container_datos">
@@ -116,10 +125,12 @@
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    <a class="btn btn-sm btn-primary "
+                                                    <a class="btn btn-sm btn-primary" data-bs-toggle="tooltip"
+                                                        title="Visualizar"
                                                         href="{{ route('person.show', $proveedor->id) }}"><i
                                                             class="fa fa-fw fa-eye"></i></a>
-                                                    <a class="btn btn-sm btn-success"
+                                                    <a class="btn btn-sm btn-success" data-bs-toggle="tooltip"
+                                                        title="Modificar"
                                                         href="{{ route('person.edit', $proveedor->id) }}"><i
                                                             class="fa fa-fw fa-edit"></i></a>
 
@@ -127,12 +138,13 @@
 
                                                     @if ($proveedor->status == true)
                                                         <button type="button" class="btn btn-danger btn-sm"
-                                                            data-bs-toggle="modal"
+                                                            data-bs-toggle="modal" data-bs-toggle="tooltip"
+                                                            title="Inactivar"
                                                             data-bs-target="#confirmationDestroy-{{ $proveedor->id }}"><i
                                                                 class="fa fa-fw fa-trash"></i></button>
                                                     @else
                                                         <button type="button" class="btn btn-danger btn-sm"
-                                                            data-bs-toggle="modal"
+                                                            data-bs-toggle="modal" data-bs-toggle="tooltip" title="Activar"
                                                             data-bs-target="#confirmationDestroy-{{ $proveedor->id }}"><i
                                                                 class="fa-solid fa-rotate"></i></button>
                                                     @endif
@@ -151,8 +163,6 @@
 
 
         @include('supplier.modal')
-
-
     @endauth
     @guest
         @include('include.falta_sesion')
