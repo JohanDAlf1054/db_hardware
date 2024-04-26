@@ -34,17 +34,33 @@
 /* Estilo para el alto contraste */
 .alto-contraste{
     filter: invert(1);
-    background-color: #777676;
+    background-color: #dcdcdc;
     color: #b93c3c;
 }
 .alto-contraste .menu__side{
-    background-color: #747373;
+    background-color: #b3b2b2;
 }
 .alto-contraste .logos{
-    background-color: #747373;
+    background-color: #b3b2b2;
 }
 .alto-contraste header {
-    border-bottom-color: #747373;
+    background-color: #d8d8d8;
+    border-bottom-color: #b3b2b2;
+    color: rgb(0, 0, 0);
+}
+.alto-contraste .sales,
+.alto-contraste .visits,
+.alto-contraste .searches,
+.alto-contraste .recent-orders,
+.alto-contraste .user-profile,
+.alto-contraste .reminders {
+    --box-shadow: 0 2rem 3rem #EAECEE;
+}
+.alto-contraste .icono_accesibilidad{
+    color: #454545;
+}
+.alto-contraste .header-button.btn.btn-outline-secondary.dropdown-toggle.dropdown-toggle-split::after {
+    border-top-color: #454545;
 }
 
 
@@ -218,6 +234,9 @@ a.selected {
 }
 
 /* Estilos para el boton de accesibilidad */
+.icono_accesibilidad{
+    color: #74C0FC
+}
 .accesibilidad {
     border: none;
     position: fixed;

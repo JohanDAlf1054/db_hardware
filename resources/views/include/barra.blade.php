@@ -24,7 +24,7 @@
                 </div>
 
                 <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split accesibilidad header-button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="fa-solid fa-universal-access fa-2xl icono_accesibilidad" style="color: #74C0FC;"></i>
+                    <i class="fa-solid fa-universal-access fa-2xl icono_accesibilidad"></i>
                     <span class="visually-hidden">Accesibilidad</span>
                 </button>
                 <ul class="dropdown-menu">
