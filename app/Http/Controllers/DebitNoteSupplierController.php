@@ -49,7 +49,7 @@ class debitNoteSupplierController extends Controller
 
         $debitNoteSuppliers = DebitNoteSupplier::whereIn('id', $uniqueDebitNoteSupplierIds)->paginate();
     }
-
+    
     return view('debit-note-supplier.index', compact('debitNoteSuppliers'))
         ->with('i', (request()->input('page', 1) - 1) * $debitNoteSuppliers->perPage());
 }
@@ -103,6 +103,7 @@ foreach ($detailPurchases as $detailPurchase) {
         'price_unit' => $detailPurchase->price_unit,
         'product_tax' => $detailPurchase->product_tax,
         'discount_total' => $detailPurchase->discount_total,
+        
     ];
 }
 
@@ -138,7 +139,7 @@ foreach ($detailPurchases as $detailPurchase) {
             'producto.*' => 'required',
             'cantidad.*' => ['required', function ($attribute, $value, $fail) {
                 if ($value < 0) {
-                    $fail('La cantidad no puede ser negativa.');
+                    $fail('La cantidad ingresada no puede ser negativa.');
                 }
             }],
             
