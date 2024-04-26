@@ -22,7 +22,9 @@ class CreditNotePostRequest extends FormRequest
     public function rules(): array
     {
         return [
-
+            'sellers' => 'required',
+            'payments_methods' => 'required',
+            'reason' => 'required'
         ];
     }
 }

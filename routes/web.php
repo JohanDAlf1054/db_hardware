@@ -88,7 +88,6 @@ Route::resource('usuarios', UsuariosController::class)->only(['index', 'edit', '
 Route::get('/obtener-detalle-venta', [CreditNoteSalesController::class, 'obtenerDetalleVenta']);
 
 
-
 Route::get('/indexAll',[SubCategoryController::class, 'indexAll'])->name('indexAll');
 //Funcion Importar
 Route::post('/importbrands',[BrandController::class, 'importbrands'])->name('importbrands');

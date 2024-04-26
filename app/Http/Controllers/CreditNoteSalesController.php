@@ -7,6 +7,7 @@ use App\Models\credit_note_sales;
 use App\Models\DetalleVenta;
 use App\Models\Sale;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class CreditNoteSalesController extends Controller
 {
@@ -33,8 +34,20 @@ class CreditNoteSalesController extends Controller
      */
     public function store(CreditNotePostRequest $request)
     {
-    
+        try {
+            // Procesar la solicitud aquí
+            $validatedData = $request->validated();
+            // Aquí puedes realizar cualquier operación adicional, como guardar en la base de datos
 
+            // Si todo va bien, puedes redirigir al usuario a otra página
+            return redirect()->route('credit-note-sales.create');
+
+        } catch (\Exception $e) {
+            // Manejar la excepción aquí
+            Log::error('Error al procesar la solicitud: ' . $e->getMessage());
+            // Puedes redirigir al usuario a una página de error o simplemente volver a cargar la página anterior
+            return back()->withInput()->withErrors(['error' => 'Hubo un error al procesar la solicitud. Por favor, inténtalo de nuevo más tarde.']);
+        }
     }
 
     /**

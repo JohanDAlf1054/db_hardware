@@ -7,7 +7,8 @@
 @endpush
 
 @section('content')
-<form method="POST" action="{{ route('credit-note-sales.store') }}">
+<form action="{{ route('credit-note-sales.store') }}" method="post">
+    @csrf
 <div class="content container-fluid">
     <div class="page-body">
         <div class="container-x1">
@@ -108,7 +109,7 @@
                                     
                                     <div class="col-sm-6 md-6">
                                         <div class="md-3" style="margin-bottom: 16px">
-                                            <label for="date_invoice" class="form-label" style="font-weight: bolder">
+                                            <label for="dates" class="form-label" style="font-weight: bolder">
                                                 {{ __('Fecha de Compra') }}
                                                 <span class="text-danger">*</span>
                                             </label>
@@ -171,7 +172,7 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-6 text-end">
-                                                        <label for="impuesto" class="form-label">Impuesto:</label>
+                                                        <label for="th-impuesto" class="form-label">Impuesto:</label>
                                                     </div>
                                                     <div class="col-md-6 text-end">
                                                         <input type="number" id="th-impuesto" name="th-impuesto" value="0" class="form-control">
@@ -191,12 +192,12 @@
                                         <div class="card-footer text-end">
                                           
                                                 <a class="btn btn-primary" style="margin-right: 2rem" href="{{ route('credit-note-sales.index') }}">Regresar</a>
-                                            {{-- <a class="btn btn-primary" style="margin-right: 5rem" href="{{ route('debit-note-supplier.index') }}">Regresar</a> --}}
-                                            <button type="submit" class="btn btn-success">{{ __('Guardar') }}</button>
+                                                <input type="submit" class="btn btn-success" value="Realizar Nota">
+                                                                        
                                         </div>
                                         
                                     </div>
-                                </form>
+    </form>
                                 
 @endsection
 @push('js')
@@ -209,6 +210,7 @@
         // Adjuntar evento input a los inputs de cantidad
         $(document).on('input', 'input[name="amount"]', recalcularPrecios);
     });
+
     
     function mostrarValores() {
         let dataVenta = document.getElementById('sale_id').value.split('-');
@@ -224,58 +226,59 @@
     
         // Realizar una solicitud AJAX al servidor para obtener el detalle de la venta
         $.ajax({
-            url: '/obtener-detalle-venta',
-            type: 'GET',
-            data: { sale_id: selectedSaleId },
-            success: function(response) {
-                // Limpiar la tabla de productos antes de agregar los nuevos
-                $('#tablaDetalleVenta tbody').empty();
+    url: '/obtener-detalle-venta',
+    type: 'GET',
+    data: { sale_id: selectedSaleId },
+    success: function(response) {
+        // Limpiar la tabla de productos antes de agregar los nuevos
+        $('#tablaDetalleVenta tbody').empty();
 
-                // Variables para almacenar el total de los subtotales, el total de impuestos y el total final
-                var totalSubtotales = 0;
-                var totalImpuestos = 0;
+        // Variables para almacenar el total de los subtotales, el total de impuestos y el total final
+        var totalSubtotales = 0;
+        var totalImpuestos = 0;
 
-                // Iterar sobre los detalles de venta y agregarlos a la tabla
-                response.detallesVenta.forEach(function(detalle) {
-                    // Calcular subtotal
-                    var subtotal = (detalle.amount * detalle.selling_price) - detalle.discounts;
-                    totalSubtotales += subtotal;
+        // Iterar sobre los detalles de venta y agregarlos a la tabla
+        response.detallesVenta.forEach(function(detalle) {
+            // Calcular subtotal
+            var subtotal = (detalle.amount * detalle.selling_price) - detalle.discounts;
+            totalSubtotales += subtotal;
 
-                    // Calcular impuesto
-                    var impuesto = (detalle.selling_price * detalle.tax) / 100;
-                    totalImpuestos += impuesto;
+            // Calcular impuesto
+            var impuesto = (detalle.selling_price * detalle.tax) / 100;
+            totalImpuestos += impuesto;
 
-                    $('#tablaDetalleVenta tbody').append(`  
-                        <tr>
-                            <td>${detalle.product_id}</td>
-                            <td>${detalle.references}</td>
-                            <td><input type="text" name="amount" class="form-control" value="${detalle.amount}"></td>
-                            <td>${detalle.selling_price}</td>
-                            <td>${detalle.discounts}</td>
-                            <td>${detalle.tax}</td>
-                            <td class="td-impuesto">${impuesto.toFixed(2)}</td>
-                            <td class="td-subtotal">${subtotal.toFixed(2)}</td>
-                        </tr>   
-                    `);
-                });
-
-                // Calcular el total final sumando el total de subtotales y el total de impuestos
-                var total = totalSubtotales + totalImpuestos;
-
-                // Actualizar el valor del input de total de subtotales
-                $('#th-suma').val(totalSubtotales.toFixed(2));
-
-                // Actualizar el valor del input de total de impuestos
-                $('#th-impuesto').val(totalImpuestos.toFixed(2));
-
-                // Actualizar el valor del input de total final
-                $('#total').val(total.toFixed(2));
-            },
-            error: function(xhr, status, error) {
-                console.error(error);
-            }
+            $('#tablaDetalleVenta tbody').append(`  
+                <tr>
+                    <td>${detalle.producto.name_product}</td>
+                    <td>${detalle.references}</td>
+                    <td><input type="text" name="amount" class="form-control" value="${detalle.amount}"></td>
+                    <td>${detalle.selling_price}</td>
+                    <td>${detalle.discounts}</td>
+                    <td>${detalle.tax}</td>
+                    <td class="td-impuesto">${impuesto.toFixed(2)}</td>
+                    <td class="td-subtotal">${subtotal.toFixed(2)}</td>
+                </tr>   
+            `);
         });
+
+        // Calcular el total final sumando el total de subtotales y el total de impuestos
+        var total = totalSubtotales + totalImpuestos;
+
+        // Actualizar el valor del input de total de subtotales
+        $('#th-suma').val(totalSubtotales.toFixed(2));
+
+        // Actualizar el valor del input de total de impuestos
+        $('#th-impuesto').val(totalImpuestos.toFixed(2));
+
+        // Actualizar el valor del input de total final
+        $('#total').val(total.toFixed(2));
+    },
+    error: function(xhr, status, error) {
+        console.error(error);
     }
+});
+    }
+
     
     function recalcularPrecios() {
         var fila = $(this).closest('tr');
