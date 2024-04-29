@@ -35,7 +35,7 @@
                         <div class="col-lg-3 col-md-5 col-sm-7" >
                             <form action="{{ route('products.index') }}" method="GET">
                                 <div class="mb-3 row">
-                                    <div class="col-sm-9"> 
+                                    <div class="col-sm-9">
                                         <select name="category_filter" id="category_filter" class="form-control selectpicker" data-live-search="true">
                                             <option value="">Filtrar por Categorias</option>
                                                 @foreach($categories as $category)

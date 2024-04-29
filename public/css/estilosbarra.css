@@ -7,6 +7,9 @@
     font-family: "Oswald", sans-serif;
     letter-spacing: 2px;
 }
+html{
+    height: 100%;
+}
 /* Estilo para aumentar el tamaño de letra */
 .font-increase-1 {
     font-size: 120%;
@@ -35,7 +38,7 @@
 .alto-contraste{
     filter: invert(1);
     background-color: #dcdcdc;
-    color: #b93c3c;
+    color: #f00000;
 }
 .alto-contraste .menu__side{
     background-color: #b3b2b2;
@@ -63,8 +66,10 @@
     border-top-color: #454545;
 }
 
-
 body {
+    position: relative;
+    padding-bottom: 10em;
+    min-height: 100vh;
     margin-left: 5rem;
     margin-top: 5rem;
     transition: margin-left 300ms cubic-bezier(0.785, 0.135, 0.15, 0.86);
