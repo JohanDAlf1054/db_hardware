@@ -12,7 +12,6 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
         <link rel="stylesheet" href="{{ asset('css/estilos_footer.css') }}" type="text/css">
     <body>
-        {{ Breadcrumbs::render('home') }}
         <div class="container">
             <!-- Main Content -->
             <main>

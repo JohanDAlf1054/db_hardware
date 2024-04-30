@@ -201,10 +201,21 @@ Breadcrumbs::for('credit.note.sales', function (BreadcrumbTrail $trail) {
 });
 
 //Ventas > Notas credito > Mostrar
-//Falta por la modificacion de la tabla. 
+//Falta por la modificacion de la tabla.
 
 //Ventas > Crear nota credito
 Breadcrumbs::for('credit.note.sales.create', function (BreadcrumbTrail $trail) {
     $trail->parent('sales.index');
     $trail->push('Crear nota credito');
+});
+
+//Administrador
+Breadcrumbs::for('admin.index', function (BreadcrumbTrail $trail) {
+    $trail->push('Usuarios', route('admin.usuarios.index'));
+});
+
+//Administrador roles
+Breadcrumbs::for('admin.edit', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.index');
+    $trail->push('Roles');
 });
