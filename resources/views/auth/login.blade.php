@@ -165,7 +165,7 @@
                     <span class="text_red">*</span>
                 </label>
                 <div class="formulario__grupo-input">
-                    <input type="password" class="formulario__input" name="password" id="contrasena">
+                    <input type="password" class="formulario__input" name="password" id="contrasena" placeholder="********">
                     <i class="formulario__validacion-estado far fa-times-circle"></i>
                     <i class="formulario__icono-toggle fa-solid fa-eye-slash ojo_contrasena_register" id="togglePasswordRegi" onclick="togglePasswordRegister()"></i>
                 </div>

@@ -32,6 +32,19 @@ class SupplierController extends Controller
         return view('supplier.index', compact('proveedores'));
     }
 
+    public function edit($id)
+{
+    $person = Person::findOrFail($id);
+    $table = 'supplier';
+    return view('person.edit', compact('person', 'table'));
+}
+
+public function show($id)
+{
+    $person = Person::findOrFail($id);
+    $table = 'supplier';
+    return view('person.show', compact('person', 'table'));
+}
     // Funcion para inactivar un proveedor
     public function destroy($id)
     {

@@ -1,3 +1,8 @@
+<div class="bread_crumb">
+    {{ Breadcrumbs::render('sales.show', $sale) }}
+</div>
+<br>
+
 @extends('template')
 
 @section('title','Ver venta')

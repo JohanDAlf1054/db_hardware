@@ -15,24 +15,24 @@
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">
-                            {{ __('Clientes') }}
+                    <h3 class="card-title">
+                        {{ Breadcrumbs::render('customer.index') }}
                         </h3>
                     </div>
                     <div class="card-body">
-                        <div class="row">                            
-                            <div class="col-lg-6 col-md-6 col-sm-12">
-                                {{-- Desplegable de opciones --}}
-                                <div class="dropdown">
-                                    <button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown"
-                                        aria-expanded="false">Acciones</button>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="{{ route('person.create') }}">Crear nueva
-                                                persona</a></li>
-                                        <li><a class="dropdown-item" href="{{ route('person.index') }}">Mostrar tabla
-                                                general</a></li>
-                                        <li><a class="dropdown-item" href="{{ route('supplier.index') }}">Mostrar
-                                                proveedores</a></li>
+                        <div class="row">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                {{--  Desplegable de opciones  --}}
+                                <div class="col-lg-6 col-md-6 col-sm-12" >
+                                    <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">Acciones
+                                        <span class="visually-hidden">Acciones</span>
+                                    </button>
+                                    <ul class="dropdown-menu desplegable_acciones">
+                                        <div class="acciones_boton">
+                                            <li><a class="dropdown-item" href="{{ route('person.create') }}">Craer nueva persona</a></li>
+                                            <li><a class="dropdown-item" href="{{ route('supplier.index') }}">Mostrar proveedores</a></li>
+                                            <li><a class="dropdown-item" href="{{ route('person.index')}}">Mostrar la tabla general</a></li>
+                                        </div>
                                     </ul>
                                 </div>
                             </div>
@@ -125,14 +125,8 @@
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    <a class="btn btn-sm btn-primary" data-bs-toggle="tooltip"
-                                                        title="Visualizar"
-                                                        href="{{ route('person.show', $cliente->id) }}"><i
-                                                            class="fa fa-fw fa-eye"></i></a>
-                                                    <a class="btn btn-sm btn-success" data-bs-toggle="tooltip"
-                                                        title="Modificar"
-                                                        href="{{ route('person.edit', $cliente->id) }}"><i
-                                                            class="fa fa-fw fa-edit"></i></a>
+                                                        <a class="btn btn-sm btn-primary " href="{{ route('customer.show',$cliente->id) }}"><i class="fa fa-fw fa-eye"></i></a>
+                                                        <a class="btn btn-sm btn-success" href="{{ route('customer.edit',$cliente->id) }}"><i class="fa fa-fw fa-edit"></i></a>
 
                                                     {{--  <!-- Button trigger modal -->  --}}
 

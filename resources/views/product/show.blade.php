@@ -1,6 +1,9 @@
 
 @include('include.barra', ['modo'=>'Productos'])
 <body>
+    <div class="bread_crumb">
+        {{ Breadcrumbs::render('product.show', $producto) }}
+    </div>
     <br>
 <div class="container-fluid">
 <div class="page-body">
@@ -20,7 +23,7 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            
+
                         </div>
                     </div>
                     <div class="col-lg-8">
@@ -49,7 +52,7 @@
                                             <td>Unidad</td>
                                             <td>{{ $producto->measurementUnit->name }}</td>
                                         </tr>
-    
+
                                         <tr>
                                             <td>Estado</td>
                                             <td>
@@ -66,7 +69,7 @@
                                                 {{ $producto->factory_reference }}
                                             </td>
                                         </tr>
-    
+
                                         <tr>
                                             <td>Clasificacion Tributaria</td>
                                             <td>{{ $producto->classification_tax }}</td>
@@ -79,7 +82,7 @@
                                             <td> Marca</td>
                                             <td>{{ $producto->brand->name}}</td>
                                         </tr>
-                                        {{-- 
+                                        {{--
                                         <tr>
                                             <td>Tax Type</td>
                                             <td>{{ $product->tax_type->label() }}</td>

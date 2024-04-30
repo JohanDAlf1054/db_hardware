@@ -6,9 +6,12 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @endpush
 
+<div class="bread_crumb">
+    {{ Breadcrumbs::render('sales.create') }}
+</div>
+<br>
 @section('content')
 <div class="card">
-             
     <div class="card-header">
         <h2 id="card_title">
             {{ __('Detalle de Venta') }}
@@ -30,7 +33,7 @@
                 <div class="p-3 border border-3 border-primary">
                     <div class="row gy-4">
 
-                        
+
                         <!-----Producto---->
                         <div class="col-12">
                             <select name="product_id" id="product_id" class="form-control selectpicker" data-live-search="true" data-size="3" title="Busque un producto aquí">
@@ -42,8 +45,8 @@
 
                         <!-----Impuesto---->
                         <div class="col-sm-4">
-                            <label for="tax" class="form-label">Impuesto:</label>   
-                             <input disabled type="text" name="tax" id="tax" class="form-control" step="0.1">  
+                            <label for="tax" class="form-label">Impuesto:</label>
+                             <input disabled type="text" name="tax" id="tax" class="form-control" step="0.1">
                              @error('tax')
                              <small class="text-danger">{{ '*'.$message }}</small>
                              @enderror
@@ -53,13 +56,13 @@
                         <!-----Stock--->
                         <div class="col-sm-4">
                             <label for="stock" class="form-label">Stock:</label>
-                             <input disabled type="number" name="stock" id="stock" class="form-control" step="0.1">  
+                             <input disabled type="number" name="stock" id="stock" class="form-control" step="0.1">
                         </div>
 
                         <!-----Precio de venta---->
                         <div class="col-sm-4">
                             <label for="selling_price" class="form-label">Precio de venta:</label>
-                             <input type="number" name="selling_price" id="selling_price" class="form-control" step="0.1">  
+                             <input type="number" name="selling_price" id="selling_price" class="form-control" step="0.1">
                         </div>
 
                         <!-----Cantidad---->
@@ -74,7 +77,7 @@
                             <input type="number" name="discounts" id="discounts" class="form-control">
                         </div>
 
-                        
+
 
                         <!-----botón para agregar--->
                         <div class="col-12 text-end">
@@ -121,13 +124,13 @@
                                             <th colspan="4">Total Iva %</th>
                                             <th colspan="2"><input type="hidden" name="taxes_total" value="0" id="inputTaxes"><span id="taxes_total">0</span></th>
                                         </tr>
-                                      
+
                                         <tr>
                                             <th></th>
                                             <th colspan="4">Total Neto</th>
                                             <th colspan="2"> <input type="hidden" name="net_total" value="0" id="inputTotal"><span id="net_total">0</span></th>
                                         </tr>
-                                        
+
                                     </tfoot>
                                 </table>
                             </div>
@@ -151,7 +154,7 @@
                 </div>
                 <div class="p-3 border border-3 border-success">
                     <div class="row gy-4">
-                        
+
                         <!--Cliente-->
                         <div class="col-12">
                             <label for="clients_id" class="form-label">Cliente:</label>
@@ -163,7 +166,7 @@
                             @error('clients_id')
                             <small class="text-danger">{{ '*'.$message }}</small>
                             @enderror
-                        </div>  
+                        </div>
 
                         <!--Fecha--->
                         <div class="col-sm-12">
@@ -178,7 +181,7 @@
                             <input type="hidden" name="dates" value="{{$fecha_hora}}">
                         </div>
 
-                        
+
 
                         <!--Numero de comprobante-->
                         <div class="col-12">
@@ -222,9 +225,9 @@
                             @enderror
                         </div>
 
-                        
+
                      <input type="hidden" name="factory_reference"  id="factory_reference">
-                       
+
 
                         <!--Botones--->
                         <div class="col-12 text-center">
@@ -292,14 +295,14 @@
 
     function mostrarValores() {
         let dataProducto = document.getElementById('product_id').value.split('-');
-        console.log(dataProducto)     
+        console.log(dataProducto)
         $('#stock').val(dataProducto[1]);
         $('#selling_price').val(dataProducto[2]);
         $('#tax').val(dataProducto[3]);
         $('#factory_reference').val(dataProducto[4]);
     }
-    
-    function agregarProducto() {  
+
+    function agregarProducto() {
     let dataProducto = document.getElementById('product_id').value.split('-');
     // Obtener valores de los campos
     let idProducto = dataProducto[0];
@@ -315,7 +318,7 @@
         descuento = 0;
     }
 
-    // Validaciones 
+    // Validaciones
     if (idProducto != '' && cantidad != '') {
         if (parseInt(cantidad) > 0 && (cantidad % 1 == 0) && parseFloat(descuento) >= 0) {
             if (parseInt(cantidad) <= parseInt(stock)) {
@@ -457,7 +460,7 @@ function eliminarProducto(indice, subtotalProducto, impuesto) {
             title: message
         })
     }
-    
+
     function round(num, decimales = 2) {
         var signo = (num >= 0 ? 1 : -1);
         num = num * signo;

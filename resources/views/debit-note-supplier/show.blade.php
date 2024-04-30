@@ -14,6 +14,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
 </head>
+<div class="bread_crumb">
+    {{ Breadcrumbs::render('debit.note.supplie.show', $debitNoteSupplier) }}
+</div>
 <br>
 <style>
     #box-razon-social{
@@ -74,9 +77,9 @@
                                                 <select id="factura" name="factura" class="form-control{{ $errors->has('factura') ? ' is-invalid' : '' }}" disabled>
                                                     <option value="">Seleccione un prefijo y número de factura</option>
                                                     @foreach($purchaseSuppliers as $purchaseSupplier)
-                                                    <option value="{{ $purchaseSupplier->id }}" 
-                                                            data-users-id="{{ $purchaseSupplier->users_id }}" 
-                                                            data-people-id="{{ $purchaseSupplier->people_id }}" 
+                                                    <option value="{{ $purchaseSupplier->id }}"
+                                                            data-users-id="{{ $purchaseSupplier->users_id }}"
+                                                            data-people-id="{{ $purchaseSupplier->people_id }}"
                                                             data-date-purchase="{{ $purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->date_purchase : '' }}"
                                                             data-product-name="{{ $purchaseSupplier->detailPurchase && $purchaseSupplier->detailPurchase->product ? $purchaseSupplier->detailPurchase->product->name_product : '' }}"
                                                             data-product-tax="{{ $purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->product_tax : '' }}"
@@ -87,19 +90,19 @@
                                                     </option>
                                                     @endforeach
                                                 </select>
-                                                
-                                                
+
+
                                                 {!! $errors->first('factura', '<div class="invalid-feedback">:message</div>') !!}
                                             </div>
                                         </div>
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
+
+
+
+
+
+
+
+
                                             {{--  Fecha De Elaboracion Nota Debito  --}}
                                             <div class="col-sm-6 md-6">
                                                 <div class="md-3" style="margin-bottom: 16px">
@@ -111,7 +114,7 @@
                                                     {!! $errors->first('date_invoice', '<div class="invalid-feedback">:message</div>') !!}
                                                 </div>
                                             </div>
-                                            
+
 
 
                                         {{--  Numero de Nota Debito   --}}
@@ -125,10 +128,10 @@
                                                 {!! $errors->first('debit_note_code', '<div class="invalid-feedback">:message</div>') !!}
                                             </div>
                                         </div>
-                                        
+
 
                                         {{--  Usuario A Cargo --}}
-                                        
+
                                                 <div class="col-sm-6 md-6">
                                                     <div class="mb-3">
                                                         <label for="users_id" class="form-label" style="font-weight: bolder">
@@ -141,14 +144,14 @@
                                                                 <option value="{{ $user->id }}" {{ $user->id == $debitNoteSupplier->purchaseSupplier->users_id ? 'selected' : '' }}>{{ $user->name }}</option>
                                                             @endforeach
                                                         </select>
-                                                        
-                                                        
-                                                        
-                                                        
+
+
+
+
                                                         {!! $errors->first('users_id', '<div class="invalid-feedback">:message</div>') !!}
                                                     </div>
                                                 </div>
-                                                
+
                                         {{--  Proveedor al que se le compro el producto --}}
                                         <div class="col-sm-6 md-6">
                                             <div class="mb-3">
@@ -162,17 +165,17 @@
                                                         <option value="{{ $person->id }}" {{ $person->id == $debitNoteSupplier->purchaseSupplier->people_id ? 'selected' : '' }}>{{ $person->first_name }}</option>
                                                     @endforeach
                                                 </select>
-                                                
-                                                
+
+
                                                 {!! $errors->first('people_id', '<div class="invalid-feedback">:message</div>') !!}
-                                            </div> 
+                                            </div>
                                         </div>
-                                        
 
 
-                                        
+
+
                                         {{--  Fecha Detalle De Compra  --}}
-                                        
+
                                         <div class="col-sm-6 md-6">
                                             <div class="md-3" style="margin-bottom: 16px">
                                                 <label for="date_purchase" class="form-label" style="font-weight: bolder">
@@ -183,7 +186,7 @@
                                                 {!! $errors->first('date_purchase', '<div class="invalid-feedback">:message</div>') !!}
                                             </div>
                                         </div>
-                                        
+
                                         <div class="col-12">
                                             <table id="tabla_detalle" class="table table-hover w-100">
                                                 <style>
@@ -191,9 +194,9 @@
                                                         background-color: #004080; /* Este es el código de color hexadecimal para azul oscuro */
                                                     }
                                                 </style>
-                                                
+
                                                 <thead class="bg-dark-blue">
-                                                
+
 
                                                     <tr>
                                                         <th class="text-white">Producto</th>
@@ -216,9 +219,9 @@
                                                         <td><input type="number" id="iva" name="iva" value="{{ $debitNoteSupplier->detailPurchase->product_tax }}" class="form-control" readonly></td>
 
 
-                                                        
+
                                                     </tr>
-                                                    @endforeach 
+                                                    @endforeach
                                                 </tbody>
                                             </table>
                                             <div class="row">
@@ -247,10 +250,10 @@
                                                             <input type="number" id="totalNeto" name="totalNeto" value="{{ $debitNoteSupplier->net_total }}" class="form-control" readonly>
                                                         </div>
                                                     </div>
-                                                    
+
                                                 </div>
                                             </div>
-                                            
+
                                             <div class="card-footer text-end">
                                                 <a class="btn btn-primary" style="margin-right: 5rem" href="{{ route('debit-note-supplier.index') }}">Regresar</a>
                                             </div>

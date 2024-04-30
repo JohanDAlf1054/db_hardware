@@ -8,11 +8,8 @@
             <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet' >
             <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
             <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
-            {{--  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>  --}}
-            {{--  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>  --}}
-            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
             <link rel="stylesheet" href="{{ asset('css/estilosbarra.css') }}" type="text/css">
-            <link rel="stylesheet" href="{{ asset('css/estilos_footer.css') }}" type="text/css">
         </head>
         <body id="body">
             <header>
@@ -24,7 +21,7 @@
                 </div>
 
                 <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split accesibilidad header-button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="fa-solid fa-universal-access fa-2xl icono_accesibilidad" style="color: #74C0FC;"></i>
+                    <i class="fa-solid fa-universal-access fa-2xl icono_accesibilidad"></i>
                     <span class="visually-hidden">Accesibilidad</span>
                 </button>
                 <ul class="dropdown-menu">
@@ -124,22 +121,8 @@
 
             </div>
             <script src="{{ asset('js/acceso.js') }}"></script>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
-            <footer>
-                <!-- <div class="footer-content">
-                    <div class="imagen_footer">
-                        <img class="logo_footer" src="{{ asset('img/Fondo_negro.png') }}" alt="">
-                    </div>
-                    <p>Descripcion</p>
-                    <ul class="socials">
-                        <li class="iconos_footer"><i class="fa-solid fa-phone Telefono_footer"></i> 3224062916</li>
-                        <li><i class="fa-solid fa-envelope Correo_footer"></i> ToryTech@gmail.com</li>
-                    </ul>
-                </div> -->
-                <div class="footer-bottom">
-                    <p>Copyright &copy;2024 Ferreteria la exelencia. Diseñado por <span class="spanTory">ToryTech</span></p>
-                </div>
-            </footer>
-        {{--  </body>  --}}
-    {{--  </html>  --}}
+            @include('include.footer')
+        </body>
+    </html>

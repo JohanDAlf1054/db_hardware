@@ -16,7 +16,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">
-                            {{ __('Proveedores') }}
+                            {{ Breadcrumbs::render('supplier.index') }}
                         </h3>
                     </div>
                     <div class="card-body">
@@ -54,6 +54,7 @@
                             </div>
                         </div>
                     </div>
+
 
 
                     {{-- Script  para mostrar la notificacion --}}

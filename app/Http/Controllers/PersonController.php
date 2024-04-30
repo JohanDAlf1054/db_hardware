@@ -194,7 +194,7 @@ class PersonController extends Controller
                 'autoCierre' => 'true'
             ]);
         }
-        
+
     }
 
     /**

@@ -1,14 +1,19 @@
 @auth
     @include('include.barra', ['modo'=>'Usuarios'])
+    <br>
     <head>
         <link href="css/estilos_notificacion.css" rel="stylesheet"/>
         <script src="{{ asset('js/notificaciones.js')}}" defer></script>
     </head>
+    <br>
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-header">
+                        <h3 class="card-title">
+                            {{ Breadcrumbs::render('admin.index') }}
+                        </h3>
                     </div>
                         <div class="card-body">
                             <div class="row">

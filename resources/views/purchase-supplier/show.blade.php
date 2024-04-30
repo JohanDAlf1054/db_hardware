@@ -1,6 +1,8 @@
 @auth
 @include('include.barra', ['modo'=>'Detalles de la Compra'])
-
+    <div class="bread_crumb">
+        {{ Breadcrumbs::render('compras.show', $purchaseSupplier) }}
+    </div>
 <section class="content container-fluid">
     <div class="">
         <div class="col-md-12">

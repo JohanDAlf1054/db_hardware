@@ -25,7 +25,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($subCats as $subCat)
-                                        <tr> 
+                                        <tr>
                                             <td>{{ $subCat->id}}</td>
                                             <td>{{ $subCat->name}}</td>
 											<td>{{ $subCat->description }}</td>
@@ -54,7 +54,7 @@
         <div class="invalid-feedback">
             {{ $message }}
         </div>
-        @enderror  
+        @enderror
         <label for="nombre" class="form-label">Description</label>
         <input type="text" class="form-control @error('description') is-invalid @enderror" id="description" wire:model.lazy='description' placeholder="Descripcion">
         @error('description')

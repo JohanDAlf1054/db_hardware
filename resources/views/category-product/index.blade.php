@@ -36,7 +36,6 @@
                                 <thead class="thead">
                                     <tr>
                                         <th>No</th>
-                                        
 										<th>Name</th>
 										<th>Description</th>
 
@@ -47,7 +46,6 @@
                                     @foreach ($categoryProducts as $categoryProduct)
                                         <tr>
                                             <td>{{ ++$i }}</td>
-                                            
 											<td>{{ $categoryProduct->name }}</td>
 											<td>{{ $categoryProduct->description }}</td>
 
@@ -85,7 +83,7 @@
 <body>
     <div>
         @livewireStyles
-        @livewire('categories-component');
+        @livewire('categories-component')
         @livewireScripts
         {{-- Script  para mostrar la notificacion --}}
         <script>
