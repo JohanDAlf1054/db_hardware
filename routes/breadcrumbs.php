@@ -8,6 +8,7 @@ use App\Models\DetailPurchase;
 use App\Models\Person;
 use App\Models\Product;
 use App\Models\PurchaseSupplier;
+use App\Models\Sale;
 use Diglactic\Breadcrumbs\Breadcrumbs;
 
 // This import is also not required, and you could replace `BreadcrumbTrail $trail`
@@ -68,56 +69,6 @@ Breadcrumbs::for('units.index', function (BreadcrumbTrail $trail) {
     $trail->push('Crear unidad', route('units.index'));
 });
 
-//Personas
-Breadcrumbs::for('person.index', function (BreadcrumbTrail $trail) {
-    $trail->push('Personas', route('person.index'));
-});
-
-//Personas > Crear
-Breadcrumbs::for('person.create', function (BreadcrumbTrail $trail) {
-    $trail->parent('person.index');
-    $trail->push('Crear personas');
-});
-
-// Personas > Proveedores
-Breadcrumbs::for('supplier.index', function (BreadcrumbTrail $trail) {
-    $trail->parent('person.index');
-    $trail->push('Proveedores', route('supplier.index'));
-});
-
-// Personas > Clientes
-Breadcrumbs::for('customer.index', function (BreadcrumbTrail $trail) {
-    $trail->parent('person.index');
-    $trail->push('Clientes', route('customer.index'));
-});
-// Personas > Proveedores > Editar
-Breadcrumbs::for('supplier.edit', function (BreadcrumbTrail $trail, Person $person) {
-    $trail->parent('supplier.index');
-    $trail->push('Editar');
-    $trail->push($person->identification_number);
-});
-
-// Personas > Proveedores > Mostrar
-Breadcrumbs::for('supplier.show', function (BreadcrumbTrail $trail, Person $person) {
-    $trail->parent('supplier.index');
-    $trail->push('Mostrar');
-    $trail->push($person->identification_number);
-});
-
-// Personas > Clientes > Editar
-Breadcrumbs::for('customer.edit', function (BreadcrumbTrail $trail, Person $person) {
-    $trail->parent('customer.index');
-    $trail->push('Editar');
-    $trail->push($person->identification_number);
-});
-
-//Personas > Clientes > Mostrar
-Breadcrumbs::for('customer.show', function (BreadcrumbTrail $trail, Person $person) {
-    $trail->parent('customer.index');
-    $trail->push('Mostrar');
-    $trail->push($person->identification_number);
-});
-
 //Compras
 Breadcrumbs::for('compras.index', function (BreadcrumbTrail $trail) {
     $trail->push('Compras', route('purchase_supplier.index'));
@@ -174,4 +125,86 @@ Breadcrumbs::for('debit.note.supplie.show', function (BreadcrumbTrail $trail, De
     $trail->parent('debit.note.supplie');
     $trail->push('Mostrar');
     $trail->push($debitNoteSupplier->id);
+});
+
+//Personas
+Breadcrumbs::for('person.index', function (BreadcrumbTrail $trail) {
+    $trail->push('Personas', route('person.index'));
+});
+
+//Personas > Crear
+Breadcrumbs::for('person.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('person.index');
+    $trail->push('Crear personas');
+});
+
+// Personas > Proveedores
+Breadcrumbs::for('supplier.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('person.index');
+    $trail->push('Proveedores', route('supplier.index'));
+});
+
+// Personas > Clientes
+Breadcrumbs::for('customer.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('person.index');
+    $trail->push('Clientes', route('customer.index'));
+});
+// Personas > Proveedores > Editar
+Breadcrumbs::for('supplier.edit', function (BreadcrumbTrail $trail, Person $person) {
+    $trail->parent('supplier.index');
+    $trail->push('Editar');
+    $trail->push($person->identification_number);
+});
+
+// Personas > Proveedores > Mostrar
+Breadcrumbs::for('supplier.show', function (BreadcrumbTrail $trail, Person $person) {
+    $trail->parent('supplier.index');
+    $trail->push('Mostrar');
+    $trail->push($person->identification_number);
+});
+
+// Personas > Clientes > Editar
+Breadcrumbs::for('customer.edit', function (BreadcrumbTrail $trail, Person $person) {
+    $trail->parent('customer.index');
+    $trail->push('Editar');
+    $trail->push($person->identification_number);
+});
+
+//Personas > Clientes > Mostrar
+Breadcrumbs::for('customer.show', function (BreadcrumbTrail $trail, Person $person) {
+    $trail->parent('customer.index');
+    $trail->push('Mostrar');
+    $trail->push($person->identification_number);
+});
+
+//Ventas
+Breadcrumbs::for('sales.index', function (BreadcrumbTrail $trail) {
+    $trail->push('Ventas', route('sales.index'));
+});
+// Ventas > Mostrar
+Breadcrumbs::for('sales.show', function (BreadcrumbTrail $trail, Sale $sale) {
+    $trail->parent('sales.index');
+    $trail->push('Mostrar');
+    $trail->push($sale->id);
+});
+
+// Ventas > Crear
+Breadcrumbs::for('sales.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('sales.index');
+    $trail->push('Crear venta');
+});
+
+//Ventas > Notas credito
+Breadcrumbs::for('credit.note.sales', function (BreadcrumbTrail $trail) {
+    $trail->parent('sales.index');
+    $trail->push('Notas credito', route('credit-note-sales.index'));
+});
+
+//Ventas > Notas credito > Mostrar
+//Falta por la modificacion de la tabla. 
+
+//Ventas > Crear nota credito
+Breadcrumbs::for('credit.note.sales.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('sales.index');
+    $trail->push('Crear nota credito');
 });

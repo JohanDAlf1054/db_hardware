@@ -6,8 +6,12 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @endpush
 
+<div class="bread_crumb">
+    {{ Breadcrumbs::render('credit.note.sales.create') }}
+</div>
+<br>
 @section('content')
-<form method="POST" action="{{ route('credit-note-sales.store') }}"> 
+<form method="POST" action="{{ route('credit-note-sales.store') }}">
 <div class="content container-fluid">
     <div class="page-body">
         <div class="container-x1">
@@ -38,14 +42,14 @@
                                             {!! $errors->first('sale_id', '<div class="invalid-feedback">:message</div>') !!}
                                         </div>
                                     </div>
-                                
-                                
-                                
-                                
-                                
-                                
-                                
-                                
+
+
+
+
+
+
+
+
                                         {{--  Fecha De Elaboracion Nota Credito  --}}
                                         <div class="col-sm-6 md-6">
                                             <div class="md-3" style="margin-bottom: 16px">
@@ -57,7 +61,7 @@
                                                 {!! $errors->first('date_credit_notes', '<div class="invalid-feedback">:message</div>') !!}
                                             </div>
                                         </div>
-                                        
+
 
 
                                     {{--  Cliente  --}}
@@ -71,7 +75,7 @@
                                             {!! $errors->first('clients_id', '<div class="invalid-feedback">:message</div>') !!}
                                         </div>
                                     </div>
-                                    
+
                                         {{--  Motivo --}}
                                         <div class="col-sm-6 md-6">
                                             <div class="mb-3">
@@ -87,11 +91,11 @@
                                                     <option value="Otros">Otros</option>
                                                 </select>
                                                 {!! $errors->first('reason', '<div class="invalid-feedback">:message</div>') !!}
-                                            </div> 
+                                            </div>
                                         </div>
 
                                     {{--  Vendedor --}}
-                                    
+
                                             <div class="col-sm-6 md-6">
                                                 <div class="mb-3">
                                                     <label for="sellers" class="form-label" style="font-weight: bolder">
@@ -102,8 +106,8 @@
                                                     {!! $errors->first('sellers', '<div class="invalid-feedback">:message</div>') !!}
                                                 </div>
                                             </div>
-    
-                                            
+
+
                                     {{--  Metodo de pago --}}
                                     <div class="col-sm-6 md-6">
                                         <div class="mb-3">
@@ -111,16 +115,16 @@
                                                 {{ __('Metodo de Pago')}}
                                                 <span class="text-danger">*</span>
                                             </label>
-                                            <input type="text" name="payments_methods" id="payments_methods" class="form-control">  
+                                            <input type="text" name="payments_methods" id="payments_methods" class="form-control">
                                             {!! $errors->first('payments_methods', '<div class="invalid-feedback">:message</div>') !!}
-                                        </div> 
+                                        </div>
                                     </div>
-                                    
 
 
-                                    
+
+
                                     {{--  Fecha Detalle De Compra  --}}
-                                    
+
                                     <div class="col-sm-6 md-6">
                                         <div class="md-3" style="margin-bottom: 16px">
                                             <label for="date_invoice" class="form-label" style="font-weight: bolder">
@@ -131,7 +135,7 @@
                                             {!! $errors->first('date_invoice', '<div class="invalid-feedback">:message</div>') !!}
                                         </div>
                                     </div>
-                                    
+
                                     <div class="col-12">
                                         <table id="tabla_detalle" class="table table-hover w-100">
                                             <style>
@@ -139,9 +143,9 @@
                                                     background-color: #004080; /* Este es el código de color hexadecimal para azul oscuro */
                                                 }
                                             </style>
-                                            
+
                                             <thead class="bg-dark-blue">
-                                            
+
                                                 <tr>
                                                     <th class="text-white">Producto</th>
                                                     <th class="text-white">Referencia</th>
@@ -209,17 +213,17 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        
+
                                         <div class="card-footer text-end">
-                                          
+
                                                 <a class="btn btn-primary" style="margin-right: 2rem" href="{{ route('credit-note-sales.index') }}">Regresar</a>
                                             {{-- <a class="btn btn-primary" style="margin-right: 5rem" href="{{ route('debit-note-supplier.index') }}">Regresar</a> --}}
                                             <button type="submit" class="btn btn-success">{{ __('Guardar') }}</button>
                                         </div>
-                                        
+
                                     </div>
                                 </form>
-                                
+
 @endsection
 @push('js')
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/js/bootstrap-select.min.js"></script>
@@ -233,7 +237,7 @@ $('#sale_id').change(mostrarValores);
 
 function mostrarValores() {
         let dataVenta= document.getElementById('sale_id').value.split('-');
-        console.log(dataVenta)     
+        console.log(dataVenta)
         let fecha = dataVenta.slice(1, 4).join('-'); // Unir los elementos de la fecha con '-'
          console.log(fecha);
         $('#clients_id').val(dataVenta[5]);
@@ -244,4 +248,4 @@ function mostrarValores() {
     }
 
 </script>
-@endpush    
+@endpush

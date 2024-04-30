@@ -12,10 +12,10 @@
         <div class="col-sm-12">
             <br>
             <div class="card">
-             
+
                 <div class="card-header">
                     <h2 id="card_title">
-                        {{ __('Notas credito') }}
+                        {{ Breadcrumbs::render('credit.note.sales') }}
                     </h2>
                 </div>
                 </div>
@@ -33,7 +33,7 @@
                                     </div>
                                 </ul>
                         </div>
-                        
+
                         <div class="col-lg-3 col-md-5 col-sm-7" >
                             <form action="{{ route('sales.index') }}" method="get">
                                 <div class="mb-2 row">
@@ -60,7 +60,7 @@
                         </div>
 
 
-                        
+
                       </div>
                 </div>
 
@@ -81,7 +81,7 @@
                                     <th>Total Impuesto</th>
                                     <th>Total Neto</th>
                                     <th>Estado</th>
-                                    <th>Acciones</th> 
+                                    <th>Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
