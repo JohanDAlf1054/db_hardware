@@ -160,7 +160,7 @@
                                             {{--  Segundo nombre   --}}
 
                                                 <div class="col-sm-6 md-6" id="box-other-name">
-                                                    <div  class="mb-3" style="">
+                                                    <div  class="mb-3" >
                                                             <label for="other_name" class="form-label" style="font-weight: bolder">
                                                             {{ __('Otro nombre')}}
                                                             </label>
@@ -307,7 +307,6 @@
     });
 
 
-
 </script>
 </body>
 </html>
@@ -315,4 +314,3 @@
 @guest
     @include('include.falta_sesion')
 @endguest
-

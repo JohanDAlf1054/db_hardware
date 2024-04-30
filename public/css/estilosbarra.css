@@ -257,7 +257,17 @@ a.selected {
 .dropdown-menu li:hover{
     background-color: #fff;
 }
-
+.bread_crumb{
+    border: 1px solid #efebeb;
+    border-radius: 10px;
+    background-color: #efebeb;
+    margin: auto;
+    margin-top: 6rem;
+    width: 99%;
+    padding-left: 2rem;
+    padding-top: 1rem;
+    font-size: 18px;
+}
 
 
 

@@ -5,7 +5,7 @@
                 <div class="card card-default">
                     <div class="card-header">
                         <h2 id="card_title">
-                            {{ __('Unidades de Medida') }}
+                            {{ Breadcrumbs::render('units.index') }}
                         </h2>
                     </div>
                     <div class="card-body">
@@ -34,7 +34,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($units as $unit)
-                                        <tr> 
+                                        <tr>
                                             <td>{{ $unit->code}}</td>
                                             <td>{{ $unit->name }}</td>
                                             <td>

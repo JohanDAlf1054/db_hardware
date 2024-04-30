@@ -5,7 +5,7 @@
                 <div class="card card-default">
                     <div class="card-header">
                         <h2 id="card_title">
-                            {{ __('Categorías') }}
+                            {{ Breadcrumbs::render('category.index') }}
                         </h2>
                     </div>
                     <div class="card-body">
@@ -45,7 +45,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($categories as $category)
-                                        <tr> 
+                                        <tr>
                                             <td>{{ $category->name}}</td>
                                             <td>{{ $category->description }}</td>
                                             <td>

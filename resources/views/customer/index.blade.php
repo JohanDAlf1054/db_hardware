@@ -14,8 +14,8 @@
                 <div class="card">
                     <div class="card-header">
                     <h3 class="card-title">
-                            {{__('Clientes')}}
-                        </h3> 
+                        {{ Breadcrumbs::render('customer.index') }}
+                        </h3>
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -120,8 +120,8 @@
                                                 </td>
 
                                                 <td>
-                                                        <a class="btn btn-sm btn-primary " href="{{ route('person.show',$cliente->id) }}"><i class="fa fa-fw fa-eye"></i></a>
-                                                        <a class="btn btn-sm btn-success" href="{{ route('person.edit',$cliente->id) }}"><i class="fa fa-fw fa-edit"></i></a>
+                                                        <a class="btn btn-sm btn-primary " href="{{ route('customer.show',$cliente->id) }}"><i class="fa fa-fw fa-eye"></i></a>
+                                                        <a class="btn btn-sm btn-success" href="{{ route('customer.edit',$cliente->id) }}"><i class="fa fa-fw fa-edit"></i></a>
 
                                                         {{--  <!-- Button trigger modal -->  --}}
 

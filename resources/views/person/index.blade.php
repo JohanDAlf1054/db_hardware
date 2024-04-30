@@ -15,7 +15,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">
-                            {{__('Personas')}}
+                            {{ Breadcrumbs::render('person.index') }}
                         </h3>
                     </div>
                     <div class="card-body">

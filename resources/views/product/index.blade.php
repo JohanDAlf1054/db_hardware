@@ -14,8 +14,10 @@
             <div class="card card-default">
                 <div class="card-header">
                     <h2 id="card_title">
-                        {{ __('Productos') }}
+                        {{--  {{ __('Productos') }}  --}}
+                        {{ Breadcrumbs::render('products') }}
                     </h2>
+
                 </div>
                 <div class="card-body">
                     <div class="row">

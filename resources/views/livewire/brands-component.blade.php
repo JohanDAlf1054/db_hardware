@@ -5,7 +5,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h2 id="card_title">
-                            {{ __('Marcas Producto') }}
+                            {{ Breadcrumbs::render('brand.index') }}
                         </h2>
                     </div>
                     <div class="card-body">
@@ -45,7 +45,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($brands as $brand)
-                                        <tr> 
+                                        <tr>
                                             <td>{{ $brand->code }}</td>
                                             <td>{{ $brand->abbrevation }}</td>
                                             <td>{{ $brand->name }}</td>

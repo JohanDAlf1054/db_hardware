@@ -1,10 +1,3 @@
-{{--  @extends('layouts.app')
-
-@section('template_title')
-    {{ $person->name ?? __('Show') . " " . __('Person') }}
-@endsection
-
-@section('content')  --}}
 @auth
 <head>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -30,6 +23,16 @@
         display: none;
     }
 </style>
+@if ($table === 'supplier')
+    <div class="bread_crumb">
+        {{ Breadcrumbs::render('supplier.show', $person) }}
+    </div>
+@elseif ($table === 'customer')
+    <div class="bread_crumb">
+        {{ Breadcrumbs::render('customer.show', $person) }}
+    </div>
+@endif
+<br>
 @include('include.barra', ['modo'=>'Ferreteria la excelencia'])
     <section class="content container-fluid">
         <div class="page-body">
@@ -133,7 +136,7 @@
                                             <div class="mb-3">
                                                 <label for="second_surname" class="form-label" style="font-weight: bolder">
                                                     {{ __('Segundo apellido') }}
-                                                    
+
                                                 </label>
                                                 <input type="text" class="form-control" id="rol" value="{{$person->second_surname}}" readonly>
                                             </div>

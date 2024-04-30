@@ -36,9 +36,9 @@ class CustomerController extends Controller
 
     public function edit($id)
     {
-        $person = Person::find($id);
-
-        return view('person.edit', compact('person'));
+        $person = Person::findOrFail($id);
+        $table = 'customer';
+        return view('person.edit', compact('person', 'table'));
     }
 
     public function update(Request $request, Person $person)
@@ -66,6 +66,13 @@ class CustomerController extends Controller
         ]);
 
         return redirect()->route('customer.index');
+    }
+
+    public function show($id)
+    {
+        $person = Person::findOrFail($id);
+        $table = 'customer';
+        return view('person.show', compact('person', 'table'));
     }
 
     public function destroy($id)

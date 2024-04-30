@@ -1,36 +1,21 @@
 @auth
+@if ($table === 'supplier')
+    <div class="bread_crumb">
+        {{ Breadcrumbs::render('supplier.edit', $person) }}
+    </div>
+@elseif ($table === 'customer')
+    <div class="bread_crumb">
+        {{ Breadcrumbs::render('customer.edit', $person) }}
+    </div>
+@endif
+    <form method="POST" action="{{ route('person.update', $person->id) }}"  role="form" enctype="multipart/form-data">
+        {{ method_field('PATCH') }}
+        @csrf
 
-{{--  @extends('layouts.app')
+        @include('person.form')
 
-@section('template_title')
-    {{ __('Update') }} Person
-@endsection
+    </form>
 
-@section('content')  --}}
-    {{--  <section class="content container-fluid">
-        <div class="">
-            <div class="col-md-12">
-
-                @includeif('partials.errors')
-
-                <div class="card card-default">
-                    <div class="card-header">
-                        <span class="card-title">{{ __('Update') }} Person</span>
-                    </div>
-                    <div class="card-body">  --}}
-                        <form method="POST" action="{{ route('person.update', $person->id) }}"  role="form" enctype="multipart/form-data">
-                            {{ method_field('PATCH') }}
-                            @csrf
-
-                            @include('person.form')
-
-                        </form>
-                    {{--  </div>
-                </div>
-            </div>
-        </div>
-    </section>  --}}
-{{--  @endsection  --}}
 @endauth
 @guest
     @include('include.falta_sesion')

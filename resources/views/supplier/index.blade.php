@@ -15,7 +15,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">
-                            {{ __('Proveedores') }}
+                            {{ Breadcrumbs::render('supplier.index') }}
                         </h3>
                     </div>
                     <div class="card-body">
@@ -46,7 +46,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
 
                     {{-- Script  para mostrar la notificacion --}}
                     <script>
@@ -117,10 +117,10 @@
                                                 </td>
                                                 <td>
                                                     <a class="btn btn-sm btn-primary "
-                                                        href="{{ route('person.show', $proveedor->id) }}"><i
+                                                        href="{{ route('supplier.show', $proveedor->id) }}"><i
                                                             class="fa fa-fw fa-eye"></i></a>
                                                     <a class="btn btn-sm btn-success"
-                                                        href="{{ route('person.edit', $proveedor->id) }}"><i
+                                                        href="{{ route('supplier.edit', $proveedor->id) }}"><i
                                                             class="fa fa-fw fa-edit"></i></a>
 
                                                     {{--  <!-- Button trigger modal -->  --}}
