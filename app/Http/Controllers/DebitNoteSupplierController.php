@@ -54,15 +54,6 @@ class debitNoteSupplierController extends Controller
         ->with('i', (request()->input('page', 1) - 1) * $debitNoteSuppliers->perPage());
 }
 
-    
-
-    
-    
-    
-    
-    
-
-
     /**
      * Show the form for creating a new resource.
      *
@@ -72,10 +63,10 @@ class debitNoteSupplierController extends Controller
     {
         // Obtén el último DebitNoteSupplier de la base de datos
         $lastDebitNoteSupplier = DebitNoteSupplier::orderBy('id', 'desc')->first();
-    
+
         // Si existe, toma su id y agrégale 1. Si no existe, usa 1 como el primer id.
         $debitNoteId = $lastDebitNoteSupplier ? $lastDebitNoteSupplier->id + 1 : 1;
-    
+
         $debitNoteSupplier = new debitNoteSupplier();
         $people = Person::where('rol', 'Proveedor')->get();
         $products = Product::all();
@@ -83,15 +74,15 @@ class debitNoteSupplierController extends Controller
         $detailPurchase = DetailPurchase::all();
         $users = User::all();
         $purchaseSuppliers = PurchaseSupplier::all();
-    
+
         $detailPurchaseDates = $detailPurchases->mapWithKeys(function ($item) {
             return [$item->purchaseSupplier->id => $item->date_purchase];
         });
-    
+
         $detailPurchaseProducts = $detailPurchases->mapWithKeys(function ($item) {
             return [$item->purchaseSupplier->id => $item->product->name_product];
         });
-    
+
         $detailPurchaseData = [];
 foreach ($detailPurchases as $detailPurchase) {
     $purchaseSupplierId = $detailPurchase->purchaseSupplier->id;
@@ -106,11 +97,11 @@ foreach ($detailPurchases as $detailPurchase) {
     ];
 }
 
-        
-    
+
+
         return view('debit-note-supplier.create', compact(
             'debitNoteSupplier',
-            'debitNoteId', 
+            'debitNoteId',
             'purchaseSuppliers',
             'detailPurchases',
             'detailPurchase',
@@ -122,9 +113,9 @@ foreach ($detailPurchases as $detailPurchase) {
             'detailPurchaseData'
         ));
     }
-    
-    
-    
+
+
+
 
     /**
      * Store a newly created resource in storage.
@@ -144,26 +135,26 @@ foreach ($detailPurchases as $detailPurchase) {
             'totalNeto' => 'required',
             'gross_total' => 'required',
         ]);
-    
+
         $purchaseSupplierId = $request->input('factura');
         $detailPurchases = DetailPurchase::where('purchase_suppliers_id', $purchaseSupplierId)->get();
-    
+
         if (count($detailPurchases) == 0) {
             return redirect()->back()->withErrors(['factura' => 'No se encontró un detailPurchase para esta factura.']);
         }
-    
+
         $productos = $request->input('producto');
         $cantidades = $request->input('cantidad');
         $descripciones = $request->input('descripcion');
         $precios_unitarios = $request->input('precio_unitario');
         $descuentos = $request->input('descuento');
         $ivas = $request->input('iva');
-    
+
         for ($i = 0; $i < count($productos); $i++) {
             if (!isset($detailPurchases[$i])) {
                 return redirect()->back()->withErrors(['producto' => 'No hay suficientes detailPurchases para los productos.']);
             }
-    
+
             $debitNoteSupplier = new debitNoteSupplier;
             $debitNoteSupplier->debit_note_code = $request->input('debit_note_code');
             $debitNoteSupplier->date_invoice = $request->input('date_invoice');
@@ -186,15 +177,15 @@ foreach ($detailPurchases as $detailPurchase) {
             'autoCierre' => 'true'
         ]);
         return redirect()->route('debit-note-supplier.index');
-            
+
     }
-    
 
 
-    
 
-    
-    
+
+
+
+
 
     /**
      * Display the specified resource.
@@ -207,9 +198,9 @@ foreach ($detailPurchases as $detailPurchase) {
         $debitNoteSupplier = debitNoteSupplier::find($id);
         $purchaseSupplierId = $debitNoteSupplier->purchase_suppliers_id;
         $debitNoteSuppliers = debitNoteSupplier::where('purchase_suppliers_id', $purchaseSupplierId)->get();
-    
+
         $detailPurchases = DetailPurchase::with('purchaseSupplier', 'product')->get();
-    
+
         $detailPurchaseData = [];
         $detailPurchaseDates = [];
         $detailPurchaseProducts = [];
@@ -223,23 +214,23 @@ foreach ($detailPurchases as $detailPurchase) {
             $detailPurchaseDates[$purchaseSupplierId] = $detailPurchase->date_purchase;
             $detailPurchaseProducts[$purchaseSupplierId] = $detailPurchase->product->name_product;
         }
-    
+
         if ($debitNoteSupplier !== null) {
             $detailPurchase = DetailPurchase::with('purchaseSupplier')->where('id', $debitNoteSupplier->detail_purchase_id)->first();
         }
-    
+
         $people = Person::where('rol', 'Proveedor')->get();
         $products = Product::all();
         $detailPurchases = DetailPurchase::with('purchaseSupplier')->get();
         $users = User::all();
         $purchaseSuppliers = PurchaseSupplier::all();
-    
+
         return view('debit-note-supplier.show', compact('debitNoteSuppliers', 'debitNoteSupplier', 'detailPurchase', 'detailPurchases', 'people', 'products', 'users', 'purchaseSuppliers', 'detailPurchaseData', 'detailPurchaseDates', 'detailPurchaseProducts'));
     }
-    
 
-    
-    
+
+
+
 
 
     /**
@@ -254,12 +245,12 @@ foreach ($detailPurchases as $detailPurchase) {
         if (!$debitNoteSupplier) {
             return redirect()->back()->withErrors(['error' => 'No se encontró el DebitNoteSupplier con el id proporcionado.']);
         }
-    
+
         $purchaseSupplierId = $debitNoteSupplier->purchase_suppliers_id;
         $debitNoteSuppliers = DebitNoteSupplier::where('purchase_suppliers_id', $purchaseSupplierId)->get();
-    
+
         $detailPurchases = DetailPurchase::with('purchaseSupplier', 'product')->get();
-    
+
         $detailPurchaseData = [];
         foreach ($detailPurchases as $detailPurchase) {
             $purchaseSupplierId = $detailPurchase->purchaseSupplier->id;
@@ -273,31 +264,31 @@ foreach ($detailPurchases as $detailPurchase) {
                 'discount_total' => $detailPurchase->discount_total,
             ];
         }
-    
+
         $detailPurchaseDates = $detailPurchases->mapWithKeys(function ($item) {
             return [$item->purchaseSupplier->id => $item->date_purchase];
         });
-    
+
         $detailPurchaseProducts = $detailPurchases->mapWithKeys(function ($item) {
             return [$item->purchaseSupplier->id => $item->product->name_product];
         });
-    
+
         $people = Person::where('rol', 'Proveedor')->get();
         $products = Product::all();
         $users = User::all();
         $purchaseSuppliers = PurchaseSupplier::all();
-    
+
         // Obtén el último DebitNoteSupplier de la base de datos
         $lastDebitNoteSupplier = DebitNoteSupplier::orderBy('id', 'desc')->first();
-    
+
         // Si existe, toma su id y agrégale 1. Si no existe, usa 1 como el primer id.
         $debitNoteId = $lastDebitNoteSupplier ? $lastDebitNoteSupplier->id + 1 : 1;
-    
+
         return view('debit-note-supplier.edit', compact('debitNoteSuppliers','debitNoteSupplier', 'detailPurchases', 'people', 'products', 'users', 'purchaseSuppliers', 'detailPurchaseData', 'detailPurchaseDates', 'detailPurchaseProducts', 'debitNoteId'));
     }
-    
 
-    
+
+
 
     /**
      * Update the specified resource in storage.
@@ -309,7 +300,7 @@ foreach ($detailPurchases as $detailPurchase) {
     public function update(Request $request)
 {
     $request->validate([
-       
+
         'producto' => 'required|array',
         'cantidad' => 'required|array',
         'descripcion' => 'required|array',
@@ -349,7 +340,7 @@ foreach ($detailPurchases as $detailPurchase) {
         } else {
             return redirect()->back()->withErrors(['factura' => 'No se encontró un detailPurchase para esta factura.']);
         }
-        
+
         $debitNoteSupplier->save();
     }
 
@@ -357,8 +348,8 @@ foreach ($detailPurchases as $detailPurchase) {
         ->with('success', 'DebitNoteSupplier updated successfully.');
 }
 
-    
-    
+
+
 
 
 

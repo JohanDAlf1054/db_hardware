@@ -12,25 +12,25 @@
     <div class="row">
         <div class="col-sm-12">
             <br>
-            
+
             <div class="card">
             <div class="card-header">
                 <h2 id="card_title">
-                    {{ __('Notas Debito') }}
+                    {{ Breadcrumbs::render('debit.note.supplie') }}
                 </h2>
             </div>
-                
+
              <div class="card-body"></div>
              <div class="row">
-               
+
             <div class="col-lg-6 col-md-6 col-sm-12" >
-             
+
 
                 <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">Acciones
                     <span class="visually-hidden">Acciones</span>
                 {{-- <div style="display: flex; justify-content: space-between; align-items: center;"> --}}
                 </button>
-                <ul class="dropdown-menu dropdown-menu-end">    
+                <ul class="dropdown-menu dropdown-menu-end">
                     <li><a class="dropdown-item" href="{{ route('purchase_supplier.index') }}">Mostrar Las Compras A Proveedor</a></li>
                     <li>
                         <a class="dropdown-item" href="{{ route('detail-purchases.index') }}">Mostrar Detalles De Compras</a>
@@ -55,16 +55,16 @@
                             </div>
                         </form>
                     </div>
-                    
+
                           </div>
-                         
+
                     </div>
                 </div>
                {{--@if ($message = Session::get('success'))
                     <div class="alert alert-success">
                         <p>{{ $message }}</p>
                     </div>
-                @endif--}} 
+                @endif--}}
             </div>
             <script>
                 document.addEventListener('DOMContentLoaded', function () {
@@ -133,10 +133,10 @@
                                     </td>
                                 </tr>
                             @endforeach
-                            
+
                             </tbody>
                         </table>
-                
+
             {!! $debitNoteSuppliers->links() !!}
         </div>
     </div>
