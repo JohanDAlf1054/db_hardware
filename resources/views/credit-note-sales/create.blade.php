@@ -7,8 +7,7 @@
 @endpush
 
 @section('content')
-<form action="{{ route('credit-note-sales.store') }}" method="post">
-    @csrf
+
 <div class="content container-fluid">
     <div class="page-body">
         <div class="container-x1">
@@ -18,34 +17,34 @@
                             <div class="card card-default">
                                 <div class="card-header" style="display: flex">
                                     <h3 class="card-title">
-                                        {{__('Nota Credito Ventas')}}
+                                        {{__('Nota Crédito Ventas')}}
                                     </h3>
                                 </div>
                             </div>
                             <div class="card-body">
+                                  
+                                <form action="{{ route('credit-note-sales.store') }}" method="post">
+                                    @csrf
                                 <div class="row row-cards">
                                 {{--  Buscar Un Numero De Factura  --}}
                                     <div class="col-sm-6 md-6">
                                         <div class="md-3" style="margin-bottom: 16px">
-                                            <label for="sale_id" class="form-label" style="font-weight: bolder">
+                                            <label for="datos" class="form-label" style="font-weight: bolder">
                                                 {{ __('Venta') }}
                                                 <span class="text-danger">*</span>
                                             </label>
-                                            <select name="sale_id" id="sale_id" class="form-control selectpicker" data-live-search="true" data-size="3" title="Busque una venta aquí">
+                                            <select name="datos" id="datos" class="form-control selectpicker" data-live-search="true" data-size="3" title="Busque una venta aquí">
                                                 @foreach ($sales as $key => $sale)
-                                                    <option value="{{$sale->id}}-{{$sale->dates}}-{{$sale->sellers}}-{{$sale->cliente->identification_number}}-{{$sale->payments_methods}}">{{$sale->bill_numbers}}</option>
+                                                    <option value="{{$sale->id}}-{{$sale->dates}}-{{$sale->sellers}}-{{$sale->clients_id}}-{{$sale->payments_methods}}">{{$sale->bill_numbers}}</option>
                                                 @endforeach
                                             </select>
-                                            {!! $errors->first('sale_id', '<div class="invalid-feedback">:message</div>') !!}
+                                            {!! $errors->first('datos', '<div class="invalid-feedback">:message</div>') !!}
                                         </div>
                                     </div>
                                 
                                 
                                 
-                                
-                                
-                                
-                                
+                              
                                 
                                         {{--  Fecha De Elaboracion Nota Credito  --}}
                                         <div class="col-sm-6 md-6">
@@ -59,7 +58,9 @@
                                             </div>
                                         </div>
                                         
-
+ {{--  Motivo --}}
+           
+    
 
                                     {{--  Cliente  --}}
                                     <div class="col-sm-6 md-6">
@@ -68,13 +69,12 @@
                                                 {{ __('Cliente') }}
                                                 <span class="text-danger">*</span>
                                             </label>
-                                            <input disabled type="text" name="clients_id" id="clients_id" class="form-control">
+                                            <input type="text" name="clients_id" id="clients_id" class="form-control">
                                             {!! $errors->first('clients_id', '<div class="invalid-feedback">:message</div>') !!}
                                         </div>
                                     </div>
                                     
-                                        {{--  Motivo --}}
-                                        
+                                       
 
                                     {{--  Vendedor --}}
                                     
@@ -84,40 +84,43 @@
                                                         {{ __('Vendedor') }}
                                                         <span class="text-danger">*</span>
                                                     </label>
-                                                    <input disabled type="text" name="sellers" id="sellers" class="form-control">
+                                                    <input type="text" name="sellers" id="sellers" class="form-control">
                                                     {!! $errors->first('sellers', '<div class="invalid-feedback">:message</div>') !!}
                                                 </div>
                                             </div>
     
-                                            
+                                        
+        
                                     {{--  Metodo de pago --}}
                                     <div class="col-sm-6 md-6">
                                         <div class="mb-3">
                                             <label for="payments_methods" class="form-label" style="font-weight: bolder">
-                                                {{ __('Metodo de Pago')}}
+                                                {{ __('Método de Pago')}}
                                                 <span class="text-danger">*</span>
                                             </label>
-                                            <input disabled type="text" name="payments_methods" id="payments_methods" class="form-control">  
+                                            <input  type="text" name="payments_methods" id="payments_methods" class="form-control">  
                                             {!! $errors->first('payments_methods', '<div class="invalid-feedback">:message</div>') !!}
                                         </div> 
                                     </div>
                                     
-
-
+                                 
                                     
                                     {{--  Fecha Detalle De Compra  --}}
                                     
                                     <div class="col-sm-6 md-6">
                                         <div class="md-3" style="margin-bottom: 16px">
-                                            <label for="dates" class="form-label" style="font-weight: bolder">
+                                            <label for="date_invoice" class="form-label" style="font-weight: bolder">
                                                 {{ __('Fecha de Compra') }}
                                                 <span class="text-danger">*</span>
                                             </label>
-                                            <input disabled type="date" name="dates" id="dates" class="form-control">
+                                            <input type="date" name="date_invoice" id="date_invoice" class="form-control">
                                             {!! $errors->first('date_invoice', '<div class="invalid-feedback">:message</div>') !!}
                                         </div>
                                     </div>
 
+                                    
+
+                                   
                                     <div class="col-sm-6 md-6">
                                         <div class="mb-3">
                                             <label for="reason" class="form-label" style="font-weight: bolder">
@@ -147,14 +150,15 @@
                                             <thead class="bg-dark-blue">
                                             
                                                 <tr>
+                                                    <th class="text-white">Id</th>
                                                     <th class="text-white">Producto</th>
                                                     <th class="text-white">Referencia</th>
                                                     <th class="text-white">Cantidad</th>
                                                     <th class="text-white">Precio de Venta</th>
                                                     <th class="text-white">Descuento</th>
                                                     <th class="text-white">Impuesto</th>
-                                                    <th class="text-white">Impuesto Unit.</th>
                                                     <th class="text-white">Subtototal</th>
+                                                  
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -164,40 +168,50 @@
                                             <div class="col-md-12 text-end">
                                                 <div class="row">
                                                     <div class="col-md-6 text-end">
-                                                        <label for="th-suma" class="form-label">Sumas:</label>
+                                                        <label for="gross_totals" class="form-label">Sumas:</label>
                                                     </div>
                                                     <div class="col-md-6 text-end">
-                                                        <input type="number" id="th-suma" name="th-suma" value="0" class="form-control">
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-md-6 text-end">
-                                                        <label for="th-impuesto" class="form-label">Impuesto:</label>
-                                                    </div>
-                                                    <div class="col-md-6 text-end">
-                                                        <input type="number" id="th-impuesto" name="th-impuesto" value="0" class="form-control">
+                                                        <input type="number" id="gross_totals" name="gross_totals" value="0" class="form-control">
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-6 text-end">
-                                                        <label for="total" class="form-label">Total:</label>
+                                                        <label for="taxes_total" class="form-label">Impuesto:</label>
                                                     </div>
                                                     <div class="col-md-6 text-end">
-                                                        <input type="number" id="total" name="total" value="0" class="form-control">
+                                                        <input type="number" id="taxes_total" name="taxes_total" value="0" class="form-control">
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6 text-end">
+                                                        <label for="net_total" class="form-label">Total:</label>
+                                                    </div>
+                                                    <div class="col-md-6 text-end">
+                                                        <input type="number" id="net_total" name="net_total" value="0" class="form-control">
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        
+                                        <input type="hidden" name="sale_id" id="sale_id">
                                         <div class="card-footer text-end">
-                                          
-                                                <a class="btn btn-primary" style="margin-right: 2rem" href="{{ route('credit-note-sales.index') }}">Regresar</a>
-                                                <input type="submit" class="btn btn-success" value="Realizar Nota">
-                                                                        
+                                            <a class="btn btn-primary" style="margin-right: 2rem" href="{{ route('credit-note-sales.index') }}">Regresar</a>
+                                            <button type="submit" class="btn btn-success">Realizar Nota</button>
                                         </div>
+                                    </form> 
                                         
+                                    @if(session('success'))
+                                    <div class="alert alert-success">
+                                        {{ session('success') }}
                                     </div>
-    </form>
+                                @endif
+                                
+                                @if(session('error'))
+                                    <div class="alert alert-danger">
+                                        {{ session('error') }}
+                                    </div>
+                                @endif
+                                    </div>
+
                                 
 @endsection
 @push('js')
@@ -205,21 +219,22 @@
 <script>
     $(document).ready(function() {
         // Capturar el evento change del select #sale_id
-        $('#sale_id').change(mostrarValores);
+        $('#datos').change(mostrarValores);
         
         // Adjuntar evento input a los inputs de cantidad
-        $(document).on('input', 'input[name="amount"]', recalcularPrecios);
+        $(document).on('input', 'input[name="amount[]"]', recalcularPrecios);
     });
 
     
     function mostrarValores() {
-        let dataVenta = document.getElementById('sale_id').value.split('-');
+        let dataVenta = document.getElementById('datos').value.split('-');
         let fecha = dataVenta.slice(1, 4).join('-');
         $('#clients_id').val(dataVenta[5]); // suponiendo que dataVenta[3] es el ID del cliente
-        $('#dates').val(fecha);
+        $('#date_invoice').val(fecha);
         $('#sellers').val(dataVenta[4]); // suponiendo que dataVenta[2] es el ID del vendedor
         $('#payments_methods').val(dataVenta[6]); // suponiendo que dataVenta[4] es el método de pago
-        let selectedSaleId = dataVenta[0]; // Guardar el ID de la venta seleccionada en la variable selectedSaleId
+        let selectedSaleId = dataVenta[0]; // Obtener el ID de la venta seleccionada
+        $('#sale_id').val(selectedSaleId); // Guardar el ID de la venta seleccionada en la variable selectedSaleId
             
         console.log(dataVenta);
         console.log(selectedSaleId); // Esto imprimirá el ID de la venta seleccionada en la consola 
@@ -249,13 +264,14 @@
 
             $('#tablaDetalleVenta tbody').append(`  
                 <tr>
-                    <td>${detalle.producto.name_product}</td>
-                    <td>${detalle.references}</td>
-                    <td><input type="text" name="amount" class="form-control" value="${detalle.amount}"></td>
-                    <td>${detalle.selling_price}</td>
-                    <td>${detalle.discounts}</td>
-                    <td>${detalle.tax}</td>
-                    <td class="td-impuesto">${impuesto.toFixed(2)}</td>
+                    <td><input type="text" name="arrayidproducto[]" class="form-control" value="${detalle.product_id}"></td>
+                    <td><input type="text" name="arrayname[]" class="form-control" value="${detalle.producto.name_product}"></td>
+                    <td><input type="text" name="arrayreference[]" class="form-control" value="${detalle.references}"></td>
+                    <td><input type="text" name="amount[]" class="form-control" value="${detalle.amount}"></td>
+                    <td><input type="text" name="selling_price[]" class="form-control" value="${detalle.selling_price}"></td>
+                    <td><input type="text" name="discounts[]" class="form-control" value="${detalle.discounts}"></td>
+                    <td><input type="text" name="tax[]" class="form-control" value="${detalle.tax}"></td>
+                    <input type="hidden" class="td-impuesto" value="${impuesto.toFixed(2)}">
                     <td class="td-subtotal">${subtotal.toFixed(2)}</td>
                 </tr>   
             `);
@@ -265,13 +281,13 @@
         var total = totalSubtotales + totalImpuestos;
 
         // Actualizar el valor del input de total de subtotales
-        $('#th-suma').val(totalSubtotales.toFixed(2));
+        $('#gross_totals').val(totalSubtotales.toFixed(2));
 
         // Actualizar el valor del input de total de impuestos
-        $('#th-impuesto').val(totalImpuestos.toFixed(2));
+        $('#taxes_total').val(totalImpuestos.toFixed(2));
 
         // Actualizar el valor del input de total final
-        $('#total').val(total.toFixed(2));
+        $('#net_total').val(total.toFixed(2));
     },
     error: function(xhr, status, error) {
         console.error(error);
@@ -279,42 +295,45 @@
 });
     }
 
-    
     function recalcularPrecios() {
-        var fila = $(this).closest('tr');
+            $('#tablaDetalleVenta tbody tr').each(function() {
+                var fila = $(this);
 
-        var cantidad = parseInt(fila.find('input[name="amount"]').val());
-        var precioVenta = parseFloat(fila.find('td:eq(3)').text());
-        var descuento = parseFloat(fila.find('td:eq(4)').text());
-        var impuesto = parseFloat(fila.find('td:eq(5)').text());
+                var cantidad = parseInt(fila.find('input[name="amount[]"]').val());
+                var precioVenta = parseFloat(fila.find('input[name="selling_price[]"]').val());
+                var descuento = parseFloat(fila.find('input[name="discounts[]"]').val());
+                var impuesto = parseFloat(fila.find('input[name="tax[]"]').val());
 
-        var subtotal = (cantidad * precioVenta) - descuento;
-        var impuestoTotal = (precioVenta * impuesto * cantidad) / 100;
+                var subtotal = (cantidad * precioVenta) - descuento;
+                var impuestoTotal = (precioVenta * impuesto * cantidad) / 100; // El impuesto se calcula con la cantidad original
 
-        fila.find('.td-subtotal').text(subtotal.toFixed(2));
-        fila.find('.td-impuesto').text(impuestoTotal.toFixed(2));
+                fila.find('.td-subtotal').text(subtotal.toFixed(2));
+                fila.find('.td-impuesto').text(impuestoTotal.toFixed(2));
+            });
 
-        recalcularTotales();
-    }
+            recalcularTotales(); // Se deben recalcular los totales después de recalcular los precios
+        }
 
-    function recalcularTotales() {
-        var totalSubtotales = 0;
-        var totalImpuestos = 0;
+        function recalcularTotales() {
+            var totalSubtotales = 0;
+            var totalImpuestos = 0;
 
-        $('#tablaDetalleVenta tbody tr').each(function() {
-            var subtotalFila = parseFloat($(this).find('.td-subtotal').text());
-            var impuestoFila = parseFloat($(this).find('.td-impuesto').text());
+            $('#tablaDetalleVenta tbody tr').each(function() {
+                var subtotalFila = parseFloat($(this).find('.td-subtotal').text());
+                var impuestoFila = parseFloat($(this).find('.td-impuesto').text());
 
-            totalSubtotales += subtotalFila;
-            totalImpuestos += impuestoFila;
-        });
+                totalSubtotales += subtotalFila;
+                totalImpuestos += impuestoFila;
+            });
 
-        var totalFinal = totalSubtotales + totalImpuestos;
+            var totalFinal = totalSubtotales + totalImpuestos;
 
-        $('#th-suma').val(totalSubtotales.toFixed(2));
-        $('#th-impuesto').val(totalImpuestos.toFixed(2));
-        $('#total').val(totalFinal.toFixed(2));
-    }
+            $('#gross_totals').val(totalSubtotales.toFixed(2));
+            $('#taxes_total').val(totalImpuestos.toFixed(2));
+            $('#net_total').val(totalFinal.toFixed(2));
+        }
+
+  
 </script>
 
 @endpush    

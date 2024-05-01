@@ -23,13 +23,10 @@ return new class extends Migration
             $table->string('reason');
             $table->boolean('status')->default(true);
             $table->bigInteger('clients_id')->unsigned();
-            $table->bigInteger('detail_sale_id')->unsigned();
             $table->bigInteger('sale_id')->unsigned();
             $table->foreign('clients_id')->references('id')->on('people')->onDelete("no action");
-            $table->foreign('detail_sale_id')->references('id')->on('product_sale')->onDelete("no action");
             $table->foreign('sale_id')->references('id')->on('sales')->onDelete("no action");
             $table->timestamps();
-            
         });
     }
 

@@ -22,9 +22,16 @@ class CreditNotePostRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'date_invoice' => 'required',
             'sellers' => 'required',
             'payments_methods' => 'required',
-            'reason' => 'required'
+            'gross_totals' => 'required',
+            'taxes_total' => 'required',
+            'net_total' => 'required',
+            'date_credit_notes'=> 'required',
+            'reason' => 'required',
+            'clients_id'=> 'required',
+            'sale_id'=> 'required'
         ];
     }
 }

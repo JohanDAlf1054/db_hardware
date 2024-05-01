@@ -83,6 +83,11 @@ class Product extends Model
     {
         return $this->hasMany(DetalleVenta::class);
     }
+
+    public function detalleNotaCredito()
+    {
+        return $this->hasMany(DetalleNotaCredito::class);
+    }
     
 
 }

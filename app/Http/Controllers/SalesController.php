@@ -148,6 +148,6 @@ class SalesController extends Controller
                 'status' => 1
             ]);
         }
-        return redirect()->route('sales.index')->with('success','Venta eliminada');
+        return redirect()->route('sales.index')->with('success','Venta inactivada');
     }
 }

@@ -9,6 +9,7 @@ class DetalleVenta extends Model
 {
    
     use HasFactory;
+       protected $guarded = ['id'];
 
     protected $table = 'product_sale'; // Especifica el nombre de la tabla en la base de datos
 

@@ -15,7 +15,7 @@
              
                 <div class="card-header">
                     <h2 id="card_title">
-                        {{ __('Notas credito') }}
+                        {{ __('Notas crédito') }}
                     </h2>
                 </div>
                 </div>
@@ -71,30 +71,30 @@
                             <thead class="table-dark">
                                 <tr style="text-align: center">
                                     <th>Id</th>
-                                    <th >Nº de factura</th>
-                                    <th >Fecha nota credito</th>
+                                    <th >Fecha de venta</th>
                                     <th>Vendedor</th>
                                     <th>Forma de pago</th>
-                                    <th>Motivo<th>
-                                    <th>Fecha de venta</th>
                                     <th>Total Bruto</th>
                                     <th>Total Impuesto</th>
                                     <th>Total Neto</th>
-                                    <th>Estado</th>
+                                    <th>Fecha Nota Crédito</th>
+                                    <th>Motivo</th>  
+                                    <th>Estado</th>  
                                     <th>Acciones</th> 
                                 </tr>
                             </thead>
                             <tbody>
-                                 {{-- @foreach ($ventas as $sale)
+                                 @foreach ($ventas as $sale)
                                     <tr style="text-align: center">
                                         <td>{{$sale->id}}</td>
-                                        <td>{{$sale->dates}}</td>
-                                        <td>{{$sale->bill_numbers}}</td>
+                                        <td>{{$sale->date_invoice}}</td>
                                         <td>{{$sale->sellers}}</td>
                                         <td>{{$sale->payments_methods}}</td>
                                         <td>{{$sale->gross_totals}}</td>
                                         <td>{{$sale->taxes_total}}</td>
                                         <td>{{$sale->net_total}}</td>
+                                        <td>{{$sale->date_credit_notes}}</td>
+                                        <td>{{$sale->reason}}</td>
                                         <td>
                                             @if($sale->status == True)
                                             <p class="badge rounded-pill bg-warning text-dark" style="font-size: 15px">Activo</p>
@@ -104,7 +104,7 @@
                                         </td>
                                         <td class="border px-4 py-2 text-center">
                                             <div class="d-inline-block">
-                                                <form action="{{ route('sales.show', ['sale' => $sale]) }}" method="get">
+                                                <form action="{{ route('credit-note-sales.show', ['credit_note_sale' => $sale]) }}" method="get">
                                                     <button type="submit" class="btn btn-success">
                                                         <i class="fa fa-fw fa-eye"></i>
                                                     </button>
@@ -117,7 +117,7 @@
                                             </div>
                                         </td>
                                     </tr>
-                                    <div class="modal fade" id="confirmModal-{{$sale->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal fade" id="confirmModal-{{$sale->id}}" tabinde ria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
@@ -129,7 +129,7 @@
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                                                    <form action="{{ route('sales.destroy',['sale'=>$sale->id]) }}" method="post">
+                                                    <form action="{{ route('credit-note-sales.destroy',['credit_note_sale'=>$sale->id]) }}" method="post">
                                                         @method('DELETE')
                                                         @csrf
                                                         <button type="submit" class="btn btn-danger">Confirmar</button>
@@ -138,7 +138,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                  @endforeach   --}}
+                                  @endforeach  
                             </tbody>
                         </table>
                     </div>
