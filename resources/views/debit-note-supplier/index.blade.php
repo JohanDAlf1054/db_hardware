@@ -2,69 +2,42 @@
 @include('include.barra', ['modo'=>'Notas Debito'])
 
 <head>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/css/bootstrap-select.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/css/bootstrap-select.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" ></script>
 <link href="{{asset('css/products/all.css')}}" rel="stylesheet" />
 <link href="css/estilos_notificacion.css" rel="stylesheet"/>
     <script src="{{ asset('js/notificaciones.js')}}" defer></script>
 </head>
+<br>
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-12">
-            <br>
-            
             <div class="card">
-            <div class="card-header">
-                <h2 id="card_title">
-                    {{ __('Notas Debito') }}
-                </h2>
-            </div>
+                <div class="card-header">
+                    <h2 id="card_title">
+                        {{ __('Notas Debito') }}
+                    </h2>
+                </div>
                 
-             <div class="card-body"></div>
-             <div class="row">
-               
-            <div class="col-lg-6 col-md-6 col-sm-12" >
-             
-
-                <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">Acciones
-                    <span class="visually-hidden">Acciones</span>
-                {{-- <div style="display: flex; justify-content: space-between; align-items: center;"> --}}
-                </button>
-                <ul class="dropdown-menu dropdown-menu-end">    
-                    <li><a class="dropdown-item" href="{{ route('purchase_supplier.index') }}">Mostrar Las Compras A Proveedor</a></li>
-                    <li>
-                        <a class="dropdown-item" href="{{ route('detail-purchases.index') }}">Mostrar Detalles De Compras</a>
-                    </li>
-                   {{-- <li>
-                        <a class="dropdown-item" href="{{ route('credit-note-supplier.index') }}">Crear Una nota Credito</a>
-                    </li>--}}
-                    <li>
-                        <a class="dropdown-item" href="{{ route('debit-note-supplier.create') }}">Crear Nueva Nota Debito</a>
-                    </li>
-                            </ul>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12" >
-                        <form action="{{ route('debit-note-supplier.index') }}" method="get">
-                            <div class="mb-3 row">
-                                <div class="col-sm-9">
-                                    <input name="filtervalue" type="text" class="form-control" aria-label="Text input with segmented dropdown button"  placeholder="Buscar Nota....">
-                                </div>
-                                <div class=" col-sm-3">
-                                    <button type="submit" class=" btn btn-dark">Buscar</button>
-                                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-12" >
+                            <div class="dropdown">
+                                <button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" >Acciones</button>
+                                <ul class="dropdown-menu">             
+                                    <li><a class="dropdown-item" href="{{ route('purchase_supplier.index') }}">Mostrar Las Compras A Proveedor</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('detail-purchases.index') }}">Mostrar Detalles De Compras</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('debit-note-supplier.create') }}">Crear Nueva Nota Debito</a></li>
+                                </ul>
                             </div>
+                        </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12" >
+                        <form action="{{ route('debit-note-supplier.index') }}" method="get" class="d-flex align-items-center">
+                            <input name="filtervalue" type="text" class="form-control" aria-label="Text input with segmented dropdown button"  placeholder="Buscar Nota....">
+                            <button type="submit" class="btn btn-dark" style="margin-left: 10px;">Buscar</button>
                         </form>
                     </div>
-                    
-                          </div>
-                         
-                    </div>
                 </div>
-               {{--@if ($message = Session::get('success'))
-                    <div class="alert alert-success">
-                        <p>{{ $message }}</p>
-                    </div>
-                @endif--}} 
             </div>
             <script>
                 document.addEventListener('DOMContentLoaded', function () {

@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agregar Persona</title>
+    <title>Nota Debito</title>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet' >
     <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
@@ -18,7 +18,9 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
-    
+    <link href="{{asset('css/estilos_notificacion.css')}}" rel="stylesheet"/>
+  
+    <script src="{{ asset('js/notificaciones.js')}}" defer></script>
 </head>
 <br>
 <style>
@@ -41,7 +43,7 @@
         height: 0%;
     }
 </style>
-@if ($errors->any())
+{{--@if ($errors->any())
 <div class="alert alert-danger">
     <ul>
         @foreach ($errors->all() as $error)
@@ -49,7 +51,17 @@
         @endforeach
     </ul>
 </div>
-@endif
+@endif--}}
+<script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const mensajeFlash = {!! json_encode(Session::get('notificacion')) !!};
+                    if (mensajeFlash) {
+                        agregarnotificacion(mensajeFlash);
+                    }
+                });
+            </script>
+            <div class="contenedor-notificacion" id="contenedor-notificacion">
+            </div>
     <div class="content container-fluid">
         <div class="page-body">
             <div class="container-x1">

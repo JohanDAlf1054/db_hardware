@@ -55,7 +55,7 @@
                             {!! $errors->first('producto_id', '<div class="invalid-feedback">:message</div>') !!}
                         </div>
                         
-                        
+                        {{--
                         <div class="col-6 mb-2">
                             <label for="identification_type" class="form-label">Tipo de identificación:</label>
                             <input type="text" id="identification_type" name="identification_type" class="form-control" value="{{ old('identification_type', isset($detailPurchase) && isset($detailPurchase->purchaseSupplier) && isset($detailPurchase->purchaseSupplier->person) ? $detailPurchase->purchaseSupplier->person->identification_type : '') }}">
@@ -71,7 +71,7 @@
                             <small class="text-danger">{{ '*'.$message }}</small>
                             @enderror
                         </div>
-                        
+                        --}}
                       {{--<div class="col-6 mb-4">
                             <label for="fecha" class="form-label">Fecha de Compra:</label>
                             <input type="date" id="fecha" name="fecha" class="form-control" value="{{ old('date_purchase', isset($detailPurchase) ? $detailPurchase->date_purchase : '') }}">
@@ -118,12 +118,12 @@
                         
 
                         <div class="col-sm-4 mb-2">
-                            <label for="precio_compra" class="form-label">Precio de Unitario:</label>
+                            <label for="precio_compra" class="form-label">Precio Unitario:</label>
                             <input type="number" name="precio_compra" id="precio_compra" class="form-control" step="0.1">
                         </div>
                         
                         <div class="col-sm-4 mb-2">
-                            <label for="precio_venta" class="form-label"> Descripcion:</label>
+                            <label for="precio_venta" class="form-label"> Descripción:</label>
                             <input type="text" name="precio_venta" id="precio_venta" class="form-control" step="0.1">
                         </div>
 
@@ -228,9 +228,9 @@
                         </div>
                     
                         <div class="col-6 mb-2">
-                            <label for="user_id" class="form-label">Usuario:</label>
+                            <label for="user_id" class="form-label">Empleado:</label>
                             <select name="user_id" id="user_id" class="form-control selectpicker show-tick" data-live-search="true" title="Selecciona" data-size='2'>
-                                <option value="">Seleccione un Usuario</option>
+                                <option value="">Seleccione un Empleado</option>
                                 @foreach ($users as $user)
                                     <option value="{{$user->id}}">
                                         {{$user->name}}
