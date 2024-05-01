@@ -52,7 +52,7 @@
     </ul>
 </div>
 @endif--}}
-<script>
+            <script>
                 document.addEventListener('DOMContentLoaded', function () {
                     const mensajeFlash = {!! json_encode(Session::get('notificacion')) !!};
                     if (mensajeFlash) {
@@ -100,7 +100,8 @@
                                                             data-product-name="{{ $purchaseSupplier->detailPurchase && $purchaseSupplier->detailPurchase->product ? $purchaseSupplier->detailPurchase->product->name_product : '' }}"
                                                             data-product-tax="{{ $purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->product_tax : '' }}"
                                                             data-price-unit="{{ $purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->price_unit : '' }}"
-                                                            data-discount-total="{{ $purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->discount_total : '' }}">
+                                                            data-discount-total="{{ $purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->discount_total : '' }}"
+                                                            data-quantity-units="{{$purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->discount_total : ''}}">
                                                         {{ $purchaseSupplier->code . '-' . $purchaseSupplier->invoice_number_purchase }}
                                                     </option>
                                                     @endforeach
@@ -202,11 +203,11 @@
                                                     <tr>
                                                         <th class="text-white">Producto</th>
                                                         <th class="text-white">Cantidad</th>
-                                                        <th class="text-white">Descripcion</th>
+                                                        <th class="text-white">Descripción</th>
                                                         <th class="text-white">Precio Unitario</th>
                                                         <th class="text-white">Descuento</th>
                                                         <th class="text-white">Iva</th>
-                                                        <th class="text-white">Accion</th>
+                                                        <th class="text-white">Acción</th>
 
                                                     </tr>
                                                 </thead>
@@ -317,7 +318,7 @@
     NOS TRAEMOS TODOS LOS DATOS EN UN ARREGLO CONCATENADO Y DEPENDIENDO DEL 
     ARREGLO ASOCIATIVO GENERAMOS LAS FILAS QUE NECESITAMOS MOSTRAR--}}
 <script>
-   document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function() {
     var facturaSelect = document.getElementById('factura');
     if (facturaSelect) {
         facturaSelect.addEventListener('change', function() {
@@ -336,7 +337,7 @@
 
                 newRow.innerHTML = 
                     '<td><input type="text" name="producto[]" class="form-control" value="' + detail.product_name + '"></td>' +
-                    '<td><input type="number" name="cantidad[]" class="form-control"></td>' +
+                    '<td><input type="number" name="cantidad[]" class="form-control" value="' + detail.quantity_units + '"></td>' +
                     '<td><input type="text" name="descripcion[]" class="form-control"></td>' +
                     '<td><input type="number" name="precio_unitario[]" class="form-control" value="' + detail.price_unit + '"></td>' +
                     '<td><input type="number" name="descuento[]" class="form-control" value="' + detail.discount_total + '"></td>' +
@@ -344,17 +345,15 @@
                     '<td><button class="btn btn-danger" type="button"><i class="fa-solid fa-trash"></i></button></td>';
 
                 tbody.appendChild(newRow);
+                
+                newRow.querySelector('input[name="cantidad[]"]').addEventListener('input', calcularTotales);
 
-                // Agrega un evento 'click' al botón
                 newRow.querySelector('button').addEventListener('click', function() {
-                    // Elimina la fila
                     newRow.remove();
 
-                    // Recalcula los totales
                     calcularTotales();
                 });
 
-                // Agrega un evento 'input' a cada campo de entrada
                 newRow.querySelectorAll('input[type=number]').forEach(function(input) {
                     input.addEventListener('input', function(e) {
                         
@@ -363,9 +362,12 @@
                     
                 });
             });
+
+            calcularTotales();
         });
     }
 });
+
 
 function calcularTotales() {
     var total = 0;
@@ -376,6 +378,7 @@ function calcularTotales() {
     document.querySelectorAll('#tabla_detalle tbody tr').forEach(function(row) {
         var cantidad = Number(row.querySelector('input[name="cantidad[]"]').value);
         var precio_unitario = Number(row.querySelector('input[name="precio_unitario[]"]').value);
+
         var descuento = Number(row.querySelector('input[name="descuento[]"]').value);
         var iva = Number(row.querySelector('input[name="iva[]"]').value);
 

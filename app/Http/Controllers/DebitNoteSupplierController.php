@@ -103,7 +103,7 @@ foreach ($detailPurchases as $detailPurchase) {
         'price_unit' => $detailPurchase->price_unit,
         'product_tax' => $detailPurchase->product_tax,
         'discount_total' => $detailPurchase->discount_total,
-        
+        'quantity_units' => $detailPurchase->quantity_units,
     ];
 }
 

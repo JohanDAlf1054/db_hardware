@@ -104,6 +104,7 @@
                                 <option value="5" {{ old('product_tax', isset($detailPurchase) ? $detailPurchase->product_tax : '') == 5 ? 'selected' : '' }}>5%</option>
                                 <option value="19" {{ old('product_tax', isset($detailPurchase) ? $detailPurchase->product_tax : '') == 19 ? 'selected' : '' }}>19%</option>
                             </select>
+                            
                             @error('product_tax')
                             <small class="text-danger">{{ '*'.$message }}</small>
                             @enderror
@@ -484,27 +485,32 @@ function eliminarProducto(indice, impuesto) {
             });
         </script>--}}
         <script>
-            document.getElementById('people_id').addEventListener('change', function() {
-            var selectedOption = this.options[this.selectedIndex];
-            var identificationType = selectedOption.getAttribute('data-identification-type');
-            var identificationNumber = selectedOption.getAttribute('data-identification-number');
-            document.getElementById('identification_type').value = identificationType;
-            document.getElementById('identification_number').value = identificationNumber;
-            });
-        </script>
-        <script>
-        document.getElementById('producto_id').addEventListener('change', function() {
-            var selectedOption = this.options[this.selectedIndex];
-            var sellingPrice = selectedOption.getAttribute('data-selling-price');
-           // var classificationTax = selectedOption.getAttribute('data-classification-tax');
-            
-            // Si classificationTax es nulo o vacío, establecerlo en 0
-           // if (classificationTax === null || classificationTax === '') {
-             //   classificationTax = 0;
-            
-            document.getElementById('precio_compra').value = sellingPrice;
-           // document.getElementById('product_tax').value = classificationTax;
-            });
+      document.getElementById('producto_id').addEventListener('change', function() {
+    var selectedOption = this.options[this.selectedIndex];
+    var sellingPrice = selectedOption.getAttribute('data-selling-price');
+    var classificationTax = Number(selectedOption.getAttribute('data-classification-tax').replace('%', ''));
+
+if (isNaN(classificationTax)) {
+    console.log('classification_tax no es un número');
+} else {
+    console.log('classification_tax es un número:', classificationTax);
+}
+
+    //console.log(classificationTax); // Mueve esta línea aquí
+
+    document.getElementById('precio_compra').value = sellingPrice;
+
+    // Aquí es donde seleccionas la opción correspondiente en el select de product_tax
+    var productTaxSelect = document.getElementById('product_tax');
+    for (var i = 0; i < productTaxSelect.options.length; i++) {
+        if (Number(productTaxSelect.options[i].value) === classificationTax) { // Asegúrate de que ambos son números
+            productTaxSelect.options[i].selected = true;
+            break;
+        }
+    }
+});
+
+
         </script>
     @endauth
     @guest
