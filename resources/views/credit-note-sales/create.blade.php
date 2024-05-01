@@ -162,14 +162,9 @@
                                         <input type="hidden" name="sale_id" id="sale_id">
                                     </div>
                                 </div>
-                                <div class="card-footer text-end">
-                                <br>
 
-                                    <a class="btn btn-primary" style="margin-right: 2rem" href="{{ route('credit-note-sales.index') }}">Regresar</a>
-                                    <button type="submit" class="btn btn-success">Realizar Nota</button>
-                                </div>
-                            </form>
-                            
+
+
                             @if(session('success'))
                                 <div class="alert alert-success">
                                     {{ session('success') }}
@@ -181,6 +176,12 @@
                                 </div>
                             @endif
                         </div>
+                        <div class="card-footer text-end">
+                            <br>
+                                <a class="btn btn-primary" style="margin-right: 2rem" href="{{ route('credit-note-sales.index') }}">Regresar</a>
+                                <button type="submit" class="btn btn-success">Realizar Nota</button>
+                        </div>
+                    </form>
                     </div>
                 </div>
             </div>
@@ -197,12 +198,12 @@
     $(document).ready(function() {
         // Capturar el evento change del select #sale_id
         $('#datos').change(mostrarValores);
-        
+
         // Adjuntar evento input a los inputs de cantidad
         $(document).on('input', 'input[name="amount[]"]', recalcularPrecios);
     });
 
-    
+
     function mostrarValores() {
         let dataVenta = document.getElementById('datos').value.split('-');
         let fecha = dataVenta.slice(1, 4).join('-');
@@ -214,10 +215,10 @@
         $('#sale_id').val(selectedSaleId); // Guardar el ID de la venta seleccionada en la variable selectedSaleId
         let totalSubtotales = 0; // Definir las variables aquí
         let totalImpuestos = 0;   // Definir las variables aquí
-            
+
         console.log(dataVenta);
-        console.log(selectedSaleId); // Esto imprimirá el ID de la venta seleccionada en la consola 
-    
+        console.log(selectedSaleId); // Esto imprimirá el ID de la venta seleccionada en la consola
+
         // Realizar una solicitud AJAX al servidor para obtener el detalle de la venta
         $.ajax({
     url: '/obtener-detalle-venta',
@@ -238,7 +239,7 @@
             var impuesto = (detalle.selling_price * detalle.tax) / 100;
             totalImpuestos += impuesto;
 
-            $('#tablaDetalleVenta tbody').append(`  
+            $('#tablaDetalleVenta tbody').append(`
                 <tr>
                     <td><input type="text" name="arrayidproducto[]" class="form-control" value="${detalle.product_id}"></td>
                     <td><input type="text" name="arrayname[]" class="form-control" value="${detalle.producto.name_product}"></td>
@@ -249,7 +250,7 @@
                     <td><input type="text" name="tax[]" class="form-control" value="${detalle.tax}"></td>
                     <input type="hidden" class="td-impuesto" value="${impuesto.toFixed(2)}">
                     <td class="td-subtotal">${subtotal.toFixed(2)}</td>
-                </tr>   
+                </tr>
             `);
         });
 
@@ -312,6 +313,6 @@
             $('#net_total').val(totalFinal.toFixed(2));
         }
 
-  
+
 </script>
 @endpush

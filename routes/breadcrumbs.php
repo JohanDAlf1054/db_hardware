@@ -3,6 +3,7 @@
 // Note: Laravel will automatically resolve `Breadcrumbs::` without
 // this import. This is nice for IDE syntax and refactoring.
 
+use App\Models\credit_note_sales;
 use App\Models\DebitNoteSupplier;
 use App\Models\DetailPurchase;
 use App\Models\Person;
@@ -201,7 +202,11 @@ Breadcrumbs::for('credit.note.sales', function (BreadcrumbTrail $trail) {
 });
 
 //Ventas > Notas credito > Mostrar
-//Falta por la modificacion de la tabla.
+Breadcrumbs::for('credit.note.sales.show', function (BreadcrumbTrail $trail, credit_note_sales $credit_note_sale) {
+    $trail->parent('credit.note.sales');
+    $trail->push('Mostrar');
+    $trail->push($credit_note_sale->id);
+});
 
 //Ventas > Crear nota credito
 Breadcrumbs::for('credit.note.sales.create', function (BreadcrumbTrail $trail) {
