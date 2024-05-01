@@ -41,7 +41,7 @@ Route::post('/register', [RegisterController::class,'register']);
 Route::get('/login', [LoginController::class,'show']);
 Route::post('/login', [LoginController::class,'login']);
 
-Route::get('/home', [HomeController::class,'index']);
+Route::get('/home', [HomeController::class,'index'])->name('home');
 
 Route::get('/logout', [LogoutController::class,'logout']);
 
@@ -101,10 +101,13 @@ Route::get('/export', [ExportController::class, 'export'])->name('export');
 Route::resource('purchase_supplier', App\Http\Controllers\PurchaseSupplierController::class);
 Route::resource('detail-purchases', App\Http\Controllers\DetailPurchaseController::class);
 Route::resource('debit-note-supplier', App\Http\Controllers\DebitNoteSupplierController::class);
-Route::post('/guardar-datos', 'DatosController@guardarDatos');
+// Route::post('/guardar-datos', 'DatosController@guardarDatos');
 
 Route::get('/report', [ExportController::class,'report'])->name('report');
 
 //Ruta para traer la informacion de las subcategorias
 Route::get('/products/create/categoryProduct/{categoryProduct}/subCategories', [CategoryProductController::class,'subCategories']);
 Route::get('/products/{id}/edit/categoryProduct/{categoryProduct}/subCategories', [CategoryProductController::class,'subCategoriesEdit']);
+
+//Ruta para la gestion de usuario con el rol de Administrador
+Route::resource('usuarios', UsuariosController::class)->only(['index', 'edit', 'update'])->names('admin.usuarios');

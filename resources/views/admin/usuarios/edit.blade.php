@@ -1,7 +1,6 @@
 @auth
-    @include('include.barra', ['modo'=>'Permiso de usuarios'])
-
-<div class="separador_usuarios">
+@include('include.barra', ['modo'=>'Permiso de usuarios'])
+<br>
 <div class="content container-fluid">
     <div class="page-body">
         <div class="container-x1">
@@ -11,7 +10,7 @@
                         <div class="card card-default">
                             <div class="card-header" style="display: flex">
                                 <h3 class="card-title">
-                                    Roles
+                                    {{ Breadcrumbs::render('admin.edit') }}
                                 </h3>
                             </div>
                         </div>
@@ -52,7 +51,6 @@
 <div class="card-footer text-end container_botones">
     <a class="btn btn-primary caja_subir" style="margin-right: 5rem" href="{{ route('admin.usuarios.index') }}">Regresar</a>
     {!! Form::submit('Asignar rol', ['class' => 'btn btn-success']) !!}
-</div>
 </div>
 @endauth
 @guest

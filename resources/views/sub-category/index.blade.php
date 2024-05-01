@@ -11,6 +11,9 @@
     <link href="{{asset('css/estilos_notificacion.css')}}" rel="stylesheet"/>
     <script src="{{ asset('js/notificaciones.js')}}" defer></script>
 </head>
+<div class="bread_crumb">
+    {{ Breadcrumbs::render('sub-category.index') }}
+</div>
 <br>
     <div class="container-fluid">
         <div class="row">
@@ -58,7 +61,7 @@
                                 <tbody>
                                     @foreach ($subCategories as $subCategory)
                                         <tr>
-                                            
+
 											<td>{{ $subCategory->name }}</td>
 											<td>{{ $subCategory->description }}</td>
                                             <td>

@@ -11,29 +11,29 @@
 <div class="row">
     <div class="col-sm-12">
         <div class="col-sm-12">
-        
+
             <br>
-            
+
             <div class="card">
             <div class="card-header">
                 <h2 id="card_title">
-                    {{ __('Detalles De Las Compras') }}
+                    {{ Breadcrumbs::render('detail.purchase') }}
                 </h2>
             </div>
-        
+
             <div class="card-body"></div>
             <div class="row">
-                
+
             <div class="col-lg-6 col-md-6 col-sm-12" >
-                    
+
                 <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">Acciones
                     <span class="visually-hidden">Acciones</span>
                 {{-- <div style="display: flex; justify-content: space-between; align-items: center;"> --}}
                 </button>
-                <ul class="dropdown-menu dropdown-menu-end">  
+                <ul class="dropdown-menu dropdown-menu-end">
                     <li>
                         <a class="dropdown-item" href="{{ route('purchase_supplier.index') }}">Mostrar Compras</a>
-                    </li>  
+                    </li>
                     <li>
                         <a class="dropdown-item" href="{{ route('detail-purchases.create') }}">Crear Detalle Compra</a>
                     </li>
@@ -48,11 +48,11 @@
                     </li>
                             </ul>
                     </div>
-            
+
                         <div class="col-lg-6 col-md-6 col-sm-12" >
                             <form action="{{ route('detail-purchases.index') }}" method="get">
                                 <div class="mb-3 row">
-                                    
+
                                     <div class="col-sm-9">
                                         <input name="filtervalue" type="text" class="form-control" aria-label="Text input with segmented dropdown button"  placeholder="Buscar Compra....">
                                     </div>
@@ -63,10 +63,10 @@
                             </form>
                         </div>
                         </div>
-                        
+
                     </div>
                 </div>
-                
+
            {{-- @if ($message = Session::get('success'))
                 <div class="alert alert-success">
                     <p>{{ $message }}</p>
@@ -115,7 +115,7 @@
 
                                             <td>{{ optional($detailPurchase->purchaseSupplier->person)->first_name ?? 'Error: No se encontró el proveedor' }}</td>
                                             <td>{{ optional($detailPurchase->product)->name_product ?? 'Error: No se encontró el producto' }}</td>
-                                
+
                                             <td>{{ $detailPurchase->net_total }}</td>
                                             <td>{{ $detailPurchase->product_tax }}%</td>
                                             <td>{{ $detailPurchase->total_value }}</td>
@@ -133,7 +133,7 @@
                                                    {{-- <a class="btn btn-sm btn-success" href="{{ route('detail-purchases.edit',$detailPurchase->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Editar') }}</a>
                                                    --}} @csrf
                                                     @method('DELETE')
-                                                
+
                                                 @if ($detailPurchase->status == true)
     <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#confirmationDestroy-{{$detailPurchase->id}}"><i class="fa fa-fw fa-trash"></i></button>
 @else

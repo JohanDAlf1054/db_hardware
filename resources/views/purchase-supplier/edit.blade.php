@@ -1,7 +1,9 @@
 @auth
-    
-@include('include.barra', ['modo'=>'Crear Compra Proveedor'])
 
+@include('include.barra', ['modo'=>'Crear Compra Proveedor'])
+    <div class="bread_crumb">
+        {{ Breadcrumbs::render('compras.edit', $purchaseSupplier) }}
+    </div>
     <section class="content container-fluid">
         <div class="">
             <div class="col-md-12">

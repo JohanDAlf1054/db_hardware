@@ -34,11 +34,14 @@ class PersonController extends Controller
             ->orWhere('company_name','like','%'.$filtervalue.'%')
             ->paginate();
 
+        // Retorna la vista con la lista de personas
 
             return view('person.index',[
                 'people' => $people,
             ])->with('i', (request()->input('page', 1) - 1) * $people->perPage());
+
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -112,6 +115,7 @@ class PersonController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
+
     public function show($id)
     {
         $person = Person::find($id);
@@ -190,7 +194,7 @@ class PersonController extends Controller
                 'autoCierre' => 'true'
             ]);
         }
-        
+
     }
 
     /**

@@ -6,6 +6,10 @@
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @endpush
 
+<div class="bread_crumb">
+    {{ Breadcrumbs::render('credit.note.sales.create') }}
+</div>
+<br>
 @section('content')
 
 <div class="content container-fluid">
@@ -41,11 +45,22 @@
                                             {!! $errors->first('datos', '<div class="invalid-feedback">:message</div>') !!}
                                         </div>
                                     </div>
+<<<<<<< HEAD
                                 
                                 
                                 
                               
                                 
+=======
+
+
+
+
+
+
+
+
+>>>>>>> 28dcad2768f553706a950b44c1e4806c0bb4d4c9
                                         {{--  Fecha De Elaboracion Nota Credito  --}}
                                         <div class="col-sm-6 md-6">
                                             <div class="md-3" style="margin-bottom: 16px">
@@ -57,10 +72,15 @@
                                                 {!! $errors->first('date_credit_notes', '<div class="invalid-feedback">:message</div>') !!}
                                             </div>
                                         </div>
+<<<<<<< HEAD
                                         
  {{--  Motivo --}}
            
     
+=======
+
+
+>>>>>>> 28dcad2768f553706a950b44c1e4806c0bb4d4c9
 
                                     {{--  Cliente  --}}
                                     <div class="col-sm-6 md-6">
@@ -73,11 +93,32 @@
                                             {!! $errors->first('clients_id', '<div class="invalid-feedback">:message</div>') !!}
                                         </div>
                                     </div>
+<<<<<<< HEAD
                                     
                                        
+=======
+
+                                        {{--  Motivo --}}
+                                        <div class="col-sm-6 md-6">
+                                            <div class="mb-3">
+                                                <label for="reason" class="form-label" style="font-weight: bolder">
+                                                    {{ __('Motivo')}}
+                                                    <span class="text-danger">*</span>
+                                                </label>
+                                                <select name="reason" id="reason" class="form-control selectpicker" data-live-search="true" data-size="6" title="Motivo ...">
+                                                    <option value="Devolucion de parte de los bienes">Devolución de parte de los bienes</option>
+                                                    <option value="Anulacion de factura electronica">Anulación de factura electrónica</option>
+                                                    <option value="Rebaja o descuento parcial o total">Rebaja o descuento parcial o total</option>
+                                                    <option value="Ajuste de precio">Ajuste de precio</option>
+                                                    <option value="Otros">Otros</option>
+                                                </select>
+                                                {!! $errors->first('reason', '<div class="invalid-feedback">:message</div>') !!}
+                                            </div>
+                                        </div>
+>>>>>>> 28dcad2768f553706a950b44c1e4806c0bb4d4c9
 
                                     {{--  Vendedor --}}
-                                    
+
                                             <div class="col-sm-6 md-6">
                                                 <div class="mb-3">
                                                     <label for="sellers" class="form-label" style="font-weight: bolder">
@@ -88,9 +129,14 @@
                                                     {!! $errors->first('sellers', '<div class="invalid-feedback">:message</div>') !!}
                                                 </div>
                                             </div>
+<<<<<<< HEAD
     
                                         
         
+=======
+
+
+>>>>>>> 28dcad2768f553706a950b44c1e4806c0bb4d4c9
                                     {{--  Metodo de pago --}}
                                     <div class="col-sm-6 md-6">
                                         <div class="mb-3">
@@ -98,15 +144,26 @@
                                                 {{ __('Método de Pago')}}
                                                 <span class="text-danger">*</span>
                                             </label>
+<<<<<<< HEAD
                                             <input  type="text" name="payments_methods" id="payments_methods" class="form-control">  
+=======
+                                            <input type="text" name="payments_methods" id="payments_methods" class="form-control">
+>>>>>>> 28dcad2768f553706a950b44c1e4806c0bb4d4c9
                                             {!! $errors->first('payments_methods', '<div class="invalid-feedback">:message</div>') !!}
-                                        </div> 
+                                        </div>
                                     </div>
+<<<<<<< HEAD
                                     
                                  
                                     
+=======
+
+
+
+
+>>>>>>> 28dcad2768f553706a950b44c1e4806c0bb4d4c9
                                     {{--  Fecha Detalle De Compra  --}}
-                                    
+
                                     <div class="col-sm-6 md-6">
                                         <div class="md-3" style="margin-bottom: 16px">
                                             <label for="date_invoice" class="form-label" style="font-weight: bolder">
@@ -118,6 +175,7 @@
                                         </div>
                                     </div>
 
+<<<<<<< HEAD
                                     
 
                                    
@@ -139,6 +197,8 @@
                                         <br>
                                     </div>
                                     
+=======
+>>>>>>> 28dcad2768f553706a950b44c1e4806c0bb4d4c9
                                     <div class="col-12">
                                         <table id="tablaDetalleVenta" class="table table-hover w-100">
                                             <style>
@@ -146,9 +206,9 @@
                                                     background-color: #004080; /* Este es el código de color hexadecimal para azul oscuro */
                                                 }
                                             </style>
-                                            
+
                                             <thead class="bg-dark-blue">
-                                            
+
                                                 <tr>
                                                     <th class="text-white">Id</th>
                                                     <th class="text-white">Producto</th>
@@ -192,6 +252,7 @@
                                                 </div>
                                             </div>
                                         </div>
+<<<<<<< HEAD
                                         <input type="hidden" name="sale_id" id="sale_id">
                                         <div class="card-footer text-end">
                                             <a class="btn btn-primary" style="margin-right: 2rem" href="{{ route('credit-note-sales.index') }}">Regresar</a>
@@ -213,10 +274,24 @@
                                     </div>
 
                                 
+=======
+
+                                        <div class="card-footer text-end">
+
+                                                <a class="btn btn-primary" style="margin-right: 2rem" href="{{ route('credit-note-sales.index') }}">Regresar</a>
+                                                <input type="submit" class="btn btn-success" value="Realizar Nota">
+
+                                        </div>
+
+                                    </div>
+                                </form>
+
+>>>>>>> 28dcad2768f553706a950b44c1e4806c0bb4d4c9
 @endsection
 @push('js')
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/js/bootstrap-select.min.js"></script>
 <script>
+<<<<<<< HEAD
     $(document).ready(function() {
         // Capturar el evento change del select #sale_id
         $('#datos').change(mostrarValores);
@@ -247,11 +322,14 @@
     success: function(response) {
         // Limpiar la tabla de productos antes de agregar los nuevos
         $('#tablaDetalleVenta tbody').empty();
+=======
+     $(document).ready(function() {
 
-        // Variables para almacenar el total de los subtotales, el total de impuestos y el total final
-        var totalSubtotales = 0;
-        var totalImpuestos = 0;
+$('#sale_id').change(mostrarValores);
+>>>>>>> 28dcad2768f553706a950b44c1e4806c0bb4d4c9
 
+
+<<<<<<< HEAD
         // Iterar sobre los detalles de venta y agregarlos a la tabla
         response.detallesVenta.forEach(function(detalle) {
             // Calcular subtotal
@@ -292,9 +370,23 @@
     error: function(xhr, status, error) {
         console.error(error);
     }
+=======
+>>>>>>> 28dcad2768f553706a950b44c1e4806c0bb4d4c9
 });
+
+function mostrarValores() {
+        let dataVenta= document.getElementById('sale_id').value.split('-');
+        console.log(dataVenta)
+        let fecha = dataVenta.slice(1, 4).join('-'); // Unir los elementos de la fecha con '-'
+         console.log(fecha);
+        $('#clients_id').val(dataVenta[5]);
+        $('#dates').val(fecha);
+        $('#sellers').val(dataVenta[4]);
+        $('#payments_methods').val(dataVenta[6]);
+
     }
 
+<<<<<<< HEAD
     function recalcularPrecios() {
             $('#tablaDetalleVenta tbody tr').each(function() {
                 var fila = $(this);
@@ -334,6 +426,7 @@
         }
 
   
+=======
+>>>>>>> 28dcad2768f553706a950b44c1e4806c0bb4d4c9
 </script>
-
-@endpush    
+@endpush

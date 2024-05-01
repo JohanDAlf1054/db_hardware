@@ -2,12 +2,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-{{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"> --}}
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script> --}}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/css/bootstrap-select.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+
+
 </head>
 <body>
     @if ($errors->any())
@@ -41,11 +44,11 @@
                         
                         <div class="col-6 mb-4">
                             <label for="producto_id" class="form-label">Producto:</label>
-                            <select name="producto_id" id="producto_id" class="form-control selectpicker {{ $errors->has('producto_id') ? ' is-invalid' : '' }}" data-live-search="true" data-size="1" title="Busque un producto aquí">
+                            <select name="producto_id" id="producto_id" class="form-control selectpicker {{ $errors->has('producto_id') ? ' is-invalid' : '' }}" data-live-search="true" data-size="5" title="Seleccione un producto">
                                 <option value="">Seleccione un producto</option>
                                 @foreach ($products as $item)
-                                    <option value="{{$item->id}}" data-selling-price="{{$item->selling_price}}" data-classification-tax="{{$item->classification_tax}}" {{ old('producto_id') == $item->id ? 'selected' : '' }}>
-                                        {{$item->name_product}}
+                                    <option value="{{ $item->id }}" data-selling-price="{{ $item->selling_price }}" data-classification-tax="{{ $item->classification_tax }}" {{ old('producto_id') == $item->id ? 'selected' : '' }}>
+                                        {{ $item->name_product }}
                                     </option>
                                 @endforeach
                             </select>
@@ -308,9 +311,9 @@
         </form>
     </div>
 </div>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-        {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js"></script> --}}
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js"></script> 
+
         
         <script>
             $(document).ready(function(){
@@ -435,11 +438,12 @@ function eliminarProducto(indice, impuesto) {
 }
 
     function limpiarCampos(){
-        //let select=$('#producto_id');
-        //select.val(''); // Restablece el valor a vacío
-        //$('#cantidad').val('');
-        //$('#precio_venta').val('');
-        //$('#precio_compra').val('');
+        let select=$('#producto_id');
+        select.val(''); 
+        $('#cantidad').val('');
+        $('#precio_venta').val('');
+        $('#product_tax').val('');
+        $('#precio_compra').val('');
     }
     function round(num, decimales = 2) {
         var signo = (num >= 0 ? 1 : -1);

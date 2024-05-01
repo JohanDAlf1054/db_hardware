@@ -14,7 +14,7 @@
 </head>
 <br>
 <body>
-  <div class="container-fluid"> 
+  <div class="container-fluid">
       <div class="page-body">
         <div class="container-x1">
             <div class="row row-cards">
@@ -22,7 +22,7 @@
                     <div class="row">
                         <div class="col-lg-4">
                             <div class="card">
-                            
+
                                 <div class="card-header">
                                 <h3 class="card-title">
                                     {{ __('Imagen Producto') }}
@@ -36,9 +36,9 @@
                                 </div>
 
                                 @if (isset($producto->photo))
-                                <img src="{{ asset('storage/' . $producto->photo) }}" width="400" height="400">  
+                                <img src="{{ asset('storage/' . $producto->photo) }}" width="400" height="400">
                                 @endif
-                                
+
                                 <input
                                     type="file"
                                     accept="image/*"
@@ -53,22 +53,17 @@
                                     {{ $message }}
                                 </div>
                                 @enderror
-                                
+
                             </div>
                             </div>
                         </div>
 
                         <div class="col-lg-8">
                             <div class="card card-default">
-                                <div class="card-header"  style="display: flex" >
+                                <div class="card-header"  >
                                         <h3 class="card-title" >
                                             {{ __('Producto') }}
                                         </h3>
-                                    <div class="card-actions">
-                                        <a href="" class="btn-action">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M18 6l-12 12"></path><path d="M6 6l12 12"></path></svg>
-                                        </a>
-                                    </div>
                                 </div>
                                 <div class="card-body">
                                     <div class="row row-cards">
@@ -193,13 +188,13 @@
             subCategories.innerHTML = options;
         }
 
-        
+
 
         categoryProduct.addEventListener('change',(e)=>{
             getsubCategories(e.target.value)
         })
 
-        //edit 
+        //edit
         // const category = document.getElementById('categoryProduct')
         // const subCategory = document.getElementById('subCategories')
         // const id = "{{ $producto->id }}";

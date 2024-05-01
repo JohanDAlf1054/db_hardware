@@ -7,7 +7,7 @@
 <br>
 @livewireStyles
 <body>
-    @livewire('brands-component');
+    @livewire('brands-component')
     @livewireScripts
     {{-- Script  para mostrar la notificacion --}}
     <script>
