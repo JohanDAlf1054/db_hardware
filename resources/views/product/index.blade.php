@@ -26,9 +26,9 @@
                             <ul class="dropdown-menu desplegable_acciones">
                                 <div class="acciones_boton">
                                     <li><a class="dropdown-item" href="{{ route('products.create') }}">Crear Producto</a></li>
-                                    <li><a class="dropdown-item" href="{{ route('category.index') }}">Crear Categoria</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('category.index') }}">Crear Categoría</a></li>
                                     <li><a class="dropdown-item" href="{{ route('brand.index') }}">Crear Marca</a></li>
-                                    <li><a class="dropdown-item" href="{{ route('units.index') }}"">Crear Unidad</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('units.index') }}">Crear Unidad</a></li>
                                 </div>
                             </ul>
                         </div>

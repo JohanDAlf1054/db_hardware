@@ -74,7 +74,7 @@
                                     <div class="row row-cards">
                                         <div class="col-md-12" style="margin-bottom: 16px">
                                             <label for="validationProduct" class="form-label" style="font-weight: bolder">
-                                                {{ __('Nombre del Producto') }}
+                                                {{ __('Nombre del producto') }}
                                                 <span class="text-danger">*</span>
                                             </label>
                                             {{ Form::text('name_product', $producto->name_product, ['class' => 'form-control' . ($errors->has('name_product') ? ' is-invalid' : ''), 'placeholder' => 'Nombre', 'id' => 'validationProduct']) }}
@@ -83,7 +83,7 @@
                                         <div class="col-sm-6 col-md-6" style="margin-bottom: 16px">
                                             <div class="mb-3">
                                               <label for="category_id" class="form-label" style="font-weight: bolder">
-                                                {{ __('Categoria Producto') }}
+                                                {{ __('Categoría del producto') }}
                                                     <span class="text-danger">*</span>
                                               </label>
                                               {{ Form::select('category_products_id', $categorias, $producto->category_products_id, ['class' => 'form-control selectpicker' . ($errors->has('category_products_id') ? ' is-invalid' : ''), 'placeholder' => 'Seleccione la categoria', 'data-live-search' => 'true', 'id' => 'categoryProduct']) }}
@@ -93,7 +93,7 @@
                                         <div class="col-sm-6 col-md-6" style="margin-bottom: 16px">
                                             <div class="mb-3">
                                               <label for="category_id" class="form-label" style="font-weight: bolder">
-                                                {{ __('Sub Categoria Producto') }}
+                                                {{ __('Subcategoría del producto') }}
                                                     <span class="text-danger">*</span>
                                               </label>
                                               <select name="subcategory_product" id="subCategories" class="form-select @error('subcategory_product') is-invalid @enderror " data-live-search="true">
@@ -109,7 +109,7 @@
                                         <div class="col-sm-6 col-md-6" style="margin-bottom: 16px">
                                             <div class="mb-3">
                                                 <label class="form-label" for="unidades_id" style="font-weight: bolder">
-                                                    {{ __('Unidad de Medida') }}
+                                                    {{ __('Unidad de medida') }}
                                                     <span class="text-danger">*</span>
                                                 </label>
                                                 {{ Form::select('measurement_units_id', $unidades, $producto->measurement_units_id, ['class' => 'form-control selectpicker' . ($errors->has('measurement_units_id') ? ' is-invalid' : ''), 'placeholder' => 'Selecciona la unidad', 'data-live-search' => 'true'] ) }}
@@ -119,7 +119,7 @@
                                         <div class="col-sm-6 col-md-6" style="margin-bottom: 16px">
                                             <div class="mb-3">
                                             <label class="form-label" for="classification_tax" style="font-weight: bolder">
-                                                {{ __('Clasificación Tributaria') }}
+                                                {{ __('Clasificación tributaria') }}
                                                 <span class="text-danger">*</span>
                                             </label>
                                             {{ Form::select('classification_tax', ['0%' => '0%', '5%' => '5%', '19%' => '19%'] ,$producto->classification_tax, ['class' => 'form-control selectpicker' . ($errors->has('classification_tax') ? ' is-invalid' : ''), 'placeholder' => 'Selecione Una', 'data-live-search' => 'true']) }}
@@ -128,15 +128,15 @@
                                         </div>
                                         <div class="col-sm-6 col-md-6" style="margin-bottom: 16px">
                                             <label class="form-label" for="factory_reference" style="font-weight: bolder">
-                                                {{ __('Referencia Fabrica') }}
+                                                {{ __('Referencia de fábrica') }}
                                                 <span class="text-danger">*</span>
                                             </label>
-                                            {{ Form::text('factory_reference', $producto->factory_reference, ['class' => 'form-control' . ($errors->has('factory_reference') ? ' is-invalid' : ''), 'placeholder' => 'Referencia de Fabrica']) }}
+                                            {{ Form::text('factory_reference', $producto->factory_reference, ['class' => 'form-control' . ($errors->has('factory_reference') ? ' is-invalid' : ''), 'placeholder' => 'Referencia de fábrica']) }}
                                             {!! $errors->first('factory_reference', '<div class="invalid-feedback">:message</div>') !!}
                                         </div>
                                         <div class="col-sm-6 col-md-6" style="margin-bottom: 16px">
                                             <label class="form-label" for="tax_type" style="font-weight: bolder">
-                                                {{ __('Marca Producto') }}
+                                                {{ __('Marca del producto') }}
                                                 <span class="text-danger">*</span>
                                             </label>
                                             {{ Form::select('brands_id', $marcas, $producto->brands_id, ['class' => 'form-control selectpicker' . ($errors->has('brands_id') ? ' is-invalid' : ''), 'placeholder' => 'Selecciona una marca', 'data-live-search' => 'true']) }}
@@ -144,7 +144,7 @@
                                         </div>
                                         <div class="col-sm-6 col-md-6" style="margin-bottom: 16px">
                                             <label class="form-label" for="selling_price" style="font-weight: bolder">
-                                                {{ __('Precio de Venta') }}
+                                                {{ __('Precio de venta') }}
                                                 <span class="text-danger">*</span>
                                             </label>
                                             {{ Form::number('selling_price', $producto->selling_price, ['class' => 'form-control ' . ($errors->has('selling_price') ? ' is-invalid' : ''), 'placeholder' => '0']) }}
@@ -164,8 +164,8 @@
                                 </div>
 
                                 <div class="card-footer text-end">
-                                    <a class="btn btn btn-primary " href="{{ route('products.index') }}">Volver</a>
-                                    <button class="btn btn btn-success" type="submit">Guardar</button>
+                                    <a class="btn btn btn-primary" style="120px" href="{{ route('products.index') }}">Regresar</a>
+                                    <button class="btn btn btn-success" style="120px" type="submit">Guardar</button>
                                 </div>
                             </div>
                         </div>
