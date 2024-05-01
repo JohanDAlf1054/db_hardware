@@ -8,10 +8,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agregar Persona</title>
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet' >
-    <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 
 </head>
@@ -42,23 +38,22 @@
         <div class="page-body">
             <div class="container-x1">
                 <div class="row row-cards">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="card card-default">
-                                    <div class="card-header" style="display: flex">
-                                        <h3 class="card-title">
-                                            {{__('Persona')}}
-                                        </h3>
-                                        <div class="card-actions" style="padding-top: 9px; padding-left: 20px" >
-                                            <a href="" class="btn-action">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M18 6l-12 12"></path><path d="M6 6l12 12"></path></svg>
-                                            </a>
-                                        </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card card-default">
+                                <div class="card-header" style="display: flex">
+                                    <h3 class="card-title">
+                                        {{__('Persona')}}
+                                    </h3>
+                                    <div class="card-actions" style="padding-top: 9px; padding-left: 20px" >
+                                        <a href="" class="btn-action">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M18 6l-12 12"></path><path d="M6 6l12 12"></path></svg>
+                                        </a>
                                     </div>
                                 </div>
                                 <div class="card-body">
                                     <div class="row row-cards">
-                                    {{--  Rol  --}}
+                                        {{--  Rol  --}}
                                         <div class="col-sm-6 md-6">
                                             <div class="md-3" style="margin-bottom: 16px">
                                                 <label for="rol" class="form-label" style="font-weight: bolder">
@@ -70,7 +65,7 @@
                                             </div>
                                         </div>
 
-                                            {{--  Tipo de identificacion  --}}
+                                                {{--  Tipo de identificacion  --}}
                                         <div class="col-sm-6 md-6">
                                             <div class="md-3" style="margin-bottom: 16px">
                                                 <label for="identification_type" class="form-label" style="font-weight: bolder">
@@ -82,7 +77,7 @@
                                             </div>
                                         </div>
 
-                                        {{--  Numero de identificacion   --}}
+                                            {{--  Numero de identificacion   --}}
                                         <div class="col-sm-6 md-6">
                                             <div class="mb-3">
                                                 <label for="identification_number" class="form-label" id="identification_number" style="font-weight: bolder">
@@ -94,7 +89,7 @@
                                             </div>
                                         </div>
 
-                                        {{--  Digito de verificacion  --}}
+                                            {{--  Digito de verificacion  --}}
                                         <div class="col-sm-6 md-6">
                                             <div class="mb-3">
                                                 <label for="digit_verification" id="digit_verification" class="form-label" style="font-weight: bolder">
@@ -105,10 +100,10 @@
                                                 {!! $errors->first('digit_verification', '<div class="invalid-feedback">El campo dígito de verificación es obligatorio</div>') !!}
                                             </div>
                                         </div>
-                                        {{--  Script para sacar el digito de verificacion  --}}
+                                            {{--  Script para sacar el digito de verificacion  --}}
                                         <script src="{{ asset('js/formularios_digito_de_verificacion.js') }}"></script>
 
-                                        {{--  Tipo de persona  --}}
+                                            {{--  Tipo de persona  --}}
                                         <div class="col-sm-6 md-6">
                                             <div class="mb-3">
                                                 <label for="person_type" class="form-label" style="font-weight: bolder">
@@ -121,7 +116,7 @@
                                         </div>
 
 
-                                        {{--  Nombre de compañia  --}}
+                                            {{--  Nombre de compañia  --}}
                                         <div class="col-sm-6 md-6" id="box-company-name">
                                             <div class="mb-3">
                                                     <label for="company_name" class="form-label" style="font-weight: bolder">
@@ -133,7 +128,7 @@
                                             </div>
                                         </div>
 
-                                        {{--  Nombre de comercial  --}}
+                                            {{--  Nombre de comercial  --}}
                                         <div class="col-sm-6 md-6" id="box-comercial-name">
                                             <div class="mb-3">
                                                     <label for="comercial_name" class="form-label" style="font-weight: bolder">
@@ -145,54 +140,51 @@
                                         </div>
                                     </div>
                                     <div class="row row-cards">
-                                            {{--  Primer Nombre  --}}
-                                                <div class="col-sm-6 md-6" id="box-first-name">
-                                                    <div class="mb-3">
-                                                            <label for="first_name" class="form-label" style="font-weight: bolder">
-                                                            {{ __('Primer nombre')}}
-                                                            <span class="text-danger">*</span>
-                                                            </label>
-                                                            {{ Form::text('first_name', $person->first_name, ['class' => 'form-control' . ($errors->has('first_name') ? ' is-invalid' : ''), 'placeholder' => 'Primer nombre']) }}
-                                                            {!! $errors->first('first_name', '<div class="invalid-feedback">El campo primer nombre es obligatorio</div>') !!}
-                                                    </div>
-                                                </div>
+                                        {{--  Primer Nombre  --}}
+                                        <div class="col-sm-6 md-6" id="box-first-name">
+                                            <div class="mb-3">
+                                                    <label for="first_name" class="form-label" style="font-weight: bolder">
+                                                    {{ __('Primer nombre')}}
+                                                    <span class="text-danger">*</span>
+                                                    </label>
+                                                    {{ Form::text('first_name', $person->first_name, ['class' => 'form-control' . ($errors->has('first_name') ? ' is-invalid' : ''), 'placeholder' => 'Primer nombre']) }}
+                                                    {!! $errors->first('first_name', '<div class="invalid-feedback">El campo primer nombre es obligatorio</div>') !!}
+                                            </div>
+                                        </div>
 
-                                            {{--  Segundo nombre   --}}
+                                        {{--  Segundo nombre   --}}
+                                        <div class="col-sm-6 md-6" id="box-other-name">
+                                            <div  class="mb-3" >
+                                                    <label for="other_name" class="form-label" style="font-weight: bolder">
+                                                    {{ __('Otro nombre')}}
+                                                    </label>
+                                                    {{ Form::text('other_name', $person->other_name, ['class' => 'form-control' . ($errors->has('other_name') ? ' is-invalid' : ''), 'placeholder' => 'Otro nombre',  ]) }}
+                                                    {!! $errors->first('other_name', '<div class="invalid-feedback">El campo otro nombre es obligatorio</div>') !!}
+                                            </div>
+                                        </div>
 
-                                                <div class="col-sm-6 md-6" id="box-other-name">
-                                                    <div  class="mb-3" >
-                                                            <label for="other_name" class="form-label" style="font-weight: bolder">
-                                                            {{ __('Otro nombre')}}
-                                                            </label>
-                                                            {{ Form::text('other_name', $person->other_name, ['class' => 'form-control' . ($errors->has('other_name') ? ' is-invalid' : ''), 'placeholder' => 'Otro nombre',  ]) }}
-                                                            {!! $errors->first('other_name', '<div class="invalid-feedback">El campo otro nombre es obligatorio</div>') !!}
-                                                    </div>
-                                                </div>
+                                                {{--  Apellido   --}}
+                                        <div class="col-sm-6 md-6" id="box-surname">
+                                            <div class="mb-3">
+                                                    <label for="surname" class="form-label" style="font-weight: bolder">
+                                                    {{ __('Apellido')}}
+                                                    <span class="text-danger">*</span>
+                                                    </label>
+                                                    {{ Form::text('surname', $person->surname, ['class' => 'form-control' . ($errors->has('surname') ? ' is-invalid' : ''), 'placeholder' => 'Primer apellido', ]) }}
+                                                    {!! $errors->first('surname', '<div class="invalid-feedback">El campo apellido es obligatorio</div>') !!}
+                                            </div>
+                                        </div>
 
-                                            {{--  Apellido   --}}
-
-                                                <div class="col-sm-6 md-6" id="box-surname">
-                                                    <div class="mb-3">
-                                                            <label for="surname" class="form-label" style="font-weight: bolder">
-                                                            {{ __('Apellido')}}
-                                                            <span class="text-danger">*</span>
-                                                            </label>
-                                                            {{ Form::text('surname', $person->surname, ['class' => 'form-control' . ($errors->has('surname') ? ' is-invalid' : ''), 'placeholder' => 'Primer apellido', ]) }}
-                                                            {!! $errors->first('surname', '<div class="invalid-feedback">El campo apellido es obligatorio</div>') !!}
-                                                    </div>
-                                                </div>
-
-                                            {{--  Segundo apellido  --}}
-
-                                                <div class="col-sm-6 md-6" id="box-second-surname">
-                                                    <div class="mb-3">
-                                                            <label for="second_surname" class="form-label" style="font-weight: bolder">
-                                                            {{ __('Segundo Apellido')}}
-                                                            </label>
-                                                            {{ Form::text('second_surname', $person->second_surname, ['class' => 'form-control' . ($errors->has('second_surname') ? ' is-invalid' : ''), 'placeholder' => 'Segundo apellido',]) }}
-                                                            {!! $errors->first('second_surname', '<div class="invalid-feedback">El campo segundo apellido es obligatorio</div>') !!}
-                                                    </div>
-                                                </div>
+                                        {{--  Segundo apellido  --}}
+                                        <div class="col-sm-6 md-6" id="box-second-surname">
+                                            <div class="mb-3">
+                                                    <label for="second_surname" class="form-label" style="font-weight: bolder">
+                                                    {{ __('Segundo Apellido')}}
+                                                    </label>
+                                                    {{ Form::text('second_surname', $person->second_surname, ['class' => 'form-control' . ($errors->has('second_surname') ? ' is-invalid' : ''), 'placeholder' => 'Segundo apellido',]) }}
+                                                    {!! $errors->first('second_surname', '<div class="invalid-feedback">El campo segundo apellido es obligatorio</div>') !!}
+                                            </div>
+                                        </div>
 
                                         {{--  Correo electronico  --}}
                                         <div class="col-sm-6 md-6">
@@ -239,19 +231,23 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                            </div>
+                            <div class="card-footer text-end">
+                                <a class="btn btn-primary" href="{{ route('person.index') }}">Regresar</a>
+                                <button type="submit" class="btn btn-success">{{ __('Guardar') }}</button>
                             </div>
                         </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
 
-    <div class="card-footer text-end container_botones">
-        <a class="btn btn-primary caja_subir" style="margin-right: 5rem" href="{{ route('person.index') }}">Regresar</a>
-        <button type="submit" class="btn btn-success caja_subir">{{ __('Guardar') }}</button>
-    </div>
+    {{--  <div class="card-footer text-end d-flex justify-content-end">
+
+    </div>  --}}
+
 
 
 {{--  Script para escojer el tipo de persona  --}}

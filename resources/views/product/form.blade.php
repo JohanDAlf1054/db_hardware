@@ -32,7 +32,7 @@
                                 <img class="img-account-profile mb-2" src="{{ asset('img/products/default.webp') }}" id="image-preview" width="400" height="400" />
 
                                 <div class="small font-italic text-muted mb-2" style="font-weight: bolder">
-                                    JPG or PNG no sea mas grande de 2MB
+                                    JPG o PNG no sea mas grande de 2MB
                                 </div>
 
                                 @if (isset($producto->photo))
