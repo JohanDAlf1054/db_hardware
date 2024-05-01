@@ -102,13 +102,13 @@
             <table class="table table-striped">
                 <thead class="bg-primary text-white">
                     <tr class="align-top">
-                        <th class="text-white">Producto</th>
-                        <th class="text-white">Referencia</th>
-                        <th class="text-white">Cantidad</th>
-                        <th class="text-white">Precio de venta</th>
-                        <th class="text-white">Descuento</th>
-                        <th class="text-white">Impuesto</th>
-                        <th class="text-white">Subtotal</th>
+                        <th>Producto</th>
+                        <th>Referencia</th>
+                        <th>Cantidad</th>
+                        <th>Precio de venta</th>
+                        <th>Descuento</th>
+                        <th>Impuesto</th>
+                        <th>Subtotal</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -158,10 +158,9 @@
             </table>
         </div>
     </div>
-    <a class="btn btn-dark" href="{{ route('sales.index') }}">
-        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l14 0" /><path d="M5 12l6 6" /><path d="M5 12l6 -6" /></svg>
-        {{ __('Back') }}
-    </a>
+    <div class="card-footer text-end">
+        <a class="btn btn-primary" style="margin-right: 2rem" href="{{ route('sales.index') }}">Regresar</a>
+    </div>
 
 </div>
 @endsection

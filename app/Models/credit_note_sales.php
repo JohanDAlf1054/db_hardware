@@ -20,8 +20,4 @@ class credit_note_sales extends Model
         ->withPivot('references','amount','selling_price','discounts','tax');
     }
 
-    public function detalleNotacredito()
-    {
-        return $this->hasMany(DetalleNotaCredito::class);
-    }
 }

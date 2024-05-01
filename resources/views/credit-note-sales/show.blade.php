@@ -139,13 +139,13 @@
                                             <thead class="bg-dark-blue">
                                             
                                                 <tr>
-                                                    <th class="text-white">Producto</th>
-                                                    <th class="text-white">Referencia</th>
-                                                    <th class="text-white">Cantidad</th>
-                                                    <th class="text-white">Precio de Venta</th>
-                                                    <th class="text-white">Descuento</th>
-                                                    <th class="text-white">Impuesto</th>
-                                                    <th class="text-white">Subtototal</th>
+                                                    <th>Producto</th>
+                                                    <th>Referencia</th>
+                                                    <th>Cantidad</th>
+                                                    <th>Precio de Venta</th>
+                                                    <th>Descuento</th>
+                                                    <th>Impuesto</th>
+                                                    <th>Subtototal</th>
                                                   
                                                 </tr>
                                             </thead>
