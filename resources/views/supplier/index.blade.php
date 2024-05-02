@@ -8,6 +8,7 @@
         <link href="css/estilos_notificacion.css" rel="stylesheet" />
         <script src="{{ asset('js/notificaciones.js') }}" defer></script>
         <script src="{{ asset('js/tooltips.js') }}" defer></script>
+
     </head>
     <br>
     <div class="container-fluid">
@@ -29,7 +30,8 @@
                                     <ul class="dropdown-menu">
                                         <li><a class="dropdown-item" href="{{ route('person.create') }}">Crear nueva
                                                 persona</a></li>
-                                        <li><a class="dropdown-item" href="{{ route('person.index') }}">Mostrar proveedores</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('person.index') }}">Mostrar tabla
+                                                general</a></li>
                                         <li><a class="dropdown-item" href="{{ route('customer.index') }}">Mostrar
                                                 clientes</a></li>
                                     </ul>
@@ -46,9 +48,10 @@
                                         title="Exportar" data-bs-toggle="modal" data-bs-target="#informes">
                                         <i class="fa-solid fa-file-arrow-down"></i>
                                     </button>
-                                    <button type="button" data-bs-toggle="modal" class="btn btn-warning ms-2 rounded" data-bs-toggle="tooltip"
-                                    title="Importar"  data-bs-target="#">
+                                    <button type="button" class="btn btn-warning ms-2 rounded" data-bs-toggle="tooltip" 
+                                         title="Importar" data-bs-toggle="modal" data-bs-target="#">
                                         <i class="fa-solid fa-folder-open"></i>
+                                        
                                     </button>
                                 </form>
                             </div>
@@ -73,7 +76,7 @@
                     </div>
 
                     <div class="container_datos">
-                        <div class="table_container">
+                        <div class="table_container p-3">
                             <div class="table-responsive">
                                 <table class="table table-striped table-hover" style="justify-content: center">
                                     <thead class="table-dark">
@@ -137,9 +140,9 @@
                                                     {{--  <!-- Button trigger modal -->  --}}
 
                                                     @if ($proveedor->status == true)
-                                                        <button type="button" class="btn btn-danger btn-sm"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-toggle="tooltip" title="Inactivar"
+                                                        <button type="button" class="btn btn-danger btn-sm" 
+                                                            data-bs-toggle="modal" data-bs-toggle="tooltip"
+                                                            title="Inactivar"
                                                             data-bs-target="#confirmationDestroy-{{ $proveedor->id }}"><i
                                                                 class="fa fa-fw fa-trash"></i></button>
                                                     @else

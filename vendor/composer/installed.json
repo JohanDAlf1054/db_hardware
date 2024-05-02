@@ -6951,6 +6951,7 @@
             },
             "require": {
                 "php": ">=8.1"
+                "php": ">=8.1"
             },
             "time": "2024-04-18T09:22:46+00:00",
             "type": "library",
@@ -7167,9 +7168,11 @@
             },
             "require": {
                 "php": ">=8.1",
+                "php": ">=8.1",
                 "symfony/event-dispatcher-contracts": "^2.5|^3"
             },
             "conflict": {
+                "symfony/dependency-injection": "<5.4",
                 "symfony/dependency-injection": "<5.4",
                 "symfony/service-contracts": "<2.5"
             },
@@ -7184,7 +7187,13 @@
                 "symfony/error-handler": "^5.4|^6.0|^7.0",
                 "symfony/expression-language": "^5.4|^6.0|^7.0",
                 "symfony/http-foundation": "^5.4|^6.0|^7.0",
+                "symfony/config": "^5.4|^6.0|^7.0",
+                "symfony/dependency-injection": "^5.4|^6.0|^7.0",
+                "symfony/error-handler": "^5.4|^6.0|^7.0",
+                "symfony/expression-language": "^5.4|^6.0|^7.0",
+                "symfony/http-foundation": "^5.4|^6.0|^7.0",
                 "symfony/service-contracts": "^2.5|^3",
+                "symfony/stopwatch": "^5.4|^6.0|^7.0"
                 "symfony/stopwatch": "^5.4|^6.0|^7.0"
             },
             "time": "2024-04-18T09:22:46+00:00",
@@ -8737,6 +8746,7 @@
             },
             "require": {
                 "php": ">=8.1",
+                "php": ">=8.1",
                 "symfony/polyfill-ctype": "~1.8",
                 "symfony/polyfill-intl-grapheme": "~1.0",
                 "symfony/polyfill-intl-normalizer": "~1.0",
@@ -8749,7 +8759,11 @@
                 "symfony/error-handler": "^5.4|^6.0|^7.0",
                 "symfony/http-client": "^5.4|^6.0|^7.0",
                 "symfony/intl": "^6.2|^7.0",
+                "symfony/error-handler": "^5.4|^6.0|^7.0",
+                "symfony/http-client": "^5.4|^6.0|^7.0",
+                "symfony/intl": "^6.2|^7.0",
                 "symfony/translation-contracts": "^2.5|^3.0",
+                "symfony/var-exporter": "^5.4|^6.0|^7.0"
                 "symfony/var-exporter": "^5.4|^6.0|^7.0"
             },
             "time": "2024-04-18T09:22:46+00:00",
@@ -9171,12 +9185,16 @@
             "require": {
                 "php": ">=8.1",
                 "symfony/deprecation-contracts": "^2.5|^3",
+                "php": ">=8.1",
+                "symfony/deprecation-contracts": "^2.5|^3",
                 "symfony/polyfill-ctype": "^1.8"
             },
             "conflict": {
                 "symfony/console": "<5.4"
+                "symfony/console": "<5.4"
             },
             "require-dev": {
+                "symfony/console": "^5.4|^6.0|^7.0"
                 "symfony/console": "^5.4|^6.0|^7.0"
             },
             "time": "2024-04-28T10:28:08+00:00",

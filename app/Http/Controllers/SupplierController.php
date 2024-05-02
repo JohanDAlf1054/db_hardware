@@ -57,7 +57,7 @@ public function show($id)
                 ]);
             Session::flash('notificacion', [
                 'tipo' => 'error',
-                'titulo' => 'Atencion!',
+                'titulo' => 'Atención!',
                 'descripcion' => 'La persona se ha inactivado.',
                 'autoCierre' => 'true'
             ]);
@@ -69,7 +69,7 @@ public function show($id)
             Session::flash('notificacion', [
                 'tipo' => 'exito',
                 'titulo' => 'Exito!',
-                'descripcion' => 'La persona se activado.',
+                'descripcion' => 'La persona se  ha activado.',
                 'autoCierre' => 'true'
             ]);
         }
