@@ -50,7 +50,7 @@ class DetailPurchaseController extends Controller
                     }
                 });
         })
-        ->paginate();
+        ->paginate(4);
 
     return view('detail-purchase.index', compact('detailPurchases'))
         ->with('i', (request()->input('page', 1) - 1) * $detailPurchases->perPage());
@@ -150,7 +150,7 @@ class DetailPurchaseController extends Controller
 
             $detailPurchase = DetailPurchase::create($validatedData);
 
-            // Actualizar el stock
+          
             // Actualizar el stock
                 $producto = Product::find($arrayIdProducto[$cont]);
                 $stockActual = $producto->stock;

@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Validator;
 
@@ -23,5 +24,6 @@ class AppServiceProvider extends ServiceProvider
         Validator::extend('greater_than_zero', function ($attribute, $value, $parameters, $validator) {
             return $value > 0;
         });
+        Paginator::useBootstrap();
     }
 }

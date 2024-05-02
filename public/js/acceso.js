@@ -18,22 +18,26 @@ onlinePanel1.style.display = 'none';
 function open_close_menu() {
     body.classList.toggle("body_move");
     side_menu.classList.toggle("menu__side_move");
-    // liPanel.classList.toggle("liPanel");
-    // onlinePanel.classList.toggle("onlinePanel");
 
-    // Ocultar los elementos .li y .online cuando se cierra el menú
-    if (body.classList.contains("body_move")) {
-        liPanel.style.display = 'block';
-        onlinePanel.style.display = 'block';
-        liPanel1.style.display = 'block';
-        onlinePanel1.style.display = 'block';
-    } else {
+    // Si la barra lateral está abierta (es decir, body NO tiene la clase body_move)
+    if (!body.classList.contains("body_move")) {
         liPanel.style.display = 'none';
         onlinePanel.style.display = 'none';
         liPanel1.style.display = 'none';
         onlinePanel1.style.display = 'none';
+    } else {
+        // Si la barra lateral está cerrada (es decir, body SÍ tiene la clase body_move)
+        liPanel.style.display = 'block';
+        onlinePanel.style.display = 'block';
+        liPanel1.style.display = 'block';
+        onlinePanel1.style.display = 'block';
     }
 }
+
+open_close_menu();
+
+document.getElementById("btn_open").addEventListener("click", open_close_menu);
+
 
 //Si el ancho de la página es menor a 760px, ocultará el menú al recargar la página
 

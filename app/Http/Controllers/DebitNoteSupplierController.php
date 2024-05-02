@@ -49,7 +49,7 @@ class debitNoteSupplierController extends Controller
 
         $debitNoteSuppliers = DebitNoteSupplier::whereIn('id', $uniqueDebitNoteSupplierIds)->paginate();
     }
-
+    
     return view('debit-note-supplier.index', compact('debitNoteSuppliers'))
         ->with('i', (request()->input('page', 1) - 1) * $debitNoteSuppliers->perPage());
 }
@@ -94,6 +94,7 @@ foreach ($detailPurchases as $detailPurchase) {
         'price_unit' => $detailPurchase->price_unit,
         'product_tax' => $detailPurchase->product_tax,
         'discount_total' => $detailPurchase->discount_total,
+        'quantity_units' => $detailPurchase->quantity_units,
     ];
 }
 
@@ -129,10 +130,15 @@ foreach ($detailPurchases as $detailPurchase) {
             'producto.*' => 'required',
             'cantidad.*' => ['required', function ($attribute, $value, $fail) {
                 if ($value < 0) {
-                    $fail('La cantidad no puede ser negativa.');
+                    $fail('La cantidad ingresada no puede ser negativa.');
+                    Session::flash('notificacion', [
+                        'tipo' => 'error',
+                        'titulo' => 'Atención!',
+                        'descripcion' => 'La cantidad ingresada no puede ser negativa.',
+                        'autoCierre' => 'true'
+                    ]);
                 }
-            }],
-            
+            }], 
             'descripcion.*' => 'required',
             'precio_unitario.*' => 'required',
             'descuento.*' => 'required',
@@ -145,12 +151,22 @@ foreach ($detailPurchases as $detailPurchase) {
         $detailPurchases = DetailPurchase::where('purchase_suppliers_id', $purchaseSupplierId)->get();
 
         if (count($detailPurchases) == 0) {
-            return redirect()->back()->withErrors(['factura' => 'No se encontró un detailPurchase para esta factura.']);
+            return redirect()->back()->withErrors(['factura' => 'Porfavor Ingrese un Numero de factura']);
         }
 
         $productos = $request->input('producto');
         $cantidades = $request->input('cantidad');
-        $descripciones = $request->input('descripcion');
+
+        if (count($cantidades) == 0) {
+            return redirect()->back()->withErrors(['factura' => 'Por favor, ingrese una cantidad valida']);
+        }
+        
+        foreach ($cantidades as $cantidad) {
+            if ($cantidad < 0) {
+                return redirect()->back()->withErrors(['cantidad' => 'No se aceptan valores negativos']);
+            }
+        }
+                $descripciones = $request->input('descripcion');
         $precios_unitarios = $request->input('precio_unitario');
         $descuentos = $request->input('descuento');
         $ivas = $request->input('iva');

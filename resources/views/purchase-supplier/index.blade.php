@@ -2,6 +2,7 @@
 
 @include('include.barra', ['modo'=>'Compra Proveedor'])
 
+<br>
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-12">
@@ -9,6 +10,7 @@
                <br>
 
                 <div class="card">
+            <div class="card">
                 <div class="card-header">
                     <h2 id="card_title">
                         {{ Breadcrumbs::render('compras.index') }}
@@ -17,6 +19,17 @@
                 <div class="card-body"></div>
                 <div class="row">
 
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-12" >
+                            <div class="dropdown">
+                                <button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" >Acciones</button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="{{ route('detail-purchases.index') }}">Mostrar Detalles De Compras</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('debit-note-supplier.index') }}">Mostrar  notas debito</a></li>
+                                </ul>
+                            </div>
+                        </div>
                     <div class="col-lg-6 col-md-6 col-sm-12" >
                         <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">Acciones
                             <span class="visually-hidden">Nuevo</span>
@@ -53,13 +66,21 @@
                         </div>
 
             </div>
-                </div>
-                @if ($message = Session::get('success'))
-                    <div class="alert alert-success">
-                        <p>{{ $message }}</p>
+                        <form action="{{ route('detail-purchases.index') }}" method="get" class="d-flex align-items-center">
+                            <input name="filtervalue" type="text" class="form-control" aria-label="Text input with segmented dropdown button"  placeholder="Buscar Una Compra Realizada A Proveedor....">
+                            <button type="submit" class=" btn btn-dark"  style="margin-left: 10px;" >Buscar</button>
+                        </form>
                     </div>
-                @endif
+                </div>
             </div>
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const mensajeFlash = {!! json_encode(Session::get('notificacion')) !!};
+                    if (mensajeFlash) {
+                        agregarnotificacion(mensajeFlash);
+                    }
+                });
+            </script>
                 <div class="container_datos">
                     <div class="table_container">
                         <div class="table-responsive">

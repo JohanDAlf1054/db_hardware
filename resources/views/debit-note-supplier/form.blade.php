@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Agregar Persona</title>
+    <title>Nota Debito</title>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet' >
     <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
@@ -18,7 +18,9 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
-    
+    <link href="{{asset('css/estilos_notificacion.css')}}" rel="stylesheet"/>
+  
+    <script src="{{ asset('js/notificaciones.js')}}" defer></script>
 </head>
 <br>
 <style>
@@ -41,7 +43,7 @@
         height: 0%;
     }
 </style>
-@if ($errors->any())
+{{--@if ($errors->any())
 <div class="alert alert-danger">
     <ul>
         @foreach ($errors->all() as $error)
@@ -49,7 +51,17 @@
         @endforeach
     </ul>
 </div>
-@endif
+@endif--}}
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const mensajeFlash = {!! json_encode(Session::get('notificacion')) !!};
+                    if (mensajeFlash) {
+                        agregarnotificacion(mensajeFlash);
+                    }
+                });
+            </script>
+            <div class="contenedor-notificacion" id="contenedor-notificacion">
+            </div>
     <div class="content container-fluid">
         <div class="page-body">
             <div class="container-x1">
@@ -88,7 +100,8 @@
                                                             data-product-name="{{ $purchaseSupplier->detailPurchase && $purchaseSupplier->detailPurchase->product ? $purchaseSupplier->detailPurchase->product->name_product : '' }}"
                                                             data-product-tax="{{ $purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->product_tax : '' }}"
                                                             data-price-unit="{{ $purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->price_unit : '' }}"
-                                                            data-discount-total="{{ $purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->discount_total : '' }}">
+                                                            data-discount-total="{{ $purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->discount_total : '' }}"
+                                                            data-quantity-units="{{$purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->discount_total : ''}}">
                                                         {{ $purchaseSupplier->code . '-' . $purchaseSupplier->invoice_number_purchase }}
                                                     </option>
                                                     @endforeach
@@ -190,11 +203,11 @@
                                                     <tr>
                                                         <th class="text-white">Producto</th>
                                                         <th class="text-white">Cantidad</th>
-                                                        <th class="text-white">Descripcion</th>
+                                                        <th class="text-white">Descripción</th>
                                                         <th class="text-white">Precio Unitario</th>
                                                         <th class="text-white">Descuento</th>
                                                         <th class="text-white">Iva</th>
-                                                        <th class="text-white">Accion</th>
+                                                        <th class="text-white">Acción</th>
 
                                                     </tr>
                                                 </thead>
@@ -305,7 +318,7 @@
     NOS TRAEMOS TODOS LOS DATOS EN UN ARREGLO CONCATENADO Y DEPENDIENDO DEL 
     ARREGLO ASOCIATIVO GENERAMOS LAS FILAS QUE NECESITAMOS MOSTRAR--}}
 <script>
-   document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function() {
     var facturaSelect = document.getElementById('factura');
     if (facturaSelect) {
         facturaSelect.addEventListener('change', function() {
@@ -324,7 +337,7 @@
 
                 newRow.innerHTML = 
                     '<td><input type="text" name="producto[]" class="form-control" value="' + detail.product_name + '"></td>' +
-                    '<td><input type="number" name="cantidad[]" class="form-control"></td>' +
+                    '<td><input type="number" name="cantidad[]" class="form-control" value="' + detail.quantity_units + '"></td>' +
                     '<td><input type="text" name="descripcion[]" class="form-control"></td>' +
                     '<td><input type="number" name="precio_unitario[]" class="form-control" value="' + detail.price_unit + '"></td>' +
                     '<td><input type="number" name="descuento[]" class="form-control" value="' + detail.discount_total + '"></td>' +
@@ -332,17 +345,15 @@
                     '<td><button class="btn btn-danger" type="button"><i class="fa-solid fa-trash"></i></button></td>';
 
                 tbody.appendChild(newRow);
+                
+                newRow.querySelector('input[name="cantidad[]"]').addEventListener('input', calcularTotales);
 
-                // Agrega un evento 'click' al botón
                 newRow.querySelector('button').addEventListener('click', function() {
-                    // Elimina la fila
                     newRow.remove();
 
-                    // Recalcula los totales
                     calcularTotales();
                 });
 
-                // Agrega un evento 'input' a cada campo de entrada
                 newRow.querySelectorAll('input[type=number]').forEach(function(input) {
                     input.addEventListener('input', function(e) {
                         
@@ -351,9 +362,12 @@
                     
                 });
             });
+
+            calcularTotales();
         });
     }
 });
+
 
 function calcularTotales() {
     var total = 0;
@@ -364,6 +378,7 @@ function calcularTotales() {
     document.querySelectorAll('#tabla_detalle tbody tr').forEach(function(row) {
         var cantidad = Number(row.querySelector('input[name="cantidad[]"]').value);
         var precio_unitario = Number(row.querySelector('input[name="precio_unitario[]"]').value);
+
         var descuento = Number(row.querySelector('input[name="descuento[]"]').value);
         var iva = Number(row.querySelector('input[name="iva[]"]').value);
 
