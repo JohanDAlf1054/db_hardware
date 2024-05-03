@@ -15,7 +15,7 @@
         <div class="container">
             <!-- Main Content -->
             <main>
-                <h1>Panel Estadisticas</h1>
+                <h1>Panel Administrativo</h1>
                 <!-- Analyses -->
                 <div class="analyse">
                     <div class="sales">
@@ -41,7 +41,7 @@
                             <div class="info">
                                 <h3>Total Compras</h3>
                                 <h1>
-                                    {{'$' . $productos}}
+                                    {{'$' . $purchase}}
                                 </h1>
                             </div>
                             <div class="progresss">
@@ -49,7 +49,7 @@
                                     <circle cx="38" cy="38" r="36"></circle>
                                 </svg>
                                 <div class="percentage">
-                                    <p>{{$productos . '%'}}</p>
+                                    <p>{{$purchase . '%'}}</p>
                                 </div>
                             </div>
                         </div>
@@ -129,7 +129,7 @@
 
                         </tbody>
                     </table>
-                    <a href="#">Show All</a>
+                    <a href="#">Mostrar Todas</a>
                 </div>
                 <div class="recent-orders">
                     <h2>Compras Recientes</h2>
@@ -156,7 +156,7 @@
 
                         </tbody>
                     </table>
-                    <a href="#">Show All</a>
+                    <a href="#">Mostrar Todas</a>
                 </div>
                 <!-- End of Recent Orders -->
 
@@ -201,11 +201,17 @@
                         @else
                             <img src="{{ asset('img/dashboard/logo_panel.png') }}">
                         @endif
-                        <h2>
-                            @foreach (auth()->user()->roles as $role)
-                                <p class="badge bg-dark">{{ $role->name }}</p>
-                            @endforeach
-                        </h2>
+                        @if(auth()->user()->roles->count() > 0)
+                            <h2>
+                                @foreach (auth()->user()->roles as $role)
+                                    <p class="badge bg-dark">{{ $role->name }}</p>
+                                @endforeach
+                            </h2>
+                        @else
+                            <h2>
+                                <p class="badge bg-dark">Sin Rol</p>
+                            </h2>
+                        @endif
                         <p>{{ auth()->user()->name }}</p>
                     </div>
                 </div>

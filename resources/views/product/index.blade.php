@@ -22,7 +22,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-lg-2 col-md-2 col-sm-7" >
-                            <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">Acciones
+                            <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">Acciones
                                 <span class="visually-hidden">Nuevo</span>
                             </button>
                             <ul class="dropdown-menu desplegable_acciones">
@@ -158,7 +158,6 @@
 </div>
 {{-- @include('sweetalert::alert') --}}
 @include('product.modal')
-@include('product.modal_informes')
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js"></script>
 @endauth
 @guest

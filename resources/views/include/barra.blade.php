@@ -17,7 +17,7 @@
                     <i class='bx bx-menu' id="btn_open"></i>
                 </div>
                 <div class="titulo">
-                    <h1>Ferreteria La Excelencia</h1>
+                    <h1>Ferretería la excelencia</h1>
                 </div>
 
                 <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split accesibilidad header-button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -89,7 +89,7 @@
                     <br>
                     <br>
                     <br>
-                    <span id="liPanel1" class="li" >Account</span>
+                    <span id="liPanel1" class="li" >Cuenta</span>
                     <div id="onlinePanel1" class="online"></div>
 
                     {{--  Funcion para mostrar el link de roles solo para usuarios con el rol de administrador  --}}
@@ -104,7 +104,7 @@
 
                     @endcan
 
-                    <a href="#">
+                    <a href="/backup" class="{{ request()->route()->named('/backup') ? 'selected' : '' }}">
                         <div class="option">
                             <i class="fa-solid fa-gear"></i>
                             <h4>Configuración</h4>

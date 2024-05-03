@@ -17,7 +17,7 @@
                                 </button>
                                 <button type="button" class="btn btn-primary mx-2 rounded" data-bs-toggle="modal" data-bs-target="#Modal">Crear Categoría</button>
                                 <input type="text" wire:model.live='search'  class="form-control" placeholder="Buscar...">
-                                <button type="button" class="btn btn-success mx-2 rounded" id="all"><a href="{{route('indexAll')}}">All Sub Categorías</button></a>
+                                <button type="button" class="btn btn-success mx-2 rounded" id="all"><a class="boton_sub" href="{{route('indexAll')}}">Todas las Subcategorías</button></a>
                                 <button type="button" class="btn btn-warning mx-2 rounded" data-bs-toggle="modal" data-bs-target="#importCategory">
                                     <i class="fa-solid fa-folder-open" style="color: #0a0a0a; width=24; height=24"; ></i>
                                 </button>
@@ -50,7 +50,7 @@
                                             <td>{{ $category->description }}</td>
                                             <td>
                                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                                    <button type="button" class="btn btn-sm btn-warning mx-2 rounded" wire:click='show("{{ $category->id }}")'>Subcategorias</button>
+                                                    <button type="button" class="btn btn-sm btn-warning mx-2 rounded" wire:click='show("{{ $category->id }}")'>Subcategorías</button>
                                                     <button type="button" class="btn btn-sm btn-success mx-2 rounded"  data-bs-toggle="modal" data-bs-target="#Modal"  wire:click='edit("{{ $category->id }}")'><i class="fa fa-fw fa-edit"></i> </i> </button>
                                                     <button type="button" class="btn btn-danger btn-sm mx-2 rounded" wire:click='delete("{{ $category->id }}")'><i class="fa fa-fw fa-trash"></i></button>
                                                 </div>

@@ -61,7 +61,18 @@ return [
             'options' => extension_loaded('pdo_mysql') ? array_filter([
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
+            'dump' => [
+
+                'dump_binary_path' => 'C:\laragon\bin\mysql\mysql-8.0.30-winx64\bin', // only the path, without `mysqldump` or `pg_dump`
+                // 'dump_binary_path' => '/Applications/MAMP/Library/bin/', // works for MAMP on Mac OS
+                // 'dump_binary_path' => '/opt/homebrew/bin/', // works for Laravel Valet on Mac OS
+                'use_single_transaction',
+                'timeout' => 60 * 5, // 5 minute timeout
+                // 'exclude_tables' => ['table1', 'table2'],
+                // 'add_extra_option' => '--optionname=optionvalue',
+            ]
         ],
+
 
         'pgsql' => [
             'driver' => 'pgsql',

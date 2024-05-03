@@ -11,7 +11,7 @@ class LivewireAlertTest extends TestCase
     {
         Livewire::test(TestComponent::class)
             ->call('showAlert')
-            ->assertDispatched('alert');
+            ->assertDispatchedBrowserEvent('alert');
     }
 
     public function testBasicFlashAlert(): void
@@ -29,8 +29,8 @@ class LivewireAlertTest extends TestCase
             ->set('configuration.showConfirmButton', true)
             ->set('configuration.onConfirmed', 'confirmed')
             ->call('showConfirmAlert')
-            ->assertDispatched('alert')
-            ->dispatch('confirmed');
+            ->assertDispatchedBrowserEvent('alert')
+            ->emit('confirmed');
     }
 
     public function testAlertDenied(): void
@@ -39,8 +39,8 @@ class LivewireAlertTest extends TestCase
             ->set('configuration.showDenyButton', true)
             ->set('configuration.onDenied', 'denied')
             ->call('showAlert')
-            ->assertDispatched('alert')
-            ->dispatch('denied');
+            ->assertDispatchedBrowserEvent('alert')
+            ->emit('denied');
     }
 
     public function testAlertDismissed(): void
@@ -49,8 +49,8 @@ class LivewireAlertTest extends TestCase
             ->set('configuration.showCancelButton', true)
             ->set('configuration.onDismissed', 'dismissed')
             ->call('showAlert')
-            ->assertDispatched('alert')
-            ->dispatch('dismissed');
+            ->assertDispatchedBrowserEvent('alert')
+            ->emit('dismissed');
     }
 
     public function testProgressDismissal(): void
@@ -60,8 +60,8 @@ class LivewireAlertTest extends TestCase
             ->set('configuration.timer', 3000)
             ->set('configuration.onProgressFinished', 'progressFinished')
             ->call('showAlert')
-            ->assertDispatched('alert')
-            ->dispatch('progressFinished');
+            ->assertDispatchedBrowserEvent('alert')
+            ->emit('progressFinished');
     }
 
     public function testIfExceptionIsThrownWhenIconIsInvalid()
