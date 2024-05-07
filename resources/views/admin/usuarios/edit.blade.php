@@ -13,34 +13,38 @@
                                     {{ Breadcrumbs::render('admin.edit') }}
                                 </h3>
                             </div>
-                        </div>
-                        {!! Form::model($usuario, ['route' => ['admin.usuarios.update', $usuario->id], 'method' => 'put']) !!}
-                        <div class="card-body">
-                            <div class="row row-cards">
 
-                                <div class="col-sm-6 md-6">
-                                    <div class="md-3" style="margin-bottom: 16px">
-                                        <label class="form-label" style="font-weight: bolder">
-                                            Usuario:
-                                        </label>
-                                        <p class="form-control">{{$usuario->name}}</p>
+                            {!! Form::model($usuario, ['route' => ['admin.usuarios.update', $usuario->id], 'method' => 'put']) !!}
+                            <div class="card-body">
+                                <div class="row row-cards">
+                                    <div class="col-sm-6 md-6">
+                                        <div class="md-3" style="margin-bottom: 16px">
+                                            <label class="form-label" style="font-weight: bolder">
+                                                Usuario:
+                                            </label>
+                                            <p class="form-control">{{$usuario->name}}</p>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-sm-6 md-6">
-                                    <div class="md-3">
-                                        <label class="form-label" style="font-weight: bolder">
-                                            Roles:
-                                        </label>
-                                        <div>
-                                            @foreach ($roles as $role )
-                                                    {!! Form::checkbox('roles[]', $role->id, null, ['class' => 'mr-1']) !!}
-                                                    {{$role->name}}
-                                            @endforeach
+                                    <div class="col-sm-6 md-6">
+                                        <div class="md-3">
+                                            <label class="form-label" style="font-weight: bolder">
+                                                Roles:
+                                            </label>
+                                            <div>
+                                                @foreach ($roles as $role )
+                                                        {!! Form::checkbox('roles[]', $role->id, null, ['class' => 'mr-1']) !!}
+                                                        {{$role->name}}
+                                                @endforeach
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                        <div class="card-footer text-end container_botones">
+                            <a class="btn btn-primary caja_subir" style="margin-right: 5rem" href="{{ route('admin.usuarios.index') }}">Regresar</a>
+                            {!! Form::submit('Asignar rol', ['class' => 'btn btn-success']) !!}
                         </div>
+                    </div>
                         {!! Form::close() !!}
                     </div>
                 </div>
@@ -48,10 +52,7 @@
         </div>
     </div>
 </div>
-<div class="card-footer text-end container_botones">
-    <a class="btn btn-primary caja_subir" style="margin-right: 5rem" href="{{ route('admin.usuarios.index') }}">Regresar</a>
-    {!! Form::submit('Asignar rol', ['class' => 'btn btn-success']) !!}
-</div>
+
 @endauth
 @guest
     @include('include.falta_sesion')
