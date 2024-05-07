@@ -17,7 +17,7 @@
             <div class="card">
                 <div class="card-header">
                     <h2 id="card_title">
-                        {{ __('Notas Debito') }}
+                        {{ Breadcrumbs::render('debit.note.supplie') }}
                     </h2>
                 </div>
 

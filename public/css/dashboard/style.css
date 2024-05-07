@@ -42,8 +42,8 @@
 }
 
 body{
-    width: 100vw;
-    height: 90vh;
+    /* width: 100vw; */
+    /* height: 90vh; */
     /* font-family: 'Poppins', sans-serif;
     font-size: 0.88rem; */
     user-select: none;
@@ -361,7 +361,7 @@ main .recent-orders a{
     height: 11rem;
     margin: 0.8rem 25%;
     border-radius: 50%;
-    
+
 }
 
 .right-section .user-profile h2{
@@ -501,7 +501,7 @@ main .recent-orders a{
     /* @keyframes showMenu {
        to{
         left: 0;
-       } 
+       }
     } */
 
     main{
@@ -528,7 +528,7 @@ main .recent-orders a{
         width: 94%;
         padding: 0 1rem;
     }
-    
+
     .right-section .profile .info{
         display: none;
     }
