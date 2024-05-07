@@ -376,26 +376,25 @@ function calcularTotales() {
 
     // Calcula los totales
     document.querySelectorAll('#tabla_detalle tbody tr').forEach(function(row) {
-        var cantidad = Number(row.querySelector('input[name="cantidad[]"]').value);
-        var precio_unitario = Number(row.querySelector('input[name="precio_unitario[]"]').value);
+    var cantidad = Number(row.querySelector('input[name="cantidad[]"]').value);
+    var precio_unitario = Number(row.querySelector('input[name="precio_unitario[]"]').value);
+    var iva = Number(row.querySelector('input[name="iva[]"]').value);
+    var descuento = Number(row.querySelector('input[name="descuento[]"]').value); // Asegúrate de tener un input para el descuento
 
-        var descuento = Number(row.querySelector('input[name="descuento[]"]').value);
-        var iva = Number(row.querySelector('input[name="iva[]"]').value);
+    var subtotal = cantidad * precio_unitario;
+    var ivaTotal = subtotal * iva / 100;
 
-        var subtotal = cantidad * precio_unitario;
-        var descuentoTotal = subtotal * descuento / 100;
-        var ivaTotal = subtotal * iva / 100;
-
-        total += subtotal;
-        totalBruto += subtotal - descuentoTotal;
-        totalNeto += subtotal - descuentoTotal + ivaTotal;
-    });
+    total += cantidad * precio_unitario + ivaTotal; 
+    totalBruto += cantidad * precio_unitario; 
+    totalNeto += totalBruto - descuento; 
+});
 
     // Redondea y muestra los totales
     document.getElementById('total').value = Math.round(total);
     document.getElementById('totalBruto').value = Math.round(totalBruto);
     document.getElementById('totalNeto').value = Math.round(totalNeto);
 }
+
 
 </script>
 </body>

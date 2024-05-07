@@ -10,18 +10,18 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
 
-
 </head>
 <body>
     @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
 <div class="container-fluid">
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="nav navbar-nav ml-auto">
@@ -42,7 +42,7 @@
                 <div class="p-3 border border-3 border-primary">
                     <div class="row">
                         
-                        <div class="col-6 mb-4">
+                        <div class="col-12 mb-4">
                             <label for="producto_id" class="form-label">Producto:</label>
                             <select name="producto_id" id="producto_id" class="form-control selectpicker {{ $errors->has('producto_id') ? ' is-invalid' : '' }}" data-live-search="true" data-size="5" title="Seleccione un producto">
                                 <option value="">Seleccione un producto</option>
@@ -86,6 +86,9 @@
                             <small class="text-danger">{{ '*'.$message }}</small>
                             @enderror
                         </div>
+
+
+                        
                         
                         <div class="col-6 mb-2">
                             <label for="code" class="form-label">Prefijo:</label>
@@ -97,6 +100,34 @@
                         
                         
                         
+                        
+                        <div class="col-sm-4 mb-2">
+                            <label for="precio_compra" class="form-label">Precio Unitario:</label>
+                            <input type="number" name="precio_compra" id="precio_compra" class="form-control" step="0.1">
+                        </div>
+                        <br>
+                        
+                        <div class="col-sm-4 mb-2">
+                            <label for="cantidad" class="form-label">Cantidad:</label>
+                            <input type="number" name="cantidad" id="cantidad" class="form-control">
+                        </div>
+                        
+
+                        
+                        
+                        <div class="col-sm-4 mb-2">
+                            <label for="precio_venta" class="form-label"> Descripción:</label>
+                            <input type="text" name="precio_venta" id="precio_venta" class="form-control" step="0.1">
+                        </div>
+
+                        <div class="col-6 mb-2">
+                            <label for="discount_total" class="form-label">Descuento Total</label>
+                            <input type="number" id="discount_total" name="discount_total" min="0" max="100" step="1" class="form-control" placeholder="Ingrese el porcentaje de descuento" oninput="this.value = Math.round(this.value)" value="{{ old('discount_total', isset($detailPurchase) ? $detailPurchase->discount_total : '') }}">
+                            @error('discount_total')
+                            <small class="text-danger">{{ '*'.$message }}</small>
+                            @enderror
+                        </div>
+
                         <div class="col-6 mb-4">
                             <label for="product_tax" class="form-label">Impuesto a cargo del producto</label>
                             <select id="product_tax" name="product_tax" class="form-control">
@@ -109,28 +140,10 @@
                             <small class="text-danger">{{ '*'.$message }}</small>
                             @enderror
                         </div>
-                        
-                        <br>
-                        
-                        <div class="col-sm-4 mb-2">
-                            <label for="cantidad" class="form-label">Cantidad:</label>
-                            <input type="number" name="cantidad" id="cantidad" class="form-control">
-                        </div>
-                        
-
-                        <div class="col-sm-4 mb-2">
-                            <label for="precio_compra" class="form-label">Precio Unitario:</label>
-                            <input type="number" name="precio_compra" id="precio_compra" class="form-control" step="0.1">
-                        </div>
-                        
-                        <div class="col-sm-4 mb-2">
-                            <label for="precio_venta" class="form-label"> Descripción:</label>
-                            <input type="text" name="precio_venta" id="precio_venta" class="form-control" step="0.1">
-                        </div>
-
                         <div class="col-12 mb-4 mt-2 text-end">
                             <button id="btn_agregar" class="btn btn-primary" type="button">Agregar</button>
                         </div>
+                        
                         
                         
                         
@@ -146,6 +159,7 @@
                                             <th class="text-white">Cantidad</th>
                                             <th class="text-white">Descripcion</th>
                                             <th class="text-white">Impuesto</th>
+                                            <th class="text-white">Descuento</th>
                                             <th class="text-white">Precio Unitario</th>
                                             <th class="text-white">Sub Total</th>
                                             <th></th>
@@ -154,6 +168,7 @@
                                     <tbody>
                                         <tr>
                                             <th></th>
+                                            <td></td>
                                             <td></td>
                                             <td></td>
                                             <td></td>
@@ -182,13 +197,13 @@
                                         <tr>
                                             <th></th>
                                             <th colspan="4">Total Bruto</th>
-                                            <th colspan="2"><span id="totalBruto"> 
+                                            <th colspan="2"><input type="hidden" name="totalBruto" id="hiddenTotalBruto"><span id="totalBruto"> 
                                                 0</span></th>
                                         </tr>
                                         <tr>
                                             <th></th>
                                             <th colspan="4">Total Neto</th>
-                                            <th colspan="2"> <span id="totalNeto">0</span></th>
+                                            <th colspan="2"><input type="hidden" name="totalNeto" id="hiddenTotalNeto"> <span id="totalNeto">0</span></th>
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -212,7 +227,7 @@
                 <div class="p-3 border border-3 border-success">
                     <div class="row">
                         <!--Proveedor-->
-                        <div class="col-6 mb-2">
+                        <div class="col-12 mb-2">
                             <label for="people_id" class="form-label">Proveedor:</label>
                             <select name="people_id" id="people_id" class="form-control selectpicker show-tick" data-live-search="true" title="Selecciona" data-size='2'>
                             <option value="">Seleccione un Proveedor</option>
@@ -244,13 +259,7 @@
                         </div>
                         
                         
-                        <div class="col-6 mb-2">
-                            <label for="discount_total" class="form-label">Descuento Total</label>
-                            <input type="number" id="discount_total" name="discount_total" min="0" max="100" step="1" class="form-control" placeholder="Ingrese el porcentaje de descuento" oninput="this.value = Math.round(this.value)" value="{{ old('discount_total', isset($detailPurchase) ? $detailPurchase->discount_total : '') }}">
-                            @error('discount_total')
-                            <small class="text-danger">{{ '*'.$message }}</small>
-                            @enderror
-                        </div>
+                        
                         <!--Impuesto---->
                             <div class="col-sm-6 mb-2">
                                 <label for="fecha" class="form-label">Fecha:</label>
@@ -260,7 +269,7 @@
                                 
                                     <label for="form_of_payment" class="form-label">Formas de pago:</label>
                                     <select id="form_of_payment" name="form_of_payment" class="form-control">
-                                        <option value="">Seleccionar forma de pago</option>
+                                        
                                         <option value="tarjeta" {{ old('form_of_payment', isset($detailPurchase) ? $detailPurchase->form_of_payment : '') == 'tarjeta' ? 'selected' : '' }}>Tarjeta</option>
                                         <option value="efectivo" {{ old('form_of_payment', isset($detailPurchase) ? $detailPurchase->form_of_payment : '') == 'efectivo' ? 'selected' : '' }}>Efectivo</option>
                                     </select>
@@ -272,7 +281,7 @@
                                 <div class="col-6 mb-2">
                                     <label for="method_of_payment" class="form-label">Método de Pago:</label>
                                     <select id="method_of_payment" name="method_of_payment" class="form-control">
-                                        <option value="">Seleccione un metodo de pago</option>
+                                    
                                         <option value="cuotas">Cuotas</option>
                                         <option value="contado">Contado</option>
                                         <!-- Agrega aquí las demás opciones que necesites -->
@@ -347,6 +356,7 @@ function cancelarCompra() {
             '<td></td>' +
             '<td></td>' +
             '<td></td>' +
+            '<td></td>' +
             '</tr>';
         $('#tabla_detalle').append(fila);
 cont=0;
@@ -363,6 +373,10 @@ $('#sumas').html(sumas);
     $('#totalBruto').html(totalBruto);
     $('#totalNeto').html(totalNeto);
     $('#inputTotal').val(total);
+    $('#hiddenTotalBruto').val(totalBruto);
+    $('#hiddenTotalNeto').val(totalNeto);
+
+   
 limpiarCampos();
 disableButtons();
 }
@@ -382,31 +396,47 @@ function agregarProducto(){
     let descripcion=$('#precio_venta').val();
     let impuesto=$('#product_tax').val();
     let precioCompra=$('#precio_compra').val();
+    let descuentoProducto=$('#discount_total').val();
+    
 
-    if (idProducto == '' || idProducto == undefined || nameProducto == '' || nameProducto == undefined || cantidad == '' || cantidad == undefined || descripcion == '' || descripcion == undefined || impuesto == '' || impuesto == undefined || precioCompra == '' || precioCompra == undefined) {
-        showModal('Le faltan campos por llenar');
-    } else if (!(parseInt(cantidad) > 0 && (cantidad % 1 == 0) && parseFloat(precioCompra) > 0)) {
+    if (idProducto == '' || idProducto == undefined || nameProducto == '' || nameProducto == undefined || cantidad == '' || cantidad == undefined || descripcion == '' || descripcion == undefined || impuesto == '' || impuesto == undefined || precioCompra == '' || precioCompra == undefined || descuentoProducto == '' || descuentoProducto == undefined) {
+    showModal('Le faltan campos por llenar');
+}
+ else if (!(parseInt(cantidad) > 0 && (cantidad % 1 == 0) && parseFloat(precioCompra) > 0)) {
         showModal('Valores incorrectos');
     } else {
         //calcular valores
-        subtotal[cont] = round (cantidad * precioCompra);
-        sumas += subtotal[cont]; 
-        igv = round (sumas * impuesto / 100); 
-        total = round(sumas + igv); 
-        totalBruto = round (sumas); 
-        totalNeto = total; 
-        $('#gross_total').val(totalBruto);
+subtotal[cont] = round (cantidad * precioCompra);
+sumas += subtotal[cont]; 
+igv = round (sumas * impuesto / 100); 
+total = round(sumas + igv); 
+totalBruto = round (sumas); 
+
+// Verificar que el descuento no sea mayor que el total bruto
+if (descuentoProducto > totalBruto) {
+    // Aquí puedes manejar el caso en que el descuento es mayor que el total bruto
+    console.error('El descuento no puede ser mayor que el total bruto');
+} else {
+    totalNeto = round(totalBruto - descuentoProducto);
+}
+
+$('#gross_total').val(totalBruto);
+
+       
 
         let fila = '<tr id="fila' + cont + '">' +
     '<th>' + (cont+1) + '</th>' +
     '<td><input type="hidden" name="arrayidproducto[]" value="' + idProducto + '">' + nameProducto + '</td>' +
     '<td><input type="hidden" name="arraycantidad[]" value="' + cantidad + '">' + cantidad + '</td>' +
-     '<td><input type="hidden" name="arrayprecioventa[]" value="' + descripcion + '">' + descripcion + '</td>' +
+    '<td><input type="hidden" name="arrayprecioventa[]" value="' + descripcion + '">' + descripcion + '</td>' +
     '<td><input type="hidden" name="arrayimpuesto[]" value="' + impuesto + '">' + impuesto + '</td>' +
+    '<td><input type="hidden" name="arraydescuento[]" value="' + descuentoProducto + '">' + descuentoProducto + '</td>' +
     '<td><input type="hidden" name="arraypreciocompra[]" value="' + precioCompra + '">' + precioCompra + '</td>' +
+
     '<td>' + subtotal[cont] + '</td>' +
     '<td><button class="btn btn-danger" type="button" onClick="eliminarProducto(' + cont + ', ' + impuesto + ')"><i class="fa-solid fa-trash"></i></button></td>' +
     '</tr>';
+
         $('#tabla_detalle').append(fila);
         limpiarCampos();
         cont++;
@@ -417,7 +447,10 @@ function agregarProducto(){
         $('#totalBruto').html(totalBruto);
         $('#totalNeto').html(totalNeto);
         $('#inputTotal').val(total);
+        $('#hiddenTotalBruto').val(totalBruto);
+        $('#hiddenTotalNeto').val(totalNeto);
     }
+
 }
 
 function eliminarProducto(indice, impuesto) {
@@ -434,6 +467,8 @@ function eliminarProducto(indice, impuesto) {
     $('#totalBruto').html(totalBruto);
     $('#totalNeto').html(totalNeto);
     $('#inputTotal').val(total);
+    $('#hiddenTotalBruto').val(totalBruto);
+    $('#hiddenTotalNeto').val(totalNeto);
     //Eliminar el fila de la tabla
     $('#fila'+indice).remove();
 }
@@ -445,6 +480,7 @@ function eliminarProducto(indice, impuesto) {
         $('#precio_venta').val('');
         $('#product_tax').val('');
         $('#precio_compra').val('');
+        $('#discount_total').val('');
     }
     function round(num, decimales = 2) {
         var signo = (num >= 0 ? 1 : -1);

@@ -150,6 +150,7 @@
                                             <th class="text-white">Producto</th>
                                             <th class="text-white">Cantidad</th>
                                             <th class="text-white">Descripcion</th>
+                                            <th class="text-white">Descuento</th>
                                             <th class="text-white">Impuesto</th>
                                             <th class="text-white">Precio Unitario</th>
                                             <th class="text-white">Sub Total</th>
@@ -163,6 +164,7 @@
                                                 <td>{{ $detailPurchase->product->name_product }}</td>
                                                 <td class="quantity_units">{{ $detailPurchase->quantity_units }}</td>
                                                 <td>{{ $detailPurchase->description }}</td>
+                                                <td>{{ $detailPurchase->discount_total }}</td>
                                                 <td class="product_tax">{{ round($detailPurchase->product_tax, 2).'%' }}</td>
                                                 <td class="price_unit">{{ round($detailPurchase->price_unit, 2) }}</td>
                                                 <td class="subtotal">{{ $detailPurchase->quantity_units * $detailPurchase->price_unit }}</td>
@@ -195,8 +197,9 @@
                                         <tr>
                                             <th></th>
                                             <th colspan="4">Total Neto</th>
-                                            <th colspan="2"> <span id="totalNeto">0</span></th>
+                                            <th colspan="2"><span id="totalNeto">{{ $totalNeto->net_total }}</span></th>
                                         </tr>
+                                        
                                     </tfoot>
 
                                 </table>
@@ -332,12 +335,13 @@ $(document).ready(function() {
         var priceUnit = parseFloat($(this).find('.price_unit').text());
         var quantityUnits = parseFloat($(this).find('.quantity_units').text());
         var productTax = parseFloat($(this).find('.product_tax').text()) / 100;
-
+        var descuento = parseFloat($('#discount_total').text());
         var subtotal = round(priceUnit * quantityUnits);
         $(this).find('.subtotal').text(subtotal);
 
         sumas += subtotal;
         totalTax += round(subtotal * productTax);
+    
     });
 
     $('#sumas').text(round(sumas));
@@ -346,7 +350,8 @@ $(document).ready(function() {
     var total = round(sumas + totalTax);
     $('#total').text(total);
     $('#totalBruto').text(round(sumas));
-    $('#totalNeto').text(total);
+    
+    console.log(totalBruto)
 });
 
     </script>
@@ -371,13 +376,14 @@ $(document).ready(function() {
         let descripcion=$('#precio_venta').val();
         let impuesto=$('#product_tax').val();
         let precioCompra=$('#precio_compra').val();
+        let descuento=$('#discount_total').val();
     //calcular valores
     subtotal[cont] = cantidad * precioCompra;
     sumas += subtotal[cont];
     igv = sumas * impuesto / 100;
     total = sumas + igv;
     totalBruto = sumas;
-    totalNeto = total;
+    totalNeto = totalBruto-descuento;
     $('#gross_total').val(totalBruto);
 
     let fila='<tr>'+

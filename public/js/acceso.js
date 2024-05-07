@@ -59,13 +59,8 @@ window.addEventListener("resize", function () {
 
     if (window.innerWidth > 760) {
 
-        body.classList.remove("body_move");
-        side_menu.classList.remove("menu__side_move");
+        open_close_menu(); // Llama a la función para abrir el menú
 
-        liPanel.style.display = 'none';
-        onlinePanel.style.display = 'none';
-        liPanel1.style.display = 'none';
-        onlinePanel1.style.display = 'none';
     }
 
     if (window.innerWidth < 760) {
@@ -73,21 +68,15 @@ window.addEventListener("resize", function () {
         body.classList.add("body_move");
         side_menu.classList.add("menu__side_move");
 
-         // Ocultar los elementos .li y .online cuando la pantalla es más pequeña
-         if (body.classList.contains("body_move")) {
-            liPanel.style.display = 'none';
-            onlinePanel.style.display = 'none';
-            liPanel1.style.display = 'none';
-            onlinePanel1.style.display = 'none';
-        } else {
-            liPanel.style.display = 'block';
-            onlinePanel.style.display = 'block';
-            liPanel1.style.display = 'block';
-            onlinePanel1.style.display = 'block';
-        }
+        // Ocultar los elementos .li y .online cuando la pantalla es más pequeña
+        liPanel.style.display = 'none';
+        onlinePanel.style.display = 'none';
+        liPanel1.style.display = 'none';
+        onlinePanel1.style.display = 'none';
     }
 
 });
+
 function showSettingsMenu() {
     var settingsMenu = document.getElementById('settings-menu');
     settingsMenu.style.display = 'block';

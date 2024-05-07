@@ -83,9 +83,22 @@ class DetailPurchaseController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
+
 {
+
     // Inicia una transacción de base de datos
     DB::beginTransaction();
+    $request->validate([
+        'user_id' => 'required',
+        'people_id' => 'required',
+        'invoice_number_purchase' => 'required',
+        'code' => 'required',
+    ],[
+        'user_id.required' => 'El empleado a cargo de la compra es obligatorio',
+        'people_id.required' => 'Seleccionar un proveedor es obligatorio',
+        'invoice_number_purchase.required' => 'El número de factura es obligatorio',
+        'code.required' => 'El prefijo es obligatorio'
+    ]);
 
     try {
         // Crear el PurchaseSupplier
@@ -104,8 +117,9 @@ class DetailPurchaseController extends Controller
         $arrayCantidad = $request->get('arraycantidad');
         $arrayPrecioCompra = $request->get('arraypreciocompra');
         $arrayPrecioVenta = $request->get('arrayprecioventa');
+        $arraydescuento=$request->get('arraydescuento');
         //dd($request);
-        if (!$arrayIdProducto || !$arrayImpuesto || !$arrayDescripcion || !$arrayCantidad || !$arrayPrecioCompra || !$arrayPrecioVenta) {
+        if (!$arrayIdProducto || !$arrayImpuesto || !$arrayDescripcion || !$arrayCantidad || !$arrayPrecioCompra || !$arrayPrecioVenta || !$arraydescuento) {
             // Aquí puedes manejar el caso en que uno de los arrays sea null
             return redirect()->back()->withInput()->withErrors(['error' => 'Faltan datos en el formulario.']);
         }
@@ -125,13 +139,16 @@ class DetailPurchaseController extends Controller
             $input['date_purchase'] = $request->input('fecha');
             $input['form_of_payment'] = $request->input('form_of_payment');
             $input['method_of_payment'] = $request->input('method_of_payment');
-            $input['discount_total'] = $request->input('discount_total');
-            $input['gross_total'] = $input['quantity_units'] * $input['price_unit'];
-            $input['total_tax'] = $input['gross_total'] * ($input['product_tax'] / 100);
-            $input['net_total'] = $input['gross_total'] + $input['total_tax'];
-            $input['total_value'] = $input['net_total'] - $input['discount_total'];
+            $input['discount_total'] = $arraydescuento[$cont];
+            $input['total_tax'] = $arraydescuento[$cont];
 
+            $input['total_value'] = $request->input('total');
+            $input['gross_total'] = $request->input('totalBruto');
+            $input['net_total'] = $request->input('totalNeto');
+           
+           
             $validatedData = Validator::make($input, [
+                
                 'description'=>'required|string',
                 'price_unit' => 'required|numeric',
                 'product_tax' => 'required|numeric|between:0,19',
@@ -147,7 +164,9 @@ class DetailPurchaseController extends Controller
                 'products_id' => 'required|exists:products,id',
                 'purchase_suppliers_id' => 'required|exists:purchase_suppliers,id',
             ])->validate();
-
+            //dd($request);
+           
+            
             $detailPurchase = DetailPurchase::create($validatedData);
 
           
@@ -171,12 +190,14 @@ class DetailPurchaseController extends Controller
         // Aquí es donde puedes manejar el error
         return redirect()->back()->withInput()->withErrors(['error' => 'Error: ' . $e->getMessage()]);
     }
+    
     Session::flash('notificacion', [
         'tipo' => 'exito',
         'titulo' => 'Éxito!',
         'descripcion' => 'Compra Creada Exitosamente',
         'autoCierre' => 'true'
     ]);
+    
     return redirect()->route('detail-purchases.index');
     
 }
@@ -199,11 +220,10 @@ class DetailPurchaseController extends Controller
 
     $purchaseSupplierId = $detailPurchase->purchase_suppliers_id;
     $detailPurchases = DetailPurchase::where('purchase_suppliers_id', $purchaseSupplierId)->get();
+    $totalNeto = DetailPurchase::find($id);
 
-    return view('detail-purchase.show', compact('detailPurchases', 'detailPurchase', 'product','users'));
+    return view('detail-purchase.show', compact('detailPurchases', 'detailPurchase', 'product', 'users', 'totalNeto'));
 }
-
-
 
 
 

@@ -5,8 +5,9 @@
         <link rel="stylesheet"
             href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/css/bootstrap-select.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-        <link href="{{ asset('css/products/all.css') }}" rel="stylesheet" />
+       {{-- <link href="{{ asset('css/products/all.css') }}" rel="stylesheet" />--}}
         <link href="css/estilos_notificacion.css" rel="stylesheet" />
+        <script src="{{ asset('js/tooltips.js') }}" defer></script>
         <script src="{{ asset('js/notificaciones.js') }}" defer></script>
     </head>
     <br>
@@ -104,7 +105,7 @@
                                     <td>{{ $detailPurchase->form_of_payment }}</td>
                                     <td>
                                         @if ($detailPurchase->status == 1)
-                                            <p class="badge rounded-pill bg-warning text-dark" style="font-size: 15px">
+                                            <p class="badge rounded-pill bg-success text-dark" style="font-size: 15px">
                                                 Activo</p>
                                         @else
                                             <p class="badge rounded-pill bg-danger" style="font-size: 15px">Inactivo</p>
@@ -113,7 +114,8 @@
                                     <td>
                                         <form action="{{ route('detail-purchases.destroy', $detailPurchase->id) }}"
                                             method="POST">
-                                            <a class="btn btn-sm btn-primary "
+                                            <a class="btn btn-sm btn-primary" tooltip="tooltip"
+                                            title="Visualizar"
                                                 href="{{ route('detail-purchases.show', $detailPurchase->id) }}"><i
                                                     class="fa fa-fw fa-eye"></i> {{ __('') }}</a>
                                             {{-- <a class="btn btn-sm btn-success" href="{{ route('detail-purchases.edit',$detailPurchase->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Editar') }}</a>
@@ -121,10 +123,14 @@
                                             @method('DELETE')
                                             @if ($detailPurchase->status == true)
                                                 <button type="button" class="btn btn-danger btn-sm"data-bs-toggle="modal"
+                                                tooltip="tooltip"
+                                                title="Inactivar"
                                                     data-bs-target="#confirmationDestroy-{{ $detailPurchase->id }}"><i
                                                         class="fa fa-fw fa-trash"></i></button>
                                             @else
                                                 <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"
+                                                tooltip="tooltip"
+                                                title="Activar"
                                                     data-bs-target="#confirmationDestroy-{{ $detailPurchase->id }}"><i
                                                         class="fa-solid fa-rotate"></i></button>
                                             @endif
