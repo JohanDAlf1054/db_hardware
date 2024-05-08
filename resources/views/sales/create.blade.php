@@ -11,7 +11,9 @@
 </div>
 <br>
 
+</div>  
 @section('content')
+<<div class="table-responsive px-3"> 
 <div class="card">
     <div class="card-header">
         <h2 id="card_title">
@@ -140,7 +142,7 @@
                                     <label for="clients_id" class="form-label">Cliente:</label>
                                     <select name="clients_id" id="clients_id" class="form-control selectpicker show-tick" data-live-search="true" title="Selecciona" data-size='3'>
                                         @foreach ($clients as $item)
-                                        <option value="{{$item->id}}">{{$item->identification_number}}</option>
+                                        <option value="{{$item->id}}">{{$item->identification_number}} -    {{$item->first_name}} {{$item->other_name}} {{$item->surname}} {{$item->second_surname}} {{$item->company_name}}</option>
                                         @endforeach
                                     </select>
                                     @error('clients_id')
@@ -218,7 +220,7 @@
                 </div>
                 <div class="modal-body">
                     ¿Seguro que quieres cancelar la venta?
-                </div>
+                </div> 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                     <button id="btnCancelarVenta" type="button" class="btn btn-danger" data-bs-dismiss="modal">Confirmar</button>
@@ -411,22 +413,22 @@ function eliminarProducto(indice, subtotalProducto, impuesto) {
     }
 
     function showModal(message, icon = 'error') {
-        const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.addEventListener('mouseenter', Swal.stopTimer)
-                toast.addEventListener('mouseleave', Swal.resumeTimer)
-            }
-        })
+            const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                }
+            })
 
-        Toast.fire({
-            icon: icon,
-            title: message
-        })
+            Toast.fire({
+                icon: icon,
+                title: message
+            })
     }
 
     function round(num, decimales = 2) {

@@ -8,6 +8,7 @@ use App\Models\DetalleVenta;
 use App\Models\Sale;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
@@ -92,7 +93,12 @@ class CreditNoteSalesController extends Controller
         dd($e);
         DB::rollBack();
     }
-
+    Session::flash('notificacion', [
+        'tipo' => 'exito',
+        'titulo' => 'Éxito!',
+        'descripcion' => 'Nota Credito Creada Exitosamente',
+        'autoCierre' => 'true'
+    ]);
 
         return redirect()->route('credit-note-sales.index')->with('success','Nota exitosa');
             

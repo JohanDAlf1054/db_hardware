@@ -36,10 +36,12 @@
                                             </label>
                                             <select name="datos" id="datos" class="form-control selectpicker" data-live-search="true" data-size="3" title="Busque una venta aquí">
                                                 @foreach ($sales as $key => $sale)
-                                                    <option value="{{$sale->id}}-{{$sale->dates}}-{{$sale->sellers}}-{{$sale->clients_id}}-{{$sale->payments_methods}}">{{$sale->bill_numbers}}</option>
+                                                    <option value="{{$sale->id}}-{{$sale->dates}}-{{$sale->sellers}}-{{$sale->cliente->identification_number}}-{{$sale->clients_id}}-{{$sale->payments_methods}}">{{$sale->bill_numbers}}</option>
                                                 @endforeach
                                             </select>
-                                            {!! $errors->first('datos', '<div class="invalid-feedback">:message</div>') !!}
+                                            @error('datos')
+                                            <small class="text-danger">{{ '*'.$message }}</small>
+                                            @enderror
                                         </div>
                                     </div>
                                     {{--  Fecha De Elaboracion Nota Credito  --}}
@@ -49,19 +51,23 @@
                                                 {{ __('Fecha de Creación Nota Credito') }}
                                                 <span class="text-danger">*</span>
                                             </label>
-                                            <input type="date" id="date_credit_notes" name="date_credit_notes" value="{{ date('Y-m-d') }}" class="form-control{{ $errors->has('date_invoice') ? ' is-invalid' : '' }}">
-                                            {!! $errors->first('date_credit_notes', '<div class="invalid-feedback">:message</div>') !!}
+                                            <input type="date" id="date_credit_notes" name="date_credit_notes" value="{{ date('Y-m-d') }}" class="form-control">
+                                            @error('date_credit_notes')
+                                            <small class="text-danger">{{ '*'.$message }}</small>
+                                            @enderror
                                         </div>
                                     </div>
                                     {{--  Cliente  --}}
                                     <div class="col-sm-6 md-6">
                                         <div class="mb-3">
-                                            <label for="clients_id" class="form-label" style="font-weight: bolder">
+                                            <label for="cliente-id" class="form-label" style="font-weight: bolder">
                                                 {{ __('Cliente') }}
                                                 <span class="text-danger">*</span>
                                             </label>
-                                            <input type="text" name="clients_id" id="clients_id" class="form-control">
-                                            {!! $errors->first('clients_id', '<div class="invalid-feedback">:message</div>') !!}
+                                            <input type="text" name="cliente-id" id="cliente-id" class="form-control">
+                                            @error('cliente-id')
+                                            <small class="text-danger">{{ '*'.$message }}</small>
+                                            @enderror
                                         </div>
                                     </div>
                                     {{--  Vendedor --}}
@@ -72,7 +78,9 @@
                                                 <span class="text-danger">*</span>
                                             </label>
                                             <input type="text" name="sellers" id="sellers" class="form-control">
-                                            {!! $errors->first('sellers', '<div class="invalid-feedback">:message</div>') !!}
+                                            @error('sellers')
+                                            <small class="text-danger">{{ '*'.$message }}</small>
+                                            @enderror
                                         </div>
                                     </div>
                                     {{--  Metodo de pago --}}
@@ -83,7 +91,9 @@
                                                 <span class="text-danger">*</span>
                                             </label>
                                             <input type="text" name="payments_methods" id="payments_methods" class="form-control">
-                                            {!! $errors->first('payments_methods', '<div class="invalid-feedback">:message</div>') !!}
+                                            @error('payments_methods')
+                                            <small class="text-danger">{{ '*'.$message }}</small>
+                                            @enderror
                                         </div>
                                     </div>
                                     {{--  Fecha Detalle De Compra  --}}
@@ -94,7 +104,9 @@
                                                 <span class="text-danger">*</span>
                                             </label>
                                             <input type="date" name="date_invoice" id="date_invoice" class="form-control">
-                                            {!! $errors->first('date_invoice', '<div class="invalid-feedback">:message</div>') !!}
+                                            @error('date_invoice')
+                                            <small class="text-danger">{{ '*'.$message }}</small>
+                                            @enderror
                                         </div>
                                     </div>
                                     <div class="col-sm-6 md-6">
@@ -110,10 +122,15 @@
                                                 <option value="Ajuste de precio">Ajuste de precio</option>
                                                 <option value="Otros">Otros</option>
                                             </select>
-                                            {!! $errors->first('reason', '<div class="invalid-feedback">:message</div>') !!}
+                                        
                                         </div>
+                                        @error('reason')
+                                        <small class="text-danger">{{ '*'.$message }}</small>
+                                        @enderror
                                         <br>
                                     </div>
+
+
                                     <div class="col-12">
                                         <table id="tablaDetalleVenta" class="table table-hover w-100">
                                             <thead class="bg-dark-blue">
@@ -160,21 +177,10 @@
                                             </div>
                                         </div>
                                         <input type="hidden" name="sale_id" id="sale_id">
+                                        <input type="hidden" name="clients_id" id="clients_id">
                                     </div>
                                 </div>
 
-
-
-                            @if(session('success'))
-                                <div class="alert alert-success">
-                                    {{ session('success') }}
-                                </div>
-                            @endif
-                            @if(session('error'))
-                                <div class="alert alert-danger">
-                                    {{ session('error') }}
-                                </div>
-                            @endif
                         </div>
                         <div class="card-footer text-end">
                             <br>
@@ -207,10 +213,11 @@
     function mostrarValores() {
         let dataVenta = document.getElementById('datos').value.split('-');
         let fecha = dataVenta.slice(1, 4).join('-');
-        $('#clients_id').val(dataVenta[5]); // suponiendo que dataVenta[3] es el ID del cliente
+        $('#cliente-id').val(dataVenta[5]);
+        $('#clients_id').val(dataVenta[6]); // suponiendo que dataVenta[3] es el ID del cliente
         $('#date_invoice').val(fecha);
         $('#sellers').val(dataVenta[4]); // suponiendo que dataVenta[2] es el ID del vendedor
-        $('#payments_methods').val(dataVenta[6]); // suponiendo que dataVenta[4] es el método de pago
+        $('#payments_methods').val(dataVenta[7]); // suponiendo que dataVenta[4] es el método de pago
         let selectedSaleId = dataVenta[0]; // Obtener el ID de la venta seleccionada
         $('#sale_id').val(selectedSaleId); // Guardar el ID de la venta seleccionada en la variable selectedSaleId
         let totalSubtotales = 0; // Definir las variables aquí
@@ -312,7 +319,5 @@
             $('#taxes_total').val(totalImpuestos.toFixed(2));
             $('#net_total').val(totalFinal.toFixed(2));
         }
-
-
 </script>
 @endpush

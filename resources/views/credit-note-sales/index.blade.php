@@ -90,7 +90,7 @@
                                             <td>{{$sale->reason}}</td>
                                             <td>
                                                 @if($sale->status == True)
-                                                <p class="badge rounded-pill bg-warning text-dark" style="font-size: 15px">Activo</p>
+                                                <p class="badge rounded-pill bg-success" style="font-size: 15px">Activo</p>
                                                 @else
                                                 <p class="badge rounded-pill bg-danger" style="font-size: 15px">Inactivo</p>
                                                 @endif
@@ -98,14 +98,17 @@
                                             <td class="border px-4 py-2 text-center">
                                                 <div class="d-inline-block">
                                                     <form action="{{ route('credit-note-sales.show', ['credit_note_sale' => $sale]) }}" method="get">
-                                                        <button type="submit" class="btn btn-success">
+                                                        <button type="submit" class="btn btn-primary btn-sm" tooltip="tooltip" title="Visualizar">
                                                             <i class="fa fa-fw fa-eye"></i>
                                                         </button>
                                                     </form>
                                                 </div>
                                                 <div class="d-inline-block">
-                                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmModal-{{$sale->id}}">
-                                                        <i class="fa fa-fw fa-trash"></i>
+                                                    @if ($sale->status == true)
+                                                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" tooltip="tooltip" title="Inactivar" data-bs-target="#confirmModal-{{$sale->id}}"><i class="fa fa-fw fa-trash"></i></button>
+                                            @else
+                                                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" tooltip="tooltip" title="Activar" data-bs-target="#confirmModal-{{$sale->id}}"><i class="fa-solid fa-rotate"></i></button>
+                                            @endif
                                                     </button>
                                                 </div>
                                             </td>
@@ -118,7 +121,11 @@
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        ¿Seguro que quieres inactivar el registro?
+                                                        @if ($sale->status == true)
+                                                    ¿Seguro que quieres inactivar el registro?
+                                                @else
+                                                    ¿Seguro que quieres activar el registro?
+                                                @endif
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>

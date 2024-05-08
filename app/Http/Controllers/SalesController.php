@@ -7,6 +7,7 @@ use App\Models\Person;
 use App\Models\Product;
 use App\Models\Sale;
 use Exception;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -102,8 +103,14 @@ class SalesController extends Controller
         DB::rollBack();
     }
 
+    Session::flash('notificacion', [
+        'tipo' => 'exito',
+        'titulo' => 'Éxito!',
+        'descripcion' => 'Venta Creada Exitosamente',
+        'autoCierre' => 'true'
+    ]);
 
-        return redirect()->route('sales.index')->with('success','Venta exitosa');
+        return redirect()->route('sales.index');
             
     }
 
