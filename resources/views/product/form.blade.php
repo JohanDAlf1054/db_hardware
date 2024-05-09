@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{{-- <!DOCTYPE html> --}}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -173,54 +173,31 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js"></script>
     <script>
-        const categoryProduct = document.getElementById('categoryProduct')
-        const subCategories = document.getElementById('subCategories')
+        document.addEventListener('DOMContentLoaded', () => {
+            const categoryProduct = document.getElementById('categoryProduct')
+            const subCategories = document.getElementById('subCategories')
 
-        const getsubCategories = async (category_id) => {
-            // console.log(e.target.value)
-            const response = await fetch(`/products/create/categoryProduct/${category_id}/subCategories`)
-            const data = await response.json();
-            // console.log(data)
-            let options = '';
-            data.forEach(element =>{
-                options = options + `<option value="${element.name}">${element.name}</option>`
-            });
-            subCategories.innerHTML = options;
-        }
+            const getsubCategories = async (category_id) => {
+                // console.log(e.target.value)
+                const response = await fetch(`/products/create/categoryProduct/${category_id}/subCategories`)
+                const data = await response.json();
+                // console.log(data)
+                let options = '';
+                data.forEach(element =>{
+                    options = options + `<option value="${element.name}">${element.name}</option>`
+                });
+                subCategories.innerHTML = options;
+            }
 
+            window.onload = () => {
+                const category_id = categoryProduct.value;
+                getsubCategories(category_id)
+            }
 
-
-        categoryProduct.addEventListener('change',(e)=>{
-            getsubCategories(e.target.value)
-        })
-
-        //edit
-        // const category = document.getElementById('categoryProduct')
-        // const subCategory = document.getElementById('subCategories')
-        // const id = "{{ $producto->id }}";
-
-        // const getsubCategory = async (id, category_id) => {
-        //     // console.log(e.target.value)
-        //     const response = await fetch(`/products/${id}/edit/category/${category_id}/subCategories`)
-        //     const data = await response.json();
-        //     // console.log(data)
-        //     let options = '';
-        //     data.forEach(element =>{
-        //         options = options + `<option value="${element.name}">${element.name}</option>`
-        //     });
-        //     subCategory.innerHTML = options;
-        // }
-
-        // window.onload = () => {
-        //     const id = "{{ $producto->id }}";
-        //     const categoryid = category.value;
-        //     getsubCategory(id, categoryid);
-        // }
-
-        // category.addEventListener('change',(e)=>{
-        //     const productId = "{{ $producto->id }}";
-        //     getsubCategory(productId, e.target.value)
-        // })
+            categoryProduct.addEventListener('change',(e)=>{
+                getsubCategories(e.target.value)
+            })
+        });
     </script>
 
     {{-- <script>

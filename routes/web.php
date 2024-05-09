@@ -18,6 +18,7 @@ use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UsuariosController;
 use App\Http\Controllers\CreditNoteSalesController;
+use App\Http\Controllers\BackupController;
 
 /*
 |--------------------------------------------------------------------------
@@ -86,9 +87,8 @@ Route::resource('customer', CustomerController::class);
 Route::resource('supplier', SupplierController::class);
 Route::resource('usuarios', UsuariosController::class)->only(['index', 'edit', 'update'])->names('admin.usuarios');
 Route::get('/obtener-detalle-venta', [CreditNoteSalesController::class, 'obtenerDetalleVenta']);
-
-
 Route::get('/indexAll',[SubCategoryController::class, 'indexAll'])->name('indexAll');
+
 //Funcion Importar
 Route::post('/importbrands',[BrandController::class, 'importbrands'])->name('importbrands');
 Route::post('/importCategory',[CategoryProductController::class, 'importCategory'])->name('importCategory');
@@ -96,14 +96,12 @@ Route::post('/importCategory',[CategoryProductController::class, 'importCategory
 //Funcion Export Informes
 Route::get('export_index', [ExportController::class, 'index_informes'])->name('index_informes');
 Route::get('/export', [ExportController::class, 'export'])->name('export');
+Route::get('/report', [ExportController::class,'report'])->name('report');
 
 //Funciones De Compras
 Route::resource('purchase_supplier', App\Http\Controllers\PurchaseSupplierController::class);
 Route::resource('detail-purchases', App\Http\Controllers\DetailPurchaseController::class);
 Route::resource('debit-note-supplier', App\Http\Controllers\DebitNoteSupplierController::class);
-// Route::post('/guardar-datos', 'DatosController@guardarDatos');
-
-Route::get('/report', [ExportController::class,'report'])->name('report');
 
 //Ruta para traer la informacion de las subcategorias
 Route::get('/products/create/categoryProduct/{categoryProduct}/subCategories', [CategoryProductController::class,'subCategories']);
@@ -111,3 +109,14 @@ Route::get('/products/{id}/edit/categoryProduct/{categoryProduct}/subCategories'
 
 //Ruta para la gestion de usuario con el rol de Administrador
 Route::resource('usuarios', UsuariosController::class)->only(['index', 'edit', 'update'])->names('admin.usuarios');
+
+Route::get('/seleccionar-producto', [ExportController::class, 'report'])->name('seleccionar-producto');
+Route::get('/historial-precios', [ExportController::class, 'report'])->name('historial-precios');
+
+//Rutas para generar los backups
+Route::get('/backup/create', [BackupController::class, 'backup'])->name('backup-create');
+Route::get('/backup/system', [BackupController::class, 'backupSystem'])->name('backup-system');
+
+Route::get('/salesHistory', [ExportController::class, 'report'])->name('sales-History');
+Route::get('/salesShow', [ExportController::class, 'show'])->name('salesShow');
+

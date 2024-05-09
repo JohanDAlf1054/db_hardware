@@ -1,12 +1,12 @@
 <div class="container-fluid px-4 py-1">
     <div class="d-flex align-items-end pt-4">
-        <h5 class="mb-0">
+        <h3 class="mb-0">
             Copia de Seguridad
-        </h5>
-
-        <button id="create-backup" class="btn btn-dark   btn-sm ml-auto px-3">
+        </h3>
+        {{-- id="create-backup"  --}}
+        <a id="create-backups" class="btn btn-dark btn-sm ml-auto px-3" href="{{ route('backup-create') }}" style="text-decoration: none">
             Crear Copia de Seguridad
-        </button>
+        </a>
         <div class="dropdown ml-3">
             <button class="btn btn-warning btn-sm dropdown-toggle px-3" id="dropdownMenuButton"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -16,10 +16,10 @@
                 </svg>
             </button>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#" id="create-backup-only-db" wire:click.prevent="">
+                {{-- <a class="dropdown-item" href="#" id="create-backup-only-db" wire:click.prevent="">
                     Crear Copia de Seguridad de la base de datos
-                </a>
-                <a class="dropdown-item" href="#" id="create-backup-only-files" wire:click.prevent="">
+                </a> --}}
+                <a class="dropdown-item" href="{{ route('backup-system') }}" id="create-backup-only-files">
                     Crear Copia de Seguridad de todo el proyecto
                 </a>
             </div>
@@ -28,7 +28,7 @@
 
     <div class="row mt-4">
         <div class="col-12">
-            <div class="card shadow-sm mb-4">
+            <div class="card shadow mb-4">
                 <div class="card-header d-flex align-items-end">
                     <button class="btn btn-primary btn-sm btn-refresh ml-auto"
                             wire:loading.class="loading"
@@ -43,19 +43,19 @@
                 </div>
                 <table class="table table-hover mb-0">
                     <thead>
-                    <tr>
-                        <th scope="col">unidad</th>
-                        <th scope="col">Estado</th>
-                        <th scope="col">Cantidad de copias</th>
-                        <th scope="col">Copia reciente</th>
-                        <th scope="col">Almacenamiento en uso</th>
-                    </tr>
+                        <tr>
+                            <th scope="col" style="font-size: 14px">Unidad</th>
+                            <th scope="col" style="font-size: 14px">Estado</th>
+                            <th scope="col" style="font-size: 14px">Cantidad de copias</th>
+                            <th scope="col" style="font-size: 14px">Copia reciente</th>
+                            <th scope="col" style="font-size: 14px">Almacenamiento en uso</th>
+                        </tr>
                     </thead>
                     <tbody>
                     @foreach($backupStatuses as $backupStatus)
                         <tr>
-                            <td>{{ $backupStatus['disk'] }}</td>
-                            <td>
+                            <td style="font-size: 16px">{{ $backupStatus['disk'] }}</td>
+                            <td style="font-size: 16px">
                                 @if($backupStatus['healthy'])
                                     <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" height="24px">
                                         <path d="M2.93 17.07A10 10 0 1 0 17.07 2.93 10 10 0 0 0 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM4 10l2-2 3 3 5-5 2 2-7 7-5-5z" fill="var(--success)" fill-rule="evenodd"/>
@@ -66,9 +66,9 @@
                                     </svg>
                                 @endif
                             </td>
-                            <td>{{ $backupStatus['amount'] }}</td>
-                            <td>{{ $backupStatus['newest'] }}</td>
-                            <td>{{ $backupStatus['usedStorage'] }}</td>
+                            <td style="font-size: 16px">{{ $backupStatus['amount'] }}</td>
+                            <td style="font-size: 16px">{{ $backupStatus['newest'] }}</td>
+                            <td style="font-size: 16px">{{ $backupStatus['usedStorage'] }}</td>
                         </tr>
                     @endforeach
                     </tbody>
@@ -90,11 +90,11 @@
                         </div>
                     @endif
 
-                    <button class="btn btn-primary btn-sm btn-refresh ml-auto"
-                            wire:loading.class="loading"
-                            wire:loading.attr="disabled"
-                            wire:click="getFiles"
-                            {{ $activeDisk ? '' : 'disabled' }}
+                    <button tooltip="tooltips" title="Cargar" class="btn btn-primary btn-sm btn-refresh ml-auto"
+                                wire:loading.class="loading"
+                                wire:loading.attr="disabled"
+                                wire:click="getFiles"
+                                {{ $activeDisk ? '' : 'disabled' }}
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" width="0.7875rem" height="0.7875rem" viewBox="0 0 24 24" fill="currentColor">
                             <path class="heroicon-ui" d="M6 18.7V21a1 1 0 0 1-2 0v-5a1 1 0 0 1 1-1h5a1 1 0 1 1 0 2H7.1A7 7 0 0 0 19 12a1 1 0 1 1 2 0 9 9 0 0 1-15 6.7zM18 5.3V3a1 1 0 0 1 2 0v5a1 1 0 0 1-1 1h-5a1 1 0 0 1 0-2h2.9A7 7 0 0 0 5 12a1 1 0 1 1-2 0 9 9 0 0 1 15-6.7z"/>
@@ -105,37 +105,33 @@
                 <table class="table table-hover mb-0">
                     <thead>
                     <tr>
-                        <th scope="col">Nombre del archivo</th>
-                        <th scope="col">Fecha de creación</th>
-                        <th scope="col">Almacenamiento</th>
-                        <th scope="col"></th>
+                        <th scope="col" style="font-size: 14px">Nombre del archivo</th>
+                        <th scope="col" style="font-size: 14px">Fecha de creación</th>
+                        <th scope="col" style="font-size: 14px">Almacenamiento</th>
+                        <th scope="col" style="font-size: 14px"></th>
                     </tr>
                     </thead>
                     <tbody>
                     @foreach($files as $file)
                         <tr>
-                            <td>{{ $file['path'] }}</td>
-                            <td>{{ $file['date'] }}</td>
-                            <td>{{ $file['size'] }}</td>
-                            <td class="text-right pr-3">
-                                <a class="action-button mr-2" href="#" target="_blank" wire:click.prevent="downloadFile('{{ $file['path'] }}')">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-                                        <path class="heroicon-ui" d="M11 14.59V3a1 1 0 0 1 2 0v11.59l3.3-3.3a1 1 0 0 1 1.4 1.42l-5 5a1 1 0 0 1-1.4 0l-5-5a1 1 0 0 1 1.4-1.42l3.3 3.3zM3 17a1 1 0 0 1 2 0v3h14v-3a1 1 0 0 1 2 0v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-3z"/>
-                                    </svg>
-                                </a>
-                                <a class="action-button" href="#" target="_blank" wire:click.prevent="showDeleteModal({{ $loop->index }})">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-                                        <path class="heroicon-ui" d="M8 6V4c0-1.1.9-2 2-2h4a2 2 0 0 1 2 2v2h5a1 1 0 0 1 0 2h-1v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V8H3a1 1 0 1 1 0-2h5zM6 8v12h12V8H6zm8-2V4h-4v2h4zm-4 4a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0v-6a1 1 0 0 1 1-1zm4 0a1 1 0 0 1 1 1v6a1 1 0 0 1-2 0v-6a1 1 0 0 1 1-1z"/>
-                                    </svg>
-                                </a>
+                            <td style="font-size: 16px">{{ $file['path'] }}</td>
+                            <td style="font-size: 16px">{{ $file['date'] }}</td>
+                            <td style="font-size: 16px">{{ $file['size'] }}</td>
+                            <td class="text-right pr-3" style="font-size: 16px">
+                                <button class="btn btn-dark btn-sm" tooltip="tooltip" title="Descargar" target="_blank" wire:click.prevent="downloadFile('{{ $file['path'] }}')">
+                                    <i class="fa-solid fa-download"></i>
+                                </button>
+                                <button class="btn btn-danger btn-sm" tooltip="tooltip" title="Eliminar" target="_blank" wire:click.prevent="showDeleteModal({{ $loop->index }})">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
                             </td>
                         </tr>
                     @endforeach
 
                     @if(!count($files))
                         <tr>
-                            <td class="text-center" colspan="4">
-                                {{ 'No backups present' }}
+                            <td class="text-center" colspan="4" style="font-size: 16px">
+                                {{ 'No hay Copias de Seguridad realizadas.' }}
                             </td>
                         </tr>
                     @endif
@@ -148,18 +144,18 @@
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-body">
-                                <h5 class="modal-title mb-3">Delete backup</h5>
+                                <h5 class="modal-title mb-3">Eliminar Copia de Seguridad</h5>
                                 @if($deletingFile)
                                 <span class="text-muted">
-                                    Are you sure you want to delete the backup created at {{ $deletingFile['date'] }} ?
+                                    Esta seguro de eliminar la copia de seguridad del dia {{ $deletingFile['date'] }} ?
                                 </span>
                                 @endif
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-outline-secondary cancel-button" data-dismiss="modal">
-                                    Cancel
+                                <button type="button" class="btn btn-outline-secondary cancel-button" data-bs-dismiss="modal">
+                                    Cerrar
                                 </button>
-                                <button type="button" class="btn btn-danger delete-button" wire:click="deleteFile">Delete</button>
+                                <button type="button" class="btn btn-danger delete-button" wire:click="deleteFile">Eliminar</button>
                             </div>
                         </div>
                     </div>
@@ -167,7 +163,12 @@
             </div>
         </div>
     </div>
-
+    <script>
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[tooltip="tooltips"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    </script>
     <script>
         document.addEventListener('livewire:load', function () {
             @this.updateBackupStatuses()
@@ -187,9 +188,9 @@
                 }).showToast()
             })
 
-            const backupFun = function (option = '') {
+            const backupFun = function () {
                 Toastify({
-                    text: 'Creating a new backup in the background...' + (option ? ' (' + option + ')' : ''),
+                    text: 'Creando Copia de Seguridad' ,
                     duration: 5000,
                     gravity: 'bottom',
                     position: 'right',
@@ -200,7 +201,7 @@
                 @this.createBackup(option)
             }
 
-            $('#create-backup').on('click', function () {
+            $('#create-backups').on('click', function () {
                 backupFun()
             })
             $('#create-backup-only-db').on('click', function () {

@@ -7,6 +7,9 @@
 <link href="{{asset('css/products/all.css')}}" rel="stylesheet" />
 <link href="css/estilos_notificacion.css" rel="stylesheet"/>
 <script src="{{ asset('js/notificaciones.js')}}" defer></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.bootstrap5.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.2/css/responsive.dataTables.css">
+<script src="{{ asset('js/tooltips.js') }}" defer></script>
 </head>
 <div class="container-fluid">
     <div class="row">
@@ -72,7 +75,7 @@
                                     </div>
                                     <div class=" col-sm-3" style="display: flex">
                                         <button type="submit" class=" btn btn-dark">Buscar</button>
-                                        <button type="button" class="btn btn-warning mx-2 rounded" data-bs-toggle="modal" data-bs-target="#importUnits">
+                                        <button type="button" class="btn btn-warning mx-2 rounded" tooltip="tooltip" title="Importar" data-bs-toggle="modal" data-bs-target="#importUnits">
                                             <i class="fa-solid fa-folder-open" style="color: #0a0a0a; width:24; height:24"; ></i>
                                         </button>
                                         {{-- <button type="button" class="btn btn-warning rounded" data-bs-toggle="modal" data-bs-target="#importUnits">
@@ -84,6 +87,79 @@
                             </form>
                         </div>
                     </div>
+                    <div class="table_container">
+                    <div >
+                        <table class="table table-striped table-hover" style="width:100%" id="example">
+                            <thead class="table-dark" >
+                                <tr>
+                                    <th style="text-align: center">Categoría </th>
+                                    <th style="text-align: center"><Subc></Subc>ategoría</th>
+                                    <th style="text-align: center">Nombre</th>
+                                    <th style="text-align: center">Referencia Fabrica</th>
+                                    <th style="text-align: center">Clasificación Tributaria</th>
+                                    <th style="text-align: center">Precio de Venta</th>
+                                    <th style="text-align: center">Marca</th>
+                                    <th style="text-align: center">Unidad de Medida</th>
+                                    <th style="text-align: center">Existencias</th>
+                                    <th style="text-align: center">Foto</th>
+                                    <th style="text-align: center">Estado</th>
+                                    <th style="text-align: center">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($productos as $producto)
+                                    <tr >
+                                        <td style="text-align: center">{{ $producto->categoryProduct->name}}</td>
+                                        <td style="text-align: center">{{ $producto->subcategory_product}}</td>
+                                        <td style="text-align: center">{{ $producto->name_product }}</td>
+                                        <td style="text-align: center">{{ $producto->factory_reference }}</td>
+                                        <td style="text-align: center">{{ $producto->classification_tax }}</td>
+                                        <td style="text-align: center">{{ $producto->selling_price }}</td>
+                                        <td style="text-align: center">{{ $producto->brand->name }}</td>
+                                        <td style="text-align: center">{{ $producto->measurementUnit->name }}</td>
+                                        <td style="text-align: center">
+                                            @if ($producto->stock < 5)
+                                                <span class="badge rounded-pill bg-danger" style="font-size: 14px" tooltip="tooltip"
+                                                title="Pocas Existencias" >{{ $producto->stock }}</span>
+                                            @else
+                                                <span>{{ $producto->stock }}</span>
+                                            @endif
+                                        </td>
+                                        <td style="text-align: center">
+                                            @if ($producto->photo)
+                                                <img src="{{ asset('storage/' . $producto->photo) }}" width="80" height="80">
+                                            @else
+                                                <img src="{{ asset('img/products/default.webp') }}" width="80" height="80">
+                                            @endif
+                                        </td>
+                                        <td style="text-align: center">
+                                            @if ($producto->status == 1)
+                                                <p class="badge rounded-pill bg-warning text-dark" style="font-size: 15px">Activo</p>
+                                            @else
+                                                <p class="badge rounded-pill bg-danger"  style="font-size: 15px">Inactivo</p>
+                                            @endif
+                                        </td>
+                                        <td style="text-align: center">
+                                            <a class="btn btn-sm btn-primary " tooltip="tooltip"
+                                            title="Visualizar" href="{{ route('products.show',$producto->id) }}"><i class="fa fa-fw fa-eye"></i> </a>
+                                            <a class="btn btn-sm btn-success" tooltip="tooltip"
+                                            title="Modificar" href="{{ route('products.edit',$producto->id) }}"><i class="fa fa-fw fa-edit"></i></a>
+                                                <!-- Modal de Confirmacion -->
+                                            @if ($producto->status == true)
+                                            <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" tooltip="tooltip"
+                                            title="Inactivar" data-bs-target="#confirmationDestroy-{{$producto->id}}"><i class="fa fa-fw fa-trash"></i></button>
+                                            @else
+                                            <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"  tooltip="tooltip"
+                                            title="Activar" data-bs-target="#confirmationDestroy-{{$producto->id}}"><i class="fa-solid fa-rotate"></i></button>
+                                            @endif
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        {{ $productos->links() }}
+                    </div>
+                </div>
                 </div>
                 {{-- Script  para mostrar la notificacion --}}
                 <script>
@@ -96,62 +172,7 @@
                 </script>
                 <div class="contenedor-notificacion" id="contenedor-notificacion">
                 </div>
-                <div class="table_container">
-                    <div class="table-responsive">
-                        <table class="table table-striped table-hover" style="justify-content: center">
-                            <thead class="table-dark">
-                                <tr style="text-align: center">
-                                    <th>Categoría </th>
-                                    <th>Sub Categoría</th>
-                                    <th>Nombre</th>
-                                    <th>Referencia Fabrica</th>
-                                    <th>Clasificación Tributaria</th>
-                                    <th>Precio de Venta</th>
-                                    <th>Marca</th>
-                                    <th>Unidad de Medida</th>
-                                    <th>Stock</th>
-                                    <th>Foto</th>
-                                    <th>Estado</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($productos as $producto)
-                                    <tr style="text-align: center">
-                                        <td>{{ $producto->categoryProduct->name}}</td>
-                                        <td>{{ $producto->subcategory_product}}</td>
-                                        <td>{{ $producto->name_product }}</td>
-                                        <td>{{ $producto->factory_reference }}</td>
-                                        <td>{{ $producto->classification_tax }}</td>
-                                        <td>{{ $producto->selling_price }}</td>
-                                        <td>{{ $producto->brand->name }}</td>
-                                        <td>{{ $producto->measurementUnit->name }}</td>
-                                        <td>{{ $producto->stock }}</td>
-                                        <td><img src="{{ asset('storage/' . $producto->photo) }}" width="100" height="100">  </td>
-                                        <td>
-                                            @if ($producto->status == 1)
-                                                <p class="badge rounded-pill bg-warning text-dark" style="font-size: 15px">Activo</p>
-                                            @else
-                                                <p class="badge rounded-pill bg-danger"  style="font-size: 15px">Inactivo</p>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            <a class="btn btn-sm btn-primary " href="{{ route('products.show',$producto->id) }}"><i class="fa fa-fw fa-eye"></i> </a>
-                                            <a class="btn btn-sm btn-success" href="{{ route('products.edit',$producto->id) }}"><i class="fa fa-fw fa-edit"></i></a>
-                                                <!-- Modal de Confirmacion -->
-                                            @if ($producto->status == true)
-                                            <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#confirmationDestroy-{{$producto->id}}"><i class="fa fa-fw fa-trash"></i></button>
-                                            @else
-                                            <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#confirmationDestroy-{{$producto->id}}"><i class="fa-solid fa-rotate"></i></button>
-                                            @endif
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                        {{ $productos->links() }}
-                    </div>
-                </div>
+                
             </div>
         </div>
     </div>
@@ -159,6 +180,48 @@
 {{-- @include('sweetalert::alert') --}}
 @include('product.modal')
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="https://cdn.datatables.net/2.0.5/js/dataTables.js"></script>
+<script src="https://cdn.datatables.net/2.0.5/js/dataTables.bootstrap5.js"></script>
+<script src="https://cdn.datatables.net/responsive/3.0.2/js/dataTables.responsive.js"></script>
+<script src="https://cdn.datatables.net/responsive/3.0.2/js/responsive.dataTables.js"></script>
+<script>
+    new DataTable('#example',{
+        responsive: true,
+        lengthChange: false,
+        // paging: false,
+        searching: false,
+        language: {
+            "sProcessing":     "Procesando...",
+            "sLengthMenu":     "Mostrar _MENU_ registros",
+            "sZeroRecords":    "No se encontraron resultados",
+            "sEmptyTable":     "Ningún dato disponible en esta tabla",
+            "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+            "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+            "sInfoPostFix":    "",
+            "sSearch":         "Buscar:",
+            "sUrl":            "",
+            "sInfoThousands":  ",",
+            "sLoadingRecords": "Cargando...",
+            "oPaginate": {
+                "sFirst":    "<<",
+                "sLast":     ">>",
+                "sNext":     ">",
+                "sPrevious": "<"
+            },
+            "oAria": {
+                "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            },
+            "buttons": {
+                "copy": "Copiar",
+                "colvis": "Visibilidad"
+            }
+        }
+    });
+</script>
 @endauth
 @guest
     @include('include.falta_sesion')

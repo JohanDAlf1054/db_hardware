@@ -17,36 +17,36 @@
                             </button>
                             <button type="button" class="btn btn-primary mx-2 rounded " data-bs-toggle="modal" data-bs-target="#Modal">Crear Unidad</button>
                             <input type="text" wire:model.live='search'  class="form-control" placeholder="Buscar...">
-                            <button type="button" class="btn btn-warning mx-2 rounded" data-bs-toggle="modal" data-bs-target="#importUnits">
+                            <button type="button" class="btn btn-warning mx-2 rounded" tooltip="tooltip" title="Importar" data-bs-toggle="modal" data-bs-target="#importUnits">
                                 <i class="fa-solid fa-folder-open" style="color: #0a0a0a; width=24; height=24"; ></i>
                             </button>
                         </div>
-                    </div>
-                    <div class="table_container">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-hover">
-                                <thead class="table-dark">
-                                    <tr>
-                                        <th>Codigo</th>
-                                        <th>Nombre</th>
-                                        <th>Acciones</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($units as $unit)
+                        <div class="table_container">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover">
+                                    <thead class="table-dark">
                                         <tr>
-                                            <td>{{ $unit->code}}</td>
-                                            <td>{{ $unit->name }}</td>
-                                            <td>
-                                                <div class="btn-group" role="group" aria-label="Basic example">
-                                                    <button type="button" class="btn btn-sm btn-success mx-2 rounded"  data-bs-toggle="modal" data-bs-target="#Modal"  wire:click='edit("{{ $unit->id }}")'><i class="fa fa-fw fa-edit"></i> </i> </button>
-                                                    <button type="button" class="btn btn-danger btn-sm mx-2 rounded" wire:click='delete("{{ $unit->id }}")'><i class="fa fa-fw fa-trash"></i></button>
-                                                </div>
-                                            </td>
+                                            <th>Codigo</th>
+                                            <th>Nombre</th>
+                                            <th>Acciones</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($units as $unit)
+                                            <tr>
+                                                <td>{{ $unit->code}}</td>
+                                                <td>{{ $unit->name }}</td>
+                                                <td>
+                                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                                        <button type="button" class="btn btn-sm btn-success mx-2 rounded" tooltip="tooltip" title="Modificar"  data-bs-toggle="modal" data-bs-target="#Modal"  wire:click='edit("{{ $unit->id }}")'><i class="fa fa-fw fa-edit"></i> </i> </button>
+                                                        <button type="button" class="btn btn-danger btn-sm mx-2 rounded" tooltip="tooltip" title="Eliminar" wire:click='delete("{{ $unit->id }}")'><i class="fa fa-fw fa-trash"></i></button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
