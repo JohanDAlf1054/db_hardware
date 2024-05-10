@@ -23,18 +23,36 @@
             </div>
             <div class="row">
                 <div class="col-xl-3 col-lg-4 col-sm-6">
-                    <div class="icon-card-default">
+                    <div class="icon-card-sales">
                         <div class="content">
                             <div class="info"> 
-                                <h6 class="mb-10">Total Ventas</h6>
-                                <h3 class="text-bold mb-10">{{{'$' . $sales}}}</h3>
+                                <h6 class="mb-10">Total Ventas Hoy</h6>
+                                <h3 class="text-bold mb-10" style="color: rgb(17, 198, 0)">{{'$' . $totalVentasHoy }}</h3>
                             </div>
                             <div class="progresss">
                                 <svg>
                                     <circle cx="38" cy="38" r="36"></circle>
                                 </svg>
                                 <div class="percentage">
-                                    <p>{{$sales . '%'}}</p>
+                                    <i class="fa-solid fa-truck-fast fa-2xl" style="color: #6C9BCF"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-lg-4 col-sm-6">
+                    <div class="icon-card-default">
+                        <div class="content">
+                            <a class="info" href="{{route('sales.index')}}"> 
+                                <h6 class="mb-10">Total de Ventas Realizadas </h6>
+                                <h3 class="text-bold mb-10">{{{$sales}}}</h3>
+                            </a>
+                            <div class="progresss">
+                                <svg>
+                                    <circle cx="38" cy="38" r="36"></circle>
+                                </svg>
+                                <div class="percentage">
+                                    <i class="fa-solid fa-cart-shopping fa-2xl" style="color: #1B9C85"></i>
                                 </div>
                             </div>
                         </div>
@@ -43,16 +61,16 @@
                 <div class="col-xl-3 col-lg-4 col-sm-6">
                     <div class="icon-card-searches">
                         <div class="content">
-                            <div class="info"> 
-                                <h6 class="mb-10">Total Compras</h6>
-                                <h3 class="text-bold mb-10">{{'$' . $purchase}}</h3>
-                            </div>
+                            <a class="info" href="{{route('detail-purchases.index')}}"> 
+                                <h6 class="mb-10">Total de Compras Realizadas</h6>
+                                <h3 class="text-bold mb-10">{{$purchase}}</h3>
+                            </a>
                             <div class="progresss">
                                 <svg>
                                     <circle cx="38" cy="38" r="36"></circle>
                                 </svg>
                                 <div class="percentage">
-                                    <p>{{$purchase . '%'}}</p>
+                                    <i class="fa-brands fa-shopify fa-2xl" style="color: #F7D060"></i>
                                 </div>
                             </div>
                         </div>
@@ -62,33 +80,15 @@
                     <div class="icon-card-visits">
                         <div class="content">
                             <a class="info" href="{{route('products.index')}}"> 
-                                <h6 class="mb-10">Productos</h6>
-                                <h3 class="text-bold mb-10">{{'$' . $productos}}</h3>
+                                <h6 class="mb-10">Total de Productos Existentes</h6>
+                                <h3 class="text-bold mb-10">{{$productos}}</h3>
                             </a>
                             <div class="progresss">
                                 <svg>
                                     <circle cx="38" cy="38" r="36"></circle>
                                 </svg>
                                 <div class="percentage">
-                                    <p>{{$productos . '%'}}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-3 col-lg-4 col-sm-6">
-                    <div class="icon-card-sales">
-                        <div class="content">
-                            <div class="info"> 
-                                <h6 class="mb-10">New Orders</h6>
-                                <h3 class="text-bold mb-10">34567</h3>
-                            </div>
-                            <div class="progresss">
-                                <svg>
-                                    <circle cx="38" cy="38" r="36"></circle>
-                                </svg>
-                                <div class="percentage">
-                                    <p>+81%</p>
+                                    <i class="fa-brands fa-product-hunt fa-2xl" style="color: #FF0060"></i>    
                                 </div>
                             </div>
                         </div>
@@ -154,7 +154,9 @@
                                     <td style="text-align: left;">{{ $data->selling_price }}</td>
                                     <td>
                                         <a class="btn btn-sm btn-primary " tooltip="tooltip"
-                                            title="Comprar" href="{{ route('detail-purchases.create') }}"><i class="fa-solid fa-cart-shopping"></i> </a>
+                                            title="Aumentar Exixtencias" href="{{ route('detail-purchases.create') }}">
+                                            <i class="fa-solid fa-cart-shopping"></i> 
+                                        </a>
                                     </td>
                                      {{--<td></td> --}}
                                 </tr>
@@ -193,7 +195,7 @@
                                     <td style="text-align: left;">{{ $data->date_purchase}}</td>
                                     <td style="text-align: left;">{{ $data->purchaseSupplier->person->first_name }}</td>
                                     <td style="text-align: left;">{{ $data->form_of_payment }}</td>
-                                    <td style="text-align: left;">{{ $data->total_value }}</td>
+                                    <td style="text-align: left; color: rgb(17, 198, 0)">{{ $data->total_value }}</td>
                                 </tr>
                             @endforeach
                           </tbody>
@@ -229,7 +231,7 @@
                                 <td style="text-align: left;">{{ $data->dates}}</td>
                                 <td style="text-align: left;">{{ $data->sellers}}</td>
                                 <td style="text-align: left;">{{ $data->payments_methods}}</td>
-                                <td style="text-align: left;">{{ $data->net_total}}</td>
+                                <td style="text-align: left; color: rgb(17, 198, 0)">{{ $data->net_total}}</td>
                             </tr>
                             @endforeach
                         </tbody>

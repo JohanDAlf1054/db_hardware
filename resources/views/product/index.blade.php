@@ -93,7 +93,7 @@
                             <thead class="table-dark" >
                                 <tr>
                                     <th style="text-align: center">Categoría </th>
-                                    <th style="text-align: center"><Subc></Subc>ategoría</th>
+                                    <th style="text-align: center">Subcategoría</th>
                                     <th style="text-align: center">Nombre</th>
                                     <th style="text-align: center">Referencia Fabrica</th>
                                     <th style="text-align: center">Clasificación Tributaria</th>

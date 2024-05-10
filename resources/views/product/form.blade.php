@@ -20,41 +20,39 @@
             <div class="row row-cards">
                 <form action="" method="post">
                     <div class="row">
-                        <div class="col-lg-4">
+                        <div class="col-lg-4" style="margin-bottom: 1rem">
                             <div class="card">
-
                                 <div class="card-header">
-                                <h3 class="card-title">
-                                    {{ __('Imagen Producto') }}
-                                </h3>
+                                    <h3 class="card-title">
+                                        {{ __('Imagen Producto') }}
+                                    </h3>
                                 </div>
                                 <div class="card-body">
-                                <img class="img-account-profile mb-2" src="{{ asset('img/products/default.webp') }}" id="image-preview" width="400" height="400" />
+                                    <img class="img-account-profile mb-2" src="{{ asset('img/products/default.webp') }}" id="image-preview" width="400" height="400" />
 
-                                <div class="small font-italic text-muted mb-2" style="font-weight: bolder">
-                                    JPG o PNG no sea mas grande de 2MB
+                                    <div class="small font-italic text-muted mb-2" style="font-weight: bolder">
+                                        JPG o PNG no sea mas grande de 2MB
+                                    </div>
+
+                                    @if (isset($producto->photo))
+                                    <img src="{{ asset('storage/' . $producto->photo) }}" width="350" height="350">
+                                    @endif
+
+                                    <input
+                                        type="file"
+                                        accept="image/*"
+                                        id="image"
+                                        name="photo"
+                                        class="form-control @error('photo') is-invalid @enderror"
+                                        onchange="previewImage();"
+                                    >
+
+                                    @error('photo')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
                                 </div>
-
-                                @if (isset($producto->photo))
-                                <img src="{{ asset('storage/' . $producto->photo) }}" width="400" height="400">
-                                @endif
-
-                                <input
-                                    type="file"
-                                    accept="image/*"
-                                    id="image"
-                                    name="photo"
-                                    class="form-control @error('photo') is-invalid @enderror"
-                                    onchange="previewImage();"
-                                >
-
-                                @error('photo')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                                @enderror
-
-                            </div>
                             </div>
                         </div>
 

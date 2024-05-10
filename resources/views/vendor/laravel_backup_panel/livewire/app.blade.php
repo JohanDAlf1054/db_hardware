@@ -118,11 +118,11 @@
                             <td style="font-size: 16px">{{ $file['date'] }}</td>
                             <td style="font-size: 16px">{{ $file['size'] }}</td>
                             <td class="text-right pr-3" style="font-size: 16px">
-                                <button class="btn btn-dark btn-sm" tooltip="tooltip" title="Descargar" target="_blank" wire:click.prevent="downloadFile('{{ $file['path'] }}')">
+                                <button class="btn btn-outline-secondary btn-sm" tooltip="tooltip" title="Descargar" target="_blank" wire:click.prevent="downloadFile('{{ $file['path'] }}')">
                                     <i class="fa-solid fa-download"></i>
                                 </button>
-                                <button class="btn btn-danger btn-sm" tooltip="tooltip" title="Eliminar" target="_blank" wire:click.prevent="showDeleteModal({{ $loop->index }})">
-                                    <i class="fa-solid fa-trash"></i>
+                                <button class="btn btn-outline-danger btn-sm"  target="_blank" wire:click.prevent="showDeleteModal({{ $loop->index }})">
+                                    <i class="fa-solid fa-trash" tooltip="tooltip" title="Eliminar"></i>
                                 </button>
                             </td>
                         </tr>
@@ -163,12 +163,12 @@
             </div>
         </div>
     </div>
-    <script>
+    {{-- <script>
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[tooltip="tooltips"]'))
         var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl)
         })
-    </script>
+    </script> --}}
     <script>
         document.addEventListener('livewire:load', function () {
             @this.updateBackupStatuses()

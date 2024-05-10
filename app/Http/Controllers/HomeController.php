@@ -22,12 +22,24 @@ class HomeController extends Controller
         $purchase = count(PurchaseSupplier::all());
         $salesToday = Sale::whereDate('created_at', Carbon::today())->paginate(5);
         $purchaseToday = DetailPurchase::whereDate('created_at', Carbon::today())->paginate(5);
-        $dataProduct = Product::where('stock', '<', 5)->paginate(4);
+        $dataProduct = Product::where('stock', '<', 5)->paginate(2);
         $person = count(Person::all());
         $rolesUsuario = $users->first()->roles()->pluck('name')->all();
         $roles = Role::all();
-        return view('home.index',compact('salesToday','purchaseToday','users', 'productos', 'sales', 'purchase', 'person', 'dataProduct', 'roles', 'rolesUsuario'));
+        $totalVentasHoy = Sale::whereDate('created_at', Carbon::today())->sum('net_total');
+        return view('home.index',compact('totalVentasHoy','salesToday','purchaseToday','users', 'productos', 'sales', 'purchase', 'person', 'dataProduct', 'roles', 'rolesUsuario'));
     }
+
+    public function calcularTotalVentasHoy()
+{
+    // Obtener la fecha actual
+    $fechaHoy = Carbon::today()->toDateString();
+
+    // Consulta para obtener el total de ventas para el día de hoy
+    $totalVentasHoy = Sale::whereDate('created_at', $fechaHoy)->sum('net_total');
+
+    return $totalVentasHoy;
+}
 
 
 }
