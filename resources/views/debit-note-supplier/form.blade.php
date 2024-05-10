@@ -19,7 +19,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
     <link href="{{asset('css/estilos_notificacion.css')}}" rel="stylesheet"/>
-  
+
     <script src="{{ asset('js/notificaciones.js')}}" defer></script>
 </head>
 <br>
@@ -66,118 +66,112 @@
         <div class="page-body">
             <div class="container-x1">
                 <div class="row row-cards">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="card card-default">
-                                    <div class="card-header" style="display: flex">
-                                        <h3 class="card-title">
-                                            {{__('Nota Debito')}}
-                                        </h3>
-                                        <div class="card-actions" style="padding-top: 9px; padding-left: 20px" >
-                                            <a href="" class="btn-action">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"></path><path d="M18 6l-12 12"></path><path d="M6 6l12 12"></path></svg>
-                                            </a>
+                    <div class="col-lg-12">
+                        <div class="card card-default">
+                            <div class="card-header" style="display: flex">
+                                <h3 class="card-title">
+                                    {{('Nota Debito')}}
+                                </h3>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="row row-cards">
+                                {{--  Buscar Un Numero De Factura  --}}
+                                    <div class="col-sm-6 md-6">
+                                        <div class="md-3" style="margin-bottom: 16px">
+                                            <label for="factura" class="form-label" style="font-weight: bolder">
+                                                {{ __('Buscar Factura') }}
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <select id="factura" name="factura"  class="form-control selectpicker show-tick {{ $errors->has('factura') ? ' is-invalid' : '' }}"data-live-search="true" data-size="5" title="Seleccione una factura">
+                                                <option value="">Seleccione un prefijo y número de factura</option>
+                                                @foreach($purchaseSuppliers as $purchaseSupplier)
+                                                <option value="{{ $purchaseSupplier->id }}"
+                                                        data-users-id="{{ $purchaseSupplier->users_id }}"
+                                                        data-people-id="{{ $purchaseSupplier->people_id }}"
+                                                        data-date-purchase="{{ $purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->date_purchase : '' }}"
+                                                        data-product-name="{{ $purchaseSupplier->detailPurchase && $purchaseSupplier->detailPurchase->product ? $purchaseSupplier->detailPurchase->product->name_product : '' }}"
+                                                        data-product-tax="{{ $purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->product_tax : '' }}"
+                                                        data-price-unit="{{ $purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->price_unit : '' }}"
+                                                        data-discount-total="{{ $purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->discount_total : '' }}"
+                                                        data-quantity-units="{{$purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->discount_total : ''}}">
+                                                    {{ $purchaseSupplier->code . '-' . $purchaseSupplier->invoice_number_purchase }}
+                                                </option>
+                                                @endforeach
+                                            </select>
+                                            {!! $errors->first('factura', '<div class="invalid-feedback">:message</div>') !!}
                                         </div>
                                     </div>
-                                </div>
-                                
-                                <div class="card-body">
-                                    <div class="row row-cards">
-                                    {{--  Buscar Un Numero De Factura  --}}
+
+
+
+                                        {{--  Fecha De Elaboracion Nota Debito  --}}
                                         <div class="col-sm-6 md-6">
                                             <div class="md-3" style="margin-bottom: 16px">
-                                                <label for="factura" class="form-label" style="font-weight: bolder">
-                                                    {{ __('Buscar Factura') }}
+                                                <label for="date_invoice" class="form-label" style="font-weight: bolder">
+                                                    {{ __('Fecha de Creación Nota Debito') }}
                                                     <span class="text-danger">*</span>
                                                 </label>
-                                                <select id="factura" name="factura"  class="form-control selectpicker show-tick {{ $errors->has('factura') ? ' is-invalid' : '' }}"data-live-search="true" data-size="5" title="Seleccione una factura">
-                                                    <option value="">Seleccione un prefijo y número de factura</option>
-                                                    @foreach($purchaseSuppliers as $purchaseSupplier)
-                                                    <option value="{{ $purchaseSupplier->id }}" 
-                                                            data-users-id="{{ $purchaseSupplier->users_id }}" 
-                                                            data-people-id="{{ $purchaseSupplier->people_id }}" 
-                                                            data-date-purchase="{{ $purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->date_purchase : '' }}"
-                                                            data-product-name="{{ $purchaseSupplier->detailPurchase && $purchaseSupplier->detailPurchase->product ? $purchaseSupplier->detailPurchase->product->name_product : '' }}"
-                                                            data-product-tax="{{ $purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->product_tax : '' }}"
-                                                            data-price-unit="{{ $purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->price_unit : '' }}"
-                                                            data-discount-total="{{ $purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->discount_total : '' }}"
-                                                            data-quantity-units="{{$purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->discount_total : ''}}">
-                                                        {{ $purchaseSupplier->code . '-' . $purchaseSupplier->invoice_number_purchase }}
-                                                    </option>
-                                                    @endforeach
-                                                </select>
-                                                {!! $errors->first('factura', '<div class="invalid-feedback">:message</div>') !!}
+                                                <input type="date" id="date_invoice" name="date_invoice" value="{{ date('Y-m-d') }}" class="form-control{{ $errors->has('date_invoice') ? ' is-invalid' : '' }}">
+                                                {!! $errors->first('date_invoice', '<div class="invalid-feedback">:message</div>') !!}
                                             </div>
                                         </div>
 
-                                    
-                                            {{--  Fecha De Elaboracion Nota Debito  --}}
+
+
+                                    {{--  Numero de Nota Debito   --}}
+                                    <div class="col-sm-6 md-6">
+                                        <div class="mb-3">
+                                            <label for="debit_note_code" class="form-label" style="font-weight: bolder">
+                                                {{ __('Número de Nota Debito') }}
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <input type="number" id="debit_note_code" name="debit_note_code" value="{{ $debitNoteId }}" class="form-control{{ $errors->has('debit_note_code') ? ' is-invalid' : '' }}" placeholder="Número de Nota Debito">
+                                            {!! $errors->first('debit_note_code', '<div class="invalid-feedback">:message</div>') !!}
+                                        </div>
+                                    </div>
+
+
+                                    {{--  Usuario A Cargo --}}
+
                                             <div class="col-sm-6 md-6">
-                                                <div class="md-3" style="margin-bottom: 16px">
-                                                    <label for="date_invoice" class="form-label" style="font-weight: bolder">
-                                                        {{ __('Fecha de Creación Nota Debito') }}
+                                                <div class="mb-3">
+                                                    <label for="users_id" class="form-label" style="font-weight: bolder">
+                                                        {{ __('Empleado A Cargo') }}
                                                         <span class="text-danger">*</span>
                                                     </label>
-                                                    <input type="date" id="date_invoice" name="date_invoice" value="{{ date('Y-m-d') }}" class="form-control{{ $errors->has('date_invoice') ? ' is-invalid' : '' }}">
-                                                    {!! $errors->first('date_invoice', '<div class="invalid-feedback">:message</div>') !!}
+                                                    <select id="users_id" name="users_id" class="form-control{{ $errors->has('users_id') ? ' is-invalid' : '' }}">
+                                                        <option value="">Seleccione un Empleado</option>
+                                                        @foreach($users as $user)
+                                                            <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                    {!! $errors->first('users_id', '<div class="invalid-feedback">:message</div>') !!}
                                                 </div>
                                             </div>
-                                            
 
-
-                                        {{--  Numero de Nota Debito   --}}
-                                        <div class="col-sm-6 md-6">
-                                            <div class="mb-3">
-                                                <label for="debit_note_code" class="form-label" style="font-weight: bolder">
-                                                    {{ __('Número de Nota Debito') }}
-                                                    <span class="text-danger">*</span>
-                                                </label>
-                                                <input type="number" id="debit_note_code" name="debit_note_code" value="{{ $debitNoteId }}" class="form-control{{ $errors->has('debit_note_code') ? ' is-invalid' : '' }}" placeholder="Número de Nota Debito">
-                                                {!! $errors->first('debit_note_code', '<div class="invalid-feedback">:message</div>') !!}
-                                            </div>
+                                    {{--  Proveedor al que se le compro el producto --}}
+                                    <div class="col-sm-6 md-6">
+                                        <div class="mb-3">
+                                            <label for="people_id" class="form-label" style="font-weight: bolder">
+                                                {{ __('Proveedor')}}
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <select id="people_id" name="people_id" class="form-control{{ $errors->has('people_id') ? ' is-invalid' : '' }}">
+                                                <option value="">Seleciona una opción</option>
+                                                @foreach($people as $person)
+                                                    <option value="{{ $person->id }}">{{ $person->first_name }}</option>
+                                                @endforeach
+                                            </select>
+                                            {!! $errors->first('people_id', '<div class="invalid-feedback">:message</div>') !!}
                                         </div>
-                                        
-
-                                        {{--  Usuario A Cargo --}}
-                                        
-                                                <div class="col-sm-6 md-6">
-                                                    <div class="mb-3">
-                                                        <label for="users_id" class="form-label" style="font-weight: bolder">
-                                                            {{ __('Empleado A Cargo') }}
-                                                            <span class="text-danger">*</span>
-                                                        </label>
-                                                        <select id="users_id" name="users_id" class="form-control{{ $errors->has('users_id') ? ' is-invalid' : '' }}">
-                                                            <option value="">Seleccione un Empleado</option>
-                                                            @foreach($users as $user)
-                                                                <option value="{{ $user->id }}">{{ $user->name }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                        {!! $errors->first('users_id', '<div class="invalid-feedback">:message</div>') !!}
-                                                    </div>
-                                                </div>
-                                                
-                                        {{--  Proveedor al que se le compro el producto --}}
-                                        <div class="col-sm-6 md-6">
-                                            <div class="mb-3">
-                                                <label for="people_id" class="form-label" style="font-weight: bolder">
-                                                    {{ __('Proveedor')}}
-                                                    <span class="text-danger">*</span>
-                                                </label>
-                                                <select id="people_id" name="people_id" class="form-control{{ $errors->has('people_id') ? ' is-invalid' : '' }}">
-                                                    <option value="">Seleciona una opción</option>
-                                                    @foreach($people as $person)
-                                                        <option value="{{ $person->id }}">{{ $person->first_name }}</option>
-                                                    @endforeach
-                                                </select>
-                                                {!! $errors->first('people_id', '<div class="invalid-feedback">:message</div>') !!}
-                                            </div> 
-                                        </div>
-                                        
+                                    </div>
 
 
-                                        
+
+
                                         {{--  Fecha Detalle De Compra  --}}
-                                        
+
                                         <div class="col-sm-6 md-6">
                                             <div class="md-3" style="margin-bottom: 16px">
                                                 <label for="date_purchase" class="form-label" style="font-weight: bolder">
@@ -188,7 +182,7 @@
                                                 {!! $errors->first('date_purchase', '<div class="invalid-feedback">:message</div>') !!}
                                             </div>
                                         </div>
-                                        
+
                                         <div class="col-12">
                                             <table id="tabla_detalle" class="table table-hover w-100">
                                                 <style>
@@ -196,19 +190,16 @@
                                                         background-color: #004080; /* Este es el código de color hexadecimal para azul oscuro */
                                                     }
                                                 </style>
-                                                
-                                                <thead class="bg-dark-blue">
-                                                
 
+                                                <thead class="bg-primary text-white">
                                                     <tr>
-                                                        <th class="text-white">Producto</th>
-                                                        <th class="text-white">Cantidad</th>
-                                                        <th class="text-white">Descripción</th>
-                                                        <th class="text-white">Precio Unitario</th>
-                                                        <th class="text-white">Descuento</th>
-                                                        <th class="text-white">Iva</th>
-                                                        <th class="text-white">Acción</th>
-
+                                                        <th>Producto</th>
+                                                        <th>Cantidad</th>
+                                                        <th>Descripción</th>
+                                                        <th>Precio Unitario</th>
+                                                        <th>Descuento</th>
+                                                        <th>Iva</th>
+                                                        <th>Acción</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -220,8 +211,6 @@
                                                         <td><input type="number" id="descuento" name="descuento" class="form-control"></td>
                                                         <td><input type="number" id="iva" name="iva" class="form-control"></td>
                                                         <td><button class="btn btn-danger" type="button"><i class="fa-solid fa-trash"></i></button></td>
-
-                                                        
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -253,13 +242,19 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            
-                                            <div class="card-footer text-end">
-                                                <a class="btn btn-primary" style="margin-right: 5rem" href="{{ route('debit-note-supplier.index') }}">Regresar</a>
-                                                <button type="submit" class="btn btn-success">{{ __('Guardar') }}</button>
-                                            </div>
                                         </div>
-  
+                                </div>
+                            </div>
+                            <div class="card-footer text-end">
+                                <a class="btn btn-primary" style="margin-right: 5rem" href="{{ route('debit-note-supplier.index') }}">Regresar</a>
+                                <button type="submit" class="btn btn-success">{{ __('Guardar') }}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js"></script> 
 

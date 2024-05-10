@@ -142,16 +142,16 @@
                         <div class="col-12">
                             <div class="table-responsive">
                                 <table id="tabla_detalle" class="table table-hover">
-                                    <thead class="bg-primary">
+                                    <thead class="bg-primary text-white">
                                         <tr>
-                                            <th class="text-white">#</th>
-                                            <th class="text-white">Producto</th>
-                                            <th class="text-white">Cantidad</th>
-                                            <th class="text-white">Descripcion</th>
-                                            <th class="text-white">Impuesto</th>
-                                            <th class="text-white">Descuento</th>
-                                            <th class="text-white">Precio Unitario</th>
-                                            <th class="text-white">Sub Total</th>
+                                            <th>#</th>
+                                            <th>Producto</th>
+                                            <th>Cantidad</th>
+                                            <th>Descripcion</th>
+                                            <th>Impuesto</th>
+                                            <th>Descuento</th>
+                                            <th>Precio Unitario</th>
+                                            <th>Sub Total</th>
                                             <th></th>
                                         </tr>
                                     </thead>

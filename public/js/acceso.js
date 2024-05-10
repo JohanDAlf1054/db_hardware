@@ -14,7 +14,7 @@ liPanel.style.display = 'none';
 onlinePanel.style.display = 'none';
 liPanel1.style.display = 'none';
 onlinePanel1.style.display = 'none';
-//Evento para mostrar y ocultar menú
+
 function open_close_menu() {
     body.classList.toggle("body_move");
     side_menu.classList.toggle("menu__side_move");
@@ -25,14 +25,48 @@ function open_close_menu() {
         onlinePanel.style.display = 'none';
         liPanel1.style.display = 'none';
         onlinePanel1.style.display = 'none';
+
+        // Ocultar solo los elementos h4 y las imágenes dentro de .option
+        var textElements = document.querySelectorAll('.option h4');
+        var imgElements = document.querySelectorAll('.option img');
+        for (var i = 0; i < textElements.length; i++) {
+            textElements[i].style.opacity = '0';
+        }
+        for (var i = 0; i < imgElements.length; i++) {
+            imgElements[i].style.opacity = '0';
+        }
+
+        // Si no funciona funemos a brayan
+        var namePageImg = document.querySelector('.name__page img');
+        namePageImg.style.opacity = '0';
+        namePageImg.style.visibility = 'hidden';
+
+        side_menu.style.borderRight = '3px solid rgb(104, 104, 104)';
     } else {
         // Si la barra lateral está cerrada (es decir, body SÍ tiene la clase body_move)
         liPanel.style.display = 'block';
         onlinePanel.style.display = 'block';
         liPanel1.style.display = 'block';
         onlinePanel1.style.display = 'block';
+
+        // Mostramos los elementos h4 y las imágenes cuando la barra lateral está cerrada
+        var textElements = document.querySelectorAll('.option h4');
+        var imgElements = document.querySelectorAll('.option img');
+        for (var i = 0; i < textElements.length; i++) {
+            textElements[i].style.opacity = '1';
+        }
+        for (var i = 0; i < imgElements.length; i++) {
+            imgElements[i].style.opacity = '1';
+        }
+
+        // Este bloque es para mostrar la imagen normal cuando la barra esta abierta
+        var namePageImg = document.querySelector('.name__page img');
+        namePageImg.style.opacity = '1';
+        namePageImg.style.visibility = 'visible';
     }
 }
+
+
 
 open_close_menu();
 
