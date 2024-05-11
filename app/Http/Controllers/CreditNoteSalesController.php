@@ -49,11 +49,11 @@ class CreditNoteSalesController extends Controller
      */
     public function create(Sale $sale)
     {
-        $sales = Sale::all();
+        $sales = Sale::where('status', 1)->get();
         return view('credit-note-sales.create', compact('sales','sale'));
         
     }
-
+    
     /**
      * Store a newly created resource in storage.
      */

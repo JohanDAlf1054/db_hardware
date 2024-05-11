@@ -23,7 +23,7 @@ class StoreSalesRequest extends FormRequest
     {
         return [
             'dates' => 'required',
-            'bill_numbers' => 'required',
+            'bill_numbers' => 'required|unique:sales,bill_numbers', // Asegura que el número de factura sea único en la tabla sales
             'sellers' => 'required',
             'payments_methods' => 'required' ,
             'gross_totals' => 'required' ,

@@ -140,7 +140,7 @@
                                 <!--Cliente-->
                                 <div class="col-12">
                                     <label for="clients_id" class="form-label">Cliente:</label>
-                                    <select name="clients_id" id="clients_id" class="form-control selectpicker show-tick" data-live-search="true" title="Selecciona" data-size='3'>
+                                    <select name="clients_id" id="clients_id" class="form-control selectpicker show-tick" data-live-search="true" title="Selecciona el cliente" data-size='3'>
                                         @foreach ($clients as $item)
                                         <option value="{{$item->id}}">{{$item->identification_number}} -    {{$item->first_name}} {{$item->other_name}} {{$item->surname}} {{$item->second_surname}} {{$item->company_name}}</option>
                                         @endforeach
@@ -153,7 +153,7 @@
                                 <div class="col-sm-12">
                                     <label for="dates" class="form-label">Fecha:</label>
                                     <input readonly type="date" name="dates" id="dates" class="form-control border-success" value="<?php echo date("Y-m-d") ?>">
-                                    <?php
+                                    <?php           
                                     use Carbon\Carbon;
                                     $fecha_hora = Carbon::now()->toDateTimeString();
                                     ?>
@@ -163,7 +163,7 @@
                                 <div class="col-12">
                                     <label for="bill_numbers" class="form-label">Prefijo y Número:</label>
                                     <div class="input-group">
-                                        <select name="bill_prefix" class="form-control selectpicker">
+                                        <select name="bill_prefix" class="form-control selectpicker me-2"> <!-- Agregamos la clase 'me-2' para dar margen a la derecha -->
                                             <option value="Pre-">Pre</option>
                                             <option value="Po-">Po</option>
                                             <option value="Es-">Es</option>
@@ -189,10 +189,10 @@
                                 <!--Vendedor-->
                                 <div class="col-12">
                                     <label for="sellers" class="form-label">Vendedor:</label>
-                                    <select name="sellers" class="form-control selectpicker">
-                                        <option value="Camilo">Camilo</option>
-                                        <option value="Brayan">Brayan</option>
-                                        <option value="Maira">Maira</option>
+                                    <select name="sellers" id="sellers" class="form-control selectpicker show-tick" data-live-search="true" title="Selecciona el vendedor" data-size='3'>
+                                        @foreach ($users as $item)
+                                        <option value="{{$item->id}}">{{$item->name}}</option>
+                                        @endforeach
                                     </select>
                                     @error('sellers')
                                     <small class="text-danger">{{ '*'.$message }}</small>

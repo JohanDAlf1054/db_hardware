@@ -6,6 +6,7 @@ use App\Http\Requests\StoreSalesRequest;
 use App\Models\Person;
 use App\Models\Product;
 use App\Models\Sale;
+use App\Models\User;
 use Exception;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
@@ -49,9 +50,10 @@ class SalesController extends Controller
      */
     public function create()
     {
-        $clients = Person::all();
-        $products = Product::all();
-        return view('sales.create', compact('clients','products'));
+        $clients = Person::where('status', 1)->get();
+        $products = Product::where('status', 1)->get();
+        $users = User::all();
+        return view('sales.create', compact('clients', 'products','users'));
     }
 
     /**
