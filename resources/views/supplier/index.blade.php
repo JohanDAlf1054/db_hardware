@@ -44,11 +44,11 @@
                                         aria-label="Buscar persona" placeholder="Buscar persona....">
                                     <button type="submit" class="btn btn-dark">Buscar</button>
                                     {{-- Botones IMPORTAR Y EXPORTAR --}}
-                                    <button type="button" class="btn btn-success ms-2 rounded" data-bs-toggle="tooltip"
+                                    <button type="button" class="btn btn-success ms-2 rounded" tooltip="tooltip"
                                         title="Exportar" data-bs-toggle="modal" data-bs-target="#informes">
                                         <i class="fa-solid fa-file-arrow-down"></i>
                                     </button>
-                                    <button type="button" class="btn btn-warning ms-2 rounded" data-bs-toggle="tooltip" 
+                                    <button type="button" class="btn btn-warning ms-2 rounded" tootltip="tooltip" 
                                          title="Importar" data-bs-toggle="modal" data-bs-target="#">
                                         <i class="fa-solid fa-folder-open"></i>
                                         
@@ -128,11 +128,11 @@
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    <a class="btn btn-sm btn-primary" data-bs-toggle="tooltip"
+                                                    <a class="btn btn-sm btn-primary" tooltip="tooltip"
                                                         title="Visualizar"
                                                         href="{{ route('person.show', $proveedor->id) }}"><i
                                                             class="fa fa-fw fa-eye"></i></a>
-                                                    <a class="btn btn-sm btn-success" data-bs-toggle="tooltip"
+                                                    <a class="btn btn-sm btn-success" tooltip="tooltip"
                                                         title="Modificar"
                                                         href="{{ route('person.edit', $proveedor->id) }}"><i
                                                             class="fa fa-fw fa-edit"></i></a>
@@ -141,13 +141,13 @@
 
                                                     @if ($proveedor->status == true)
                                                         <button type="button" class="btn btn-danger btn-sm" 
-                                                            data-bs-toggle="modal" data-bs-toggle="tooltip"
+                                                            data-bs-toggle="modal" tooltip="tooltip"
                                                             title="Inactivar"
                                                             data-bs-target="#confirmationDestroy-{{ $proveedor->id }}"><i
                                                                 class="fa fa-fw fa-trash"></i></button>
                                                     @else
                                                         <button type="button" class="btn btn-danger btn-sm"
-                                                            data-bs-toggle="modal" data-bs-toggle="tooltip" title="Activar"
+                                                            data-bs-toggle="modal" tooltip="tooltip" title="Activar"
                                                             data-bs-target="#confirmationDestroy-{{ $proveedor->id }}"><i
                                                                 class="fa-solid fa-rotate"></i></button>
                                                     @endif
