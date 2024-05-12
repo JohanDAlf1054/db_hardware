@@ -71,7 +71,7 @@
                     {{--  Aqui trae las notificaciones por medio de javaescript  --}}
                 </div>
 
-                <div class="container_datos">
+                <div class="container_datos p-3">
                     <div class="table_container">
                         <div class="table-responsive">
                             <table class="table table-striped table-hover" style="justify-content: center">
@@ -115,7 +115,7 @@
                                             <td>{{ $person->phone }}</td>
                                             <td>
                                                 @if ($person->status == true)
-                                                    <p class="badge rounded-pill bg-warning text-dark"
+                                                    <p class="badge rounded-pill bg-success text-dark"
                                                         style="font-size: 15px">Activo</p>
                                                 @else
                                                     <p class="badge rounded-pill bg-danger" style="font-size: 15px">Inactivo

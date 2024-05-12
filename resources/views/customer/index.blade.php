@@ -71,7 +71,7 @@
                         {{--  Aqui trae las notificaciones por medio de javascript  --}}
                     </div>
 
-                    <div class="container_datos">
+                    <div class="container_datos p-3">
                         <div class="table_container">
                             <div class="table-responsive">
                                 <table class="table table-striped table-hover" style="justify-content: center">
