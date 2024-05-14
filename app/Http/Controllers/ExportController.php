@@ -34,6 +34,18 @@ class ExportController extends Controller
 
     public function exportperson()
     {
-        return Excel::download(new PeopleExport, 'Personas.xlsx');
+        return Excel::download(new PeopleExport('all'), 'Personas.xlsx');
     }
+
+    public function exportsupplier()
+    {
+        return Excel::download(new PeopleExport('supplier'),'Proveedores.xlsx');
+    }
+
+    public function exportcustomer()
+    {
+        return Excel::download(new PeopleExport('customer'),'Clientes.xlsx');
+    }
+
+
 }

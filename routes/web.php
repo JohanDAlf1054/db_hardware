@@ -96,6 +96,8 @@ Route::post('/importCategory',[CategoryProductController::class, 'importCategory
 Route::get('export_index', [ExportController::class, 'index_informes'])->name('index_informes');
 Route::get('/export', [ExportController::class, 'export'])->name('export');
 Route::get('/export_person', [ExportController::class, 'exportperson'])->name('export.person');
+Route::get('/export_supplier', [ExportController::class, 'exportsupplier'])->name('export.supplier');
+Route::get('/export_customer', [ExportController::class, 'exportcustomer'])->name('export.customer');
 
 //Funciones De Compras
 Route::resource('purchase_supplier', App\Http\Controllers\PurchaseSupplierController::class);

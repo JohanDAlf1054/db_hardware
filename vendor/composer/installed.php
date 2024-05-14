@@ -3,7 +3,7 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-Alexandra',
         'version' => 'dev-Alexandra',
-        'reference' => '5678dc7f7336ba6362e80137bbd99fb181750356',
+        'reference' => 'b669d063a30fe8835bc0bfb57321961fbbf36255',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -472,7 +472,7 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-Alexandra',
             'version' => 'dev-Alexandra',
-            'reference' => '5678dc7f7336ba6362e80137bbd99fb181750356',
+            'reference' => 'b669d063a30fe8835bc0bfb57321961fbbf36255',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
