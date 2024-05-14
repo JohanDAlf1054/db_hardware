@@ -1,7 +1,10 @@
 @auth
 
 @include('include.barra', ['modo'=>'Compra Proveedor'])
+<head>
+    <script src="{{ asset('js/tooltips.js') }}" defer></script>
 
+</head>
 <br>
 <div class="container-fluid">
     <div class="row">
@@ -76,12 +79,13 @@
                                         <td style="text-align: center;">{{ $purchaseSupplier->date_invoice_purchase }}</td>
                                         <td style="text-align: center;">
                                             <form action="{{ route('purchase_supplier.destroy',$purchaseSupplier->id) }}" method="POST">
-                                                <a class="btn btn-sm btn-primary " href="{{ route('purchase_supplier.show',$purchaseSupplier->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Mostrar') }}</a>
-                                                <a class="btn btn-sm btn-success" href="{{ route('purchase_supplier.edit',$purchaseSupplier->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Editar') }}</a>
+                                                <a class="btn btn-sm btn-primary " href="{{ route('purchase_supplier.show',$purchaseSupplier->id) }}" title="{{ __('Visualizar') }}"><i class="fa fa-fw fa-eye"></i> {{ __('Mostrar') }}</a>
+                                                <a class="btn btn-sm btn-success" href="{{ route('purchase_supplier.edit',$purchaseSupplier->id) }}" title="{{ __('Modificar') }}"><i class="fa fa-fw fa-edit"></i> {{ __('Editar') }}</a>
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i></button>
+                                                <button type="submit" class="btn btn-danger btn-sm" title="{{ __('Eliminar') }}"><i class="fa fa-fw fa-trash"></i></button>
                                             </form>
+                                            
                                                                                     </td>
                                         </tr>
                                     @endforeach
