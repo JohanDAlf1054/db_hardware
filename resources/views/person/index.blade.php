@@ -125,7 +125,8 @@
                                             <td>
                                                 <a class="btn btn-sm btn-primary" data-bs-toggle="tooltip"
                                                     title="Visualizar" href="{{ route('person.show', $person->id) }}"><i
-                                                        class="fa fa-fw fa-eye"></i></a>
+                                                        class="fa fa-fw fa-eye"></i>
+                                                </a>
                                             </td>
                                         </tr>
                                     @endforeach

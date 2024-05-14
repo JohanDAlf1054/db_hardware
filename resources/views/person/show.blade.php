@@ -31,23 +31,25 @@
     <div class="bread_crumb">
         {{ Breadcrumbs::render('customer.show', $person) }}
     </div>
+@elseif($table === 'person')
+    <div class="bread_crumb">
+        {{ Breadcrumbs::render('person.show', $person) }}
+    </div>
 @endif
 <br>
 @include('include.barra', ['modo'=>'Ferreteria la excelencia'])
-    <section class="content container-fluid">
-        <div class="page-body">
-            <div class="container-x1">
-                <div class="row row-cards">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="card card-default">
-                                <div class="card-header style="display: flex">
-                                    <h3 class="card-title">
-                                        {{__('Visualización persona')}}
-                                    </h3>
-                                </div>
+<section class="content container-fluid">
+    <div class="page-body">
+        <div class="container-x1">
+            <div class="row row-cards">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card card-default">
+                            <div class="card-header style="display: flex">
+                                <h3 class="card-title">
+                                    {{__('Visualización persona')}}
+                                </h3>
                             </div>
-
                             <div class="card-body">
                                 <div class="row row-cards">
                                     {{--  Rol  --}}
@@ -202,12 +204,16 @@
                                         </div>
                                 </div>
                             </div>
+                            <div class="card-footer text-end">
+                                <a class="btn btn-primary" style="margin-right: 5rem" href="{{ route('person.index') }}">Regresar</a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
     {{--  Script para escojer el tipo de persona  --}}
 <script>
     $(document).ready(function(){
@@ -241,9 +247,7 @@
 
 </script>
 {{--  @endsection  --}}
-<div class="card-footer text-end">
-        <a class="btn btn-primary" style="margin-right: 5rem" href="{{ route('person.index') }}">Regresar</a>
-</div>
+
 @endauth
 @guest
     @include('include.falta_sesion')

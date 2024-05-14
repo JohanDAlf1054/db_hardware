@@ -13,7 +13,7 @@
             <tr>
                 <td class="td_logo_footer">
                     <div>
-                    <img class="logo_footer" src="{{ asset('img/Fondo_negro.png') }}">
+                    <img class="logo_footer" src="{{ asset('img/Logo_Ferrteria_Footer.png') }}">
                     </div>
                 </td>
                 <td class="td_copy">

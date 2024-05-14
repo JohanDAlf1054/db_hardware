@@ -119,8 +119,8 @@ class PersonController extends Controller
     public function show($id)
     {
         $person = Person::find($id);
-
-        return view('person.show', compact('person'));
+        $table = 'person';
+        return view('person.show', compact('person','table'));
     }
 
     /**
