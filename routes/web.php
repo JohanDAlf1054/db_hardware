@@ -89,6 +89,7 @@ Route::resource('usuarios', UsuariosController::class)->only(['index', 'edit', '
 Route::get('/obtener-detalle-venta', [CreditNoteSalesController::class, 'obtenerDetalleVenta']);
 Route::get('/indexAll',[SubCategoryController::class, 'indexAll'])->name('indexAll');
 
+
 //Funcion Importar
 Route::post('/importbrands',[BrandController::class, 'importbrands'])->name('importbrands');
 Route::post('/importCategory',[CategoryProductController::class, 'importCategory'])->name('importCategory');
@@ -96,6 +97,9 @@ Route::post('/importCategory',[CategoryProductController::class, 'importCategory
 //Funcion Export Informes
 Route::get('export_index', [ExportController::class, 'index_informes'])->name('index_informes');
 Route::get('/export', [ExportController::class, 'export'])->name('export');
+Route::get('/export_person', [ExportController::class, 'exportperson'])->name('export.person');
+Route::get('/export_supplier', [ExportController::class, 'exportsupplier'])->name('export.supplier');
+Route::get('/export_customer', [ExportController::class, 'exportcustomer'])->name('export.customer');
 Route::get('/report', [ExportController::class,'report'])->name('report');
 
 //Funciones De Compras
