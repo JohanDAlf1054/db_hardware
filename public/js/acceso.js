@@ -41,7 +41,7 @@ function open_close_menu() {
         namePageImg.style.opacity = '0';
         namePageImg.style.visibility = 'hidden';
 
-        side_menu.style.borderRight = '3px solid rgb(104, 104, 104)';
+        side_menu.style.borderRight = '1px solid rgb(0, 0, 0)';
     } else {
         // Si la barra lateral está cerrada (es decir, body SÍ tiene la clase body_move)
         liPanel.style.display = 'block';
