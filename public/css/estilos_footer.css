@@ -7,12 +7,14 @@ footer{
 .table_footer{
     background-color: #E5E8E8;
     width: 100%;
+    border-top: 1px solid black;
 }
 
 .logo_footer{
     text-align: center;
     margin-left: 3rem;
-    width: 100px;
+    width: 95px;
+    height: 80px;
 }
 .td_logo_footer{
     text-align: center;

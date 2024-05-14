@@ -10,6 +10,8 @@
             <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
             <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
             <link rel="stylesheet" href="{{ asset('css/estilosbarra.css') }}" type="text/css">
+            <link rel="stylesheet" href="{{asset('css/estilos_accesibilidad.css')}}">
+            <link href="{{ asset('css/estilos_footer.css')}}" rel="stylesheet">
         </head>
         <body id="body">
             <header>
@@ -37,7 +39,7 @@
             <div class="menu__side" id="menu_side">
 
                 <div class="name__page">
-                    <i><img class="logos" src="{{ asset('img/Fondo_negro.png') }}" alt=""></i>
+                    <i><img class="logos" src="{{ asset('img/LogoBlanco_Ferreteria.png') }}" alt=""></i>
                 </div>
 
                 <div class="options__menu">

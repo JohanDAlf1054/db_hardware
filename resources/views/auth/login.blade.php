@@ -9,11 +9,12 @@
         <link href="css/estilos_notificacion_login.css" rel="stylesheet" />
         <script src="{{ asset('js/notificaciones.js')}}" defer></script>
 
-        <title>ToryTech</title>
+        <title>Ferreteria la Exelencia</title>
+        <link rel="website icon" type="png" href="{{asset('img/Logo_Ferreteria_la_exelencia.png')}}">
     </head>
     <body>
     <div class="img_tory">
-        <img src="{{ asset('img/Fondo_negro.png')}}" alt="" />
+        <img src="{{ asset('img/LogoBlanco_Ferreteria.png')}}" alt="" />
     </div>
     <!-- inicio del formulario -->
     <main>

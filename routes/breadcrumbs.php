@@ -139,6 +139,13 @@ Breadcrumbs::for('person.create', function (BreadcrumbTrail $trail) {
     $trail->push('Crear personas');
 });
 
+//Personas > Mostrar
+Breadcrumbs::for('person.show', function (BreadcrumbTrail $trail, Person $person) {
+    $trail->parent('person.index');
+    $trail->push('Mostrar');
+    $trail->push($person->identification_number);
+});
+
 // Personas > Proveedores
 Breadcrumbs::for('supplier.index', function (BreadcrumbTrail $trail) {
     $trail->parent('person.index');

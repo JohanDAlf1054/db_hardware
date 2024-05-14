@@ -10,61 +10,7 @@
 html{
     height: 100%;
 }
-/* Estilo para aumentar el tamaño de letra */
-.font-increase-1 {
-    font-size: 120%;
-}
-.font-increase-2 {
-    font-size: 130%;
-}
-.font-increase-3 {
-    font-size: 150%;
-}
 
-/* Estilo para disminuir el tamaño de letra */
-.font-decrease-1 {
-    font-size: 90%;
-}
-
-.font-decrease-2 {
-    font-size: 80%;
-}
-
-.font-decrease-3 {
-    font-size: 70%;
-}
-
-/* Estilo para el alto contraste */
-.alto-contraste{
-    filter: invert(1);
-    background-color: #dcdcdc;
-    color: #f00000;
-}
-.alto-contraste .menu__side{
-    background-color: #b3b2b2;
-}
-.alto-contraste .logos{
-    background-color: #b3b2b2;
-}
-.alto-contraste header {
-    background-color: #d8d8d8;
-    border-bottom-color: #b3b2b2;
-    color: rgb(0, 0, 0);
-}
-.alto-contraste .sales,
-.alto-contraste .visits,
-.alto-contraste .searches,
-.alto-contraste .recent-orders,
-.alto-contraste .user-profile,
-.alto-contraste .reminders {
-    --box-shadow: 0 2rem 3rem #EAECEE;
-}
-.alto-contraste .icono_accesibilidad{
-    color: #454545;
-}
-.alto-contraste .header-button.btn.btn-outline-secondary.dropdown-toggle.dropdown-toggle-split::after {
-    border-top-color: #454545;
-}
 
 body {
     position: relative;
@@ -104,8 +50,13 @@ header {
 }
 
 .logos {
-    width: 8rem;
+    /* Se quita el ancho para que la imagen se recoga para cuendo se cierra la barra lateral */
+    width: 190px;
+    /* height: 200px; */
     margin-left: 2rem;
+}
+.option h4, .option img, .name__page {
+    transition: opacity 300ms cubic-bezier(0.785, 0.135, 0.15, 0.86);
 }
 
 .logo {
@@ -141,10 +92,10 @@ header {
     scrollbar-width: none;
 }
 .name__page {
-    padding: 20px 30px;
+    /* padding: 20px 30px; */
     display: flex;
     align-items: center;
-    margin-top: 10px;
+    /* margin-top: 10px; */
 }
 
 .option i {

@@ -17,7 +17,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h2 id="card_title">
-                            {{ __('Detalles De La Compra') }}
+                            {{ Breadcrumbs::render('detail.purchase') }}
                         </h2>
                     </div>
                     <div class="card-body">

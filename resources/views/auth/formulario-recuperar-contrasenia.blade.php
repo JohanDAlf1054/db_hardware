@@ -6,16 +6,16 @@
         <!-- <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet"/> -->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
         <script src="https://kit.fontawesome.com/7604ee3851.js" crossorigin="anonymous"></script>
-        <link href="css/estilos_inicio_sesion.css" rel="stylesheet" />
         <link href="css/estilos_recuperar_contraseña.css" rel="stylesheet"/>
         <title>Recuperacion de contraseña</title>
+        <link rel="website icon" type="png" href="{{asset('img/Logo_Ferreteria_la_exelencia.png')}}">
     </head>
     <body>
 
     <div class="blur">
         <div class="formulario_email">
             <div class="img_tory">
-                <img src="{{ asset('img/logo-negro ampliado.png')}}" alt="img_ToryTech" />
+                <img src="{{ asset('img/FerreteriaV2 Negro.png')}}" alt="img_ToryTech" />
             </div>
             <h2>¿Olvidaste tu contraseña?</h2>
             <hr class="linea">
