@@ -7,6 +7,8 @@ use App\Models\MeasurementUnit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Validator;
+
 
 /**
  * Class MeasurementUnitController
@@ -46,16 +48,33 @@ class MeasurementUnitController extends Controller
      */
     public function store(Request $request)
     {
-        $file = $request->file('import_file');
-        
-        Excel::import(new UnitsImpot, $file, 'xlsx');
-        Session::flash('notificacion', [
-            'tipo' => 'exito',
-            'titulo' => 'Éxito!',
-            'descripcion' => 'Unidades Agregadas!.',
-            'autoCierre' => 'true'
+        $validator = Validator::make($request->all(), [
+            'import_file' => 'required|mimes:xlsx'
         ]);
-        return redirect()->route('units.index');
+
+        if ($validator->fails()) {
+            Session::flash('notificacion', [
+                'tipo' => 'error',
+                'titulo' => 'Error!',
+                'descripcion' => 'Archivo incorrecto: ' . $validator->errors()->first('import_file'),
+                'autoCierre' => 'true'
+            ]);
+            return redirect()->route('units.index');
+        }
+        try {
+            $file = $request->file('import_file');
+            
+            Excel::import(new UnitsImpot, $file, 'xlsx');
+            Session::flash('notificacion', [
+                'tipo' => 'exito',
+                'titulo' => 'Éxito!',
+                'descripcion' => 'Unidades Agregadas!.',
+                'autoCierre' => 'true'
+            ]);
+            return redirect()->route('units.index');
+        } catch (\Exception $e){
+            return redirect()->route('units.index')->with('error', 'Archivo Incorrecto, el archivo debe ser un archivo Excel (.xlsx)');
+        }
     }
 
 

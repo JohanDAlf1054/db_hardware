@@ -8,7 +8,7 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Facades\Excel;
-
+use Illuminate\Support\Facades\Validator;
 /**
  * Class CategoryProductController
  * @package App\Http\Controllers
@@ -113,10 +113,19 @@ class CategoryProductController extends Controller
 
     public function importCategory(Request $request)
     {
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'import_file' => 'required|mimes:xlsx'
         ]);
 
+        if ($validator->fails()) {
+            Session::flash('notificacion', [
+                'tipo' => 'error',
+                'titulo' => 'Error!',
+                'descripcion' => 'Archivo incorrecto: ' . $validator->errors()->first('import_file'),
+                'autoCierre' => 'true'
+            ]);
+            return redirect()->route('category.index');
+        }
         try {
             $file = $request->file('import_file');
         
@@ -128,7 +137,7 @@ class CategoryProductController extends Controller
                 'autoCierre' => 'true'
             ]);
             return redirect()->route('category.index');
-        } catch (\Exception $e){
+        }catch (\Exception $e){
             Session::flash('notificacion', [
                 'tipo' => 'error',
                 'titulo' => 'Éxito!',

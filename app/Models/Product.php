@@ -89,5 +89,9 @@ class Product extends Model
         return $this->hasMany(DetalleNotaCredito::class);
     }
     
+    public function priceHistory()
+    {
+        return $this->hasMany(Sale::class, 'product_id');
+    }
 
 }

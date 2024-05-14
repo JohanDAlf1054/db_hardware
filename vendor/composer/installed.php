@@ -1577,5 +1577,14 @@
             'aliases' => array(),
             'dev_requirement' => false,
         ),
+        'wnx/laravel-backup-restore' => array(
+            'pretty_version' => 'v1.3.1',
+            'version' => '1.3.1.0',
+            'reference' => '6b9997f251f029ec6b8379b0edabc4d422ca68e3',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../wnx/laravel-backup-restore',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
     ),
 );

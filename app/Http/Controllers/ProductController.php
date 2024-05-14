@@ -50,7 +50,7 @@ class ProductController extends Controller
             ->when($activeCheck, function($query) use ($activeCheck) {
                 return $query->where('status', true);
             })
-            ->paginate(5); 
+            ->paginate(10); 
 
             $categories = CategoryProduct::all();
         return view('product.index', compact('productos', 'categories'));
@@ -196,8 +196,13 @@ class ProductController extends Controller
         }
         
         Product::where('id','=',$id)->update($datosProducto);
-        // toast('Producto Modificado!','success');
-        return redirect('products')->with('success', 'Producto Modificado!');
+        Session::flash('notificacion', [
+            'tipo' => 'exito',
+            'titulo' => 'Éxito!',
+            'descripcion' => 'Producto fue modificado!',
+            'autoCierre' => 'true'
+        ]);
+        return redirect('products');
     }
 
     /**
@@ -219,7 +224,13 @@ class ProductController extends Controller
                 'status' => 1
             ]);
         }
-        return redirect()->route('products.index')->with('success', 'Actualización estado Producto!');
+        Session::flash('notificacion', [
+            'tipo' => 'exito',
+            'titulo' => 'Éxito!',
+            'descripcion' => 'Actualización estado Producto!',
+            'autoCierre' => 'true'
+        ]);
+        return redirect()->route('products.index');
     }
 
 }
