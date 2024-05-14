@@ -154,4 +154,15 @@
       'Signal' => 'Spatie\\SignalAwareCommand\\Facades\\Signal',
     ),
   ),
+  'wnx/laravel-backup-restore' => 
+  array (
+    'providers' => 
+    array (
+      0 => 'Wnx\\LaravelBackupRestore\\LaravelBackupRestoreServiceProvider',
+    ),
+    'aliases' => 
+    array (
+      'LaravelBackupRestore' => 'Wnx\\LaravelBackupRestore\\Facades\\LaravelBackupRestore',
+    ),
+  ),
 );

@@ -137,12 +137,9 @@
                           <thead class="table-dark" >
                             <tr >
                               <th><h6 class="text-sm text-medium" style="text-align: left;">Nombre Producto</h6></th>
-                              <th><h6 class="text-sm text-medium" style="text-align: left;">Limite de Existencias</h6></th>
+                              <th><h6 class="text-sm text-medium" style="text-align: left;">Límite de Existencias</h6></th>
                               <th><h6 class="text-sm text-medium" style="text-align: left;">Precio de Venta</h6></th>
                               <th><h6 class="text-sm text-medium" style="text-align: left;">Acción</h6></th>
-                              {{-- <th><h6 class="text-sm text-medium">Products</h6></th>
-                              <th><h6 class="text-sm text-medium">Products</h6></th>
-                            </tr> --}}
                           </thead>
                           <tbody>
                             @foreach ( $dataProduct as $data )
@@ -158,7 +155,6 @@
                                             <i class="fa-solid fa-cart-shopping"></i> 
                                         </a>
                                     </td>
-                                     {{--<td></td> --}}
                                 </tr>
                             @endforeach
                           </tbody>

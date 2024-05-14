@@ -11,7 +11,7 @@ class ProductsExport implements FromView
 {
     public function view(): View
     {
-        return view('product.exportProduct',[
+        return view('reports.exportProduct',[
             'products' => Product::all()
         ]);
     }

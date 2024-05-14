@@ -24,16 +24,8 @@ class ExportController extends Controller
 
     public function report(Request $request)
     {
-        // $categoryId = $request->input('category_filter');
-        // $productID = $request->input('product_filter');
-        
-        // $categories = CategoryProduct::all();
-        $productos = Product::all();
-        $productoId = $request->input('producto');
-        $productosVendidos = DetalleVenta::select('product_id')->distinct()->get();
-        $historialPrecios = DetalleVenta::where('product_id', $productoId)->get();
         $ventas = DetalleVenta::all();
-        return view('reports.reportProduct',  compact('ventas' ,'productos', 'historialPrecios', 'productosVendidos' ));
+        return view('reports.reportProduct', compact('ventas'));
     }
 
     public function show(Sale $sale)

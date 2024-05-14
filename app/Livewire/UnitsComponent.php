@@ -78,7 +78,7 @@ class UnitsComponent extends Component
         $unit->save();
         $this->clear();
         Session::flash('notificacion', [
-            'tipo' => 'error',
+            'tipo' => 'exito',
             'titulo' => 'Éxito!',
             'descripcion' => 'Unidad Modificada!.',
             'autoCierre' => 'true'

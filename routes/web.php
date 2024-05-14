@@ -116,6 +116,7 @@ Route::get('/historial-precios', [ExportController::class, 'report'])->name('his
 //Rutas para generar los backups
 Route::get('/backup/create', [BackupController::class, 'backup'])->name('backup-create');
 Route::get('/backup/system', [BackupController::class, 'backupSystem'])->name('backup-system');
+Route::get('/restore/backup', [BackupController::class, 'restoreBackup'])->name('restore-backup');
 
 Route::get('/salesHistory', [ExportController::class, 'report'])->name('sales-History');
 Route::get('/salesShow', [ExportController::class, 'show'])->name('salesShow');

@@ -16,11 +16,11 @@
                 </svg>
             </button>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                {{-- <a class="dropdown-item" href="#" id="create-backup-only-db" wire:click.prevent="">
-                    Crear Copia de Seguridad de la base de datos
-                </a> --}}
+                <a class="dropdown-item" href="{{route('restore-backup')}}">
+                    Restaurar Ultima Copia de Seguridad
+                </a>
                 <a class="dropdown-item" href="{{ route('backup-system') }}" id="create-backup-only-files">
-                    Crear Copia de Seguridad de todo el proyecto
+                    Crear Copia de Seguridad de todo el Sistema
                 </a>
             </div>
         </div>
@@ -121,8 +121,8 @@
                                 <button class="btn btn-outline-secondary btn-sm" tooltip="tooltip" title="Descargar" target="_blank" wire:click.prevent="downloadFile('{{ $file['path'] }}')">
                                     <i class="fa-solid fa-download"></i>
                                 </button>
-                                <button class="btn btn-outline-danger btn-sm"  target="_blank" wire:click.prevent="showDeleteModal({{ $loop->index }})">
-                                    <i class="fa-solid fa-trash" tooltip="tooltip" title="Eliminar"></i>
+                                <button class="btn btn-outline-danger btn-sm" tooltip="tooltip" title="Eliminar" target="_blank" wire:click.prevent="showDeleteModal({{ $loop->index }})">
+                                    <i class="fa-solid fa-trash"></i>
                                 </button>
                             </td>
                         </tr>
@@ -163,12 +163,9 @@
             </div>
         </div>
     </div>
-    {{-- <script>
-        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[tooltip="tooltips"]'))
-        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl)
-        })
-    </script> --}}
+    <script>
+        
+    </script>
     <script>
         document.addEventListener('livewire:load', function () {
             @this.updateBackupStatuses()
