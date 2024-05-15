@@ -9,6 +9,8 @@ return array(
     'voku\\' => array($vendorDir . '/voku/portable-ascii/src/voku'),
     'phpseclib3\\' => array($vendorDir . '/phpseclib/phpseclib/phpseclib'),
     'ZipStream\\' => array($vendorDir . '/maennchen/zipstream-php/src'),
+    'Wnx\\LaravelBackupRestore\\Database\\Factories\\' => array($vendorDir . '/wnx/laravel-backup-restore/database/factories'),
+    'Wnx\\LaravelBackupRestore\\' => array($vendorDir . '/wnx/laravel-backup-restore/src'),
     'Whoops\\' => array($vendorDir . '/filp/whoops/src/Whoops'),
     'Webmozart\\Assert\\' => array($vendorDir . '/webmozart/assert/src'),
     'TijsVerkoyen\\CssToInlineStyles\\' => array($vendorDir . '/tijsverkoyen/css-to-inline-styles/src'),

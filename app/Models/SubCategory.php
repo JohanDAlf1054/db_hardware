@@ -24,7 +24,7 @@ class SubCategory extends Model
     
     static $rules = [
 		'name' => 'required|string',
-		'description' => 'required|string',
+		// 'description' => 'required|string',
 		// 'category_id' => 'required',
     ];
 

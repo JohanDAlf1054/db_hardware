@@ -3,6 +3,7 @@
 <head>
     <link href="{{asset('css/estilos_notificacion.css')}}" rel="stylesheet"/>
     <script src="{{ asset('js/notificaciones.js')}}" defer></script>
+    <script src="{{ asset('js/tooltips.js') }}" defer></script>
 </head>
 <br>
 @livewireStyles

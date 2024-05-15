@@ -128,18 +128,40 @@ foreach ($detailPurchases as $detailPurchase) {
     {
         $request->validate([
             'producto.*' => 'required',
-            'cantidad.*' => ['required', function ($attribute, $value, $fail) {
-                if ($value < 0) {
-                    $fail('La cantidad ingresada no puede ser negativa.');
-                    Session::flash('notificacion', [
-                        'tipo' => 'error',
-                        'titulo' => 'Atención!',
-                        'descripcion' => 'La cantidad ingresada no puede ser negativa.',
-                        'autoCierre' => 'true'
-                    ]);
-                }
-            }], 
-            'descripcion.*' => 'required',
+            'cantidad.*' => [
+                function ($attribute, $value, $fail) {
+                    if (!is_numeric($value)) {
+                        $fail('Se debe ingresar una cantidad.');
+                        Session::flash('notificacion', [
+                            'tipo' => 'error',
+                            'titulo' => 'Atención!',
+                            'descripcion' => 'Se debe ingresar una cantidad.',
+                            'autoCierre' => 'true'
+                        ]);
+                    } elseif ($value <= 0) {
+                        $fail('La cantidad ingresada no puede ser negativa o cero.');
+                        Session::flash('notificacion', [
+                            'tipo' => 'error',
+                            'titulo' => 'Atención!',
+                            'descripcion' => 'La cantidad ingresada no puede ser negativa o cero.',
+                            'autoCierre' => 'true'
+                        ]);
+                    }
+                },
+            ],            
+            'descripcion.*' => [
+                function ($attribute, $value, $fail) {
+                    if (empty($value)) {
+                        $fail('Se necesita agregar la descripción del porqué se va a realizar la nota débito.');
+                        Session::flash('notificacion', [
+                            'tipo' => 'error',
+                            'titulo' => 'Atención!',
+                            'descripcion' => 'Se necesita agregar la descripción del porqué se va a realizar la nota débito.',
+                            'autoCierre' => 'true'
+                        ]);
+                    }
+                },
+            ],            
             'precio_unitario.*' => 'required',
             'descuento.*' => 'required',
             'iva.*' => 'required',

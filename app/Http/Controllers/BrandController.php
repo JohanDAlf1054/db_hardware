@@ -7,6 +7,7 @@ use App\Models\Brand;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Validator;
 
 /**
  * Class BrandController
@@ -112,10 +113,19 @@ class BrandController extends Controller
 
     public function importbrands(Request $request)
     {
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'import_file' => 'required|mimes:xlsx'
         ]);
 
+        if ($validator->fails()) {
+            Session::flash('notificacion', [
+                'tipo' => 'error',
+                'titulo' => 'Error!',
+                'descripcion' => 'Archivo incorrecto: ' . $validator->errors()->first('import_file'),
+                'autoCierre' => 'true'
+            ]);
+            return redirect()->route('brand.index');
+        }
         try {
             $file = $request->file('import_file');
         

@@ -49,13 +49,13 @@ Breadcrumbs::for('product.show', function (BreadcrumbTrail $trail, Product $prod
 //Productos > Crear categoria
 Breadcrumbs::for('category.index', function (BreadcrumbTrail $trail) {
     $trail->parent('products');
-    $trail->push('Crear categoria', route('category.index'));
+    $trail->push('Crear categoría', route('category.index'));
 });
 
 //Productos > Craer categoria > Crear sub categorria
 Breadcrumbs::for('sub-category.index', function (BreadcrumbTrail $trail) {
     $trail->parent('category.index');
-    $trail->push('Crear sub categoria', route('categorySub.index'));
+    $trail->push('Crear Subcategoría', route('categorySub.index'));
 });
 
 //Productos > Crear marca
@@ -110,23 +110,24 @@ Breadcrumbs::for('detail.purchase.show', function (BreadcrumbTrail $trail, Detai
 
 
 //Compras > Mostrar nota debito
-Breadcrumbs::for('debit.note.supplie', function (BreadcrumbTrail $trail) {
+Breadcrumbs::for('debit-note-supplier.index', function (BreadcrumbTrail $trail) {
     $trail->parent('compras.index');
     $trail->push('Mostrar nota debito', route('debit-note-supplier.index'));
 });
 
 //Compras > Mostrar nota debito > Crear nota debito
-Breadcrumbs::for('debit.note.supplie.create', function (BreadcrumbTrail $trail) {
-    $trail->parent('debit.note.supplie');
+Breadcrumbs::for('debit.note.supplier.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('debit-note-supplier.index');
     $trail->push('Crear nota debito');
 });
 
 //Compras > Mostrar nota debito > Mostrar
 Breadcrumbs::for('debit.note.supplie.show', function (BreadcrumbTrail $trail, DebitNoteSupplier $debitNoteSupplier) {
-    $trail->parent('debit.note.supplie');
+    $trail->parent('debit-note-supplier.index');
     $trail->push('Mostrar');
     $trail->push($debitNoteSupplier->id);
 });
+
 
 //Personas
 Breadcrumbs::for('person.index', function (BreadcrumbTrail $trail) {

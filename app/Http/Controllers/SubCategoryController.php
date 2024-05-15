@@ -56,8 +56,8 @@ class SubCategoryController extends Controller
                 'description' => 'required|max:100',
         ];
         $mensaje = [
-            'name.required'=>'Escriba el nombre de la Sub categoria',
-            'name.unique'=>'Esta Sub Categoria ya existte!',
+            'name.required'=>'Escriba el nombre de la Subcategoria',
+            'name.unique'=>'Esta Subcategoria ya existte!',
             'description.required'=>'Escriba una breve descripción',
         ];
         $this->validate($request, $campos, $mensaje);
@@ -67,7 +67,7 @@ class SubCategoryController extends Controller
         Session::flash('notificacion', [
             'tipo' => 'exito',
             'titulo' => 'Éxito!',
-            'descripcion' => 'Sub Categoría Creada',
+            'descripcion' => 'Subcategoría Creada',
             'autoCierre' => 'true'
         ]);
          return redirect()->route('categorySub.index');
@@ -114,8 +114,8 @@ class SubCategoryController extends Controller
             'description' => 'required|max:100',
     ];
     $mensaje = [
-        'name.required'=>'Escriba el nombre de la Sub categoria',
-        'name.unique'=>'Esta Sub Categoria ya existte!',
+        'name.required'=>'Escriba el nombre de la Subcategoría',
+        'name.unique'=>'Esta Subcategoría ya existte!',
         'description.required'=>'Escriba una breve descripción',
     ];
         $this->validate($request, $campos, $mensaje);
@@ -125,7 +125,7 @@ class SubCategoryController extends Controller
         Session::flash('notificacion', [
             'tipo' => 'exito',
             'titulo' => 'Éxito!',
-            'descripcion' => 'Sub Categoría Modificada',
+            'descripcion' => 'Subcategoría Modificada',
             'autoCierre' => 'true'
         ]);
         return redirect()->route('categorySub.index');
@@ -143,7 +143,7 @@ class SubCategoryController extends Controller
         Session::flash('notificacion', [
             'tipo' => 'exito',
             'titulo' => 'Éxito!',
-            'descripcion' => 'Sub Categoría Eliminada',
+            'descripcion' => 'Subcategoría Eliminada',
             'autoCierre' => 'true'
         ]);
         return redirect()->route('categorySub.index');

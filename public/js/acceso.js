@@ -14,7 +14,7 @@ liPanel.style.display = 'none';
 onlinePanel.style.display = 'none';
 liPanel1.style.display = 'none';
 onlinePanel1.style.display = 'none';
-//Evento para mostrar y ocultar menú
+
 function open_close_menu() {
     body.classList.toggle("body_move");
     side_menu.classList.toggle("menu__side_move");
@@ -25,6 +25,23 @@ function open_close_menu() {
         onlinePanel.style.display = 'none';
         liPanel1.style.display = 'none';
         onlinePanel1.style.display = 'none';
+
+        // Ocultar solo los elementos h4 y las imágenes dentro de .option
+        var textElements = document.querySelectorAll('.option h4');
+        var imgElements = document.querySelectorAll('.option img');
+        for (var i = 0; i < textElements.length; i++) {
+            textElements[i].style.opacity = '0';
+        }
+        for (var i = 0; i < imgElements.length; i++) {
+            imgElements[i].style.opacity = '0';
+        }
+
+        // Si no funciona funemos a brayan
+        var namePageImg = document.querySelector('.name__page img');
+        namePageImg.style.opacity = '0';
+        namePageImg.style.visibility = 'hidden';
+
+        side_menu.style.borderRight = '3px solid rgb(104, 104, 104)';
 
         // Ocultar solo los elementos h4 y las imágenes dentro de .option
         var textElements = document.querySelectorAll('.option h4');
@@ -91,13 +108,8 @@ window.addEventListener("resize", function () {
 
     if (window.innerWidth > 760) {
 
-        body.classList.remove("body_move");
-        side_menu.classList.remove("menu__side_move");
+        open_close_menu(); // Llama a la función para abrir el menú
 
-        liPanel.style.display = 'none';
-        onlinePanel.style.display = 'none';
-        liPanel1.style.display = 'none';
-        onlinePanel1.style.display = 'none';
     }
 
     if (window.innerWidth < 760) {
@@ -105,21 +117,15 @@ window.addEventListener("resize", function () {
         body.classList.add("body_move");
         side_menu.classList.add("menu__side_move");
 
-         // Ocultar los elementos .li y .online cuando la pantalla es más pequeña
-         if (body.classList.contains("body_move")) {
-            liPanel.style.display = 'none';
-            onlinePanel.style.display = 'none';
-            liPanel1.style.display = 'none';
-            onlinePanel1.style.display = 'none';
-        } else {
-            liPanel.style.display = 'block';
-            onlinePanel.style.display = 'block';
-            liPanel1.style.display = 'block';
-            onlinePanel1.style.display = 'block';
-        }
+        // Ocultar los elementos .li y .online cuando la pantalla es más pequeña
+        liPanel.style.display = 'none';
+        onlinePanel.style.display = 'none';
+        liPanel1.style.display = 'none';
+        onlinePanel1.style.display = 'none';
     }
 
 });
+
 function showSettingsMenu() {
     var settingsMenu = document.getElementById('settings-menu');
     settingsMenu.style.display = 'block';

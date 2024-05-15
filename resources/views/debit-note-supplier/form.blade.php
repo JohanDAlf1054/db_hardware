@@ -70,7 +70,7 @@
                         <div class="card card-default">
                             <div class="card-header" style="display: flex">
                                 <h3 class="card-title">
-                                    {{__('Nota Debito')}}
+                                    {{('Nota Debito')}}
                                 </h3>
                             </div>
 
@@ -254,8 +254,7 @@
                 </div>
             </div>
         </div>
-    </div>
-
+    </div>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js"></script>
 
@@ -368,30 +367,31 @@
 function calcularTotales() {
     var total = 0;
     var totalBruto = 0;
-    var totalNeto = 0;
+    var descuentoTotal = 0;
 
-    // Calcula los totales
+
     document.querySelectorAll('#tabla_detalle tbody tr').forEach(function(row) {
         var cantidad = Number(row.querySelector('input[name="cantidad[]"]').value);
         var precio_unitario = Number(row.querySelector('input[name="precio_unitario[]"]').value);
-
-        var descuento = Number(row.querySelector('input[name="descuento[]"]').value);
         var iva = Number(row.querySelector('input[name="iva[]"]').value);
+        var descuento = Number(row.querySelector('input[name="descuento[]"]').value); 
 
         var subtotal = cantidad * precio_unitario;
-        var descuentoTotal = subtotal * descuento / 100;
         var ivaTotal = subtotal * iva / 100;
 
-        total += subtotal;
-        totalBruto += subtotal - descuentoTotal;
-        totalNeto += subtotal - descuentoTotal + ivaTotal;
+        total += cantidad * precio_unitario + ivaTotal; 
+        totalBruto += cantidad * precio_unitario; 
+        descuentoTotal += descuento; 
     });
 
-    // Redondea y muestra los totales
+    var totalNeto = totalBruto - descuentoTotal; 
+
+    
     document.getElementById('total').value = Math.round(total);
     document.getElementById('totalBruto').value = Math.round(totalBruto);
     document.getElementById('totalNeto').value = Math.round(totalNeto);
 }
+
 
 </script>
 </body>
