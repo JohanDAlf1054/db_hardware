@@ -222,5 +222,19 @@ a.selected {
     padding-top: 1rem;
     font-size: 18px;
 }
+.mensaje_Rol{
+    /* border: 2px solid black; */
+    width: 50%;
+    margin: auto;
+    text-align: center;
+    /* margin-left: 40rem; */
+}
+.texto_noRol{
+    padding-top: 5rem;
+}
+.img_rol{
+    /* border: 2px solid black; */
+    width: 500px;
+}
 
 

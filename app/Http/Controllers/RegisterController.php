@@ -29,6 +29,10 @@ class RegisterController extends Controller
                 'descripcion' => 'Se ha creado el usuario correctamente',
                 'autoCierre' => 'true'
             ]);
+            //Asignar el rol de administrador para el primer registro dentro del proyecto. 
+            if (User::count() === 1) {
+                $user->assignRole('Administrador');
+            }
             return redirect('/login');
         } catch (\Exception $e) {
             return Redirect::back()->withErrors(['error' => $e->getMessage()]);

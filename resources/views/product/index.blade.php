@@ -13,6 +13,7 @@
 </head>
 @can('products')
 
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-12">
@@ -224,6 +225,7 @@
         }
     });
 </script>
+@endcan
 @endauth
 @guest
     @include('include.falta_sesion')
