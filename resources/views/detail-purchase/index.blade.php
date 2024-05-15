@@ -1,26 +1,24 @@
 @auth
     @include('include.barra', ['modo' => 'Detalle De Compra'])
+<br>
+<head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/css/bootstrap-select.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" ></script>
+<link href="css/estilos_notificacion.css" rel="stylesheet"/>
+<script src="{{ asset('js/notificaciones.js')}}" defer></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.bootstrap5.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.2/css/responsive.dataTables.css">
+<script src="{{ asset('js/tooltips.js') }}" defer></script>
+</head>
 @can('detail-purchases')
-
-    <head>
-        <link rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/css/bootstrap-select.min.css">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-       {{-- <link href="{{ asset('css/products/all.css') }}" rel="stylesheet" />--}}
-        <link href="css/estilos_notificacion.css" rel="stylesheet" />
-        <script src="{{ asset('js/tooltips.js') }}" defer></script>
-        <script src="{{ asset('js/notificaciones.js') }}" defer></script>
-    </head>
-    <br>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-12">
-                <br>
-                <div class="card">
-                    <div class="card-header">
-                        <h2 id="card_title">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">
                             {{ Breadcrumbs::render('detail.purchase') }}
-                        </h2>
+                    </h3>
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -28,13 +26,15 @@
                                 <div class="dropdown">
                                     <button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown"
                                         aria-expanded="false">Acciones</button>
-                                    <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="{{ route('purchase_supplier.index') }}">Mostrar
-                                                Compras</a></li>
+                                        <ul class="dropdown-menu desplegable_acciones">
+                                        <div class="acciones_boton">
                                         <li><a class="dropdown-item" href="{{ route('detail-purchases.create') }}">Crear
                                                 Detalle Compra</a></li>
                                         <li><a class="dropdown-item" href="{{ route('debit-note-supplier.index') }}">Mostrar
                                                 notas debito</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('purchase_supplier.index') }}">Mostrar
+                                                    Compras</a></li>
+                                        </div>
                                     </ul>
                                 </div>
                             </div>
@@ -49,9 +49,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 const mensajeFlash = {!! json_encode(Session::get('notificacion')) !!};
@@ -62,24 +59,29 @@
         </script>
         <div class="contenedor-notificacion" id="contenedor-notificacion">
         </div>
+        <style>
+            #example th, #example td {
+                text-align: center !important;
+            }
+        </style>
         <div class="container_datos">
-            <div class="table_container">
+            <div class="table_container p-3">
                 <div class="table-responsive">
-                    <table class="table table-striped table-hover" style="justify-content: center">
+                    <table class="table table-striped table-hover" style="width:100%" id="example">
                         <thead class="table-dark">
                             <tr style="text-align: center">
-                                <th>No</th>
-                                <th>Tipo Documento</th>
-                                <th>Numero Documento</th>
-                                <th>Proveedor</th>
-                                <th>Producto</th>
-                                <th>Total Neto</th>
-                                <th>Iva</th>
-                                <th>Total</th>
-                                <th>Descuento</th>
-                                <th>Metodo de Pago</th>
-                                <th>Estado</th>
-                                <th>Acciones</th>
+                                <th style="text-align: center">No</th>
+                                <th style="text-align: center">Tipo Documento</th>
+                                <th style="text-align: center">Numero Documento</th>
+                                <th style="text-align: center">Proveedor</th>
+                                <th style="text-align: center">Producto</th>
+                                <th style="text-align: center">Total Neto</th>
+                                <th style="text-align: center">Iva</th>
+                                <th style="text-align: center">Total</th>
+                                <th style="text-align: center">Descuento</th>
+                                <th style="text-align: center">Metodo de Pago</th>
+                                <th style="text-align: center">Estado</th>
+                                <th style="text-align: center">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -141,12 +143,58 @@
                             @endforeach
                         </tbody>
                     </table>
-                    {!! $detailPurchases->links() !!}
                 </div>
             </div>
         </div>
     </div>
+</div>
+{!! $detailPurchases->links() !!}
+</div>
+            
+      
     @include('detail-purchase.modal')
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="https://cdn.datatables.net/2.0.5/js/dataTables.js"></script>
+<script src="https://cdn.datatables.net/2.0.5/js/dataTables.bootstrap5.js"></script>
+<script src="https://cdn.datatables.net/responsive/3.0.2/js/dataTables.responsive.js"></script>
+<script src="https://cdn.datatables.net/responsive/3.0.2/js/responsive.dataTables.js"></script>
+<script>
+    new DataTable('#example',{
+        responsive: true,
+        lengthChange: false,
+        // paging: false,
+        searching: false,
+        language: {
+            "sProcessing":     "Procesando...",
+            "sLengthMenu":     "Mostrar _MENU_ registros",
+            "sZeroRecords":    "No se encontraron resultados",
+            "sEmptyTable":     "Ningún dato disponible en esta tabla",
+            "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+            "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+            "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+            "sInfoPostFix":    "",
+            "sSearch":         "Buscar:",
+            "sUrl":            "",
+            "sInfoThousands":  ",",
+            "sLoadingRecords": "Cargando...",
+            "oPaginate": {
+                "sFirst":    "<<",
+                "sLast":     ">>",
+                "sNext":     ">",
+                "sPrevious": "<"
+            },
+            "oAria": {
+                "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+            },
+            "buttons": {
+                "copy": "Copiar",
+                "colvis": "Visibilidad"
+            }
+        }
+    });
+</script>
     @else
     <div class="mensaje_Rol">
         <img src="{{ asset('img/Rol_no_asignado.png')}}" class="img_rol"/>

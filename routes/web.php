@@ -102,7 +102,7 @@ Route::get('/export_person', [ExportController::class, 'exportperson'])->name('e
 Route::get('/export_supplier', [ExportController::class, 'exportsupplier'])->name('export.supplier');
 Route::get('/export_customer', [ExportController::class, 'exportcustomer'])->name('export.customer');
 Route::get('/report', [ExportController::class,'report'])->name('report');
-
+Route::get('/historial', function () {return view('reports.historial');})->name('historial');
 //Funciones De Compras
 Route::resource('purchase_supplier', App\Http\Controllers\PurchaseSupplierController::class);
 Route::resource('detail-purchases', App\Http\Controllers\DetailPurchaseController::class);

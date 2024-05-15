@@ -26,7 +26,7 @@
                             <a class="btn btn btn-outline-dark" href="{{route('report')}}" style="margin-bottom: 1rem">
                               <i class="fa-solid fa-file-pdf"></i> Informe General de Productos
                             </a>
-                            <a class="btn btn btn-outline-dark" href="" style="margin-bottom: 1rem">
+                            <a class="btn btn btn-outline-dark" href="{{route('historial')}}" style="margin-bottom: 1rem">
                               <i class="fa-solid fa-file-pdf"></i> Informe de Movimientos
                             </a>
                             <a class="btn btn btn-outline-dark" href="" style="margin-bottom: 1rem">

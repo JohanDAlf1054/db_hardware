@@ -54,16 +54,6 @@
     </ul>
 </div>
 @endif--}}
-            <script>
-                document.addEventListener('DOMContentLoaded', function () {
-                    const mensajeFlash = {!! json_encode(Session::get('notificacion')) !!};
-                    if (mensajeFlash) {
-                        agregarnotificacion(mensajeFlash);
-                    }
-                });
-            </script>
-            <div class="contenedor-notificacion" id="contenedor-notificacion">
-            </div>
     <div class="content container-fluid">
         <div class="page-body">
             <div class="container-x1">
@@ -75,7 +65,16 @@
                                     {{('Nota Debito')}}
                                 </h3>
                             </div>
-
+                            <script>
+                                document.addEventListener('DOMContentLoaded', function () {
+                                    const mensajeFlash = {!! json_encode(Session::get('notificacion')) !!};
+                                    if (mensajeFlash) {
+                                        agregarnotificacion(mensajeFlash);
+                                    }
+                                });
+                            </script>
+                            <div class="contenedor-notificacion" id="contenedor-notificacion">
+                            </div>
                             <div class="card-body">
                                 <div class="row row-cards">
                                 {{--  Buscar Un Numero De Factura  --}}
