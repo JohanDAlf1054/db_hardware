@@ -120,7 +120,7 @@
                                     <p class="badge bg-dark" >Sin Rol</p>
                                 </h2>
                             @endif
-                            <h5 style="margin-top: -9%" >{{ auth()->user()->name }}</h5>
+                            <h5 style="margin-top: -9%; justify-content: center" >{{ auth()->user()->name }}</h5>
                         </div>
                     </div>
                 </div>

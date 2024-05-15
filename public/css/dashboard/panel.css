@@ -116,11 +116,11 @@
 
 .user-profile .logo{
     width: 8rem;
-    height: 15rem;
-    margin: 0rem 6rem;
+    height: 16rem;
+    margin: 0rem 5rem;
 }
 
-.user-profile .logo{
+ .logo{
     text-align: center;
 }
 
@@ -128,6 +128,6 @@
     display: block;
     width: 8rem;
     object-fit: cover;
-    margin: 0.4rem 0rem;
+    margin: 0.4rem 1rem;
     border-radius: 50%;
 }
