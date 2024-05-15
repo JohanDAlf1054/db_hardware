@@ -26,6 +26,11 @@
         <button type="submit" class="btn btn-success" style="120px">{{ __('Guardar') }}</button>
     </div>
 </div>
+@else
+    <div class="mensaje_Rol">
+        <img src="{{ asset('img/Rol_no_asignado.png')}}" class="img_rol"/>
+        <h2 class="texto_noRol">Pídele al administrador que se te asigne un rol.</h2>
+    </div>
 @endcan
 @endauth
 @guest

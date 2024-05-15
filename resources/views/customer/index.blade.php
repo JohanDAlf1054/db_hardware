@@ -41,7 +41,7 @@
                                                 <li><a class="dropdown-item" href="{{ route('supplier.index') }}">Mostrar proveedores</a></li>
                                         <li><a class="dropdown-item" href="{{ route('person.index') }}">Mostrar la tabla general</a></li>
                                     </ul>
-                                </div>                        
+                                </div>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-12">
                                 <form action="{{ route('customer.index') }}" method="get"
@@ -49,7 +49,7 @@
                                     <input name="filtervalue" type="text" class="form-control me-2"
                                         aria-label="Buscar persona" placeholder="Buscar persona....">
                                     <button type="submit" class="btn btn-dark">Buscar</button>
-                                    
+
                                     {{-- Botones IMPORTAR Y EXPORTAR --}}
 
                                     <button type="button" class="btn btn-success ms-2 rounded" data-bs-toggle="tooltip"
@@ -168,6 +168,11 @@
         </div>
 
         @include('customer.modal')
+        @else
+    <div class="mensaje_Rol">
+        <img src="{{ asset('img/Rol_no_asignado.png')}}" class="img_rol"/>
+        <h2 class="texto_noRol">Pídele al administrador que se te asigne un rol.</h2>
+    </div>
     @endcan
     @endauth
     @guest

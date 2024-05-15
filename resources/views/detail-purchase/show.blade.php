@@ -201,7 +201,7 @@
                                             <th colspan="4">Total Neto</th>
                                             <th colspan="2"><span id="totalNeto">{{ $totalNeto->net_total }}</span></th>
                                         </tr>
-                                        
+
                                     </tfoot>
 
                                 </table>
@@ -343,7 +343,7 @@ $(document).ready(function() {
 
         sumas += subtotal;
         totalTax += round(subtotal * productTax);
-    
+
     });
 
     $('#sumas').text(round(sumas));
@@ -352,7 +352,7 @@ $(document).ready(function() {
     var total = round(sumas + totalTax);
     $('#total').text(total);
     $('#totalBruto').text(round(sumas));
-    
+
     console.log(totalBruto)
 });
 
@@ -447,6 +447,11 @@ $(document).ready(function() {
                 document.getElementById('product_tax').value = classificationTax;
                 });
         </script>
+        @else
+    <div class="mensaje_Rol">
+        <img src="{{ asset('img/Rol_no_asignado.png')}}" class="img_rol"/>
+        <h2 class="texto_noRol">Pídele al administrador que se te asigne un rol.</h2>
+    </div>
 @endcan
 @endauth
 @guest

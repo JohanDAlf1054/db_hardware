@@ -44,7 +44,7 @@
                                 <table class="table card-table   text-nowrap datatable">
                                     <tbody>
                                         <tr>
-                                            <td>    
+                                            <td>
                                                 <div class="input-group" id="hide-group">
                                                     <span class="input-group-text"><i class='bx bxs-package'></i></span>
                                                     <input disabled type="text" class="form-control" value="Nombre: ">
@@ -213,6 +213,11 @@
 </div>
 </div>
 </body>
+@else
+    <div class="mensaje_Rol">
+        <img src="{{ asset('img/Rol_no_asignado.png')}}" class="img_rol"/>
+        <h2 class="texto_noRol">Pídele al administrador que se te asigne un rol.</h2>
+    </div>
 @endcan
 @endauth
 

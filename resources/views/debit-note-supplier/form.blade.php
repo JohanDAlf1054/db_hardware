@@ -376,19 +376,19 @@ function calcularTotales() {
         var cantidad = Number(row.querySelector('input[name="cantidad[]"]').value);
         var precio_unitario = Number(row.querySelector('input[name="precio_unitario[]"]').value);
         var iva = Number(row.querySelector('input[name="iva[]"]').value);
-        var descuento = Number(row.querySelector('input[name="descuento[]"]').value); 
+        var descuento = Number(row.querySelector('input[name="descuento[]"]').value);
 
         var subtotal = cantidad * precio_unitario;
         var ivaTotal = subtotal * iva / 100;
 
-        total += cantidad * precio_unitario + ivaTotal; 
-        totalBruto += cantidad * precio_unitario; 
-        descuentoTotal += descuento; 
+        total += cantidad * precio_unitario + ivaTotal;
+        totalBruto += cantidad * precio_unitario;
+        descuentoTotal += descuento;
     });
 
-    var totalNeto = totalBruto - descuentoTotal; 
+    var totalNeto = totalBruto - descuentoTotal;
 
-    
+
     document.getElementById('total').value = Math.round(total);
     document.getElementById('totalBruto').value = Math.round(totalBruto);
     document.getElementById('totalNeto').value = Math.round(totalNeto);
@@ -398,6 +398,11 @@ function calcularTotales() {
 </script>
 </body>
 </html>
+@else
+    <div class="mensaje_Rol">
+        <img src="{{ asset('img/Rol_no_asignado.png')}}" class="img_rol"/>
+        <h2 class="texto_noRol">Pídele al administrador que se te asigne un rol.</h2>
+    </div>
 @endcan
 @endauth
 @guest
