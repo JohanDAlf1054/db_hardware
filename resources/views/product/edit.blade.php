@@ -1,3 +1,5 @@
+@auth
+@can('products')
 
 @include('include.barra', ['modo'=>'Editar'])
 <div class="bread_crumb">
@@ -10,4 +12,10 @@
     @include('product.form')
 
 </form>
+@endcan
 
+@endauth
+
+@guest
+    @include('include.falta_sesion')
+@endguest

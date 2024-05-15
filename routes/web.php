@@ -45,19 +45,6 @@ Route::get('/home', [HomeController::class,'index'])->name('home');
 
 Route::get('/logout', [LogoutController::class,'logout']);
 
-//Rutas de redireccionamiento
-Route::get('/People', function () {
-    return view('people.index');
-});
-
-Route::get('/Customer', function () {
-    return view('customer.index');
-});
-
-Route::get('/Supplier', function () {
-    return view('supplier.index');
-});
-
 //Rutas y funciones para el login y recuperar contraseña
 
 // Formulario donde el usuario pone su email para que le enviemos el email de resetear la contraseña
@@ -72,6 +59,21 @@ Route::get('/reiniciar-contrasenia/{token}', [AuthController::class, 'formulario
 // Función que actualiza la contraseña del usuario
 Route::post('/actualizar-contrasenia', [AuthController::class, 'actualizarContrasenia'])->name('actualizar-contrasenia');
 
+//Rutas para la vista de administrador
+Route::resource('usuarios', UsuariosController::class)->only(['index', 'edit', 'update'])->names('admin.usuarios');
+
+//Rutas de redireccionamiento
+Route::get('/People', function () {
+    return view('people.index');
+});
+
+Route::get('/Customer', function () {
+    return view('customer.index');
+});
+
+Route::get('/Supplier', function () {
+    return view('supplier.index');
+});
 
 // Funcion de Productos
 Route::resource('products', ProductController::class);
@@ -84,7 +86,6 @@ Route::resource('credit-note-sales', CreditNoteSalesController::class);
 Route::resource('person', PersonController::class);
 Route::resource('customer', CustomerController::class);
 Route::resource('supplier', SupplierController::class);
-Route::resource('usuarios', UsuariosController::class)->only(['index', 'edit', 'update'])->names('admin.usuarios');
 Route::get('/obtener-detalle-venta', [CreditNoteSalesController::class, 'obtenerDetalleVenta']);
 
 

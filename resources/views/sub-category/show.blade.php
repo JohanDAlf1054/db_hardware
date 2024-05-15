@@ -1,10 +1,6 @@
-{{-- @extends('layouts.app')
+@auth
+@can('categorySub')
 
-@section('template_title')
-    {{ $subCategory->name ?? __('Show') . " " . __('Sub Category') }}
-@endsection
-
-@section('content') --}}
     <section class="content container-fluid">
         <div class="row">
             <div class="col-md-12">
@@ -19,7 +15,7 @@
                     </div>
 
                     <div class="card-body">
-                        
+
                         <div class="form-group">
                             <strong>Name:</strong>
                             {{ $subCategory->name }}
@@ -38,4 +34,8 @@
             </div>
         </div>
     </section>
-{{-- @endsection --}}
+@endcan
+@endauth
+@guest
+    @include('include.falta_sesion')
+@endguest

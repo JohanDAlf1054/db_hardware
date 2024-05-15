@@ -1,10 +1,5 @@
-{{-- @extends('layouts.app')
-
-@section('template_title')
-    {{ __('Update') }} Sub Category
-@endsection
-
-@section('content') --}}
+@auth
+@can('categorySub')
 @include('include.barra', ['modo'=>'Sub Categoria'])
     <section class="content container-fluid">
         <div class="">
@@ -32,3 +27,8 @@
         </div>
     </section>
 {{-- @endsection --}}
+@endcan
+@endauth
+@guest
+    @include('include.falta_sesion')
+@endguest

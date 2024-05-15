@@ -1,5 +1,7 @@
 @auth
 @include('include.barra', ['modo'=>'Nota Debito'])
+@can('debit-note-supplier')
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -396,6 +398,7 @@ function calcularTotales() {
 </script>
 </body>
 </html>
+@endcan
 @endauth
 @guest
     @include('include.falta_sesion')

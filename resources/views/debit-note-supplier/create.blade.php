@@ -1,4 +1,7 @@
 @auth
+@can('debit-note-supplier')
+
+
 <div class="bread_crumb">
     {{ Breadcrumbs::render('debit.note.supplie.create') }}
 </div>
@@ -8,5 +11,8 @@
      @include('debit-note-supplier.form')
     </form>
 
-
+@endcan
 @endauth
+@guest
+    @include('include.falta_sesion')
+@endguest

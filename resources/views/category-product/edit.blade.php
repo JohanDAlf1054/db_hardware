@@ -1,10 +1,5 @@
-{{-- @extends('layouts.app')
-
-@section('template_title')
-    {{ __('Update') }} Category Product
-@endsection
-
-@section('content') --}}
+@auth
+@can('category')
 
     <section class="content container-fluid">
         <div class="">
@@ -30,3 +25,8 @@
         </div>
     </section>
 {{-- @endsection --}}
+@endcan
+@endauth
+@guest
+    @include('include.falta_sesion')
+@endguest

@@ -8,6 +8,8 @@
 <link href="css/estilos_notificacion.css" rel="stylesheet"/>
 <script src="{{ asset('js/notificaciones.js')}}" defer></script>
 </head>
+@can('products')
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-12">
@@ -159,6 +161,8 @@
 {{-- @include('sweetalert::alert') --}}
 @include('product.modal')
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js"></script>
+@endcan
+<p>Pidele al adminsitrador que se le asigne un rol</p>
 @endauth
 @guest
     @include('include.falta_sesion')

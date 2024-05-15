@@ -7,6 +7,8 @@
 @section('content') --}}
 @auth
 @include('include.barra', ['modo'=>'Sub Categorias'])
+@can('categorySub')
+
 <head>
     <link href="{{asset('css/estilos_notificacion.css')}}" rel="stylesheet"/>
     <script src="{{ asset('js/notificaciones.js')}}" defer></script>
@@ -83,6 +85,7 @@
             </div>
         </div>
     </div>
+@endcan
 @endauth
 @guest
     @include('include.falta_sesion')

@@ -1,4 +1,6 @@
 @auth
+@can('person')
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,6 +23,7 @@
 
 </body>
 </html>
+@endcan
 @endauth
 @guest
     @include('include.falta_sesion')

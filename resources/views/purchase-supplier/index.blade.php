@@ -1,7 +1,6 @@
 @auth
-
 @include('include.barra', ['modo'=>'Compra Proveedor'])
-
+@can('purchase_supplier')
 <br>
 <div class="container-fluid">
     <div class="row">
@@ -95,6 +94,7 @@
         </div>
     </div>
     </div>
+    @endcan
     @endauth
     @guest
         @include('include.falta_sesion')

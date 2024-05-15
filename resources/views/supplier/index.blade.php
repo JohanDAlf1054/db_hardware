@@ -1,5 +1,5 @@
 @auth
-
+@can('supplier')
 
     @include('include.barra', ['modo' => 'Ferreteria la excelencia'])
 
@@ -48,10 +48,10 @@
                                         title="Exportar" data-bs-toggle="modal" data-bs-target="#informes">
                                         <i class="fa-solid fa-file-arrow-down"></i>
                                     </button>
-                                    <button type="button" class="btn btn-warning ms-2 rounded" data-bs-toggle="tooltip" 
+                                    <button type="button" class="btn btn-warning ms-2 rounded" data-bs-toggle="tooltip"
                                          title="Importar" data-bs-toggle="modal" data-bs-target="#">
                                         <i class="fa-solid fa-folder-open"></i>
-                                        
+
                                     </button>
                                 </form>
                             </div>
@@ -140,7 +140,7 @@
                                                     {{--  <!-- Button trigger modal -->  --}}
 
                                                     @if ($proveedor->status == true)
-                                                        <button type="button" class="btn btn-danger btn-sm" 
+                                                        <button type="button" class="btn btn-danger btn-sm"
                                                             data-bs-toggle="modal" data-bs-toggle="tooltip"
                                                             title="Inactivar"
                                                             data-bs-target="#confirmationDestroy-{{ $proveedor->id }}"><i
@@ -166,6 +166,7 @@
 
 
         @include('supplier.modal')
+    @endcan
     @endauth
     @guest
         @include('include.falta_sesion')

@@ -1,3 +1,6 @@
+@auth
+@can('sales')
+
 <div class="bread_crumb">
     {{ Breadcrumbs::render('sales.show', $sale) }}
 </div>
@@ -201,3 +204,8 @@
     //Fuente: https://es.stackoverflow.com/questions/48958/redondear-a-dos-decimales-cuando-sea-necesario
 </script>
 @endpush
+@endcan
+@endauth
+@guest
+    @include('include.falta_sesion')
+@endguest

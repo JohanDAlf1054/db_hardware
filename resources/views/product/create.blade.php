@@ -1,4 +1,5 @@
-
+@auth
+@can('products')
 @include('include.barra', ['modo'=>'Crear Producto'])
 <!DOCTYPE html>
 <html lang="en">
@@ -17,3 +18,8 @@
     </form>
 </body>
 </html>
+@endcan
+@endauth
+@guest
+    @include('include.falta_sesion')
+@endguest

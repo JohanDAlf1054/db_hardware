@@ -1,3 +1,7 @@
+@auth
+@can('sales')
+
+
 @extends('template')
 
 @push('css')
@@ -122,7 +126,7 @@
                                                 <option value="Ajuste de precio">Ajuste de precio</option>
                                                 <option value="Otros">Otros</option>
                                             </select>
-                                        
+
                                         </div>
                                         @error('reason')
                                         <small class="text-danger">{{ '*'.$message }}</small>
@@ -321,3 +325,8 @@
         }
 </script>
 @endpush
+@endcan
+@endauth
+@guest
+    @include('include.falta_sesion')
+@endguest

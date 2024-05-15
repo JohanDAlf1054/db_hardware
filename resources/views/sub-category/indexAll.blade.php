@@ -1,3 +1,6 @@
+@auth
+@can('categorySub')
+
 @include('include.barra', ['modo'=>'Sub Categorías'])
 <br>
     <div class="container-fluid">
@@ -60,3 +63,8 @@
             </div>
         </div>
     </div>
+    @endcan
+@endauth
+@guest
+    @include('include.falta_sesion')
+@endguest

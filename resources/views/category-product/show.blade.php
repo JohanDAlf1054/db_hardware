@@ -1,3 +1,6 @@
+@auth
+@can('category')
+
 @extends('layouts.app')
 
 @section('template_title')
@@ -19,7 +22,7 @@
                     </div>
 
                     <div class="card-body">
-                        
+
                         <div class="form-group">
                             <strong>Name:</strong>
                             {{ $categoryProduct->name }}
@@ -35,3 +38,9 @@
         </div>
     </section>
 @endsection
+
+@endcan
+@endauth
+@guest
+    @include('include.falta_sesion')
+@endguest

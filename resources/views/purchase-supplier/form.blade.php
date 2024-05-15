@@ -1,4 +1,6 @@
 @auth
+@can('purchase_supplier')
+
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -19,19 +21,19 @@
                             {{ Form::text('code', $purchaseSupplier->code?? null, ['class' => 'form-control' . ($errors->has('code') ? ' is-invalid' : ''), 'placeholder' => 'Numero De Prefijo']) }}
                             {!! $errors->first('code', '<div class="invalid-feedback">:message</div>') !!}
                         </div>
-                        
+
                         <div class="form-group">
                             {{ Form::label('Fecha De La Factura De Compra', null, ['class' => 'form-label']) }}
                             {{ Form::date('date_invoice_purchase', $purchaseSupplier->date_invoice_purchase ?? null, ['class' => 'form-control' . ($errors->has('date_invoice_purchase') ? ' is-invalid' : ''), 'placeholder' => 'Dia De Creacion De La Compra']) }}
                             {!! $errors->first('date_invoice_purchase', '<div class="invalid-feedback">:message</div>') !!}
                         </div>
-                        
+
                         <div class="form-group">
                             {{ Form::label('Empleado A Cargo De La Compra', null, ['class' => 'form-label']) }}
                             {{ Form::select('users_id', $users->pluck('name', 'id'), $purchaseSupplier->users_id ?? null, ['class' => 'form-control' . ($errors->has('users_id') ? ' is-invalid' : ''), 'placeholder' => __('Seleccione un Empleado')]) }}
                             {!! $errors->first('users_id', '<div class="invalid-feedback">:message</div>') !!}
                         </div>
-                        
+
                         <div class="form-group">
                             {{ Form::label('Proveedor', null, ['class' => 'form-label']) }}
                             {{ Form::select('people_id', $people->pluck('first_name', 'id'), $purchaseSupplier->people_id ?? null, ['class' => 'form-control' . ($errors->has('people_id') ? ' is-invalid' : ''), 'placeholder' => __('Seleccione un proveedor')]) }}
@@ -48,7 +50,7 @@
         </div>
     </div>
 </div>
-
+@endcan
 @endauth
 
 @guest

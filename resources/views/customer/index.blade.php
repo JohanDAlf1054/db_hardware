@@ -1,5 +1,5 @@
 @auth
-
+@can('customer')
 
     @include('include.barra', ['modo' => 'Clientes'])
 
@@ -156,6 +156,7 @@
         </div>
 
         @include('customer.modal')
+    @endcan
     @endauth
     @guest
         @include('include.falta_sesion')

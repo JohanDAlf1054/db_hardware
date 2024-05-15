@@ -1,3 +1,7 @@
+@auth
+
+@can('products')
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -256,4 +260,9 @@
     </script> --}}
 </body>
 </html>
+@endcan
+@endauth
+@guest
+    @include('include.falta_sesion')
+@endguest
 

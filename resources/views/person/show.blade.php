@@ -2,6 +2,8 @@
 <head>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
+@can('person')
+
 <style>
     #box-razon-social{
         display: none;
@@ -247,7 +249,7 @@
 
 </script>
 {{--  @endsection  --}}
-
+@endcan
 @endauth
 @guest
     @include('include.falta_sesion')

@@ -1,4 +1,6 @@
 @auth
+@can('person')
+
 @if ($table === 'supplier')
     <div class="bread_crumb">
         {{ Breadcrumbs::render('supplier.edit', $person) }}
@@ -15,7 +17,7 @@
         @include('person.form')
 
     </form>
-
+@endcan
 @endauth
 @guest
     @include('include.falta_sesion')

@@ -1,4 +1,6 @@
 @auth
+@can('detail-purchases')
+
 @include('include.barra', ['modo'=>'Crear Detalle de Compra'])
 
 <div class="bread_crumb">
@@ -11,5 +13,8 @@
         @include('detail-purchase.form')
 
     </form>
-
+@endcan
 @endauth
+@guest
+    @include('include.falta_sesion')
+@endguest

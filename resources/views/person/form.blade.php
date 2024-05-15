@@ -1,6 +1,8 @@
 @auth
 
 @include('include.barra', ['modo'=>'Ferreteria la excelencia'])
+@can('person')
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -306,6 +308,7 @@
 </script>
 </body>
 </html>
+@endcan
 @endauth
 @guest
     @include('include.falta_sesion')

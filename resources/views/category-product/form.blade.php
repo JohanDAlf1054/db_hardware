@@ -1,6 +1,9 @@
+@auth
+@can('category')
+
 <div class="box box-info padding-1">
     <div class="box-body">
-        
+
         <div class="form-group">
             {{ Form::label('name') }}
             {{ Form::text('name', $categoryProduct->name, ['class' => 'form-control' . ($errors->has('name') ? ' is-invalid' : ''), 'placeholder' => 'Name']) }}
@@ -17,3 +20,8 @@
         <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
     </div>
 </div>
+@endcan
+@endauth
+@guest
+    @include('include.falta_sesion')
+@endguest
