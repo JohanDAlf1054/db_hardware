@@ -70,7 +70,7 @@ class PeopleExport implements FromQuery, WithTitle, WithHeadings
                 ->whereIn('rol', ['proveedor', 'cliente']);
         }
     }
-    public function styles(Worksheet $personas)
+    public function styles(Worksheet $worksheet)
     {
         return [
             1 => ['font' => ['bold' => true]],

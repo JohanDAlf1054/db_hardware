@@ -131,7 +131,7 @@
                                                 <td>{{ $person->phone }}</td>
                                                 <td>
                                                     @if ($person->status == true)
-                                                        <p class="badge rounded-pill bg-success text-dark"
+                                                        <p class="badge rounded-pill bg-success"
                                                             style="font-size: 15px">Activo</p>
                                                     @else
                                                         <p class="badge rounded-pill bg-danger" style="font-size: 15px">
