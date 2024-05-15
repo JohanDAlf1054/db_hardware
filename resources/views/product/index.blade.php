@@ -11,6 +11,8 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.2/css/responsive.dataTables.css">
 <script src="{{ asset('js/tooltips.js') }}" defer></script>
 </head>
+@can('products')
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-12">
@@ -172,7 +174,7 @@
                 </script>
                 <div class="contenedor-notificacion" id="contenedor-notificacion">
                 </div>
-                
+
             </div>
         </div>
     </div>

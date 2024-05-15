@@ -20,6 +20,8 @@
 
     </head>
     <br>
+    @can('person')
+
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
@@ -152,10 +154,12 @@
                         </div>
                     </div>
                 </div>
-                {!! $people->links() !!}
             </div>
+            {!! $people->links() !!}
         </div>
     </div>
+    </div>
+    @endcan
     @include('person.modal')
 @endauth
 @guest

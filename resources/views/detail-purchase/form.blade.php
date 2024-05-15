@@ -1,4 +1,5 @@
 @auth
+@can('detail-purchases')
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,7 +16,7 @@
 <div class="container-fluid">
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="nav navbar-nav ml-auto">
-        </ul> 
+        </ul>
     </div>
     </nav>
     <div class="container">
@@ -31,8 +32,8 @@
                 </div>
                 <div class="p-3 border border-3 border-primary">
                     <div class="row">
-                        
-                        <div class="col-12 mb-4">
+
+                        <div class="col-6 mb-4">
                             <label for="producto_id" class="form-label">Producto:</label>
                             <select name="producto_id" id="producto_id" class="form-control selectpicker {{ $errors->has('producto_id') ? ' is-invalid' : '' }}" data-live-search="true" data-size="5" title="Seleccione un producto">
                                 <option value="">Seleccione un producto</option>
@@ -44,7 +45,7 @@
                             </select>
                             {!! $errors->first('producto_id', '<div class="invalid-feedback">:message</div>') !!}
                         </div>
-                        
+
                         {{--
                         <div class="col-6 mb-2">
                             <label for="identification_type" class="form-label">Tipo de identificación:</label>
@@ -53,7 +54,7 @@
                             <small class="text-danger">{{ '*'.$message }}</small>
                             @enderror
                         </div>
-                        
+
                         <div class="col-6 mb-2">
                             <label for="identification_number" class="form-label">Número de identificación:</label>
                             <input type="text" id="identification_number" name="document_number" required class="form-control" value="{{ old('document_number', isset($detailPurchase) && isset($detailPurchase->purchaseSupplier) && isset($detailPurchase->purchaseSupplier->person) ? $detailPurchase->purchaseSupplier->person->identification_number : '') }}">
@@ -68,7 +69,7 @@
                             @error('fecha')
                             <small class="text-danger">{{ '*'.$message }}</small>
                             @enderror
-                        </div>--}}  
+                        </div>--}}
                         <div class="col-6 mb-4">
                             <label for="invoice_number_purchase" class="form-label">Número de factura</label>
                             <input type="text" id="invoice_number_purchase" name="invoice_number_purchase" class="form-control {{ $errors->has('invoice_number_purchase') ? ' is-invalid' : '' }}" placeholder="Ingrese el número de factura" value="{{ old('invoice_number_purchase', isset($purchaseSupplier) ? $purchaseSupplier->invoice_number_purchase : '') }}">
@@ -77,9 +78,6 @@
                             @enderror
                         </div>
 
-
-                        
-                        
                         <div class="col-6 mb-2">
                             <label for="code" class="form-label">Prefijo:</label>
                             <input type="text" id="code" name="code" class="form-control {{ $errors->has('code') ? ' is-invalid' : '' }}" placeholder="Ingrese el prefijo" value="{{ old('code', isset($purchaseSupplier) ? $purchaseSupplier->code : '') }}">
@@ -87,36 +85,8 @@
                             <small class="text-danger">{{ '*'.$message }}</small>
                             @enderror
                         </div>
-                        
-                        
-                        
-                        
-                        <div class="col-sm-4 mb-2">
-                            <label for="precio_compra" class="form-label">Precio Unitario:</label>
-                            <input type="number" name="precio_compra" id="precio_compra" class="form-control" step="0.1">
-                        </div>
-                        <br>
-                        
-                        <div class="col-sm-4 mb-2">
-                            <label for="cantidad" class="form-label">Cantidad:</label>
-                            <input type="number" name="cantidad" id="cantidad" class="form-control">
-                        </div>
-                        
 
-                        
-                        
-                        <div class="col-sm-4 mb-2">
-                            <label for="precio_venta" class="form-label"> Descripción:</label>
-                            <input type="text" name="precio_venta" id="precio_venta" class="form-control" step="0.1">
-                        </div>
 
-                        <div class="col-6 mb-2">
-                            <label for="discount_total" class="form-label">Descuento Total</label>
-                            <input type="number" id="discount_total" name="discount_total" min="0" max="100" step="1" class="form-control" placeholder="Ingrese el porcentaje de descuento" oninput="this.value = Math.round(this.value)" value="{{ old('discount_total', isset($detailPurchase) ? $detailPurchase->discount_total : '') }}">
-                            @error('discount_total')
-                            <small class="text-danger">{{ '*'.$message }}</small>
-                            @enderror
-                        </div>
 
                         <div class="col-6 mb-4">
                             <label for="product_tax" class="form-label">Impuesto a cargo del producto</label>
@@ -125,20 +95,38 @@
                                 <option value="5" {{ old('product_tax', isset($detailPurchase) ? $detailPurchase->product_tax : '') == 5 ? 'selected' : '' }}>5%</option>
                                 <option value="19" {{ old('product_tax', isset($detailPurchase) ? $detailPurchase->product_tax : '') == 19 ? 'selected' : '' }}>19%</option>
                             </select>
-                            
+
                             @error('product_tax')
                             <small class="text-danger">{{ '*'.$message }}</small>
                             @enderror
                         </div>
+
+                        <br>
+
+                        <div class="col-sm-4 mb-2">
+                            <label for="cantidad" class="form-label">Cantidad:</label>
+                            <input type="number" name="cantidad" id="cantidad" class="form-control">
+                        </div>
+
+
+                        <div class="col-sm-4 mb-2">
+                            <label for="precio_compra" class="form-label">Precio Unitario:</label>
+                            <input type="number" name="precio_compra" id="precio_compra" class="form-control" step="0.1">
+                        </div>
+
+                        <div class="col-sm-4 mb-2">
+                            <label for="precio_venta" class="form-label"> Descripción:</label>
+                            <input type="text" name="precio_venta" id="precio_venta" class="form-control" step="0.1">
+                        </div>
+
                         <div class="col-12 mb-4 mt-2 text-end">
                             <button id="btn_agregar" class="btn btn-primary" type="button">Agregar</button>
                         </div>
-                        
-                        
-                        
-                        
-                    
-                    
+
+
+
+
+
                         <div class="col-12">
                             <div class="table-responsive">
                                 <table id="tabla_detalle" class="table table-hover">
@@ -187,7 +175,7 @@
                                         <tr>
                                             <th></th>
                                             <th colspan="4">Total Bruto</th>
-                                            <th colspan="2"><input type="hidden" name="totalBruto" id="hiddenTotalBruto"><span id="totalBruto"> 
+                                            <th colspan="2"><span id="totalBruto">
                                                 0</span></th>
                                         </tr>
                                         <tr>
@@ -199,7 +187,7 @@
                                 </table>
                             </div>
                         </div>
-                                
+
                         <div class="col-12 mt-2">
                             <button id="cancelar" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
                                 Cancelar compra
@@ -227,12 +215,12 @@
                                     </option>
                                 @endforeach
                             </select>
-                            
+
                             @error('people_id')
                             <small class="text-danger">{{ '*'.$message }}</small>
                             @enderror
                         </div>
-                    
+
                         <div class="col-6 mb-2">
                             <label for="user_id" class="form-label">Empleado:</label>
                             <select name="user_id" id="user_id" class="form-control selectpicker show-tick" data-live-search="true" title="Selecciona" data-size='2'>
@@ -247,19 +235,25 @@
                                 <small class="text-danger">{{ '*'.$message }}</small>
                             @enderror
                         </div>
-                        
-                        
-                        
+
+
+                        <div class="col-6 mb-2">
+                            <label for="discount_total" class="form-label">Descuento Total</label>
+                            <input type="number" id="discount_total" name="discount_total" min="0" max="100" step="1" class="form-control" placeholder="Ingrese el porcentaje de descuento" oninput="this.value = Math.round(this.value)" value="{{ old('discount_total', isset($detailPurchase) ? $detailPurchase->discount_total : '') }}">
+                            @error('discount_total')
+                            <small class="text-danger">{{ '*'.$message }}</small>
+                            @enderror
+                        </div>
                         <!--Impuesto---->
                             <div class="col-sm-6 mb-2">
                                 <label for="fecha" class="form-label">Fecha:</label>
                                 <input readonly type="date" name="fecha" id="fecha" class="form-control border-success" value="<?php echo date("Y-m-d") ?>">
                             </div>
                                 <div class="col-6 mb-2">
-                                
+
                                     <label for="form_of_payment" class="form-label">Formas de pago:</label>
                                     <select id="form_of_payment" name="form_of_payment" class="form-control">
-                                        
+                                        <option value="">Seleccionar forma de pago</option>
                                         <option value="tarjeta" {{ old('form_of_payment', isset($detailPurchase) ? $detailPurchase->form_of_payment : '') == 'tarjeta' ? 'selected' : '' }}>Tarjeta</option>
                                         <option value="efectivo" {{ old('form_of_payment', isset($detailPurchase) ? $detailPurchase->form_of_payment : '') == 'efectivo' ? 'selected' : '' }}>Efectivo</option>
                                     </select>
@@ -267,11 +261,11 @@
                                     <small class="text-danger">{{ '*'.$message }}</small>
                                     @enderror
                                 </div>
-                                
+
                                 <div class="col-6 mb-2">
                                     <label for="method_of_payment" class="form-label">Método de Pago:</label>
                                     <select id="method_of_payment" name="method_of_payment" class="form-control">
-                                    
+                                        <option value="">Seleccione un metodo de pago</option>
                                         <option value="cuotas">Cuotas</option>
                                         <option value="contado">Contado</option>
                                         <!-- Agrega aquí las demás opciones que necesites -->
@@ -280,11 +274,11 @@
                                     <small class="text-danger">{{ '*'.$message }}</small>
                                     @enderror
                                 </div>
-                                
+
                                 <div class="col-12 mt-4 text-center">
                                     <button type="submit" class="btn btn-success" id="guardar">Realizar compra</button>
                                 </div>
-        
+
                             </div>
                         </div>
                     </div>
@@ -312,15 +306,15 @@
     </div>
 </div>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js"></script> 
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js"></script>
 
-        
+
         <script>
             $(document).ready(function(){
     $('#btn_agregar').click(function(){
         agregarProducto();
     });
-    
+
     $('#btnCancelarCompra').click(function() {
             cancelarCompra();
         });
@@ -333,7 +327,7 @@ let sumas=0;
 let igv=0;
 let total=0;
 let totalBruto=0;
-let totalNeto = 0; 
+let totalNeto = 0;
 function cancelarCompra() {
         //Elimar el tbody de la tabla
         $('#tabla_detalle tbody').empty();
@@ -355,7 +349,7 @@ sumas=0;
 igv=0;
 total=0;
 totalBruto=0;
-totalNeto = 0; 
+totalNeto = 0;
 
 $('#sumas').html(sumas);
     $('#igv').html(igv);
@@ -363,10 +357,6 @@ $('#sumas').html(sumas);
     $('#totalBruto').html(totalBruto);
     $('#totalNeto').html(totalNeto);
     $('#inputTotal').val(total);
-    $('#hiddenTotalBruto').val(totalBruto);
-    $('#hiddenTotalNeto').val(totalNeto);
-
-   
 limpiarCampos();
 disableButtons();
 }
@@ -386,33 +376,20 @@ function agregarProducto(){
     let descripcion=$('#precio_venta').val();
     let impuesto=$('#product_tax').val();
     let precioCompra=$('#precio_compra').val();
-    let descuentoProducto=$('#discount_total').val();
-    
 
-    if (idProducto == '' || idProducto == undefined || nameProducto == '' || nameProducto == undefined || cantidad == '' || cantidad == undefined || descripcion == '' || descripcion == undefined || impuesto == '' || impuesto == undefined || precioCompra == '' || precioCompra == undefined || descuentoProducto == '' || descuentoProducto == undefined) {
-    showModal('Le faltan campos por llenar');
-}
- else if (!(parseInt(cantidad) > 0 && (cantidad % 1 == 0) && parseFloat(precioCompra) > 0)) {
+    if (idProducto == '' || idProducto == undefined || nameProducto == '' || nameProducto == undefined || cantidad == '' || cantidad == undefined || descripcion == '' || descripcion == undefined || impuesto == '' || impuesto == undefined || precioCompra == '' || precioCompra == undefined) {
+        showModal('Le faltan campos por llenar');
+    } else if (!(parseInt(cantidad) > 0 && (cantidad % 1 == 0) && parseFloat(precioCompra) > 0)) {
         showModal('Valores incorrectos');
     } else {
         //calcular valores
-subtotal[cont] = round (cantidad * precioCompra);
-sumas += subtotal[cont]; 
-igv = round (sumas * impuesto / 100); 
-total = round(sumas + igv); 
-totalBruto = round (sumas); 
-
-// Verificar que el descuento no sea mayor que el total bruto
-if (descuentoProducto > totalBruto) {
-    // Aquí puedes manejar el caso en que el descuento es mayor que el total bruto
-    console.error('El descuento no puede ser mayor que el total bruto');
-} else {
-    totalNeto = round(totalBruto - descuentoProducto);
-}
-
-$('#gross_total').val(totalBruto);
-
-       
+        subtotal[cont] = round (cantidad * precioCompra);
+        sumas += subtotal[cont];
+        igv = round (sumas * impuesto / 100);
+        total = round(sumas + igv);
+        totalBruto = round (sumas);
+        totalNeto = total;
+        $('#gross_total').val(totalBruto);
 
         let fila = '<tr id="fila' + cont + '">' +
     '<th>' + (cont+1) + '</th>' +
@@ -465,7 +442,7 @@ function eliminarProducto(indice, impuesto) {
 
     function limpiarCampos(){
         let select=$('#producto_id');
-        select.val(''); 
+        select.val('');
         $('#cantidad').val('');
         $('#precio_venta').val('');
         $('#product_tax').val('');
@@ -536,9 +513,10 @@ if (isNaN(classificationTax)) {
     }
 });
 
-
+*/
         </script>
-    @endauth
-    @guest
-@include('include.falta_sesion')
+    @endcan
+@endauth
+@guest
+    @include('include.falta_sesion')
 @endguest

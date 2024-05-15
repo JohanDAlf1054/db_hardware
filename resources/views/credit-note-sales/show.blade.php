@@ -1,3 +1,6 @@
+@auth
+@can('sales')
+
 @extends('template')
 
 @section('title','Ver nota crédito')
@@ -197,3 +200,8 @@
 @push('js')
 
 @endpush
+@endcan
+@endauth
+@guest
+    @include('include.falta_sesion')
+@endguest

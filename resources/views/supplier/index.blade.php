@@ -1,5 +1,5 @@
 @auth
-
+@can('supplier')
 
     @include('include.barra', ['modo' => 'Ferreteria la excelencia'])
 
@@ -56,10 +56,9 @@
                                     <button type="button" class="btn btn-success ms-2 rounded" data-bs-toggle="tooltip"
                                         title="Exportar" onclick="window.location.href='{{ route('export.supplier') }}'">
                                         <i class="fa-solid fa-file-arrow-down"></i>
-                                    </button>                                
-
-                                    <button type="button" class="btn btn-warning ms-2 rounded" tootltip="tooltip"
-                                        title="Importar" data-bs-toggle="modal" data-bs-target="#">
+                                    </button>
+                                    <button type="button" class="btn btn-warning ms-2 rounded" data-bs-toggle="tooltip"
+                                         title="Importar" data-bs-toggle="modal" data-bs-target="#">
                                         <i class="fa-solid fa-folder-open"></i>
 
                                     </button>
@@ -150,7 +149,8 @@
 
                                                     @if ($proveedor->status == true)
                                                         <button type="button" class="btn btn-danger btn-sm"
-                                                            data-bs-toggle="modal" tooltip="tooltip" title="Inactivar"
+                                                            data-bs-toggle="modal" data-bs-toggle="tooltip"
+                                                            title="Inactivar"
                                                             data-bs-target="#confirmationDestroy-{{ $proveedor->id }}"><i
                                                                 class="fa fa-fw fa-trash"></i></button>
                                                     @else
@@ -174,6 +174,7 @@
 
 
         @include('supplier.modal')
+    @endcan
     @endauth
     @guest
         @include('include.falta_sesion')

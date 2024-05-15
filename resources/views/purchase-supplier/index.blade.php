@@ -1,10 +1,10 @@
 @auth
-
 @include('include.barra', ['modo'=>'Compra Proveedor'])
 <head>
     <script src="{{ asset('js/tooltips.js') }}" defer></script>
 
 </head>
+@can('purchase_supplier')
 <br>
 <div class="container-fluid">
     <div class="row">
@@ -85,7 +85,7 @@
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger btn-sm" title="{{ __('Eliminar') }}"><i class="fa fa-fw fa-trash"></i></button>
                                             </form>
-                                            
+
                                                                                     </td>
                                         </tr>
                                     @endforeach
@@ -99,6 +99,7 @@
         </div>
     </div>
     </div>
+    @endcan
     @endauth
     @guest
         @include('include.falta_sesion')

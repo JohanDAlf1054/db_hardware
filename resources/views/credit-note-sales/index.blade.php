@@ -1,3 +1,6 @@
+@auth
+@can('sales')
+
 @extends('template')
 
 @push('css')
@@ -150,4 +153,9 @@
     </div>
 </div>
 @endsection
+@endcan
+@endauth
+@guest
+    @include('include.falta_sesion')
+@endguest
 

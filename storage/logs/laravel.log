@@ -16,7 +16,7 @@
 #13 C:\\laragon\\www\\Nuevo_repositorio\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(199): Illuminate\\Foundation\\Console\\Kernel->bootstrap()
 #14 Command line code(1): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
 #15 {main}
-"} 
+"}
 [2024-05-14 20:08:58] local.ERROR: syntax error, unexpected token "<<", expecting ")" {"exception":"[object] (ParseError(code: 0): syntax error, unexpected token \"<<\", expecting \")\" at C:\\laragon\\www\\Nuevo_repositorio\\vendor\\composer\\installed.php:475)
 [stacktrace]
 #0 C:\\laragon\\www\\Nuevo_repositorio\\vendor\\composer\\InstalledVersions.php(139): Composer\\InstalledVersions::getInstalled()
@@ -35,7 +35,7 @@
 #13 C:\\laragon\\www\\Nuevo_repositorio\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(199): Illuminate\\Foundation\\Console\\Kernel->bootstrap()
 #14 Command line code(1): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
 #15 {main}
-"} 
+"}
 [2024-05-14 20:08:58] local.ERROR: syntax error, unexpected token "<<", expecting ")" {"exception":"[object] (ParseError(code: 0): syntax error, unexpected token \"<<\", expecting \")\" at C:\\laragon\\www\\Nuevo_repositorio\\vendor\\composer\\installed.php:475)
 [stacktrace]
 #0 C:\\laragon\\www\\Nuevo_repositorio\\vendor\\composer\\InstalledVersions.php(139): Composer\\InstalledVersions::getInstalled()
@@ -54,7 +54,7 @@
 #13 C:\\laragon\\www\\Nuevo_repositorio\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(199): Illuminate\\Foundation\\Console\\Kernel->bootstrap()
 #14 Command line code(1): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
 #15 {main}
-"} 
+"}
 [2024-05-14 20:08:58] local.ERROR: syntax error, unexpected token "<<", expecting ")" {"exception":"[object] (ParseError(code: 0): syntax error, unexpected token \"<<\", expecting \")\" at C:\\laragon\\www\\Nuevo_repositorio\\vendor\\composer\\installed.php:475)
 [stacktrace]
 #0 C:\\laragon\\www\\Nuevo_repositorio\\vendor\\composer\\InstalledVersions.php(139): Composer\\InstalledVersions::getInstalled()
@@ -73,7 +73,7 @@
 #13 C:\\laragon\\www\\Nuevo_repositorio\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(199): Illuminate\\Foundation\\Console\\Kernel->bootstrap()
 #14 Command line code(1): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
 #15 {main}
-"} 
+"}
 [2024-05-14 20:08:58] local.ERROR: syntax error, unexpected token "<<", expecting ")" {"exception":"[object] (ParseError(code: 0): syntax error, unexpected token \"<<\", expecting \")\" at C:\\laragon\\www\\Nuevo_repositorio\\vendor\\composer\\installed.php:475)
 [stacktrace]
 #0 C:\\laragon\\www\\Nuevo_repositorio\\vendor\\composer\\InstalledVersions.php(139): Composer\\InstalledVersions::getInstalled()
@@ -92,7 +92,7 @@
 #13 C:\\laragon\\www\\Nuevo_repositorio\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(199): Illuminate\\Foundation\\Console\\Kernel->bootstrap()
 #14 Command line code(1): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
 #15 {main}
-"} 
+"}
 [2024-05-14 20:08:58] local.ERROR: syntax error, unexpected token "<<", expecting ")" {"exception":"[object] (ParseError(code: 0): syntax error, unexpected token \"<<\", expecting \")\" at C:\\laragon\\www\\Nuevo_repositorio\\vendor\\composer\\installed.php:475)
 [stacktrace]
 #0 C:\\laragon\\www\\Nuevo_repositorio\\vendor\\composer\\InstalledVersions.php(139): Composer\\InstalledVersions::getInstalled()
@@ -111,7 +111,7 @@
 #13 C:\\laragon\\www\\Nuevo_repositorio\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(199): Illuminate\\Foundation\\Console\\Kernel->bootstrap()
 #14 Command line code(1): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
 #15 {main}
-"} 
+"}
 [2024-05-14 20:08:58] local.ERROR: syntax error, unexpected token "<<", expecting ")" {"exception":"[object] (ParseError(code: 0): syntax error, unexpected token \"<<\", expecting \")\" at C:\\laragon\\www\\Nuevo_repositorio\\vendor\\composer\\installed.php:475)
 [stacktrace]
 #0 C:\\laragon\\www\\Nuevo_repositorio\\vendor\\composer\\InstalledVersions.php(139): Composer\\InstalledVersions::getInstalled()
@@ -130,7 +130,7 @@
 #13 C:\\laragon\\www\\Nuevo_repositorio\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(199): Illuminate\\Foundation\\Console\\Kernel->bootstrap()
 #14 Command line code(1): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
 #15 {main}
-"} 
+"}
 [2024-05-14 20:08:58] local.ERROR: syntax error, unexpected token "<<", expecting ")" {"exception":"[object] (ParseError(code: 0): syntax error, unexpected token \"<<\", expecting \")\" at C:\\laragon\\www\\Nuevo_repositorio\\vendor\\composer\\installed.php:475)
 [stacktrace]
 #0 C:\\laragon\\www\\Nuevo_repositorio\\vendor\\composer\\InstalledVersions.php(139): Composer\\InstalledVersions::getInstalled()
@@ -149,7 +149,7 @@
 #13 C:\\laragon\\www\\Nuevo_repositorio\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(199): Illuminate\\Foundation\\Console\\Kernel->bootstrap()
 #14 Command line code(1): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
 #15 {main}
-"} 
+"}
 [2024-05-14 20:08:58] local.ERROR: syntax error, unexpected token "<<", expecting ")" {"exception":"[object] (ParseError(code: 0): syntax error, unexpected token \"<<\", expecting \")\" at C:\\laragon\\www\\Nuevo_repositorio\\vendor\\composer\\installed.php:475)
 [stacktrace]
 #0 C:\\laragon\\www\\Nuevo_repositorio\\vendor\\composer\\InstalledVersions.php(139): Composer\\InstalledVersions::getInstalled()
@@ -168,7 +168,7 @@
 #13 C:\\laragon\\www\\Nuevo_repositorio\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(199): Illuminate\\Foundation\\Console\\Kernel->bootstrap()
 #14 Command line code(1): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
 #15 {main}
-"} 
+"}
 [2024-05-14 20:09:54] local.ERROR: syntax error, unexpected token "<<", expecting ")" {"exception":"[object] (ParseError(code: 0): syntax error, unexpected token \"<<\", expecting \")\" at C:\\laragon\\www\\Nuevo_repositorio\\vendor\\composer\\installed.php:475)
 [stacktrace]
 #0 C:\\laragon\\www\\Nuevo_repositorio\\vendor\\composer\\InstalledVersions.php(139): Composer\\InstalledVersions::getInstalled()
@@ -187,7 +187,7 @@
 #13 C:\\laragon\\www\\Nuevo_repositorio\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(199): Illuminate\\Foundation\\Console\\Kernel->bootstrap()
 #14 Command line code(1): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
 #15 {main}
-"} 
+"}
 [2024-05-14 20:09:54] local.ERROR: syntax error, unexpected token "<<", expecting ")" {"exception":"[object] (ParseError(code: 0): syntax error, unexpected token \"<<\", expecting \")\" at C:\\laragon\\www\\Nuevo_repositorio\\vendor\\composer\\installed.php:475)
 [stacktrace]
 #0 C:\\laragon\\www\\Nuevo_repositorio\\vendor\\composer\\InstalledVersions.php(139): Composer\\InstalledVersions::getInstalled()
@@ -206,4 +206,4 @@
 #13 C:\\laragon\\www\\Nuevo_repositorio\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(199): Illuminate\\Foundation\\Console\\Kernel->bootstrap()
 #14 Command line code(1): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
 #15 {main}
-"} 
+"}

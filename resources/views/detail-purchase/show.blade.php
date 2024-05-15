@@ -1,5 +1,7 @@
 @auth
 @include('include.barra', ['modo'=>'Detalle de Compra'])
+@can('detail-purchases')
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -445,4 +447,8 @@ $(document).ready(function() {
                 document.getElementById('product_tax').value = classificationTax;
                 });
         </script>
+@endcan
 @endauth
+@guest
+    @include('include.falta_sesion')
+@endguest

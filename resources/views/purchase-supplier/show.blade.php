@@ -1,4 +1,6 @@
 @auth
+@can('purchase_supplier')
+
 @include('include.barra', ['modo'=>'Detalles de la Compra'])
     <div class="bread_crumb">
         {{ Breadcrumbs::render('compras.show', $purchaseSupplier) }}
@@ -50,4 +52,8 @@
         </div>
     </div>
 </section>
+@endcan
 @endauth
+@guest
+    @include('include.falta_sesion')
+@endguest

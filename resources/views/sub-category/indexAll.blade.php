@@ -1,3 +1,6 @@
+@auth
+@can('categorySub')
+
 @include('include.barra', ['modo'=>'Sub Categorías'])
 <script src="{{ asset('js/tooltips.js') }}" defer></script>
 <br>
@@ -58,8 +61,12 @@
                         </div>
                     </div>
                 </div>
+                {{ $subCategories->links() }}
             </div>
-            {{ $subCategories->links() }}
         </div>
     </div>
-</div>
+    @endcan
+@endauth
+@guest
+    @include('include.falta_sesion')
+@endguest

@@ -1,4 +1,6 @@
 @auth
+@can('brand')
+
 @include('include.barra', ['modo'=>'Marcas'])
 <head>
     <link href="{{asset('css/estilos_notificacion.css')}}" rel="stylesheet"/>
@@ -22,6 +24,7 @@
     <div class="contenedor-notificacion" id="contenedor-notificacion">
     </div>
 </body>
+@endcan
 @endauth
 @guest
     @include('include.falta_sesion')

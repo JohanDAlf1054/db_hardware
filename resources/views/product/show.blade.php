@@ -1,3 +1,5 @@
+@auth
+@can('products')
 
 @include('include.barra', ['modo'=>'Productos'])
 <body>
@@ -211,4 +213,10 @@
 </div>
 </div>
 </body>
+@endcan
+@endauth
+
+@guest
+    @include('include.falta_sesion')
+@endguest
 

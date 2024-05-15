@@ -1,4 +1,9 @@
 {{-- <!DOCTYPE html> --}}
+@auth
+
+@can('products')
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -231,4 +236,9 @@
     </script> --}}
 </body>
 </html>
+@endcan
+@endauth
+@guest
+    @include('include.falta_sesion')
+@endguest
 

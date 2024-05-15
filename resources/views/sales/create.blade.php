@@ -1,3 +1,6 @@
+@auth
+@can('sales')
+
 @extends('template')
 
 @push('css')
@@ -11,9 +14,9 @@
 </div>
 <br>
 
-</div>  
+</div>
 @section('content')
-<<div class="table-responsive px-3"> 
+<<div class="table-responsive px-3">
 <div class="card">
     <div class="card-header">
         <h2 id="card_title">
@@ -153,7 +156,7 @@
                                 <div class="col-sm-12">
                                     <label for="dates" class="form-label">Fecha:</label>
                                     <input readonly type="date" name="dates" id="dates" class="form-control border-success" value="<?php echo date("Y-m-d") ?>">
-                                    <?php           
+                                    <?php
                                     use Carbon\Carbon;
                                     $fecha_hora = Carbon::now()->toDateTimeString();
                                     ?>
@@ -220,7 +223,7 @@
                 </div>
                 <div class="modal-body">
                     ¿Seguro que quieres cancelar la venta?
-                </div> 
+                </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
                     <button id="btnCancelarVenta" type="button" class="btn btn-danger" data-bs-dismiss="modal">Confirmar</button>
@@ -446,3 +449,8 @@ function eliminarProducto(indice, subtotalProducto, impuesto) {
     //Fuente: https://es.stackoverflow.com/questions/48958/redondear-a-dos-decimales-cuando-sea-necesario
 </script>
 @endpush
+@endcan
+@endauth
+@guest
+    @include('include.falta_sesion')
+@endguest

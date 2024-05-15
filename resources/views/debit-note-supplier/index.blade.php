@@ -1,7 +1,6 @@
 @auth
-
-
-    @include('include.barra', ['modo' => 'Ferreteria la excelencia'])
+@include('include.barra', ['modo'=>'Notas Debito'])
+@can('debit-note-supplier')
 
     <head>
         <link href="css/estilos_vista_persona.css" rel="stylesheet" />
@@ -10,7 +9,7 @@
         <script src="{{ asset('js/tooltips.js') }}" defer></script>
         <link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.bootstrap5.css">
         <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.2/css/responsive.dataTables.css">
-        
+
 
     </head>
     <br>
@@ -87,7 +86,7 @@
                                                 <td>{{ ++$i }}</td>
                                                 <td>{{ optional($debitNoteSupplier->detailPurchase->purchaseSupplier->person)->identification_type ?? 'Error: No se encontró el proveedor' }}</td>
                                                 <td>{{ optional($debitNoteSupplier->detailPurchase->purchaseSupplier->person)->identification_number ?? 'Error: No se encontró el proveedor' }}</td>
-            
+
                                                 <td>{{ optional($debitNoteSupplier->detailPurchase->purchaseSupplier->person)->first_name ?? 'Error: No se encontró el proveedor' }}</td>
                                                 <td>{{ $debitNoteSupplier->debit_note_code}}</td>
                                                 <td>{{ $debitNoteSupplier->date_invoice }}</td>
@@ -112,16 +111,16 @@
                                                         @if ($debitNoteSupplier->status == true)
                                                             <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"tooltip="tooltip"
                                                             title="Inactivar"  data-bs-target="#confirmationDestroy-{{$debitNoteSupplier->id}}"><i class="fa fa-fw fa-trash"></i></button>
-                                                        
+
                                                             @else
                                                             <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"tooltip="tooltip"
                                                             title="Activar"  data-bs-target="#confirmationDestroy-{{$debitNoteSupplier->id}}"><i class="fa-solid fa-rotate"></i></button>
                                                         @endif
-                                                        
+
                                                     </form>
                                                 </td>
                                             </tr>
-                                            
+
                                         @endforeach
                                     </tbody>
                                     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
@@ -163,7 +162,7 @@
                                                 }
                                             }
                                         });
-                                        
+
                                     </script>
                                 </table>
                             </div>
@@ -172,12 +171,14 @@
                 </div>
             </div>
         {!! $debitNoteSuppliers->links() !!}
-    </div>  
-   
-            
+    </div>
+
+
 @include('debit-note-supplier.modal')
-    @endauth
-    @guest
-        @include('include.falta_sesion')
-    @endguest
+
+@endcan
+@endauth
+@guest
+    @include('include.falta_sesion')
+@endguest
 

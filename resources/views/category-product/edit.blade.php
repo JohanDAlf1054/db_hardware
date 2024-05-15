@@ -1,6 +1,6 @@
 @auth
-@can('categorySub')
-@include('include.barra', ['modo'=>'Sub Categoria'])
+@can('category')
+
     <section class="content container-fluid">
         <div class="">
             <div class="col-md-12">
@@ -9,16 +9,14 @@
 
                 <div class="card card-default">
                     <div class="card-header">
-                        <h2 id="card_title">
-                            {{ __('Sub Categoría') }}
-                        </h2>
+                        <span class="card-title">{{ __('Update') }} Category Product</span>
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('categorySub.update', $subCategory->id) }}"  role="form" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('category.update', $categoryProduct->id) }}"  role="form" enctype="multipart/form-data">
                             {{ method_field('PATCH') }}
                             @csrf
 
-                            @include('sub-category.form')
+                            @include('category-product.form')
 
                         </form>
                     </div>

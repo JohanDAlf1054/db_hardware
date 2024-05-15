@@ -1,6 +1,9 @@
+@auth
+@can('categorySub')
+
 <div class="box box-info padding-1">
     <div class="box-body">
-        
+
         <div class="form-group" style="margin-bottom: 16px">
             <label for="name" class="form-label" style="font-weight: bolder">
                 {{ __('Nombre de la Subcategoría') }}
@@ -23,3 +26,8 @@
         <button type="submit" class="btn btn-success" style="120px">{{ __('Guardar') }}</button>
     </div>
 </div>
+@endcan
+@endauth
+@guest
+    @include('include.falta_sesion')
+@endguest

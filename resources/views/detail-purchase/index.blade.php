@@ -1,5 +1,6 @@
 @auth
     @include('include.barra', ['modo' => 'Detalle De Compra'])
+@can('detail-purchases')
 
     <head>
         <link rel="stylesheet"
@@ -146,6 +147,7 @@
         </div>
     </div>
     @include('detail-purchase.modal')
+@endcan
 @endauth
 
 @guest
