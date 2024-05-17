@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\PeopleExport;
+use App\Imports\PersonImport;
 use App\Models\Person;
+use App\Exports\PersonTemplateExport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Facades\Excel;
 
 /**
  * Class PersonController
@@ -106,6 +111,8 @@ class PersonController extends Controller
         } else {
             return redirect()->route('person.index');
         }
+
+        
     }
 
 
@@ -166,9 +173,11 @@ class PersonController extends Controller
         ]);
 
         // Obtener el tipo de tercero seleccionado
+
         $tipo_tercero = $request->input('rol');
 
         // Redireccionar al índice correspondiente
+
         if ($tipo_tercero === 'Cliente') {
             return redirect()->route('customer.index');
             Session::flash('notificacion', [
@@ -196,6 +205,7 @@ class PersonController extends Controller
         }
 
     }
+
 
     /**
      * @param int $id
@@ -229,4 +239,14 @@ class PersonController extends Controller
 
         return redirect()->route('person.index');
     }
+
+    public function importPerson(Request $request)
+    {
+        $file = $request->file('import_filePerson');
+        Excel::import(new PersonImport, $file);
+
+        return redirect()->route('person.index')->with('success', 'Personas importados de forma exitosa');
+    }
+
+    
 }
