@@ -50,7 +50,8 @@ class PeopleExport implements FromQuery, WithTitle, WithHeadings
             'Correo electrónico',
             'Ciudad',
             'Dirección',
-            'Celular'
+            'Celular',
+            'Estado'
         ];
     }
 
@@ -70,12 +71,8 @@ class PeopleExport implements FromQuery, WithTitle, WithHeadings
                 ->whereIn('rol', ['proveedor', 'cliente']);
         }
     }
-    public function styles(Worksheet $worksheet)
-    {
-        return [
-            1 => ['font' => ['bold' => true]],
-            'A1:O1' => ['fill' => ['fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID, 'startColor' => ['rgb' => 'F28A8C']]]
-        ];
-    }
+   
+
+   
     
 }
