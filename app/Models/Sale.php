@@ -23,4 +23,9 @@ class Sale extends Model
     {
         return $this->hasMany(DetalleVenta::class);
     }
+
+    public function creditNoteSales()
+{
+    return $this->hasMany(credit_note_sales::class, 'sale_id');
+}
 }

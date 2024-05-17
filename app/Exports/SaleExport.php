@@ -2,14 +2,10 @@
 
 namespace App\Exports;
 
-use App\Models\Person;
-use Maatwebsite\Excel\Concerns\FromQuery;
-use Maatwebsite\Excel\Concerns\Exportable;
-use Maatwebsite\Excel\Concerns\WithStyles;
-use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Style\Border;
 use PhpOffice\PhpSpreadsheet\Style\Fill;
 use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithCustomStartCell;
 use Maatwebsite\Excel\Concerns\WithEvents;
@@ -17,67 +13,71 @@ use Maatwebsite\Excel\Events\AfterSheet;
 use PhpOffice\PhpSpreadsheet\Style\Color;
 use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use Maatwebsite\Excel\Concerns\WithTitle;
+use App\Models\Sale;
 
-
-class PeopleExport implements FromQuery, WithHeadings, WithCustomStartCell, WithTitle, WithEvents
+class SaleExport implements FromCollection, WithHeadings, WithCustomStartCell, WithTitle, WithEvents
 {
-    use Exportable;
-
-    protected $role;
-
-    public function __construct($role)
-    {
-        $this->role = $role;
-    }
-
+    /**
+     * @return \Illuminate\Support\Collection
+     */
     public function title(): string
     {
-        if ($this->role === 'supplier') {
-            return 'Proveedores';
-        } elseif ($this->role === 'customer') {
-            return 'Clientes';
-        } else {
-            return 'Personas';
-        }
+        return 'Informe de Ventas';
+    }
+
+    public function collection()
+    {
+        return Sale::with(['cliente:id,identification_number,first_name,other_name,surname,second_surname,company_name'])
+            ->select([
+                'id',
+                'dates',
+                'bill_numbers',
+                'sellers',
+                'payments_methods',
+                'gross_totals',
+                'taxes_total',
+                'net_total',
+                'status',
+                'clients_id'
+            ])
+            ->get()
+            ->map(function ($sale) {
+                $fullName = trim("{$sale->cliente->identification_number} - {$sale->cliente->first_name} {$sale->cliente->other_name} {$sale->cliente->surname} {$sale->cliente->second_surname} {$sale->cliente->company_name}");
+                $status = $sale->status ? 'Activo' : 'Inactivo';
+                return [
+                    'id' => $sale->id,
+                    'dates' => $sale->dates,
+                    'bill_numbers' => $sale->bill_numbers,
+                    'sellers' => $sale->sellers,
+                    'payments_methods' => $sale->payments_methods,
+                    'gross_totals' => $sale->gross_totals,
+                    'taxes_total' => $sale->taxes_total,
+                    'net_total' => $sale->net_total,
+                    'status' => $status,
+                    'client_name' => $fullName
+                ];
+            });
     }
 
     public function headings(): array
     {
         return [
-            'Rol',
-            'Tipo de Identificación',
-            'Identificación',
-            'DV',
-            'Razón social',
-            'Primer nombre',
-            'Otro nombre',
-            'Apellido',
-            'Segundo apellido',
-            'Nombre comercial',
-            'Correo electrónico',
-            'Ciudad',
-            'Dirección',
-            'Celular'
+            'Id',
+            'Fecha',
+            'N° de factura',
+            'Vendedor',
+            'Forma de Pago',
+            'Total bruto',
+            'Total impuesto',
+            'Total Neto',
+            'Estado',
+            'Cliente'
         ];
     }
 
-    public function query()
-    {
-        if ($this->role === 'supplier') {
-            return Person::query()
-                ->select('rol', 'identification_type', 'identification_number', 'digit_verification', 'company_name', 'first_name', 'other_name', 'surname', 'second_surname', 'comercial_name', 'email_address', 'city', 'address', 'phone')
-                ->where('rol', 'Proveedor');
-        } elseif ($this->role === 'customer') {
-            return Person::query()
-                ->select('rol', 'identification_type', 'identification_number', 'digit_verification', 'company_name', 'first_name', 'other_name', 'surname', 'second_surname', 'comercial_name', 'email_address', 'city', 'address', 'phone')
-                ->where('rol', 'Cliente');
-        } else {
-            return Person::query()
-                ->select('rol', 'identification_type', 'identification_number', 'digit_verification', 'company_name', 'first_name', 'other_name', 'surname', 'second_surname', 'comercial_name', 'email_address', 'city', 'address', 'phone')
-                ->whereIn('rol', ['proveedor', 'cliente']);
-        }
-    }
-
+    /**
+     * @return string
+     */
     public function startCell(): string
     {
         return 'A5';
@@ -108,7 +108,7 @@ class PeopleExport implements FromQuery, WithHeadings, WithCustomStartCell, With
             }
 
             // Definir el rango desde A1 hasta L4 para el encabezado
-            $headerRange = 'A1:N3';
+            $headerRange = 'A1:J3';
 
             // Aplicar color azul al encabezado
             $sheet->getDelegate()->getStyle($headerRange)->applyFromArray([
@@ -128,7 +128,7 @@ class PeopleExport implements FromQuery, WithHeadings, WithCustomStartCell, With
                 ],
             ]);
 
-            $sheet->getDelegate()->getStyle('A5:N5')->applyFromArray([
+            $sheet->getDelegate()->getStyle('A5:J5')->applyFromArray([
                 'fill' => [
                     'fillType' => Fill::FILL_SOLID,
                     'startColor' => ['argb' => 'd3d3d3'], // Gris claro
@@ -145,24 +145,24 @@ class PeopleExport implements FromQuery, WithHeadings, WithCustomStartCell, With
             ]);
 
             
-            $title = $this->title();
+
             // Fusionar celdas para el encabezado
-            $sheet->getDelegate()->mergeCells('A1:N1');
-            $sheet->setCellValue('A1', 'Informe de ' . $title);
+            $sheet->getDelegate()->mergeCells('A1:J1');
+            $sheet->setCellValue('A1', 'Informe de Ventas');
             $sheet->getStyle('A1')->getFont()->setSize(20); // Tamaño de letra para "Informe de Ventas"
             $sheet->getStyle('A1')->getFont()->setBold(true); // Ajustar a negrita
             $sheet->getStyle('A1')->getAlignment()->setWrapText(true);
             $sheet->getStyle('A1')->getFont()->getColor()->setARGB(Color::COLOR_WHITE); // Letra blanca
 
             // Agregar "Ferretería La Excelencia" y "NIT 9.524.275" en celdas separadas
-            $sheet->getDelegate()->mergeCells('A2:N2');
+            $sheet->getDelegate()->mergeCells('A2:J2');
             $sheet->setCellValue('A2', 'Ferretería La Excelencia');
             $sheet->getStyle('A2')->getFont()->setSize(16); // Tamaño de letra para "Ferretería La Excelencia"
             $sheet->getStyle('A2')->getFont()->setBold(false); // Ajustar a negrita
             $sheet->getStyle('A2')->getAlignment()->setWrapText(true);
             $sheet->getStyle('A2')->getFont()->getColor()->setARGB(Color::COLOR_WHITE); // Letra blanca
 
-            $sheet->getDelegate()->mergeCells('A3:N3');
+            $sheet->getDelegate()->mergeCells('A3:J3');
             $sheet->setCellValue('A3', 'NIT 9.524.275');
             $sheet->getStyle('A3')->getFont()->setSize(14); // Tamaño de letra para "NIT 9.524.275"
             $sheet->getStyle('A3')->getFont()->setBold(false); // Ajustar a negrita
@@ -182,6 +182,4 @@ class PeopleExport implements FromQuery, WithHeadings, WithCustomStartCell, With
         },
     ];
 }
-    
-    
 }

@@ -1,7 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Exports\CreditNoteExport;
 use App\Exports\ProductsExport;
+use App\Exports\CreditNoteSaleExport;
 use App\Exports\PeopleExport;
 use App\Models\CategoryProduct;
 use App\Models\DetalleVenta;
@@ -9,7 +12,8 @@ use App\Models\Product;
 use App\Models\Person;
 use App\Models\Sale;
 use Maatwebsite\Excel\Facades\Excel;
-
+use App\Exports\SaleExport;
+use Google\Service\VMwareEngine\Credentials;
 use Illuminate\Http\Request;
 
 class ExportController extends Controller
@@ -49,6 +53,19 @@ class ExportController extends Controller
     {
         return Excel::download(new PeopleExport('customer'),'Clientes.xlsx');
     }
+
+    public function exportcreditnotesale()
+    {
+        return Excel::download(new CreditNoteExport('credit_note_sales'),'Notas credito Ventas.xlsx');
+    }
+
+
+    public function exportsale()
+    {
+        return Excel::download(new SaleExport('sale'),'Ventas.xlsx');
+    }
+
+   
 
 
 }
