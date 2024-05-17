@@ -236,5 +236,8 @@ a.selected {
     /* border: 2px solid black; */
     width: 500px;
 }
+#userwayAccessibilityIcon{
+    margin-right: 10rem;
+}
 
 
