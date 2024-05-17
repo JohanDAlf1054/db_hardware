@@ -4,7 +4,8 @@
 @extends('template')
 
 @push('css')
-<link rel="stylesheet" href="https://cdn.datatables.net/2.0.6/css/dataTables.bootstrap5.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" ></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.bootstrap5.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.2/css/responsive.dataTables.css">
 @endpush
 
@@ -51,8 +52,8 @@
                         </div>
                        <br>
 
-                <div class="table-responsive"> <!-- Añade la clase "px-3" para agregar margen horizontal -->
-                            <table id="datatable" class="table table-striped table-hover display nowrap"  style="justify-content: center; width:100%">
+                <div> <!-- Añade la clase "px-3" para agregar margen horizontal -->
+                    <table class="table table-striped table-hover" style="width:100%" id="datatable">
                                 <thead class="table-dark">
                                     <tr style="text-align: center">
                                         <th>Id</th>
@@ -143,11 +144,11 @@
 
 @push('js')
 <script src="{{ asset('js/datatable.js') }}" defer></script>
-        <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-        <script src="https://cdn.datatables.net/2.0.7/js/dataTables.js"></script>
-        <script src="https://cdn.datatables.net/2.0.7/js/dataTables.bootstrap5.js"></script>
-        <script src="https://cdn.datatables.net/responsive/3.0.2/js/dataTables.responsive.js"></script>
-        <script src="https://cdn.datatables.net/responsive/3.0.2/js/responsive.dataTables.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="https://cdn.datatables.net/2.0.5/js/dataTables.js"></script>
+<script src="https://cdn.datatables.net/2.0.5/js/dataTables.bootstrap5.js"></script>
+<script src="https://cdn.datatables.net/responsive/3.0.2/js/dataTables.responsive.js"></script>
+<script src="https://cdn.datatables.net/responsive/3.0.2/js/responsive.dataTables.js"></script>
 @endpush
 @else
     <div class="mensaje_Rol">

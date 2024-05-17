@@ -81,9 +81,10 @@
                                         <button type="button" class="btn btn-warning mx-2 rounded" tooltip="tooltip" title="Importar" data-bs-toggle="modal" data-bs-target="#importUnits">
                                             <i class="fa-solid fa-folder-open" style="color: #0a0a0a; width:24; height:24"; ></i>
                                         </button>
-                                        {{-- <button type="button" class="btn btn-warning rounded" data-bs-toggle="modal" data-bs-target="#importUnits">
-                                            <i class="fa-solid fa-folder-open" style="color: #0a0a0a; width:24; height:24"; ></i>
-                                        </button> --}}
+                                        <a type="button" class="btn btn-success rounded" tooltip="tooltip" title="Exportar" 
+                                        href="{{route('export')}}">
+                                        <i class="fa-solid fa-file-arrow-down"></i>
+                                    </a>
                                     </div>
 
                                 </div>
