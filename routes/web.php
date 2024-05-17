@@ -15,6 +15,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\TemplateController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UsuariosController;
 use App\Http\Controllers\CreditNoteSalesController;
@@ -94,6 +95,8 @@ Route::get('/indexAll',[SubCategoryController::class, 'indexAll'])->name('indexA
 //Funcion Importar
 Route::post('/importbrands',[BrandController::class, 'importbrands'])->name('importbrands');
 Route::post('/importCategory',[CategoryProductController::class, 'importCategory'])->name('importCategory');
+Route::post('/importPerson', [PersonController::class, 'importPerson'])->name('importPerson');
+
 
 //Funcion Export Informes
 Route::get('export_index', [ExportController::class, 'index_informes'])->name('index_informes');
@@ -109,6 +112,10 @@ Route::get('/historial', function () {return view('reports.historial');})->name(
 Route::resource('purchase_supplier', App\Http\Controllers\PurchaseSupplierController::class);
 Route::resource('detail-purchases', App\Http\Controllers\DetailPurchaseController::class);
 Route::resource('debit-note-supplier', App\Http\Controllers\DebitNoteSupplierController::class);
+
+// Descarga de template importar
+Route::get('/downloadFile',[TemplateController::class, 'downloadFile'])->name('downloadFile');
+
 
 //Ruta para traer la informacion de las subcategorias
 Route::get('/products/create/categoryProduct/{categoryProduct}/subCategories', [CategoryProductController::class,'subCategories']);

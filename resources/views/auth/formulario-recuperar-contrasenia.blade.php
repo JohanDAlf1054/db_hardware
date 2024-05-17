@@ -15,7 +15,7 @@
     <div class="blur">
         <div class="formulario_email">
             <div class="img_tory">
-                <img src="{{ asset('img/FerreteriaV2 Negro.png')}}" alt="img_ToryTech" />
+                <img src="{{ asset('img/FerreteriaV2 Negro.png')}}" alt="img_FerreterialaExelencia" />
             </div>
             <h2>¿Olvidaste tu contraseña?</h2>
             <hr class="linea">

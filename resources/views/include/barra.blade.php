@@ -12,6 +12,7 @@
             <link rel="stylesheet" href="{{ asset('css/estilosbarra.css') }}" type="text/css">
             <link rel="stylesheet" href="{{asset('css/estilos_accesibilidad.css')}}">
             <link href="{{ asset('css/estilos_footer.css')}}" rel="stylesheet">
+            <script src="https://cdn.userway.org/widget.js" data-account="whmJm4JFhq"></script>
         </head>
         <body id="body">
             <header>
@@ -22,7 +23,7 @@
                     <h1>Ferretería la excelencia</h1>
                 </div>
 
-                <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split accesibilidad header-button" data-bs-toggle="dropdown" aria-expanded="false">
+                {{--  <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split accesibilidad header-button" data-bs-toggle="dropdown" aria-expanded="false">
                     <i class="fa-solid fa-universal-access fa-2xl icono_accesibilidad"></i>
                     <span class="visually-hidden">Accesibilidad</span>
                 </button>
@@ -32,7 +33,7 @@
                         <li><a class="dropdown-item" id="font-larger-button">Aumentar letra <i class="fa-solid fa-plus"></i></a></li>
                         <li><a class="dropdown-item" id="font-smaller-button">Disminuir letra <i class="fa-solid fa-minus"></i></a></li>
                     </div>
-                </ul>
+                </ul>  --}}
 
             </header>
 

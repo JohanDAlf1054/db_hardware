@@ -57,7 +57,8 @@ class PeopleExport implements FromQuery, WithHeadings, WithCustomStartCell, With
             'Correo electrónico',
             'Ciudad',
             'Dirección',
-            'Celular'
+            'Celular',
+            'Estado'
         ];
     }
 
