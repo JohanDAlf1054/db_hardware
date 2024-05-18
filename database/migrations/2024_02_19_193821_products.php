@@ -15,10 +15,11 @@ class Products extends Migration
             $table->engine="InnoDB";
             $table->bigIncrements('id');
             $table->string('name_product');
-            $table->string('description_long');
+            $table->string('description_long')->nullable();
             $table->string('factory_reference');
             $table->string('classification_tax');
             $table->decimal('selling_price',10,2);
+            $table->string('purchase_price',10,2)->default(0);
             $table->string('photo')->nullable();
             $table->boolean('status')->default(True);
             $table->string('stock')->default(0);

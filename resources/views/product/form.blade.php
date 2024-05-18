@@ -152,7 +152,6 @@
                                             <div class="mb-3" style="margin-bottom: 16px">
                                                 <label for="notes" class="form-label" style="font-weight: bolder">
                                                     {{ __('Descripción') }}
-                                                    <span class="text-danger">*</span>
                                                 </label>
                                                 {{ Form::textarea('description_long', $producto->description_long, ['class' => 'form-control' . ($errors->has('description_long') ? ' is-invalid' : ''), 'placeholder' => 'Descripción Producto', 'rows' => '3']) }}
                                                 {!! $errors->first('description_long', '<div class="invalid-feedback">:message</div>') !!}
@@ -246,4 +245,3 @@
 @guest
     @include('include.falta_sesion')
 @endguest
-

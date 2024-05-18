@@ -78,5 +78,5 @@ class DetailPurchase extends Model
         return $this->belongsTo(\App\Models\PurchaseSupplier::class, 'purchase_suppliers_id', 'id');
     }
     
-
+    
 }

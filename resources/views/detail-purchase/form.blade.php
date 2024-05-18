@@ -38,13 +38,13 @@
                             <select name="producto_id" id="producto_id" class="form-control selectpicker {{ $errors->has('producto_id') ? ' is-invalid' : '' }}" data-live-search="true" data-size="5" title="Seleccione un producto">
                                 <option value="">Seleccione un producto</option>
                                 @foreach ($products as $item)
-                                    <option value="{{ $item->id }}" data-selling-price="{{ $item->selling_price }}" data-classification-tax="{{ $item->classification_tax }}" {{ old('producto_id') == $item->id ? 'selected' : '' }}>
+                                    <option value="{{ $item->id }}" data-purchase-price="{{ $item->purchase_price }}" data-classification-tax="{{ $item->classification_tax }}" {{ old('producto_id') == $item->id ? 'selected' : '' }}>
                                         {{ $item->name_product }}
                                     </option>
                                 @endforeach
                             </select>
                             {!! $errors->first('producto_id', '<div class="invalid-feedback">:message</div>') !!}
-                        </div>
+                     </div>
                         
                         {{--
                         <div class="col-6 mb-2">
@@ -70,28 +70,6 @@
                             <small class="text-danger">{{ '*'.$message }}</small>
                             @enderror
                         </div>--}}  
-                        <div class="col-6 mb-4">
-                            <label for="invoice_number_purchase" class="form-label">Número de factura</label>
-                            <input type="text" id="invoice_number_purchase" name="invoice_number_purchase" class="form-control {{ $errors->has('invoice_number_purchase') ? ' is-invalid' : '' }}" placeholder="Ingrese el número de factura" value="{{ old('invoice_number_purchase', isset($purchaseSupplier) ? $purchaseSupplier->invoice_number_purchase : '') }}">
-                            @error('invoice_number_purchase')
-                            <small class="text-danger">{{ '*'.$message }}</small>
-                            @enderror
-                        </div>
-
-
-                        
-                        
-                        <div class="col-6 mb-2">
-                            <label for="code" class="form-label">Prefijo:</label>
-                            <input type="text" id="code" name="code" class="form-control {{ $errors->has('code') ? ' is-invalid' : '' }}" placeholder="Ingrese el prefijo" value="{{ old('code', isset($purchaseSupplier) ? $purchaseSupplier->code : '') }}">
-                            @error('code')
-                            <small class="text-danger">{{ '*'.$message }}</small>
-                            @enderror
-                        </div>
-                        
-                        
-                        
-                        
                         <div class="col-sm-4 mb-2">
                             <label for="precio_compra" class="form-label">Precio Unitario:</label>
                             <input type="number" name="precio_compra" id="precio_compra" class="form-control" step="0.1">
@@ -218,17 +196,13 @@
                 <div class="p-3 border border-3 border-success">
                     <div class="row">
                         <!--Proveedor-->
-                        <div class="col-12 mb-2">
+                        <div class="col-12">
                             <label for="people_id" class="form-label">Proveedor:</label>
-                            <select name="people_id" id="people_id" class="form-control selectpicker show-tick" data-live-search="true" title="Selecciona" data-size='2'>
-                            <option value="">Seleccione un Proveedor</option>
+                            <select name="people_id" id="people_id"  class="form-control selectpicker show-tick" data-live-search="true" title="Selecciona el cliente" data-size='3'>
                                 @foreach ($people as $person)
-                                    <option value="{{$person->id}}" data-identification-type="{{$person->identification_type}}" data-identification-number="{{$person->identification_number}}">
-                                        {{$person->first_name}}
-                                    </option>
+                                <option value="{{$person->id}}">{{$person->identification_number}} - {{$person->first_name}} {{$person->other_name}} {{$person->surname}} {{$person->second_surname}} {{$person->company_name}}</option>
                                 @endforeach
                             </select>
-                            
                             @error('people_id')
                             <small class="text-danger">{{ '*'.$message }}</small>
                             @enderror
@@ -256,6 +230,29 @@
                                 <label for="fecha" class="form-label">Fecha:</label>
                                 <input readonly type="date" name="fecha" id="fecha" class="form-control border-success" value="<?php echo date("Y-m-d") ?>">
                             </div>
+                            <div class="col-6 mb-2">
+                                <label for="code" class="form-label">Prefijo:</label>
+                                <div class="input-group">
+                                    <select name="code" id="code" class="form-control selectpicker">
+                                        <option value="Pre-">Pre</option>
+                                        <option value="Po-">Po</option>
+                                        <option value="Es-">Es</option>
+                                    </select>
+                                </div>
+                                @error('code')
+                                <small class="text-danger">{{ '*'.$message }}</small>
+                                @enderror
+                            </div>
+                            <div class="col-6 mb-2">
+                                <label for="invoice_number_purchase" class="form-label">Número de factura</label>
+                                <input type="text" id="invoice_number_purchase" name="invoice_number_purchase" class="form-control {{ $errors->has('invoice_number_purchase') ? ' is-invalid' : '' }}" placeholder="Ingrese el número de factura" value="{{ old('invoice_number_purchase', isset($purchaseSupplier) ? $purchaseSupplier->invoice_number_purchase : '') }}">
+                                @error('invoice_number_purchase')
+                                <small class="text-danger">{{ '*'.$message }}</small>
+                                @enderror
+                            </div>
+                            
+                            
+                            
                                 <div class="col-6 mb-2">
                                 
                                     <label for="form_of_payment" class="form-label">Formas de pago:</label>
@@ -275,7 +272,6 @@
                                     
                                         <option value="cuotas">Cuotas</option>
                                         <option value="contado">Contado</option>
-                                        <!-- Agrega aquí las demás opciones que necesites -->
                                     </select>
                                     @error('method_of_payment')
                                     <small class="text-danger">{{ '*'.$message }}</small>
@@ -389,27 +385,21 @@ function agregarProducto(){
     let precioCompra=$('#precio_compra').val();
     let descuentoProducto=$('#discount_total').val();
     
-
-    if (idProducto == '' || idProducto == undefined || nameProducto == '' || nameProducto == undefined || cantidad == '' || cantidad == undefined || descripcion == '' || descripcion == undefined || impuesto == '' || impuesto == undefined || precioCompra == '' || precioCompra == undefined || descuentoProducto == '' || descuentoProducto == undefined) {
+if (idProducto === '' || idProducto === undefined || nameProducto === '' || nameProducto === undefined || cantidad === '' || cantidad === undefined || descripcion === '' || descripcion === undefined || impuesto === '' || impuesto === undefined || precioCompra === '' || precioCompra === undefined || descuentoProducto === '' || descuentoProducto === undefined) {
     showModal('Le faltan campos por llenar');
-}
- else if (!(parseInt(cantidad) > 0 && (cantidad % 1 == 0) && parseFloat(precioCompra) > 0)) {
-        showModal('Valores incorrectos');
-    } else {
-        //calcular valores
-subtotal[cont] = round (cantidad * precioCompra);
-sumas += subtotal[cont]; 
-igv = round (sumas * impuesto / 100); 
-total = round(sumas + igv); 
-totalBruto = round (sumas); 
-
-// Verificar que el descuento no sea mayor que el total bruto
-if (descuentoProducto > totalBruto) {
-    // Aquí puedes manejar el caso en que el descuento es mayor que el total bruto
-    console.error('El descuento no puede ser mayor que el total bruto');
+} else if (!(parseInt(cantidad) > 0 && (cantidad % 1 === 0) && parseFloat(precioCompra) > 0)) {
+    showModal('Valores incorrectos');
+} else if (descuentoProducto > cantidad * precioCompra) {
+    showModal('El descuento no puede ser mayor que el valor de la compra');
 } else {
-    totalNeto = round(totalBruto - descuentoProducto);
-}
+    subtotal[cont] = Math.round(cantidad * precioCompra * 100) / 100; // Redondear a 2 decimales
+sumas += subtotal[cont];
+igv = Math.round(sumas * impuesto / 100 * 100) / 100; // Redondear a 2 decimales
+total = sumas + igv;
+totalBruto = sumas;
+totalNeto = Math.round((totalBruto - descuentoProducto) * 100) / 100;
+
+
 
 $('#gross_total').val(totalBruto);
 
@@ -464,15 +454,16 @@ function eliminarProducto(indice, impuesto) {
     $('#fila'+indice).remove();
 }
 
-    function limpiarCampos(){
-        let select=$('#producto_id');
-        select.val(''); 
-        $('#cantidad').val('');
-        $('#precio_venta').val('');
-        $('#product_tax').val('');
-        $('#precio_compra').val('');
-        $('#discount_total').val('');
-    }
+function limpiarCampos() {
+    let select = $('#producto_id');
+        select.selectpicker('val', '');
+    $('#cantidad').val('');
+    $('#precio_venta').val('');
+    $('#product_tax').val('');
+    $('#precio_compra').val('');
+    $('#discount_total').val('');
+}
+
     function round(num, decimales = 2) {
         var signo = (num >= 0 ? 1 : -1);
         num = num * signo;
@@ -512,33 +503,28 @@ function eliminarProducto(indice, impuesto) {
             });
         </script>--}}
         <script>
-      document.getElementById('producto_id').addEventListener('change', function() {
-    var selectedOption = this.options[this.selectedIndex];
-    var sellingPrice = selectedOption.getAttribute('data-selling-price');
-    var classificationTax = Number(selectedOption.getAttribute('data-classification-tax').replace('%', ''));
-
-if (isNaN(classificationTax)) {
-    console.log('classification_tax no es un número');
-} else {
-    console.log('classification_tax es un número:', classificationTax);
-}
-
-    //console.log(classificationTax); // Mueve esta línea aquí
-
-    document.getElementById('precio_compra').value = sellingPrice;
-
-    // Aquí es donde seleccionas la opción correspondiente en el select de product_tax
-    var productTaxSelect = document.getElementById('product_tax');
-    for (var i = 0; i < productTaxSelect.options.length; i++) {
-        if (Number(productTaxSelect.options[i].value) === classificationTax) { // Asegúrate de que ambos son números
-            productTaxSelect.options[i].selected = true;
-            break;
-        }
-    }
-});
-
-
-    </script>
+            document.getElementById('producto_id').addEventListener('change', function() {
+                var selectedOption = this.options[this.selectedIndex];
+                var purchasePrice = selectedOption.getAttribute('data-purchase-price');
+                var classificationTax = Number(selectedOption.getAttribute('data-classification-tax').replace('%', ''));
+        
+                if (isNaN(classificationTax)) {
+                    console.log('classification_tax no es un número');
+                } else {
+                    console.log('classification_tax es un número:', classificationTax);
+                }
+        
+                document.getElementById('precio_compra').value = purchasePrice;
+        
+                var productTaxSelect = document.getElementById('product_tax');
+                for (var i = 0; i < productTaxSelect.options.length; i++) {
+                    if (Number(productTaxSelect.options[i].value) === classificationTax) {
+                        productTaxSelect.options[i].selected = true;
+                        break;
+                    }
+                }
+            });
+        </script> 
     @endcan
 @endauth
 @guest

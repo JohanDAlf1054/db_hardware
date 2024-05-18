@@ -15,6 +15,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\HistorialMovimientoController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UsuariosController;
 use App\Http\Controllers\CreditNoteSalesController;
@@ -102,7 +103,13 @@ Route::get('/export_person', [ExportController::class, 'exportperson'])->name('e
 Route::get('/export_supplier', [ExportController::class, 'exportsupplier'])->name('export.supplier');
 Route::get('/export_customer', [ExportController::class, 'exportcustomer'])->name('export.customer');
 Route::get('/report', [ExportController::class,'report'])->name('report');
-Route::get('/historial', function () {return view('reports.historial');})->name('historial');
+//rutas de historial de movimientos No Tocar y brayitan es mi hijo
+Route::post('/buscar-historial', [HistorialMovimientoController::class, 'buscarMovimientos'])->name('buscar.historial');
+Route::get('/historial', [HistorialMovimientoController::class, 'historialMovimientos'])->name('historial');
+Route::get('/filtrar_por_fechas', 'HistorialMovimientoController@buscarMovimientos')->name('filtrar_por_fechas');
+Route::get('/limpiar', [HistorialMovimientoController::class, 'limpiar'])->name('limpiar');
+
+
 //Funciones De Compras
 Route::resource('purchase_supplier', App\Http\Controllers\PurchaseSupplierController::class);
 Route::resource('detail-purchases', App\Http\Controllers\DetailPurchaseController::class);

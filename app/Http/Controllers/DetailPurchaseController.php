@@ -102,6 +102,17 @@ class DetailPurchaseController extends Controller
 
     try {
         // Crear el PurchaseSupplier
+        $latestInvoice = PurchaseSupplier::where('code', $request->input('code'))
+            ->orderBy('invoice_number_purchase', 'desc')
+            ->first();
+
+        if ($latestInvoice) {
+            $nextInvoiceNumber = intval(substr($latestInvoice->invoice_number_purchase, 3)) + 1;
+        } else {
+            $nextInvoiceNumber = 1;
+        }
+
+        $invoiceNumber = 'ARM' . str_pad($nextInvoiceNumber, 4, '0', STR_PAD_LEFT);
         $purchaseSupplier = new PurchaseSupplier;
         $purchaseSupplier->invoice_number_purchase = $request->input('invoice_number_purchase');
         $purchaseSupplier->date_invoice_purchase = $request->input('fecha');
@@ -174,14 +185,18 @@ class DetailPurchaseController extends Controller
                 $producto = Product::find($arrayIdProducto[$cont]);
                 $stockActual = $producto->stock;
                 $stockNuevo = intval($arrayCantidad[$cont]);
-                DB::table('products') // Aquí cambiamos 'productos' por 'products'
+                DB::table('products') 
                     ->where('id', $producto->id)
                     ->update([
                         'stock' => $stockActual + $stockNuevo
                     ]);
-
-
-            $cont++;
+            
+                $producto = Product::find($arrayIdProducto[$cont]);
+                if ($producto) {
+                    $producto->purchase_price = $arrayPrecioCompra[$cont];
+                    $producto->save();
+                }
+                $cont++;
         }
 
         DB::commit();
@@ -213,17 +228,20 @@ class DetailPurchaseController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-{
-    $detailPurchase = DetailPurchase::with('purchaseSupplier.user')->find($id);
-    $product = Product::find($detailPurchase->products_id);
-    $users=User::all();   
-
-    $purchaseSupplierId = $detailPurchase->purchase_suppliers_id;
-    $detailPurchases = DetailPurchase::where('purchase_suppliers_id', $purchaseSupplierId)->get();
-    $totalNeto = DetailPurchase::find($id);
-
-    return view('detail-purchase.show', compact('detailPurchases', 'detailPurchase', 'product', 'users', 'totalNeto'));
-}
+    {
+        $detailPurchase = DetailPurchase::with('purchaseSupplier.user')->find($id);
+        $product = Product::find($detailPurchase->products_id);
+        $users = User::all();
+        $purchaseSupplierId = $detailPurchase->purchase_suppliers_id;
+        $detailPurchases = DetailPurchase::where('purchase_suppliers_id', $purchaseSupplierId)->get();
+        $totalNeto = DetailPurchase::find($id);
+        $products = Product::all();
+    
+        // Obtener todas las personas (naturales y jurídicas)
+        $people = Person::all();
+    
+        return view('detail-purchase.show', compact('detailPurchases', 'detailPurchase', 'product', 'users', 'totalNeto', 'products', 'people'));
+    }
 
 
 
