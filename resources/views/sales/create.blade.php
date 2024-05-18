@@ -231,7 +231,7 @@
 </div>
  
 @endsection
-@endcan
+{{-- @endcan --}}
 @push('js')
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/js/bootstrap-select.min.js"></script>
 <script>

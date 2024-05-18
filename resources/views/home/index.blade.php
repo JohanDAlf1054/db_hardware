@@ -139,6 +139,7 @@
                               <th><h6 class="text-sm text-medium" style="text-align: left;">Nombre Producto</h6></th>
                               <th><h6 class="text-sm text-medium" style="text-align: left;">Límite de Existencias</h6></th>
                               <th><h6 class="text-sm text-medium" style="text-align: left;">Precio de Venta</h6></th>
+                              <th><h6 class="text-sm text-medium" style="text-align: left;">Estado</h6></th>
                               <th><h6 class="text-sm text-medium" style="text-align: left;">Acción</h6></th>
                           </thead>
                           <tbody>
@@ -149,6 +150,7 @@
                                         <p class="badge rounded-pill bg-danger">{{ $data->stock}}</p>
                                     </td>
                                     <td style="text-align: left;">{{ $data->selling_price }}</td>
+                                    <td style="text-align: left;">{{ ($data->status == 1) ? 'Activo' : 'Inactivo' }} </td>
                                     <td>
                                         <a class="btn btn-sm btn-primary " tooltip="tooltip"
                                             title="Aumentar Exixtencias" href="{{ route('detail-purchases.create') }}">
@@ -181,6 +183,7 @@
                               <th><h6 class="text-sm text-medium" style="text-align: left;">Fecha</h6></th>
                               <th><h6 class="text-sm text-medium" style="text-align: left;">Proveedor</h6></th>
                               <th><h6 class="text-sm text-medium" style="text-align: left;">Forma de Pago</h6></th>
+                              <th><h6 class="text-sm text-medium" style="text-align: left;">Estado</h6></th>
                               <th><h6 class="text-sm text-medium" style="text-align: left;">Total</h6></th>
                             </tr>
                           </thead>
@@ -191,6 +194,7 @@
                                     <td style="text-align: left;">{{ $data->date_purchase}}</td>
                                     <td style="text-align: left;">{{ $data->purchaseSupplier->person->first_name }}</td>
                                     <td style="text-align: left;">{{ $data->form_of_payment }}</td>
+                                    <td style="text-align: left;">{{ ($data->status == 1) ? 'Activo' : 'Inactivo' }} </td>
                                     <td style="text-align: left; color: rgb(17, 198, 0)">{{ $data->total_value }}</td>
                                 </tr>
                             @endforeach
@@ -217,6 +221,7 @@
                             <th><h6 class="text-sm text-medium" style="text-align: left;">Fecha</h6></th>
                             <th><h6 class="text-sm text-medium" style="text-align: left;">Vendedor</h6></th>
                             <th><h6 class="text-sm text-medium" style="text-align: left;">Forma de Pago</h6></th>
+                            <th><h6 class="text-sm text-medium" style="text-align: left;">Estado</h6></th>
                             <th><h6 class="text-sm text-medium" style="text-align: left;">Total</h6></th>
                           </tr>
                         </thead>
@@ -227,6 +232,7 @@
                                 <td style="text-align: left;">{{ $data->dates}}</td>
                                 <td style="text-align: left;">{{ $data->sellers}}</td>
                                 <td style="text-align: left;">{{ $data->payments_methods}}</td>
+                                <td style="text-align: left;">{{ ($data->status == 1) ? 'Activo' : 'Inactivo' }} </td>
                                 <td style="text-align: left; color: rgb(17, 198, 0)">{{ $data->net_total}}</td>
                             </tr>
                             @endforeach

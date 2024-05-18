@@ -32,27 +32,27 @@
                             </div>
                         @endif
                         <div class="table_container">
-                            <div class="table-responsive">
-                                <table class="table table-striped table-hover">
+                            <div>
+                                <table id="datatable" class="table table-striped table-hover" style="width: 100%;">
                                     <thead class="table-dark">
                                         <tr>
-                                            <th>Codigo</th>
-                                            <th>Abreviación</th>
-                                            <th>Nombre</th>
-                                            <th>Acciones</th>
+                                            <th style="text-align: center">Codigo</th>
+                                            <th style="text-align: center">Abreviación</th>
+                                            <th style="text-align: center">Nombre</th>
+                                            <th style="text-align: center">Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($brands as $brand)
                                             <tr>
-                                                <td>{{ $brand->code }}</td>
-                                                <td>{{ $brand->abbrevation }}</td>
-                                                <td>{{ $brand->name }}</td>
-                                                <td>
+                                                <td style="text-align: center">{{ $brand->code }}</td>
+                                                <td style="text-align: left">{{ $brand->abbrevation }}</td>
+                                                <td style="text-align: left">{{ $brand->name }}</td>
+                                                <td style="text-align: center">
                                                     <div class="btn-group" role="group" aria-label="Basic example">
                                                         <button type="button" class="btn btn-sm btn-success mx-2 rounded" tooltip="tooltip"
                                                         title="Modificar" data-bs-toggle="modal" data-bs-target="#Modal"  wire:click='edit("{{ $brand->id }}")'><i class="fa fa-fw fa-edit"></i> </i> </button>
-                                                        <button type="button" class="btn btn-danger btn-sm mx-2 rounded" tooltip="tooltip"
+                                                        <button type="button" class="btn btn-danger btn-sm rounded" tooltip="tooltip"
                                                         title="Eliminar" wire:click='delete("{{ $brand->id }}")'><i class="fa fa-fw fa-trash"></i></button>
                                                     </div>
                                                 </td>
@@ -60,7 +60,7 @@
                                         @endforeach
                                     </tbody>
                                 </table>
-                                {{ $brands->links() }}
+                                {{-- {{ $brands->links() }} --}}
                             </div>
                         </div>
                     </div>
