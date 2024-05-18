@@ -20,10 +20,7 @@
                         <div class="card-body">
                           <h2>Informes de los Productos</h2>
                           <br>
-                            {{-- <a class="btn btn btn-success " href="{{route('export')}}">
-                              <i class="fa-solid fa-file-excel"></i> Excel
-                            </a> --}}
-                            <a class="btn btn btn-outline-dark" href="{{route('report')}}" style="margin-bottom: 1rem">
+                            <a class="btn btn btn-outline-dark" href="{{route('reportPriceHistoryProductsPurchase')}}" style="margin-bottom: 1rem">
                               <i class="fa-solid fa-file-pdf"></i> Informe General de Productos
                             </a>
                             <a class="btn btn btn-outline-dark" href="{{route('historial')}}" style="margin-bottom: 1rem">
@@ -32,7 +29,7 @@
                             <a class="btn btn btn-outline-dark" href="" style="margin-bottom: 1rem">
                               <i class="fa-solid fa-file-pdf"></i> Informe Historial de Precios
                             </a>
-                            <a class="btn btn btn-outline-dark" href="{{route('export')}}" style="margin-bottom: 1rem">
+                            <a class="btn btn btn-outline-dark" href="" style="margin-bottom: 1rem">
                               <i class="fa-solid fa-file-pdf"></i> Informe General de Productos
                             </a>
                         </div>
@@ -48,7 +45,7 @@
                             {{-- <a class="btn btn btn-success " href="{{route('export')}}">
                               <i class="fa-solid fa-file-excel"></i> Excel
                             </a> --}}
-                            <a class="btn btn btn-outline-dark" href="{{route('report')}}" style="margin-bottom: 1rem">
+                            <a class="btn btn btn-outline-dark" href="" style="margin-bottom: 1rem">
                               <i class="fa-solid fa-file-pdf"></i> Informe General de Productos
                             </a>
 
@@ -64,7 +61,7 @@
                             {{-- <a class="btn btn btn-success " href="{{route('export')}}">
                               <i class="fa-solid fa-file-excel"></i> Excel
                             </a> --}}
-                            <a class="btn btn btn-outline-dark" href="{{route('report')}}" style="margin-bottom: 1rem">
+                            <a class="btn btn btn-outline-dark" href="" style="margin-bottom: 1rem">
                               <i class="fa-solid fa-file-pdf"></i> Informe General de Productos
                             </a>
                         </div>
@@ -79,7 +76,7 @@
                             {{-- <a class="btn btn btn-success " href="{{route('export')}}">
                               <i class="fa-solid fa-file-excel"></i> Excel
                             </a> --}}
-                            <a class="btn btn btn-outline-dark" href="{{route('report')}}" style="margin-bottom: 1rem">
+                            <a class="btn btn btn-outline-dark" href="" style="margin-bottom: 1rem">
                               <i class="fa-solid fa-file-pdf"></i> Informe General de Productos
                             </a>
                         </div>
@@ -94,7 +91,7 @@
                             {{-- <a class="btn btn btn-success " href="{{route('export')}}">
                               <i class="fa-solid fa-file-excel"></i> Excel
                             </a> --}}
-                            <a class="btn btn btn-outline-dark" href="{{route('report')}}" style="margin-bottom: 1rem">
+                            <a class="btn btn btn-outline-dark" href="" style="margin-bottom: 1rem">
                               <i class="fa-solid fa-file-pdf"></i> Informe General de Productos
                             </a>
                         </div>
@@ -109,7 +106,7 @@
                             {{-- <a class="btn btn btn-success " href="{{route('export')}}">
                               <i class="fa-solid fa-file-excel"></i> Excel
                             </a> --}}
-                            <a class="btn btn btn-outline-dark" href="{{route('report')}}" style="margin-bottom: 1rem">
+                            <a class="btn btn btn-outline-dark" href="" style="margin-bottom: 1rem">
                               <i class="fa-solid fa-file-pdf"></i> Informe General de Productos
                             </a>
                         </div>

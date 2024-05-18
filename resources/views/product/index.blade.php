@@ -37,6 +37,8 @@
                                     <li><a class="dropdown-item" href="{{ route('category.index') }}">Crear Categoría</a></li>
                                     <li><a class="dropdown-item" href="{{ route('brand.index') }}">Crear Marca</a></li>
                                     <li><a class="dropdown-item" href="{{ route('units.index') }}">Crear Unidad</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('reportPriceHistoryProducts') }}">Generar Historial de Ventas</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('reportPriceHistoryProductsPurchase') }}">Generar Historial de Compras</a></li>
                                 </div>
                             </ul>
                         </div>
@@ -81,9 +83,10 @@
                                         <button type="button" class="btn btn-warning mx-2 rounded" tooltip="tooltip" title="Importar" data-bs-toggle="modal" data-bs-target="#importUnits">
                                             <i class="fa-solid fa-folder-open" style="color: #0a0a0a; width:24; height:24"; ></i>
                                         </button>
-                                        {{-- <button type="button" class="btn btn-warning rounded" data-bs-toggle="modal" data-bs-target="#importUnits">
-                                            <i class="fa-solid fa-folder-open" style="color: #0a0a0a; width:24; height:24"; ></i>
-                                        </button> --}}
+                                        <a type="button" class="btn btn-success rounded" tooltip="tooltip" title="Exportar" 
+                                            href="{{route('export')}}">
+                                            <i class="fa-solid fa-file-arrow-down"></i>
+                                        </a>
                                     </div>
 
                                 </div>
@@ -100,6 +103,7 @@
                                     <th style="text-align: center">Nombre</th>
                                     <th style="text-align: center">Referencia Fabrica</th>
                                     <th style="text-align: center">Clasificación Tributaria</th>
+                                    <th style="text-align: center">Precio de Compra</th>
                                     <th style="text-align: center">Precio de Venta</th>
                                     <th style="text-align: center">Marca</th>
                                     <th style="text-align: center">Unidad de Medida</th>
@@ -117,6 +121,7 @@
                                         <td style="text-align: center">{{ $producto->name_product }}</td>
                                         <td style="text-align: center">{{ $producto->factory_reference }}</td>
                                         <td style="text-align: center">{{ $producto->classification_tax }}</td>
+                                        <td style="text-align: center">{{ $producto->purchase_price }}</td>
                                         <td style="text-align: center">{{ $producto->selling_price }}</td>
                                         <td style="text-align: center">{{ $producto->brand->name }}</td>
                                         <td style="text-align: center">{{ $producto->measurementUnit->name }}</td>
@@ -137,7 +142,7 @@
                                         </td>
                                         <td style="text-align: center">
                                             @if ($producto->status == 1)
-                                                <p class="badge rounded-pill bg-warning text-dark" style="font-size: 15px">Activo</p>
+                                                <p class="badge rounded-pill bg-success text-white" style="font-size: 15px">Activo</p>
                                             @else
                                                 <p class="badge rounded-pill bg-danger"  style="font-size: 15px">Inactivo</p>
                                             @endif
@@ -160,7 +165,7 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        {{ $productos->links() }}
+                        {{-- {{ $productos->links() }} --}}
                     </div>
                 </div>
                 </div>
@@ -192,7 +197,7 @@
 <script>
     new DataTable('#example',{
         responsive: true,
-        lengthChange: false,
+        lengthChange: true,
         // paging: false,
         searching: false,
         language: {
@@ -217,10 +222,6 @@
             "oAria": {
                 "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
                 "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-            },
-            "buttons": {
-                "copy": "Copiar",
-                "colvis": "Visibilidad"
             }
         }
     });

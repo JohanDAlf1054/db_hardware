@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property $factory_reference
  * @property $classification_tax
  * @property $selling_price
+ * @property $purchase_price
  * @property $photo
  * @property $status
  * @property $stock
@@ -35,7 +36,7 @@ class Product extends Model
     
     static $rules = [
 		'name_product' => 'required',
-		'description_long' => 'required',
+		// 'description_long' => 'required',
 		'factory_reference' => 'required',
 		'classification_tax' => 'required',
         'selling_price' => 'required',
@@ -52,7 +53,7 @@ class Product extends Model
      *
      * @var array
      */
-    protected $fillable = ['name_product','description_long','factory_reference','classification_tax','selling_price','photo','subcategory_product','category_products_id','brands_id','measurement_units_id'];
+    protected $fillable = ['name_product','factory_reference','classification_tax','selling_price','photo','subcategory_product','category_products_id','brands_id','measurement_units_id'];
 
 
     /**
@@ -84,11 +85,6 @@ class Product extends Model
         return $this->hasMany(DetalleVenta::class);
     }
 
-    public function detalleNotaCredito()
-    {
-        return $this->hasMany(DetalleNotaCredito::class);
-    }
-    
     public function priceHistory()
     {
         return $this->hasMany(Sale::class, 'product_id');

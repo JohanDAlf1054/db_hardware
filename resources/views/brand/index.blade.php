@@ -6,6 +6,8 @@
     <link href="{{asset('css/estilos_notificacion.css')}}" rel="stylesheet"/>
     <script src="{{ asset('js/notificaciones.js')}}" defer></script>
     <script src="{{ asset('js/tooltips.js') }}" defer></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.6/css/dataTables.bootstrap5.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.2/css/responsive.dataTables.css">
 </head>
 <br>
 @livewireStyles
@@ -23,6 +25,12 @@
     </script>
     <div class="contenedor-notificacion" id="contenedor-notificacion">
     </div>
+    <script src="{{ asset('js/datatable.js') }}" defer></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://cdn.datatables.net/2.0.7/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.0.7/js/dataTables.bootstrap5.js"></script>
+    <script src="https://cdn.datatables.net/responsive/3.0.2/js/dataTables.responsive.js"></script>
+    <script src="https://cdn.datatables.net/responsive/3.0.2/js/responsive.dataTables.js"></script>
 </body>
 @else
     <div class="mensaje_Rol">

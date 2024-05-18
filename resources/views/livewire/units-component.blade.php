@@ -18,28 +18,28 @@
                             <button type="button" class="btn btn-primary mx-2 rounded " data-bs-toggle="modal" data-bs-target="#Modal">Crear Unidad</button>
                             <input type="text" wire:model.live='search'  class="form-control" placeholder="Buscar...">
                             <button type="button" class="btn btn-warning mx-2 rounded" tooltip="tooltip" title="Importar" data-bs-toggle="modal" data-bs-target="#importUnits">
-                                <i class="fa-solid fa-folder-open" style="color: #0a0a0a; width=24; height=24"; ></i>
+                                <i class="fa-solid fa-folder-open" style="color: #0a0a0a; width:24; height:24"; ></i>
                             </button>
                         </div>
                         <div class="table_container">
-                            <div class="table-responsive">
-                                <table class="table table-striped table-hover">
+                            <div>
+                                <table id="datatable" class="table table-striped table-hover" style="width: 100%;">
                                     <thead class="table-dark">
                                         <tr>
-                                            <th>Codigo</th>
-                                            <th>Nombre</th>
-                                            <th>Acciones</th>
+                                            <th style="text-align: center">Codigo</th>
+                                            <th style="text-align: center">Nombre</th>
+                                            <th style="text-align: center">Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($units as $unit)
                                             <tr>
-                                                <td>{{ $unit->code}}</td>
-                                                <td>{{ $unit->name }}</td>
-                                                <td>
+                                                <td style="text-align: center">{{ $unit->code}}</td>
+                                                <td style="text-align: lefr">{{ $unit->name }}</td>
+                                                <td style="text-align: center">
                                                     <div class="btn-group" role="group" aria-label="Basic example">
                                                         <button type="button" class="btn btn-sm btn-success mx-2 rounded" tooltip="tooltip" title="Modificar"  data-bs-toggle="modal" data-bs-target="#Modal"  wire:click='edit("{{ $unit->id }}")'><i class="fa fa-fw fa-edit"></i> </i> </button>
-                                                        <button type="button" class="btn btn-danger btn-sm mx-2 rounded" tooltip="tooltip" title="Eliminar" wire:click='delete("{{ $unit->id }}")'><i class="fa fa-fw fa-trash"></i></button>
+                                                        <button type="button" class="btn btn-danger btn-sm rounded" tooltip="tooltip" title="Eliminar" wire:click='delete("{{ $unit->id }}")'><i class="fa fa-fw fa-trash"></i></button>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -50,7 +50,7 @@
                         </div>
                     </div>
                 </div>
-                {{$units->links() }}
+                {{-- {{$units->links() }} --}}
             </div>
         </div>
     </div>

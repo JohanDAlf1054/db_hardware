@@ -101,8 +101,9 @@ Route::get('/export', [ExportController::class, 'export'])->name('export');
 Route::get('/export_person', [ExportController::class, 'exportperson'])->name('export.person');
 Route::get('/export_supplier', [ExportController::class, 'exportsupplier'])->name('export.supplier');
 Route::get('/export_customer', [ExportController::class, 'exportcustomer'])->name('export.customer');
-Route::get('/report', [ExportController::class,'report'])->name('report');
+Route::get('/reportPriceHistoryProducts', [ExportController::class,'reportPriceHistoryProducts'])->name('reportPriceHistoryProducts');
 Route::get('/historial', function () {return view('reports.historial');})->name('historial');
+Route::get('/reportPriceHistoryProductsPurchase', [ExportController::class,'reportPriceHistoryProductsPurchase'])->name('reportPriceHistoryProductsPurchase');
 //Funciones De Compras
 Route::resource('purchase_supplier', App\Http\Controllers\PurchaseSupplierController::class);
 Route::resource('detail-purchases', App\Http\Controllers\DetailPurchaseController::class);
@@ -123,6 +124,6 @@ Route::get('/backup/create', [BackupController::class, 'backup'])->name('backup-
 Route::get('/backup/system', [BackupController::class, 'backupSystem'])->name('backup-system');
 Route::get('/restore/backup', [BackupController::class, 'restoreBackup'])->name('restore-backup');
 
-Route::get('/salesHistory', [ExportController::class, 'report'])->name('sales-History');
-Route::get('/salesShow', [ExportController::class, 'show'])->name('salesShow');
-
+//Filtrar historial de precios
+Route::get('/filtrar/precios', [ExportController::class, 'filtrar'])->name('filtrar_por_fechas');
+Route::get('/filtrar/precios/purchase', [ExportController::class, 'filtrarPurchase'])->name('filtrarPurchase');

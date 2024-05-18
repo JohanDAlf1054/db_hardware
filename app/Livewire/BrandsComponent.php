@@ -11,7 +11,6 @@ use Livewire\WithPagination;
 
 class BrandsComponent extends Component
 {
-    use WithPagination;
     use LivewireAlert;
     public $search='';
     public $Id, $name, $code, $abbrevation;
@@ -25,7 +24,7 @@ class BrandsComponent extends Component
 
     public function render()
     {
-        $brands = Brand::where('name','like', '%'.$this->search.'%')->paginate(15);
+        $brands = Brand::where('name','like', '%'.$this->search.'%')->get();
         return view('livewire.brands-component', compact('brands'));
     }
 

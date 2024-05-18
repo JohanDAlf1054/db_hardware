@@ -10,14 +10,13 @@ use Livewire\WithPagination;
 
 class CategoriesComponent extends Component
 {
-    use WithPagination;
     use LivewireAlert;
     public $search='';
     public $Id, $name, $description;
 
     public function render()
     {   
-        $categories = CategoryProduct::where('name','like', '%'.$this->search.'%')->paginate(15);
+        $categories = CategoryProduct::where('name','like', '%'.$this->search.'%')->get();
         return view('livewire.categories-component', compact('categories'));
     }
 
