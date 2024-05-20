@@ -121,7 +121,7 @@ class BrandController extends Controller
             Session::flash('notificacion', [
                 'tipo' => 'error',
                 'titulo' => 'Error!',
-                'descripcion' => 'Archivo incorrecto: ' . $validator->errors()->first('import_file'),
+                'descripcion' => 'Archivo incorrecto, debe de ser de extensión xlsx',
                 'autoCierre' => 'true'
             ]);
             return redirect()->route('brand.index');
@@ -133,12 +133,11 @@ class BrandController extends Controller
             Session::flash('notificacion', [
                 'tipo' => 'exito',
                 'titulo' => 'Éxito!',
-                'descripcion' => 'Marcas Agregadas',
+                'descripcion' => 'Marcas Agregadas!',
                 'autoCierre' => 'true'
             ]);
             return redirect()->route('brand.index');
         } catch (\Exception $e){
-            return redirect()->route('brand.index')->with('error', 'Archivo Incorrecto, el archivo debe ser un archivo Excel (.xlsx)');
         }
     }
 

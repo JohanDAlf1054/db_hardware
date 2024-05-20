@@ -7,6 +7,8 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/css/bootstrap-select.min.css" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/2.0.6/css/dataTables.bootstrap5.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.2/css/responsive.dataTables.css">
 @endpush
 
 @section('content')
@@ -23,7 +25,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-12">
-                            <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">Acciones
+                            <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">Acciones
                                 <span class="visually-hidden">Acciones</span>
                             </button>
                             <ul class="dropdown-menu desplegable_acciones">
@@ -34,36 +36,26 @@
                                 </div>
                             </ul>
                         </div>
-                        <div class="col-lg-3 col-md-5 col-sm-7">
-                            <form action="{{ route('sales.index') }}" method="get">
-                                <div class="mb-2 row">
-                                    <div class="col-sm-9">
-                                        <input name="filtervalue" type="text" class="form-control" aria-label="Text input with segmented dropdown button" placeholder="Buscar Factura....">
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <button type="submit" class="btn btn-dark">Buscar</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="col-lg-2 col-md-4 col-sm-6">
-                            <form action="{{ route('credit-note-sales.index') }}" method="GET">
-                                <div class="mb-3 row">
-                                    <div class="col-sm-4" style="display: flex; margin-left: 1rem">
-                                        <input name="check" class="form-check-input" type="checkbox" style="padding: 0.7rem; " {{ request('check') ? 'checked' : '' }}>
-                                        <label class="form-check-label" for="checkActivos" style="font-size: 1.1em; padding: 0.2rem;">Activos</label>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <button type="submit" class="btn btn-dark">Filtrar</button>
-                                    </div>
-                                </div>
+                        <div class="col-lg-6 col-md-6 col-sm-12">
+                            <form action="{{ route('person.index') }}" method="get" class="d-flex align-items-center">
+                                <input name="filtervalue" type="text" class="form-control me-2"
+                                    aria-label="Buscar persona" placeholder="Buscar Nota Crédito....">
+                                <button type="submit" class="btn btn-dark">Buscar</button>
+
+                                {{-- Botones IMPORTAR Y EXPORTAR --}}
+
+                                <button type="button" class="btn btn-success ms-2 rounded" data-bs-toggle="tooltip"
+                                    title="Exportar" onclick="window.location.href='{{ route('export.creditnotesale') }}'">
+                                    <i class="fa-solid fa-file-arrow-down"></i>
+                                </button>
                             </form>
                         </div>
                     </div>
+                    <br>
                     <div class="container_datos">
                         <div class="table_container">
                             <div class="table-responsive">
-                                <table class="table table-striped table-hover" style="justify-content: center">
+                                <table id="datatable" class="table table-striped table-hover display nowrap"  style="justify-content: center; width:100%">
                                     <thead class="table-dark">
                                         <tr style="text-align: center">
                                             <th>Id</th>
@@ -158,6 +150,14 @@
         <img src="{{ asset('img/Rol_no_asignado.png')}}" class="img_rol"/>
         <h2 class="texto_noRol">Pídele al administrador que se te asigne un rol.</h2>
     </div>
+@push('js')
+<script src="{{ asset('js/datatable.js') }}" defer></script>
+        <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+        <script src="https://cdn.datatables.net/2.0.7/js/dataTables.js"></script>
+        <script src="https://cdn.datatables.net/2.0.7/js/dataTables.bootstrap5.js"></script>
+        <script src="https://cdn.datatables.net/responsive/3.0.2/js/dataTables.responsive.js"></script>
+        <script src="https://cdn.datatables.net/responsive/3.0.2/js/responsive.dataTables.js"></script>
+@endpush
 @endcan
 @endauth
 @guest

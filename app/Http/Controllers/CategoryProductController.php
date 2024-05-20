@@ -121,7 +121,7 @@ class CategoryProductController extends Controller
             Session::flash('notificacion', [
                 'tipo' => 'error',
                 'titulo' => 'Error!',
-                'descripcion' => 'Archivo incorrecto: ' . $validator->errors()->first('import_file'),
+                'descripcion' => 'Archivo incorrecto, debe de ser de extensión xlsx',
                 'autoCierre' => 'true'
             ]);
             return redirect()->route('category.index');
@@ -138,13 +138,6 @@ class CategoryProductController extends Controller
             ]);
             return redirect()->route('category.index');
         }catch (\Exception $e){
-            Session::flash('notificacion', [
-                'tipo' => 'error',
-                'titulo' => 'Éxito!',
-                'descripcion' => 'Archivo Incorrecto!',
-                'autoCierre' => 'true'
-            ]);
-            return redirect()->route('category.index');
         }
     }
 

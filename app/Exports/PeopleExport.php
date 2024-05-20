@@ -5,14 +5,21 @@ namespace App\Exports;
 use App\Models\Person;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\Exportable;
-use Maatwebsite\Excel\Concerns\WithTitle;
-use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
+use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Style\Fill;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\WithCustomStartCell;
+use Maatwebsite\Excel\Concerns\WithEvents;
+use Maatwebsite\Excel\Events\AfterSheet;
+use PhpOffice\PhpSpreadsheet\Style\Color;
+use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
+use Maatwebsite\Excel\Concerns\WithTitle;
 
 
-
-class PeopleExport implements FromQuery, WithTitle, WithHeadings
+class PeopleExport implements FromQuery, WithHeadings, WithCustomStartCell, WithTitle, WithEvents
 {
     use Exportable;
 
@@ -50,7 +57,8 @@ class PeopleExport implements FromQuery, WithTitle, WithHeadings
             'Correo electrónico',
             'Ciudad',
             'Dirección',
-            'Celular'
+            'Celular',
+            'Estado'
         ];
     }
 
@@ -70,12 +78,111 @@ class PeopleExport implements FromQuery, WithTitle, WithHeadings
                 ->whereIn('rol', ['proveedor', 'cliente']);
         }
     }
-    public function styles(Worksheet $personas)
+
+    public function startCell(): string
+    {
+        return 'A5';
+    }
+
+    /**
+     * @return array
+     */
+    public function registerEvents(): array
     {
         return [
-            1 => ['font' => ['bold' => true]],
-            'A1:O1' => ['fill' => ['fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID, 'startColor' => ['rgb' => 'F28A8C']]]
-        ];
-    }
+            AfterSheet::class => function(AfterSheet $event) {
+                $sheet = $event->sheet;
+
+                // Insertar la imagen en una celda específica
+                $imagePath = public_path('img/LogoBlanco_Ferreteria.png');
+                $drawing = new Drawing();
+                $drawing->setName('Logo');
+                $drawing->setDescription('Logo');
+                $drawing->setPath($imagePath);
+                $drawing->setHeight(120); // Ajusta la altura de la imagen según tu preferencia
+                $drawing->setCoordinates('A1'); // Celda donde se insertará la imagen
+                $drawing->setWorksheet($sheet->getDelegate());
+
+            // Ajustar automáticamente el tamaño de las columnas según su contenido
+            foreach ($sheet->getColumnIterator() as $column) {
+                $sheet->getDelegate()->getColumnDimension($column->getColumnIndex())->setAutoSize(true);
+            }
+
+            // Definir el rango desde A1 hasta L4 para el encabezado
+            $headerRange = 'A1:N3';
+
+            // Aplicar color azul al encabezado
+            $sheet->getDelegate()->getStyle($headerRange)->applyFromArray([
+                'fill' => [
+                    'fillType' => Fill::FILL_SOLID,
+                    'startColor' => ['argb' => '0080ff'], // Azul
+                ],
+                'font' => [
+                    'name' => 'Oswald', // Tipo de letra Oswald
+                    'color' => ['rgb' => 'FFFFFF'], // Letra blanca
+                    'bold' => true,
+                    'size' => 16,
+                ],
+                'alignment' => [
+                    'horizontal' => Alignment::HORIZONTAL_CENTER,
+                    'vertical' => Alignment::VERTICAL_CENTER,
+                ],
+            ]);
+
+            $sheet->getDelegate()->getStyle('A5:N5')->applyFromArray([
+                'fill' => [
+                    'fillType' => Fill::FILL_SOLID,
+                    'startColor' => ['argb' => 'd3d3d3'], // Gris claro
+                ],
+                'font' => [
+                    'bold' => true,
+                ],
+            ]);
+
+            $sheet->getDelegate()->getStyle('A1:' . $sheet->getDelegate()->getHighestColumn() . $sheet->getDelegate()->getHighestRow())->applyFromArray([
+                'font' => [
+                    'name' => 'Oswald', // Tipo de letra Oswald
+                ],
+            ]);
+
+            
+            $title = $this->title();
+            // Fusionar celdas para el encabezado
+            $sheet->getDelegate()->mergeCells('A1:N1');
+            $sheet->setCellValue('A1', 'Informe de ' . $title);
+            $sheet->getStyle('A1')->getFont()->setSize(20); // Tamaño de letra para "Informe de Ventas"
+            $sheet->getStyle('A1')->getFont()->setBold(true); // Ajustar a negrita
+            $sheet->getStyle('A1')->getAlignment()->setWrapText(true);
+            $sheet->getStyle('A1')->getFont()->getColor()->setARGB(Color::COLOR_WHITE); // Letra blanca
+
+            // Agregar "Ferretería La Excelencia" y "NIT 9.524.275" en celdas separadas
+            $sheet->getDelegate()->mergeCells('A2:N2');
+            $sheet->setCellValue('A2', 'Ferretería La Excelencia');
+            $sheet->getStyle('A2')->getFont()->setSize(16); // Tamaño de letra para "Ferretería La Excelencia"
+            $sheet->getStyle('A2')->getFont()->setBold(false); // Ajustar a negrita
+            $sheet->getStyle('A2')->getAlignment()->setWrapText(true);
+            $sheet->getStyle('A2')->getFont()->getColor()->setARGB(Color::COLOR_WHITE); // Letra blanca
+
+            $sheet->getDelegate()->mergeCells('A3:N3');
+            $sheet->setCellValue('A3', 'NIT 9.524.275');
+            $sheet->getStyle('A3')->getFont()->setSize(14); // Tamaño de letra para "NIT 9.524.275"
+            $sheet->getStyle('A3')->getFont()->setBold(false); // Ajustar a negrita
+            $sheet->getStyle('A3')->getAlignment()->setWrapText(true);
+            $sheet->getStyle('A3')->getFont()->getColor()->setARGB(Color::COLOR_WHITE); // Letra blanca
+
+            // Aplicar bordes a las celdas de la tabla
+            $tableRange = 'A5:' . $sheet->getHighestColumn() . $sheet->getHighestRow();
+            $sheet->getDelegate()->getStyle($tableRange)->applyFromArray([
+                'borders' => [
+                    'allBorders' => [
+                        'borderStyle' => Border::BORDER_THIN,
+                        'color' => ['argb' => '00000000'],
+                    ],
+                ],
+            ]);
+        },
+    ];
+}
+    
     
 }

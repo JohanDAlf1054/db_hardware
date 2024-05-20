@@ -206,7 +206,7 @@ Breadcrumbs::for('sales.create', function (BreadcrumbTrail $trail) {
 //Ventas > Notas credito
 Breadcrumbs::for('credit.note.sales', function (BreadcrumbTrail $trail) {
     $trail->parent('sales.index');
-    $trail->push('Notas credito', route('credit-note-sales.index'));
+    $trail->push('Notas crédito', route('credit-note-sales.index'));
 });
 
 //Ventas > Notas credito > Mostrar

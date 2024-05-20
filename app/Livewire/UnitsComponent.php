@@ -6,11 +6,9 @@ use App\Models\MeasurementUnit;
 use Illuminate\Support\Facades\Session;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
-use Livewire\WithPagination;
 
 class UnitsComponent extends Component
 {   
-    use WithPagination;
     use LivewireAlert;
     public $search='';
     public $Id, $name, $code;
@@ -22,7 +20,7 @@ class UnitsComponent extends Component
 
     public function render()
     {
-        $units = MeasurementUnit::where('name','like', '%'.$this->search.'%')->paginate(20);
+        $units = MeasurementUnit::where('name','like', '%'.$this->search.'%')->get();
         return view('livewire.units-component', compact('units'));
     }
 

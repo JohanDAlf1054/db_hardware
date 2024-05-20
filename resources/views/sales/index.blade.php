@@ -4,9 +4,9 @@
 @extends('template')
 
 @push('css')
-<link rel="stylesheet" href="https://cdn.datatables.net/2.0.6/css/dataTables.dataTables.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" ></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.bootstrap5.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.2/css/responsive.dataTables.css">
-<link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.0.2/css/buttons.dataTables.css">
 @endpush
 
 @section('content')
@@ -29,31 +29,31 @@
                             <ul class="dropdown-menu desplegable_acciones">
                                 <div class="acciones_boton">
                                     <li><a class="dropdown-item" href="{{ route('sales.create') }}">Crear nueva venta</a></li>
-                                    <li><a class="dropdown-item" href="{{ route('credit-note-sales.index') }}">Nota credito</a></li>
-                                    <li><a class="dropdown-item" href="{{ route('credit-note-sales.create') }}">Crear nota credito</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('credit-note-sales.index') }}">Nota crédito</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('credit-note-sales.create') }}">Crear nota crédito</a></li>
                                 </div>
                             </ul>
                         </div>
-                        <div class="col-lg-3 col-md-5 col-sm-7">
-                        </div>
-                        <div class="col-lg-2 col-md-4 col-sm-6">
-                            <form action="{{ route('sales.index') }}" method="GET">
-                                <div class="mb-3 row">
-                                    <div class="col-sm-8" style="display: flex; margin-left: 1rem">
-                                        <input name="check" class="form-check-input" type="checkbox" style="padding: 0.7rem; " {{ request('check') ? 'checked' : '' }}>
-                                        <label class="form-check-label" for="checkActivos" style="font-size: 1.1em; padding: 0.2rem; " >Activos</label>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <button type="submit" class="btn btn-dark">Filtrar</button>
-                                    </div>
-                                </div>
+                           <div class="col-lg-6 col-md-6 col-sm-12">
+                            <form action="{{ route('person.index') }}" method="get" class="d-flex align-items-center">
+                                <input name="filtervalue" type="text" class="form-control me-2"
+                                    aria-label="Buscar persona" placeholder="Buscar Venta....">
+                                <button type="submit" class="btn btn-dark">Buscar</button>
+
+                                {{-- Botones IMPORTAR Y EXPORTAR --}}
+
+                                <button type="button" class="btn btn-success ms-2 rounded" data-bs-toggle="tooltip"
+                                    title="Exportar" onclick="window.location.href='{{ route('export.sale') }}'">
+                                    <i class="fa-solid fa-file-arrow-down"></i>
+                                </button>
                             </form>
                         </div>
-                    </div>
-                </div>
+                            
+                        </div>
+                       <br>
 
-                <div class="table-responsive px-3"> <!-- Añade la clase "px-3" para agregar margen horizontal -->
-                            <table id="example" class="table table-striped table-hover display nowrap"  style="justify-content: center; width:100%">
+                <div> <!-- Añade la clase "px-3" para agregar margen horizontal -->
+                    <table class="table table-striped table-hover" style="width:100%" id="datatable">
                                 <thead class="table-dark">
                                     <tr style="text-align: center">
                                         <th>Id</th>
@@ -143,70 +143,12 @@
 
 
 @push('js')
-<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js"></script>
+<script src="{{ asset('js/datatable.js') }}" defer></script>
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-<script src="https://cdn.datatables.net/2.0.6/js/dataTables.js"></script>
+<script src="https://cdn.datatables.net/2.0.5/js/dataTables.js"></script>
+<script src="https://cdn.datatables.net/2.0.5/js/dataTables.bootstrap5.js"></script>
 <script src="https://cdn.datatables.net/responsive/3.0.2/js/dataTables.responsive.js"></script>
 <script src="https://cdn.datatables.net/responsive/3.0.2/js/responsive.dataTables.js"></script>
-<script src="https://cdn.datatables.net/buttons/3.0.2/js/dataTables.buttons.js"></script>
-<script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.dataTables.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
-<script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.html5.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.print.min.js"></script>
-<script src="https://cdn.datatables.net/buttons/3.0.2/js/dataTables.buttons.js"></script>
-        <script src ="https://cdn.datatables.net/buttons/3.0.2/js/buttons.dataTables.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
-        <script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.html5.min.js"></script>
-
-<script>
-    new DataTable('#example',{
-        responsive: true,
-        language: {
-            "sProcessing":     "Procesando...",
-            "sLengthMenu":     "Mostrar _MENU_ registros",
-            "sZeroRecords":    "No se encontraron resultados",
-            "sEmptyTable":     "Ningún dato disponible en esta tabla",
-            "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-            "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
-            "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-            "sInfoPostFix":    "",
-            "sSearch":         "Buscar:",
-            "sUrl":            "",
-            "sInfoThousands":  ",",
-            "sLoadingRecords": "Cargando...",
-            "oPaginate": {
-                "sFirst":    "Primero",
-                "sLast":     "Último",
-                "sNext":     "Siguiente",
-                "sPrevious": "Anterior"
-            },
-            "oAria": {
-                "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-            }
-        },
-            buttons: [
-
-       {
-           extend: 'excel',
-           text: '<i class="fa-solid fa-file-excel"></i>',
-           className: 'btn btn-success'
-       },
-
-       {
-           extend: 'pdf',
-           text: '<i class="fa-solid fa-file-pdf"></i>',
-           className: 'btn btn-danger'
-        }
-    ],
-        lengthMenu: [5, 10, 25, 50]
-
-    });
-</script>
 @endpush
 @else
     <div class="mensaje_Rol">

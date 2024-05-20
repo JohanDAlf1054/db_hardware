@@ -37,8 +37,14 @@
                                     <li><a class="dropdown-item" href="{{ route('category.index') }}">Crear Categoría</a></li>
                                     <li><a class="dropdown-item" href="{{ route('brand.index') }}">Crear Marca</a></li>
                                     <li><a class="dropdown-item" href="{{ route('units.index') }}">Crear Unidad</a></li>
+<<<<<<< HEAD
                                    {{-- <li><a class="dropdown-item" href="{{ route('reportPriceHistoryProducts') }}">Generar Historial de Precios</a></li>
                                 --}}</div>
+=======
+                                    <li><a class="dropdown-item" href="{{ route('reportPriceHistoryProducts') }}">Generar Historial de Ventas</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('reportPriceHistoryProductsPurchase') }}">Generar Historial de Compras</a></li>
+                                </div>
+>>>>>>> cc23e75f6de09698ac2ae477cd9064c3a1331c36
                             </ul>
                         </div>
                         <div class="col-lg-3 col-md-5 col-sm-7" >
@@ -164,7 +170,7 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        {{ $productos->links() }}
+                        {{-- {{ $productos->links() }} --}}
                     </div>
                 </div>
                 </div>

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 [2024-05-16 07:43:07] local.ERROR: Target class [HistorialMovimientoController] does not exist. {"userId":1,"exception":"[object] (Illuminate\\Contracts\\Container\\BindingResolutionException(code: 0): Target class [HistorialMovimientoController] does not exist. at C:\\laragon\\www\\proyectS\\db_hardware\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php:914)
 [stacktrace]
@@ -14953,3 +14954,5 @@
 #47 C:\\laragon\\www\\proyectS\\db_hardware\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('...')
 #48 {main}
 "} 
+=======
+>>>>>>> cc23e75f6de09698ac2ae477cd9064c3a1331c36

@@ -14,9 +14,15 @@ class Products extends Migration
         Schema::create('products', function(Blueprint $table){
             $table->engine="InnoDB";
             $table->bigIncrements('id');
+<<<<<<< HEAD
             $table->string('name_product');
             $table->string('description_long')->nullable();
             $table->string('factory_reference');
+=======
+            $table->string('name_product')->unique();
+            $table->string('description_long')->nullable();
+            $table->string('factory_reference')->unique();
+>>>>>>> cc23e75f6de09698ac2ae477cd9064c3a1331c36
             $table->string('classification_tax');
             $table->decimal('selling_price',10,2);
             $table->string('purchase_price',10,2)->default(0);

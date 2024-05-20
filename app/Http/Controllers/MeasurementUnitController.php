@@ -56,7 +56,7 @@ class MeasurementUnitController extends Controller
             Session::flash('notificacion', [
                 'tipo' => 'error',
                 'titulo' => 'Error!',
-                'descripcion' => 'Archivo incorrecto: ' . $validator->errors()->first('import_file'),
+                'descripcion' => 'Archivo incorrecto, debe de ser de extensión xlsx',
                 'autoCierre' => 'true'
             ]);
             return redirect()->route('units.index');
@@ -73,7 +73,6 @@ class MeasurementUnitController extends Controller
             ]);
             return redirect()->route('units.index');
         } catch (\Exception $e){
-            return redirect()->route('units.index')->with('error', 'Archivo Incorrecto, el archivo debe ser un archivo Excel (.xlsx)');
         }
     }
 

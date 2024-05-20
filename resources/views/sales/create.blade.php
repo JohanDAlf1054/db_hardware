@@ -1,7 +1,13 @@
+<<<<<<< HEAD
 {{-- @auth
 @can('sales') --}}
 
+=======
+@auth
+>>>>>>> cc23e75f6de09698ac2ae477cd9064c3a1331c36
 @extends('template')
+@can('sales')
+    
 
 @push('css')
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/css/bootstrap-select.min.css" rel="stylesheet">
@@ -15,6 +21,7 @@
 <br>
 
 </div>
+    
 @section('content')
 <<div class="table-responsive px-3">
 <div class="card">
@@ -53,7 +60,7 @@
                                 </div>
                                 <!-----Stock--->
                                 <div class="col-sm-4">
-                                    <label for="stock" class="form-label">Stock:</label>
+                                    <label for="stock" class="form-label">Existencias:</label>
                                     <input disabled type="number" name="stock" id="stock" class="form-control" step="0.1">
                                 </div>
                                 <!-----Precio de venta---->
@@ -155,12 +162,8 @@
                                 <!--Fecha--->
                                 <div class="col-sm-12">
                                     <label for="dates" class="form-label">Fecha:</label>
-                                    <input readonly type="date" name="dates" id="dates" class="form-control border-success" value="<?php echo date("Y-m-d") ?>">
-                                    <?php
-                                    use Carbon\Carbon;
-                                    $fecha_hora = Carbon::now()->toDateTimeString();
-                                    ?>
-                                    <input type="hidden" name="dates" value="{{$fecha_hora}}">
+                                    <input readonly type="date" name="dates" id="dates" class="form-control border-success" value="{{ date('Y-m-d') }}">
+                                    <input type="hidden" name="dates_hidden" value="{{ \Carbon\Carbon::now()->toDateTimeString() }}">
                                 </div>
                                 <!--Numero de comprobante-->
                                 <div class="col-12">
@@ -194,7 +197,7 @@
                                     <label for="sellers" class="form-label">Vendedor:</label>
                                     <select name="sellers" id="sellers" class="form-control selectpicker show-tick" data-live-search="true" title="Selecciona el vendedor" data-size='3'>
                                         @foreach ($users as $item)
-                                        <option value="{{$item->id}}">{{$item->name}}</option>
+                                        <option value="{{$item->name}}">{{$item->name}}</option>
                                         @endforeach
                                     </select>
                                     @error('sellers')
@@ -232,9 +235,9 @@
         </div>
     </div>
 </div>
+ 
 @endsection
-
-
+{{-- @endcan --}}
 @push('js')
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/js/bootstrap-select.min.js"></script>
 <script>
@@ -448,6 +451,7 @@ function eliminarProducto(indice, subtotalProducto, impuesto) {
     }
     //Fuente: https://es.stackoverflow.com/questions/48958/redondear-a-dos-decimales-cuando-sea-necesario
 </script>
+
 @endpush
 {{-- @else
     <div class="mensaje_Rol">
@@ -457,5 +461,12 @@ function eliminarProducto(indice, subtotalProducto, impuesto) {
 @endcan
 @endauth --}}
 @guest
+<<<<<<< HEAD
     @include('include.falta_sesion')
 @endguest
+=======
+@include('include.falta_sesion')
+@endguest
+
+
+>>>>>>> cc23e75f6de09698ac2ae477cd9064c3a1331c36

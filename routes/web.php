@@ -15,7 +15,11 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\SupplierController;
+<<<<<<< HEAD
 use App\Http\Controllers\HistorialMovimientoController;
+=======
+use App\Http\Controllers\TemplateController;
+>>>>>>> cc23e75f6de09698ac2ae477cd9064c3a1331c36
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UsuariosController;
 use App\Http\Controllers\CreditNoteSalesController;
@@ -95,13 +99,18 @@ Route::get('/indexAll',[SubCategoryController::class, 'indexAll'])->name('indexA
 //Funcion Importar
 Route::post('/importbrands',[BrandController::class, 'importbrands'])->name('importbrands');
 Route::post('/importCategory',[CategoryProductController::class, 'importCategory'])->name('importCategory');
+Route::post('/importPerson', [PersonController::class, 'importPerson'])->name('importPerson');
+
 
 //Funcion Export Informes
 Route::get('export_index', [ExportController::class, 'index_informes'])->name('index_informes');
 Route::get('/export', [ExportController::class, 'export'])->name('export');
 Route::get('/export_person', [ExportController::class, 'exportperson'])->name('export.person');
+Route::get('/export_sale', [ExportController::class, 'exportsale'])->name('export.sale');
+Route::get('/export_creditnotesale', [ExportController::class, 'exportcreditnotesale'])->name('export.creditnotesale');
 Route::get('/export_supplier', [ExportController::class, 'exportsupplier'])->name('export.supplier');
 Route::get('/export_customer', [ExportController::class, 'exportcustomer'])->name('export.customer');
+<<<<<<< HEAD
 Route::get('/report', [ExportController::class,'report'])->name('report');
 //rutas de historial de movimientos No Tocar y brayitan es mi hijo
 Route::post('/buscar-historial', [HistorialMovimientoController::class, 'buscarMovimientos'])->name('buscar.historial');
@@ -110,10 +119,19 @@ Route::get('/filtrar_por_fechas', 'HistorialMovimientoController@buscarMovimient
 Route::get('/limpiar', [HistorialMovimientoController::class, 'limpiar'])->name('limpiar');
 
 
+=======
+Route::get('/reportPriceHistoryProducts', [ExportController::class,'reportPriceHistoryProducts'])->name('reportPriceHistoryProducts');
+Route::get('/historial', function () {return view('reports.historial');})->name('historial');
+Route::get('/reportPriceHistoryProductsPurchase', [ExportController::class,'reportPriceHistoryProductsPurchase'])->name('reportPriceHistoryProductsPurchase');
+>>>>>>> cc23e75f6de09698ac2ae477cd9064c3a1331c36
 //Funciones De Compras
 Route::resource('purchase_supplier', App\Http\Controllers\PurchaseSupplierController::class);
 Route::resource('detail-purchases', App\Http\Controllers\DetailPurchaseController::class);
 Route::resource('debit-note-supplier', App\Http\Controllers\DebitNoteSupplierController::class);
+
+// Descarga de template importar
+Route::get('/downloadFile',[TemplateController::class, 'downloadFile'])->name('downloadFile');
+
 
 //Ruta para traer la informacion de las subcategorias
 Route::get('/products/create/categoryProduct/{categoryProduct}/subCategories', [CategoryProductController::class,'subCategories']);
@@ -130,6 +148,6 @@ Route::get('/backup/create', [BackupController::class, 'backup'])->name('backup-
 Route::get('/backup/system', [BackupController::class, 'backupSystem'])->name('backup-system');
 Route::get('/restore/backup', [BackupController::class, 'restoreBackup'])->name('restore-backup');
 
-Route::get('/salesHistory', [ExportController::class, 'report'])->name('sales-History');
-Route::get('/salesShow', [ExportController::class, 'show'])->name('salesShow');
-
+//Filtrar historial de precios
+Route::get('/filtrar/precios', [ExportController::class, 'filtrar'])->name('filtrar_por_fechas');
+Route::get('/filtrar/precios/purchase', [ExportController::class, 'filtrarPurchase'])->name('filtrarPurchase');
