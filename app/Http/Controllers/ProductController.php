@@ -80,15 +80,9 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $campos=[
-<<<<<<< HEAD
-            'name_product'=>'required|string|max:100|unique:products,name_product',
-            // 'description_long'=>'required|string|max:100',
-            'factory_reference'=>'required|string|max:100',
-=======
             'name_product'=>'required|string|max:100|unique:products,name_product' ,
             // 'description_long'=>'required|string|max:100',
             'factory_reference'=>'required|string|max:100|unique:products,factory_reference',
->>>>>>> cc23e75f6de09698ac2ae477cd9064c3a1331c36
             'classification_tax'=>'required|string|max:100',
             'selling_price' => 'required|numeric|greater_than_zero',
             'subcategory_product' => 'required|string|max:100',
@@ -169,15 +163,9 @@ class ProductController extends Controller
     public function update(Request $request, $id)
     {
         $campos=[
-<<<<<<< HEAD
-            'name_product'=>'required|string|max:100',
-            // 'description_long'=>'required|string|max:100',
-            'factory_reference'=>'required|string|max:100',
-=======
             'name_product'=>'required|string|max:100|unique:products,name_product,' . $id,
             // 'description_long'=>'required|string|max:100',
             'factory_reference' => 'required|string|max:100|unique:products,factory_reference,' . $id,
->>>>>>> cc23e75f6de09698ac2ae477cd9064c3a1331c36
             'classification_tax'=>'required|string|max:100',
             'selling_price' => 'required|numeric|greater_than_zero',
             'category_products_id'=>'required|max:100',
@@ -187,11 +175,7 @@ class ProductController extends Controller
         ];
         $mensaje=[
             'name_product.required'=>'Escriba el nombre del producto',
-<<<<<<< HEAD
-            // 'name_product.unique'=>'Este producto ya existe!',
-=======
             'name_product.unique'=>'Este producto ya existe!',
->>>>>>> cc23e75f6de09698ac2ae477cd9064c3a1331c36
             // 'description_long.required'=>'Escriba una breve descripción',
             'factory_reference.required'=>'Escriba la referencia del producto',
             'factory_reference.unique' => 'Esta referencia de fábrica ya está en uso',

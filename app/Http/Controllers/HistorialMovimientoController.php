@@ -151,6 +151,4 @@ public function limpiar(Request $request)
     return view('reports.historial', compact('resultados', 'detailPurchases', 'products', 'ventas', 'subCategories', 'categories', 'estados', 'fecha_inicio', 'fecha_cierre', 'request', 'datos'));  
 }
 
-}    
-
-
+}

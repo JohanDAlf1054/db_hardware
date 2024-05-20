@@ -27,7 +27,7 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-lg-2 col-md-2 col-sm-7" >
+                        <div class="col-lg-2 col-md-2 col-sm-12" >
                             <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">Acciones
                                 <span class="visually-hidden">Nuevo</span>
                             </button>
@@ -37,17 +37,12 @@
                                     <li><a class="dropdown-item" href="{{ route('category.index') }}">Crear Categoría</a></li>
                                     <li><a class="dropdown-item" href="{{ route('brand.index') }}">Crear Marca</a></li>
                                     <li><a class="dropdown-item" href="{{ route('units.index') }}">Crear Unidad</a></li>
-<<<<<<< HEAD
-                                   {{-- <li><a class="dropdown-item" href="{{ route('reportPriceHistoryProducts') }}">Generar Historial de Precios</a></li>
-                                --}}</div>
-=======
                                     <li><a class="dropdown-item" href="{{ route('reportPriceHistoryProducts') }}">Generar Historial de Ventas</a></li>
                                     <li><a class="dropdown-item" href="{{ route('reportPriceHistoryProductsPurchase') }}">Generar Historial de Compras</a></li>
                                 </div>
->>>>>>> cc23e75f6de09698ac2ae477cd9064c3a1331c36
                             </ul>
                         </div>
-                        <div class="col-lg-3 col-md-5 col-sm-7" >
+                        <div class="col-lg-3 col-md-5 col-sm-12" >
                             <form action="{{ route('products.index') }}" method="GET">
                                 <div class="mb-3 row">
                                     <div class="col-sm-9">
@@ -66,8 +61,8 @@
                                 </div>
                             </form>
                         </div>
-                        <div class="col-lg-2     col-md-4 col-sm-7"  >
-                            <form action="{{ route('products.index') }}" method="GET">
+                        <div class="col-lg-2 col-md-4 col-sm-12"  >
+                            <form action="{{ route('products.index') }}" method="GET" >
                                 <div class="mb-3 row" >
                                     <div class="col-sm-6" style="display: flex; margin-left: 1rem">
                                         <input name="check" class="form-check-input" type="checkbox" style="padding: 0.7rem; " {{ request('check') ? 'checked' : '' }}>
@@ -77,22 +72,26 @@
                                 </div>
                             </form>
                         </div>
-                        <div class="col-lg-4 col-md-5 col-sm-7">
+                        <div class="col-lg-5 col-md-5 col-sm-12">
                             <form action="{{ route('products.index') }}" method="get">
-                                <div class="mb-2 row">
-                                    <div class="col-sm-9">
-                                        <input name="filtervalue" type="text" class="form-control" aria-label="Text input with segmented dropdown button"  placeholder="Buscar Producto....">
-                                    </div>
-                                    <div class=" col-sm-3" style="display: flex">
-                                        <button type="submit" class=" btn btn-dark">Buscar</button>
-                                        <button type="button" class="btn btn-warning mx-2 rounded" tooltip="tooltip" title="Importar" data-bs-toggle="modal" data-bs-target="#importUnits">
-                                            <i class="fa-solid fa-folder-open" style="color: #0a0a0a; width:24; height:24"; ></i>
-                                        </button>
-                                        <a type="button" class="btn btn-success rounded" tooltip="tooltip" title="Exportar" 
+                                <div class="mb-3 row">
+                                    <div class="col-sm-12" style="display: flex">
+                                        <input name="filtervalue" type="text" class="form-control" 
+                                        aria-label="Text input with segmented dropdown button"  placeholder="Buscar Producto....">
+                                        <button type="submit" class=" btn btn-dark  ms-2">Buscar</button>
+                                        <a type="button" class="btn btn-success ms-2 rounded" tooltip="tooltip" title="Exportar" 
                                             href="{{route('export')}}">
                                             <i class="fa-solid fa-file-arrow-down"></i>
                                         </a>
+                                        <button type="button" class="btn btn-warning ms-2 rounded" tooltip="tooltip" 
+                                            title="Importar" data-bs-toggle="modal" data-bs-target="#importUnits">
+                                            <i class="fa-solid fa-folder-open" style="color: #0a0a0a; width:24; height:24"; ></i>
+                                        </button>
+                                        
                                     </div>
+                                    {{-- <div class=" col-sm-2" style="display: flex">
+                                        
+                                    </div> --}}
 
                                 </div>
                             </form>

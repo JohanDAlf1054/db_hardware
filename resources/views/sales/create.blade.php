@@ -1,10 +1,4 @@
-<<<<<<< HEAD
-{{-- @auth
-@can('sales') --}}
-
-=======
 @auth
->>>>>>> cc23e75f6de09698ac2ae477cd9064c3a1331c36
 @extends('template')
 @can('sales')
     
@@ -453,20 +447,15 @@ function eliminarProducto(indice, subtotalProducto, impuesto) {
 </script>
 
 @endpush
-{{-- @else
+@else
     <div class="mensaje_Rol">
         <img src="{{ asset('img/Rol_no_asignado.png')}}" class="img_rol"/>
         <h2 class="texto_noRol">Pídele al administrador que se te asigne un rol.</h2>
     </div>
 @endcan
-@endauth --}}
+@endauth
 @guest
-<<<<<<< HEAD
-    @include('include.falta_sesion')
-@endguest
-=======
 @include('include.falta_sesion')
 @endguest
 
 
->>>>>>> cc23e75f6de09698ac2ae477cd9064c3a1331c36
