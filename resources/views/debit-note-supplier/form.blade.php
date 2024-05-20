@@ -374,10 +374,10 @@ function calcularTotales() {
   document.querySelectorAll('#tabla_detalle tbody tr').forEach(function(row) {
     var cantidad = Number(row.querySelector('input[name="cantidad[]"]').value);
     var precio_unitario = Number(row.querySelector('input[name="precio_unitario[]"]').value);
-    var iva = Number(row.querySelector('input[name="iva[]"]').value) / 100; // Convertir a decimal
+    var iva = Number(row.querySelector('input[name="iva[]"]').value) / 100; 
     var descuento = Number(row.querySelector('input[name="descuento[]"]').value);
-    var subtotal = Math.round(cantidad * precio_unitario * 100) / 100; // Redondear a 2 decimales
-    var ivaTotal = Math.round(subtotal * iva * 100) / 100; // Redondear a 2 decimales
+    var subtotal = Math.round(cantidad * precio_unitario * 100) / 100; 
+    var ivaTotal = Math.round(subtotal * iva * 100) / 100; 
 
     total += subtotal + ivaTotal;
     totalBruto += subtotal;
@@ -385,11 +385,11 @@ function calcularTotales() {
     totalIva += ivaTotal;
   });
 
-  var totalNeto = Math.round((totalBruto - descuentoTotal) * 100) / 100; // Redondear a 2 decimales
+  var totalNeto = Math.round((totalBruto - descuentoTotal) * 100) / 100;
 
-  document.getElementById('total').value = Math.round(total * 100) / 100; // Redondear a 2 decimales
-  document.getElementById('totalBruto').value = Math.round(totalBruto * 100) / 100; // Redondear a 2 decimales
-  document.getElementById('totalNeto').value = Math.round(totalNeto * 100) / 100; // Redondear a 2 decimales
+  document.getElementById('total').value = Math.round(total * 100) / 100;
+  document.getElementById('totalBruto').value = Math.round(totalBruto * 100) / 100; 
+  document.getElementById('totalNeto').value = Math.round(totalNeto * 100) / 100;
 }
 
 

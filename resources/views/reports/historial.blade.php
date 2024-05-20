@@ -138,9 +138,9 @@
                                                     @if (isset($detallesCompras[$producto->id]))
                                                         @php
                                                             $detalleCompra = $detallesCompras[$producto->id]->shift();
-                                                            $fechaInicial = $producto->created_at; // Fecha en que se creó el producto
-                                                            $fechaFinal = $venta->created_at; // Fecha en que se vendió el producto
-                                                            $fechaFactura = $detalleCompra ? $detalleCompra->created_at : null; // Fecha en que se realizó la compra
+                                                            $fechaInicial = $producto->created_at; 
+                                                            $fechaFinal = $venta->created_at; 
+                                                            $fechaFactura = $detalleCompra ? $detalleCompra->created_at : null; 
                                                             $cantidadIngresada = $detalleCompra ? $detalleCompra->quantity_units : 0;
                                                         @endphp
                                                         <tr>
@@ -148,11 +148,11 @@
                                                             <td style="text-align: center">{{ $producto->factory_reference }}</td>
                                                             <td style="text-align: center">0</td>
                                                             <td style="text-align: center">{{ $cantidadIngresada }}</td>
-                                                            <td style="text-align: center">{{ $fechaInicial }}</td> <!-- Fecha inicial -->
-                                                            <td style="text-align: center">{{ $fechaFinal }}</td> <!-- Fecha final -->
-                                                            <td style="text-align: center">{{ $fechaFactura }}</td> <!-- Fecha de la factura -->
-                                                            <td style="text-align: center">{{ $producto->pivot->amount }}</td> <!-- Cantidad vendida -->
-                                                            <td style="text-align: center">{{ $producto->stock }}</td> <!-- Saldo de cantidades -->
+                                                            <td style="text-align: center">{{ $fechaInicial }}</td> 
+                                                            <td style="text-align: center">{{ $fechaFinal }}</td> 
+                                                            <td style="text-align: center">{{ $fechaFactura }}</td> 
+                                                            <td style="text-align: center">{{ $producto->pivot->amount }}</td> 
+                                                            <td style="text-align: center">{{ $producto->stock }}</td> 
                                                         </tr>
                                                     @endif
                                                 @endforeach
@@ -175,7 +175,6 @@
 <script src="https://cdn.datatables.net/responsive/3.0.2/js/dataTables.responsive.js"></script>
 <script src="https://cdn.datatables.net/responsive/3.0.2/js/responsive.dataTables.js"></script>
 <script>
-  // Inicializa DataTables con los datos
   var table = $('#datatable').DataTable({
     responsive: true,
     autoWidth: false,  

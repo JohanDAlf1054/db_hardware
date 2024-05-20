@@ -13,7 +13,6 @@ class HistorialMovimientoController extends Controller
 {
     public function historialMovimientos(Request $request)
     {
-        // Inicializa las variables como colecciones vacías
         $detailPurchases = collect();
         $products = Product::all();
         $ventas = collect();
@@ -51,19 +50,15 @@ class HistorialMovimientoController extends Controller
         $categoria = $request->input('categoria');
         $subcategoria = $request->input('subcategoria');
     
-        // Inicia las variables con todos los datos
         $resultados = DetailPurchase::with('product');
         $ventas = Sale::with('productos');
     
-        // Inicializa $detallesCompras
         $detallesCompras = [];
     
-        // Llena $detallesCompras con los detalles de las compras de cada producto
         foreach ($products as $product) {
             $detallesCompras[$product->id] = DetailPurchase::where('products_id', $product->id)->get();
         }
     
-        // Si se ha enviado el formulario y se ha especificado un estado, filtra por estado
         if ($request->isMethod('post') && !is_null($status)) {
             $resultados = $resultados->whereHas('product', function ($query) use ($status) {
                 $query->where('status', $status);
@@ -73,7 +68,6 @@ class HistorialMovimientoController extends Controller
             });
         }
     
-        // Si se ha enviado el formulario y se han especificado una fecha de inicio y una fecha de cierre, filtra por rango de fechas
         if ($request->isMethod('post') && $fecha_inicio && $fecha_cierre) {
             $resultados = $resultados->whereHas('product', function ($query) use ($fecha_inicio, $fecha_cierre) {
                 $query->whereBetween('products.created_at', [$fecha_inicio, $fecha_cierre]);
@@ -83,7 +77,6 @@ class HistorialMovimientoController extends Controller
             });
         }
     
-        // Si se ha enviado el formulario y se ha especificado un producto, filtra por producto
         if ($request->isMethod('post') && $producto) {
             $resultados = $resultados->whereHas('product', function ($query) use ($producto) {
                 $query->where('products.id', $producto);
@@ -93,7 +86,6 @@ class HistorialMovimientoController extends Controller
             });
         }
     
-        // Si se ha enviado el formulario y se ha especificado una categoría, filtra por categoría
         if ($request->isMethod('post') && $categoria) {
             $resultados = $resultados->whereHas('product', function ($query) use ($categoria) {
                 $query->where('category_products_id', $categoria);
@@ -103,7 +95,6 @@ class HistorialMovimientoController extends Controller
             });
         }
     
-        // Si se ha enviado el formulario y se ha especificado una subcategoría, filtra por subcategoría
         if ($request->isMethod('post') && $subcategoria) {
             $subcategoriaNombre = SubCategory::find($subcategoria)->name;
             $resultados = $resultados->whereHas('product', function ($query) use ($subcategoriaNombre) {
@@ -117,15 +108,14 @@ class HistorialMovimientoController extends Controller
         $resultados = $resultados->get();
         $ventas = $ventas->get();
     
-        // Realiza los cálculos para cada venta
         $datos = [];
         foreach ($ventas as $venta) {
             foreach ($venta->productos as $producto) {
                 if (isset($detallesCompras[$producto->id])) {
                     $detalleCompra = $detallesCompras[$producto->id]->shift();
                     $fechaInicial = $producto->created_at->format('Y-m-d H:i:s');
-                    $fechaFinal = $venta->created_at->format('Y-m-d H:i:s'); // Fecha en que se vendió el producto
-                    $fechaFactura = $detalleCompra ? $detalleCompra->created_at->format('Y-m-d H:i:s'): null; // Fecha en que se realizó la compra
+                    $fechaFinal = $venta->created_at->format('Y-m-d H:i:s');
+                    $fechaFactura = $detalleCompra ? $detalleCompra->created_at->format('Y-m-d H:i:s'): null; 
                     $cantidadIngresada = $detalleCompra ? $detalleCompra->quantity_units : 0;
                     $datos[] = [
                         'nombre_del_producto' => $producto->name_product,
@@ -147,7 +137,6 @@ class HistorialMovimientoController extends Controller
     
 public function limpiar(Request $request)
 {
-    // Inicializa las variables como colecciones vacías
     $detailPurchases = collect();
     $products = Product::all();
     $ventas = collect();

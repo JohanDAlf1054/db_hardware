@@ -332,9 +332,7 @@ let total=0;
 let totalBruto=0;
 let totalNeto = 0; 
 function cancelarCompra() {
-        //Elimar el tbody de la tabla
         $('#tabla_detalle tbody').empty();
-        //Añadir una nueva fila a la tabla
         let fila = '<tr>' +
             '<th></th>' +
             '<td></td>' +
@@ -392,9 +390,9 @@ if (idProducto === '' || idProducto === undefined || nameProducto === '' || name
 } else if (descuentoProducto > cantidad * precioCompra) {
     showModal('El descuento no puede ser mayor que el valor de la compra');
 } else {
-    subtotal[cont] = Math.round(cantidad * precioCompra * 100) / 100; // Redondear a 2 decimales
+    subtotal[cont] = Math.round(cantidad * precioCompra * 100) / 100;
 sumas += subtotal[cont];
-igv = Math.round(sumas * impuesto / 100 * 100) / 100; // Redondear a 2 decimales
+igv = Math.round(sumas * impuesto / 100 * 100) / 100; 
 total = sumas + igv;
 totalBruto = sumas;
 totalNeto = Math.round((totalBruto - descuentoProducto) * 100) / 100;

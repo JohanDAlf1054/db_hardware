@@ -86,7 +86,6 @@ class DetailPurchaseController extends Controller
 
 {
 
-    // Inicia una transacción de base de datos
     DB::beginTransaction();
     $request->validate([
         'user_id' => 'required',
@@ -101,7 +100,6 @@ class DetailPurchaseController extends Controller
     ]);
 
     try {
-        // Crear el PurchaseSupplier
         $latestInvoice = PurchaseSupplier::where('code', $request->input('code'))
             ->orderBy('invoice_number_purchase', 'desc')
             ->first();
@@ -121,7 +119,6 @@ class DetailPurchaseController extends Controller
         $purchaseSupplier->users_id = $request->input('user_id');
         $purchaseSupplier->save();
 
-        // Recuperar los arrays
         $arrayIdProducto = $request->get('arrayidproducto');
         $arrayImpuesto = $request->get('arrayimpuesto');
         $arrayDescripcion = $request->get('arrayprecioventa');
@@ -131,12 +128,10 @@ class DetailPurchaseController extends Controller
         $arraydescuento=$request->get('arraydescuento');
         //dd($request);
         if (!$arrayIdProducto || !$arrayImpuesto || !$arrayDescripcion || !$arrayCantidad || !$arrayPrecioCompra || !$arrayPrecioVenta || !$arraydescuento) {
-            // Aquí puedes manejar el caso en que uno de los arrays sea null
             return redirect()->back()->withInput()->withErrors(['error' => 'Faltan datos en el formulario.']);
         }
         
 
-        // Realizar el llenado
         $sizeArray = count($arrayIdProducto);
         $cont = 0;
         while($cont < $sizeArray){
@@ -181,7 +176,6 @@ class DetailPurchaseController extends Controller
             $detailPurchase = DetailPurchase::create($validatedData);
 
           
-            // Actualizar el stock
                 $producto = Product::find($arrayIdProducto[$cont]);
                 $stockActual = $producto->stock;
                 $stockNuevo = intval($arrayCantidad[$cont]);
@@ -202,7 +196,7 @@ class DetailPurchaseController extends Controller
         DB::commit();
     } catch (\Exception $e) {
         DB::rollback();
-        // Aquí es donde puedes manejar el error
+        
         return redirect()->back()->withInput()->withErrors(['error' => 'Error: ' . $e->getMessage()]);
     }
     
