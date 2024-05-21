@@ -81,14 +81,6 @@
                             <h4>Ventas</h4>
                         </div>
                     </a>
-
-                    <a href="{{route('index_informes')}}" class="{{ request()->route()->named('index_informes') ? 'selected' : '' }}"  class="submenu-toggle" id="submenu-toggle">
-                        <div class="option">
-                            <i class='bx bxs-notepad' ></i>
-                            <h4>Informes</h4>
-                        </div>
-                    </a>
-
                     <br>
                     <br>
                     <br>
@@ -106,14 +98,14 @@
                         </a>
 
                     @endcan
-
+                    {{-- @can('admin.backup.index') --}}
                     <a href="/backup" class="{{ request()->route()->named('/backup') ? 'selected' : '' }}">
                         <div class="option">
                             <i class="fa-solid fa-gear"></i>
                             <h4>Configuración</h4>
                         </div>
                     </a>
-
+                    {{-- @endcan --}}
                     <a href="/logout">
                         <div class="option">
                             <i class="fa-solid fa-right-from-bracket"></i>
