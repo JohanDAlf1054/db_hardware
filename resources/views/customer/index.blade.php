@@ -45,15 +45,14 @@
                                         <button type="submit" class="btn btn-dark">Buscar</button>
 
                                         {{-- Botones IMPORTAR Y EXPORTAR --}}
+                                        <button type="button" class="btn btn-danger ms-2 rounded" data-bs-toggle="tooltip"
+                                            title="PDF" onclick="window.location.href='{{ route('customer.pdf') }}'">
+                                            <i class="fa-solid fa-file-pdf"></i>
+                                        </button>
 
                                         <button type="button" class="btn btn-success ms-2 rounded" data-bs-toggle="tooltip"
                                             title="Exportar" onclick="window.location.href='{{ route('export.customer') }}'">
                                             <i class="fa-solid fa-file-arrow-down"></i>
-                                        </button>
-
-                                        <button type="button" class="btn btn-warning ms-2 rounded" tooltip="tooltip"
-                                            title="Importar" data-bs-toggle="modal" data-bs-target="#">
-                                            <i class="fa-solid fa-folder-open"></i>
                                         </button>
                                     </form>
                                 </div>

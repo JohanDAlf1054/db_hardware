@@ -6,6 +6,7 @@ use App\Models\Person;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class CustomerController extends Controller
 {
@@ -104,5 +105,18 @@ class CustomerController extends Controller
         }
 
         return redirect()->route('customer.index');
+    }
+    public function pdf()
+    {
+        $clientes = Person::where('rol','Cliente')->get();
+
+        $pdf = Pdf::loadView('customer.pdf', ['clientes' => $clientes])
+                    ->setPaper('a4','landscape');
+
+        // Funcion para devolver una vista del pdf en el navegador
+        return $pdf->stream('archivo.pdf');
+
+        //Descargar el pdf directamente
+        // return $pdf->download('Informe de Clientes.pdf');
     }
 }

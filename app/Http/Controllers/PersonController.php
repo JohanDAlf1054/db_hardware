@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 /**
  * Class PersonController
@@ -112,7 +113,7 @@ class PersonController extends Controller
             return redirect()->route('person.index');
         }
 
-        
+
     }
 
 
@@ -242,11 +243,58 @@ class PersonController extends Controller
 
     public function importPerson(Request $request)
     {
-        $file = $request->file('import_filePerson');
-        Excel::import(new PersonImport, $file);
+        try {
+            $request->validate([
+                'import_filePerson' => 'required|file|mimes:xlsx,xls,csv',
+            ]);
 
-        return redirect()->route('person.index')->with('success', 'Personas importados de forma exitosa');
+            $file = $request->file('import_filePerson');
+            Excel::import(new PersonImport, $file);
+
+            Session::flash('notificacion', [
+                'tipo' => 'exito',
+                'titulo' => 'Éxito!',
+                'descripcion' => 'Datos de personas importados de forma exitosa',
+                'autoCierre' => 'true'
+            ]);
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            $errores = $e->validator->errors()->all();
+            $descripcion = implode(' ', $errores);
+
+            Session::flash('notificacion', [
+                'tipo' => 'error',
+                'titulo' => 'Atención!',
+                'descripcion' => $descripcion,
+                'autoCierre' => 'true'
+            ]);
+
+        } catch (\Exception $e) {
+            Session::flash('notificacion', [
+                'tipo' => 'error',
+                'titulo' => 'Atención!',
+                'descripcion' => 'Ocurrió un error al importar el archivo. Por favor, asegúrate de que el archivo esté en el formato correcto y vuelve a intentarlo.',
+                'autoCierre' => 'true'
+            ]);
+        }
+
+        return redirect()->route('person.index');
     }
 
-    
+    public function pdf()
+    {
+        $people = Person::paginate();
+
+        $pdf = Pdf::loadView('person.pdf', ['people' => $people])
+                    ->setPaper('a4','landscape');
+
+        // Funcion para devolver una vista del pdf en el navegador
+        return $pdf->stream('archivo.pdf');
+
+        //Descargar el pdf directamente
+        // return $pdf->download('Informe de Clientes.pdf');
+    }
+
+
+
 }

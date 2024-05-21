@@ -233,4 +233,11 @@ return [
         'username'                 => 'usuario',
         'year'                     => 'año',
     ],
+    'custom' => [
+        'import_filePerson' => [
+            'required' => 'El archivo de importación es obligatorio.',
+            'file' => 'El archivo de importación debe ser un archivo válido.',
+            'mimes' => 'El archivo de importación debe tener uno de los siguientes formatos: :values.',
+        ],
+    ],
 ];
