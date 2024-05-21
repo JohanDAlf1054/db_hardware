@@ -7,8 +7,9 @@ use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\WithUpserts;
 
-class UnitsImpot implements ToModel, WithHeadingRow, WithBatchInserts, WithChunkReading
+class UnitsImpot implements ToModel, WithHeadingRow, WithBatchInserts, WithChunkReading, WithUpserts
 {
     /**
     * @param array $row
@@ -18,8 +19,8 @@ class UnitsImpot implements ToModel, WithHeadingRow, WithBatchInserts, WithChunk
     public function model(array $row)
     {
         return new MeasurementUnit([
-            'code' => $row['code'],
-            'name' => $row['name'],
+            'code' => $row['codigo'],
+            'name' => $row['nombre_unidad'],
         ]);
     }
 
@@ -31,5 +32,11 @@ class UnitsImpot implements ToModel, WithHeadingRow, WithBatchInserts, WithChunk
     public function chunkSize(): int
     {
         return 2000;
+    }
+
+    public function uniqueBy()
+    {
+        return 'name';
+        return 'code';
     }
 }

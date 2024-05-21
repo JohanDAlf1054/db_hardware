@@ -14,8 +14,8 @@ class SubCategories extends Migration
         Schema::create('sub_categories', function(Blueprint $table){
             $table->engine="InnoDB";
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('description');
+            $table->string('name')->unique();
+            $table->string('description')->nullable();
             $table->bigInteger('category_id')->unsigned();
             $table->timestamps();
             $table->foreign('category_id')->references('id')->on('category_products');

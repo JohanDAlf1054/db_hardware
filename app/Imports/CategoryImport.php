@@ -7,8 +7,9 @@ use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\WithUpserts;
 
-class CategoryImport implements ToModel, WithHeadingRow, WithBatchInserts, WithChunkReading
+class CategoryImport implements ToModel, WithHeadingRow, WithBatchInserts, WithChunkReading, WithUpserts
 {
     /**
     * @param array $row
@@ -18,8 +19,8 @@ class CategoryImport implements ToModel, WithHeadingRow, WithBatchInserts, WithC
     public function model(array $row)
     {
         return new CategoryProduct([
-            'name' => $row['name'],
-            'description' => $row['description'],
+            'name' => $row['nombre_categoria'],
+            'description' => $row['descripcion_categoria'],
         ]);
     }
 
@@ -31,5 +32,10 @@ class CategoryImport implements ToModel, WithHeadingRow, WithBatchInserts, WithC
     public function chunkSize(): int
     {
         return 2000;
+    }
+
+    public function uniqueBy()
+    {
+        return 'name';
     }
 }

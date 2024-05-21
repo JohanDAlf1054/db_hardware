@@ -10,6 +10,7 @@
                 <form action="{{route('importbrands')}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <input type="file" name="import_file" class="form-control " style="margin-bottom: 1rem" required>
+                    <a href="{{ route('downloadFileBrands') }}" class="btn btn-warning">Descargar Plantilla</a>
                     <button class="btn btn btn-success " type="submit">Importar</button>
                 </form>
             </div>

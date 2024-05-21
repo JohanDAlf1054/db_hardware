@@ -14,8 +14,8 @@ class MeasurementUnits extends Migration
         Schema::create('measurement_units', function(Blueprint $table){
             $table->engine="InnoDB";
             $table->bigIncrements('id');
-            $table->string('code');
-            $table->string('name');
+            $table->string('code')->unique();
+            $table->string('name')->unique();
             $table->timestamps();
         });
     }
