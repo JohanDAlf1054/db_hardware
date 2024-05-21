@@ -93,6 +93,8 @@ Route::get('export_index', [ExportController::class, 'index_informes'])->name('i
 Route::get('/export', [ExportController::class, 'export'])->name('export');
 Route::get('/export_person', [ExportController::class, 'exportperson'])->name('export.person');
 Route::get('/export_sale', [ExportController::class, 'exportsale'])->name('export.sale');
+Route::get('/export_purchase', [ExportController::class, 'exportpurchase'])->name('export.purchase');
+Route::get('/debit_note', [ExportController::class, 'exportdebitnote'])->name('export.debitnote');
 Route::get('/export_creditnotesale', [ExportController::class, 'exportcreditnotesale'])->name('export.creditnotesale');
 Route::get('/export_supplier', [ExportController::class, 'exportsupplier'])->name('export.supplier');
 Route::get('/export_customer', [ExportController::class, 'exportcustomer'])->name('export.customer');

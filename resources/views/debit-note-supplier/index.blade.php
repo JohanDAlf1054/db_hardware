@@ -41,6 +41,10 @@
                                 <form action="{{ route('debit-note-supplier.index') }}" method="get" class="d-flex align-items-center">
                                     <input name="filtervalue" type="text" class="form-control" aria-label="Text input with segmented dropdown button"  placeholder="Buscar Nota....">
                                     <button type="submit" class="btn btn-dark" style="margin-left: 10px;">Buscar</button>
+                                    <button type="button" class="btn btn-success ms-2 rounded" data-bs-toggle="tooltip"
+                                    title="Exportar" onclick="window.location.href='{{ route('export.debitnote') }}'">
+                                    <i class="fa-solid fa-file-arrow-down"></i>
+                                </button>
                                 </form>
                             </div>
                         </div>

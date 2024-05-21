@@ -4,8 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Exports\CreditNoteExport;
 use App\Exports\ProductsExport;
-use App\Exports\CreditNoteSaleExport;
+use App\Exports\DebitNoteExport;
 use App\Exports\PeopleExport;
+use App\Exports\PurchaseExport;
 use App\Models\CategoryProduct;
 use App\Models\DetailPurchase;
 use App\Models\DetalleVenta;
@@ -139,6 +140,17 @@ class ExportController extends Controller
     {
         return Excel::download(new SaleExport('sale'),'Ventas.xlsx');
     }
+    
+    public function exportpurchase()
+    {
+        return Excel::download(new PurchaseExport('purchase'),'Compras.xlsx');
+    }
+
+    public function exportdebitnote()
+    {
+        return Excel::download(new DebitNoteExport('debitnote'),'Nota Debito.xlsx');
+    }
+
 
    
 
