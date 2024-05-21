@@ -39,6 +39,7 @@
                                     <li><a class="dropdown-item" href="{{ route('units.index') }}">Crear Unidad</a></li>
                                     <li><a class="dropdown-item" href="{{ route('reportPriceHistoryProducts') }}">Generar Historial de Ventas</a></li>
                                     <li><a class="dropdown-item" href="{{ route('reportPriceHistoryProductsPurchase') }}">Generar Historial de Compras</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('historial') }}">Generar Hisrorial de Movimientos</a></li>
                                 </div>
                             </ul>
                         </div>
