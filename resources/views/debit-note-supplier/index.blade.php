@@ -7,7 +7,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" ></script>
     <link href="css/estilos_notificacion.css" rel="stylesheet"/>
     <script src="{{ asset('js/notificaciones.js')}}" defer></script>
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.bootstrap5.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.6/css/dataTables.bootstrap5.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.2/css/responsive.dataTables.css">
     <script src="{{ asset('js/tooltips.js') }}" defer></script>
     </head>
@@ -59,10 +59,15 @@
                     <div class="contenedor-notificacion" id="contenedor-notificacion">
                         {{--  Aqui trae las notificaciones por medio de javascript  --}}
                     </div>
-                  <div class="container_datos">
+                    <style>
+                        #example th, #example td {
+                            text-align: center !important;
+                        }
+                    </style>
+                <div class="container_datos">
                         <div class="table_container p-3">
                             <div class="table-responsive">
-                                <table id="example" class="table table-striped table-hover" style="width:100%">
+                                <table id="datatable" class="table table-striped table-hover" style="width:100%">
                                     <thead class="table-dark">
                                         <tr style="text-align: center">
                                                 <th>No</th>
@@ -81,13 +86,13 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach ($debitNoteSuppliers as $debitNoteSupplier)
+                                            @foreach ($debitNoteSuppliers as $key =>  $debitNoteSupplier)
                                             <tr style="text-align: center;">
-                                                <td>{{ ++$i }}</td>
-                                                <td>{{ optional($debitNoteSupplier->detailPurchase->purchaseSupplier->person)->identification_type ?? 'Error: No se encontró el proveedor' }}</td>
-                                                <td>{{ optional($debitNoteSupplier->detailPurchase->purchaseSupplier->person)->identification_number ?? 'Error: No se encontró el proveedor' }}</td>
+                                                <td>{{ $key + 1 }}</td>
+                                                <td>{{ optional($debitNoteSupplier->detailPurchase->purchaseSupplier->person)->identification_type ?? 'Error: No se encontró el Empleado' }}</td>
+                                                <td>{{ optional($debitNoteSupplier->detailPurchase->purchaseSupplier->person)->identification_number ?? 'Error: No se encontró el Empleado' }}</td>
 
-                                                <td>{{ optional($debitNoteSupplier->detailPurchase->purchaseSupplier->person)->first_name ?? 'Error: No se encontró el proveedor' }}</td>
+                                                <td>{{ optional($debitNoteSupplier->detailPurchase->purchaseSupplier->person)->first_name ?? 'Error: No se encontró el Empleado' }}</td>
                                                 <td>{{ $debitNoteSupplier->debit_note_code}}</td>
                                                 <td>{{ $debitNoteSupplier->date_invoice }}</td>
                                                 <td>{{ round($debitNoteSupplier->total, 2) }}</td>
@@ -129,54 +134,20 @@
                     </div>
                 </div>
             </div>
-        {!! $debitNoteSuppliers->links() !!}
+        
     </div>
 
 
 @include('debit-note-supplier.modal')
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js"></script>
+<script src="{{ asset('js/datatable.js') }}" defer></script>
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-<script src="https://cdn.datatables.net/2.0.5/js/dataTables.js"></script>
-<script src="https://cdn.datatables.net/2.0.5/js/dataTables.bootstrap5.js"></script>
+<script src="https://cdn.datatables.net/2.0.7/js/dataTables.js"></script>
+<script src="https://cdn.datatables.net/2.0.7/js/dataTables.bootstrap5.js"></script>
 <script src="https://cdn.datatables.net/responsive/3.0.2/js/dataTables.responsive.js"></script>
 <script src="https://cdn.datatables.net/responsive/3.0.2/js/responsive.dataTables.js"></script>
 
-<script>
-    new DataTable('#example',{
-        responsive: true,
-        lengthChange: false,
-        // paging: false,
-        searching: false,
-        language: {
-            "sProcessing":     "Procesando...",
-            "sLengthMenu":     "Mostrar _MENU_ registros",
-            "sZeroRecords":    "No se encontraron resultados",
-            "sEmptyTable":     "Ningún dato disponible en esta tabla",
-            "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-            "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
-            "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
-            "sInfoPostFix":    "",
-            "sSearch":         "Buscar:",
-            "sUrl":            "",
-            "sInfoThousands":  ",",
-            "sLoadingRecords": "Cargando...",
-            "oPaginate": {
-                "sFirst":    "<<",
-                "sLast":     ">>",
-                "sNext":     ">",
-                "sPrevious": "<"
-            },
-            "oAria": {
-                "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
-                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-            },
-            "buttons": {
-                "copy": "Copiar",
-                "colvis": "Visibilidad"
-            }
-        }
-    });
-</script>
+
 @else
     <div class="mensaje_Rol">
         <img src="{{ asset('img/Rol_no_asignado.png')}}" class="img_rol"/>

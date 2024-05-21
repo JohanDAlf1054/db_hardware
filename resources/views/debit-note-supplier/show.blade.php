@@ -201,12 +201,12 @@
 
 
                                                     <tr>
-                                                        <th class="text-white">Producto</th>
-                                                        <th class="text-white">Cantidad</th>
-                                                        <th class="text-white">Descripcion</th>
-                                                        <th class="text-white">Precio Unitario</th>
-                                                        <th class="text-white">Descuento</th>
-                                                        <th class="text-white">Iva</th>
+                                                        <th>Producto</th>
+                                                        <th>Cantidad</th>
+                                                        <th>Descripcion</th>
+                                                        <th>Precio Unitario</th>
+                                                        <th>Descuento</th>
+                                                        <th>Iva</th>
                                                         <th></th>
                                                     </tr>
                                                 </thead>

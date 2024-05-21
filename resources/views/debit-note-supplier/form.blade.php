@@ -96,8 +96,7 @@
                                                         data-price-unit="{{ $purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->price_unit : '' }}"
                                                         data-discount-total="{{ $purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->discount_total : '' }}"
                                                         data-quantity-units="{{$purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->discount_total : ''}}">
-                                                    {{ $purchaseSupplier->code . '-' . $purchaseSupplier->invoice_number_purchase }}
-                                                </option>
+                                                        {{ $purchaseSupplier->invoice_number_purchase }}                                                </option>
                                                 @endforeach
                                             </select>
                                             {!! $errors->first('factura', '<div class="invalid-feedback">:message</div>') !!}

@@ -15,7 +15,7 @@ return new class extends Migration
             $table->increments('id');
             $table->string('invoice_number_purchase');
             $table->date('date_invoice_purchase');
-            $table->string('code');
+           //$table->string('code');
             $table->integer('users_id');
             $table->boolean('status')->default(True);
             $table->integer('people_id');

@@ -153,7 +153,7 @@
         </div>
     </div>
 </div>
-{!! $detailPurchases->links() !!}
+
 </div>
     @include('detail-purchase.modal')
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js"></script>
