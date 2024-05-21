@@ -105,7 +105,6 @@ Route::get('/limpiar', [App\Http\Controllers\HistorialMovimientoController::clas
 //Rutas de historial de precios
 Route::get('/reportPriceHistoryProducts', [ExportController::class,'reportPriceHistoryProducts'])->name('reportPriceHistoryProducts');
 Route::get('/reportPriceHistoryProductsPurchase', [ExportController::class,'reportPriceHistoryProductsPurchase'])->name('reportPriceHistoryProductsPurchase');
-Route::get('/historial', function () {return view('reports.historial');})->name('historial');
 
 
 //Funcion de generar PDF
