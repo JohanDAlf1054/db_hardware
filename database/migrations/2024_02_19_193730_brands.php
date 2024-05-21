@@ -15,8 +15,8 @@ class Brands extends Migration
             $table->engine="InnoDB";
             $table->bigIncrements('id');
             $table->string('abbrevation')->nullable();
-            $table->string('code');
-            $table->string('name');
+            $table->string('code')->unique();
+            $table->string('name')->unique();
             $table->timestamps();
         });
     }

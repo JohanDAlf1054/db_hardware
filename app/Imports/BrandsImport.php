@@ -7,8 +7,9 @@ use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\WithUpserts;
 
-class BrandsImport implements ToModel, WithHeadingRow, WithBatchInserts, WithChunkReading
+class BrandsImport implements ToModel, WithHeadingRow, WithBatchInserts, WithChunkReading, WithUpserts
 {
     /**
     * @param array $row
@@ -18,9 +19,9 @@ class BrandsImport implements ToModel, WithHeadingRow, WithBatchInserts, WithChu
     public function model(array $row)
     {
         return new Brand([
-            'name' => $row['name'],
-            'abbrevation' => $row['abbrevation'],
-            'code' => $row['code'],
+            'name' => $row['nombre_marca'],
+            'abbrevation' => $row['abreviacion_marca'],
+            'code' => $row['codigo'],
         ]);
     }
 
@@ -32,5 +33,11 @@ class BrandsImport implements ToModel, WithHeadingRow, WithBatchInserts, WithChu
     public function chunkSize(): int
     {
         return 2000;
+    }
+
+    public function uniqueBy()
+    {
+        return 'name';
+        return 'code';
     }
 }

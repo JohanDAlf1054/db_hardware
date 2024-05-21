@@ -133,7 +133,7 @@ class CategoryProductController extends Controller
             Session::flash('notificacion', [
                 'tipo' => 'exito',
                 'titulo' => 'Éxito!',
-                'descripcion' => 'Categorías Agregadas!',
+                'descripcion' => 'Categorías Agregadas Correctamente!',
                 'autoCierre' => 'true'
             ]);
             return redirect()->route('category.index');

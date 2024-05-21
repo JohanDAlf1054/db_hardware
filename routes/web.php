@@ -123,6 +123,10 @@ Route::resource('debit-note-supplier', App\Http\Controllers\DebitNoteSupplierCon
 
 // Descarga de template importar
 Route::get('/downloadFile',[TemplateController::class, 'downloadFile'])->name('downloadFile');
+Route::get('/downloadFileCategory',[TemplateController::class, 'downloadFileCategory'])->name('downloadFileCategory');
+Route::get('/downloadFileBrands',[TemplateController::class, 'downloadFileBrands'])->name('downloadFileBrands');
+Route::get('/downloadFileUnits',[TemplateController::class, 'downloadFileUnits'])->name('downloadFileUnits');
+
 
 
 //Ruta para traer la informacion de las subcategorias

@@ -14,8 +14,8 @@ class CategoryProducts extends Migration
         Schema::create('category_products', function(Blueprint $table){
             $table->engine="InnoDB";
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->string('description');
+            $table->string('name')->unique();
+            $table->string('description')->nullable();
             $table->timestamps();
         });
     }

@@ -145,7 +145,7 @@
                                                 {{ __('Precio de venta') }}
                                                 <span class="text-danger">*</span>
                                             </label>
-                                            {{ Form::number('selling_price', $producto->selling_price, ['class' => 'form-control ' . ($errors->has('selling_price') ? ' is-invalid' : ''), 'placeholder' => '0']) }}
+                                            {{ Form::number('selling_price', $producto->selling_price, ['class' => 'form-control ' . ($errors->has('selling_price') ? ' is-invalid' : ''), 'placeholder' => '0', 'id' => 'selling_price' ]) }}
                                             {!! $errors->first('selling_price', '<div class="invalid-feedback">:message</div>') !!}
                                         </div>
                                         <div class="col-md-12">
@@ -176,63 +176,36 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const categoryProduct = document.getElementById('categoryProduct')
-            const subCategories = document.getElementById('subCategories')
-
-            const getsubCategories = async (category_id) => {
-                // console.log(e.target.value)
-                const response = await fetch(`/products/create/categoryProduct/${category_id}/subCategories`)
+            const categoryProduct = document.getElementById('categoryProduct');
+            const subCategories = document.getElementById('subCategories');
+    
+            const getsubCategories = async (category_id, selectedSubCategory = null) => {
+                const response = await fetch(`/products/create/categoryProduct/${category_id}/subCategories`);
                 const data = await response.json();
-                // console.log(data)
                 let options = '';
-                data.forEach(element =>{
-                    options = options + `<option value="${element.name}">${element.name}</option>`
-                });
-                subCategories.innerHTML = options;
-            }
+    
+                if (data.length === 0) {
+                    options = '<option style="color: red;">No hay subcategorías asociadas</option>';
+                } else {
+                    data.forEach(element => {
+                        options += `<option value="${element.name}" ${selectedSubCategory === element.name ? 'selected' : ''}>${element.name}</option>`;
+                    });
+                }
 
+                subCategories.innerHTML = options;
+            };
+    
             window.onload = () => {
                 const category_id = categoryProduct.value;
-                getsubCategories(category_id)
-            }
-
-            categoryProduct.addEventListener('change',(e)=>{
-                getsubCategories(e.target.value)
-            })
+                const selectedSubCategory = '{{ isset($producto->subcategory_product) ? $producto->subcategory_product : '' }}';
+                getsubCategories(category_id, selectedSubCategory);
+            };
+    
+            categoryProduct.addEventListener('change', (e) => {
+                getsubCategories(e.target.value);
+            });
         });
     </script>
-
-    {{-- <script>
-        function loadSubCategories(categorySelect) {
-            let categoryId = categorySelect.value;
-            fetch(`/products/create/category/${categoryId}/SubCategories`)
-                .then(function (response){
-                    return response.json();
-                })
-
-                .then (function (jsonData){
-                    buildSubCategoriesSelect(jsonData)
-                })
-        }
-
-        function buildSubCategoriesSelect(jsonData){
-            let  SubCategoriesSelect = document.getElementById('subcategory');
-            clearSelect(SubCategoriesSelect);
-            jsonData.forEach(function (team){
-                let optionTag = document.createElement('option');
-                optionTag.value = team.id;
-                optionTag.innerHTML = team.name;
-                SubCategoriesSelect.append(optionTag);
-                cosole.log(optionTag);
-            })
-        }
-
-        function clearSelect(select){
-            while (select.options.length > 0) {
-                select.remove(0);
-            }
-        }
-    </script> --}}
 </body>
 </html>
 @else
