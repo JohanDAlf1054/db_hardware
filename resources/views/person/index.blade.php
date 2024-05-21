@@ -14,15 +14,6 @@
     </head>
     <br>
     @can('person')
-        {{--  Prueba error  --}}
-        @if (isset($errors) && $errors->any())
-            <div class="alert alert-danger" role="alert">
-                @foreach ($errors->all() as $error)
-                    {{ $error }}
-                @endforeach
-            </div>
-        @endif
-
         <div class="container-fluid">
             <div class="row">
                 <div class="col-sm-12">
@@ -61,6 +52,11 @@
                                         <button type="button" class="btn btn-success ms-2 rounded" tooltip="tooltip"
                                             title="Exportar" onclick="window.location.href='{{ route('export.person') }}'">
                                             <i class="fa-solid fa-file-arrow-down"></i>
+                                        </button>
+
+                                        <button type="button" class="btn btn-danger ms-2 rounded" data-bs-toggle="tooltip"
+                                            title="PDF" onclick="window.location.href='{{ route('person.pdf') }}'">
+                                            <i class="fa-solid fa-file-pdf"></i>
                                         </button>
 
                                         <button type="button" class="btn btn-warning ms-2 rounded" tooltip="tooltip"

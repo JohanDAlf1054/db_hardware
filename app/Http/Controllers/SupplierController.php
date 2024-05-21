@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Person;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class SupplierController extends Controller
 {
@@ -76,5 +77,19 @@ public function show($id)
 
 
         return redirect()->route('supplier.index');
+    }
+
+    public function pdf()
+    {
+        $proveedores = Person::where('rol','Proveedor')->get();
+
+        $pdf = Pdf::loadView('supplier.pdf', ['proveedores' => $proveedores])
+        ->setPaper('a4','landscape');
+
+        // Funcion para devolver una vista del pdf en el navegador
+        return $pdf->stream('archivo.pdf');
+
+        //Descargar el pdf directamente
+        // return $pdf->download('Informe de Proveedores.pdf');
     }
 }

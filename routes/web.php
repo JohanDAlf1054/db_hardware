@@ -65,18 +65,7 @@ Route::post('/actualizar-contrasenia', [AuthController::class, 'actualizarContra
 //Rutas para la vista de administrador
 Route::resource('usuarios', UsuariosController::class)->only(['index', 'edit', 'update'])->names('admin.usuarios');
 
-//Rutas de redireccionamiento
-Route::get('/People', function () {
-    return view('people.index');
-});
 
-Route::get('/Customer', function () {
-    return view('customer.index');
-});
-
-Route::get('/Supplier', function () {
-    return view('supplier.index');
-});
 
 // Funcion de Productos
 Route::resource('products', ProductController::class);
@@ -116,6 +105,14 @@ Route::get('/limpiar', [App\Http\Controllers\HistorialMovimientoController::clas
 //Rutas de historial de precios
 Route::get('/reportPriceHistoryProducts', [ExportController::class,'reportPriceHistoryProducts'])->name('reportPriceHistoryProducts');
 Route::get('/reportPriceHistoryProductsPurchase', [ExportController::class,'reportPriceHistoryProductsPurchase'])->name('reportPriceHistoryProductsPurchase');
+Route::get('/historial', function () {return view('reports.historial');})->name('historial');
+
+
+//Funcion de generar PDF
+Route::get('Customer/pdf', [CustomerController::class, 'pdf'])->name('customer.pdf');
+Route::get('Supplier/pdf', [SupplierController::class, 'pdf'])->name('supplier.pdf');
+Route::get('Person/pdf', [PersonController::class, 'pdf'])->name('person.pdf');
+
 //Funciones De Compras
 Route::resource('purchase_supplier', App\Http\Controllers\PurchaseSupplierController::class);
 Route::resource('detail-purchases', App\Http\Controllers\DetailPurchaseController::class);
