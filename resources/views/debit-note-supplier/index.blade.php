@@ -73,7 +73,7 @@
                                                 <th>No</th>
                                                 <th>Tipo Documento</th>
                                                 <th>Numero Documento</th>
-                                                <th>Empleado</th>
+                                                <th>Proveedor</th>
                                                 <th>Numero de Nota</th>
                                                 <th>Fecha De La Nota</th>
                                                 <th>Total</th>
@@ -92,7 +92,13 @@
                                                 <td>{{ optional($debitNoteSupplier->detailPurchase->purchaseSupplier->person)->identification_type ?? 'Error: No se encontró el Empleado' }}</td>
                                                 <td>{{ optional($debitNoteSupplier->detailPurchase->purchaseSupplier->person)->identification_number ?? 'Error: No se encontró el Empleado' }}</td>
 
-                                                <td>{{ optional($debitNoteSupplier->detailPurchase->purchaseSupplier->person)->first_name ?? 'Error: No se encontró el Empleado' }}</td>
+                                                <td>
+                                                    @if(optional($debitNoteSupplier->purchaseSupplier->person)->person_type === 'Persona jurídica')
+                                                        {{ optional($debitNoteSupplier->purchaseSupplier->person)->company_name ?? 'Error: No se encontró la Empresa' }}
+                                                    @else
+                                                        {{ optional($debitNoteSupplier->purchaseSupplier->person)->first_name ?? 'Error: No se encontró el Empleado' }} {{ optional($debitNoteSupplier->purchaseSupplier->person)->other_name ?? '' }}
+                                                    @endif
+                                                </td>
                                                 <td>{{ $debitNoteSupplier->debit_note_code}}</td>
                                                 <td>{{ $debitNoteSupplier->date_invoice }}</td>
                                                 <td>{{ round($debitNoteSupplier->total, 2) }}</td>

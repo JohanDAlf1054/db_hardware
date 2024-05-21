@@ -88,7 +88,7 @@
                                                             data-price-unit="{{ $purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->price_unit : '' }}"
                                                             data-discount-total="{{ $purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->discount_total : '' }}"
                                                             {{ $purchaseSupplier->id == $debitNoteSupplier->purchaseSupplier->id ? 'selected' : '' }}>
-                                                        {{ $purchaseSupplier->code . '-' . $purchaseSupplier->invoice_number_purchase }}
+                                                        {{$purchaseSupplier->invoice_number_purchase }}
                                                     </option>
                                                     @endforeach
                                                 </select>
@@ -164,14 +164,15 @@
                                                 <select id="people_id" name="people_id" class="form-control{{ $errors->has('people_id') ? ' is-invalid' : '' }}" disabled>
                                                     <option value="">Seleciona una opción</option>
                                                     @foreach($people as $person)
-                                                        <option value="{{ $person->id }}" {{ $person->id == $debitNoteSupplier->purchaseSupplier->people_id ? 'selected' : '' }}>{{ $person->first_name }}</option>
+                                                        <option value="{{ $person->id }}" {{ $person->id == $debitNoteSupplier->purchaseSupplier->people_id ? 'selected' : '' }}>
+                                                            {{$person->identification_number}} - {{$person->first_name}} {{$person->other_name}} {{$person->surname}} {{$person->second_surname}} {{$person->company_name}}
+                                                        </option>
                                                     @endforeach
                                                 </select>
-
-
                                                 {!! $errors->first('people_id', '<div class="invalid-feedback">:message</div>') !!}
                                             </div>
                                         </div>
+                                        
 
 
 

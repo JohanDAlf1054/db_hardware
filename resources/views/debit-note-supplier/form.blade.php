@@ -160,7 +160,7 @@
                                             <select id="people_id" name="people_id" class="form-control{{ $errors->has('people_id') ? ' is-invalid' : '' }}">
                                                 <option value="">Seleciona una opción</option>
                                                 @foreach($people as $person)
-                                                    <option value="{{ $person->id }}">{{ $person->first_name }}</option>
+                                                <option value="{{$person->id}}">{{$person->identification_number}} - {{$person->first_name}} {{$person->other_name}} {{$person->surname}} {{$person->second_surname}} {{$person->company_name}}</option>
                                                 @endforeach
                                             </select>
                                             {!! $errors->first('people_id', '<div class="invalid-feedback">:message</div>') !!}
