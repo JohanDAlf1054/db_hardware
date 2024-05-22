@@ -219,7 +219,7 @@ Breadcrumbs::for('credit.note.sales.show', function (BreadcrumbTrail $trail, cre
 //Ventas > Crear nota credito
 Breadcrumbs::for('credit.note.sales.create', function (BreadcrumbTrail $trail) {
     $trail->parent('sales.index');
-    $trail->push('Crear nota credito');
+    $trail->push('Crear nota crédito');
 });
 
 //Administrador

@@ -1,6 +1,6 @@
 @auth
 @can('categorySub')
-@include('include.barra', ['modo'=>'Sub Categoria'])
+@include('include.barra', ['modo'=>'Subcategoría'])
     <section class="content container-fluid">
         <div class="">
             <div class="col-md-12">

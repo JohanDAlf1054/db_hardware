@@ -288,6 +288,14 @@
         descuento = 0;
     }
 
+       // Verificar si el producto ya está en la tabla
+       if ($("#tabla_detalle input[name='arrayidproducto[]']").filter(function() {
+            return $(this).val() == idProducto;
+        }).length > 0) {
+            showModal('El producto ya está en la lista');
+            return;
+        }
+        
     // Validaciones
     if (idProducto != '' && cantidad != '') {
         if (parseInt(cantidad) > 0 && (cantidad % 1 == 0) && parseFloat(descuento) >= 0) {
