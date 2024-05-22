@@ -1,7 +1,7 @@
 @auth
 @can('categorySub')
 
-@include('include.barra', ['modo'=>'Crear Sub Categoria'])
+@include('include.barra', ['modo'=>'Crear Subcategoría'])
 <br>
     <section class="content container-fluid">
         <div class="row">

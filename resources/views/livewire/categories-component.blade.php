@@ -37,6 +37,7 @@
                                 <table class="table table-striped table-hover"  style="justify-content: center;width:100%" id="datatable">
                                     <thead class="table-dark">
                                         <tr>
+                                            <th style="text-align: center">Id</th>
                                             <th style="text-align: center">Nombre</th>
                                             <th style="text-align: center">Descripción</th>
                                             <th style="text-align: center">Acciones</th>
@@ -45,6 +46,7 @@
                                     <tbody>
                                         @foreach ($categories as $category)
                                             <tr>
+                                                <td style="text-align: center">{{ $category->id}}</td>
                                                 <td style="text-align: center">{{ $category->name}}</td>
                                                 <td style="text-align: center">{{ $category->description }}</td>
                                                 <td style="text-align: center">

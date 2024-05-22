@@ -29,4 +29,10 @@ class TemplateController extends Controller
         $filePath = storage_path('app/public/template/planilla_importar_unidades.xlsx');
         return response()->download($filePath);
     }
+
+    public function downloadFileSubcategory()
+    {
+        $filePath = storage_path('app/public/template/planilla_importar_subcategorias.xlsx');
+        return response()->download($filePath);
+    }
 }

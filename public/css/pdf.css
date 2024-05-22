@@ -1,17 +1,29 @@
 @font-face {
-    font-family: 'Oswald';
+    font-family: "Oswald";
+    src: url('{{ storage_path('fonts/Oswald-Light.ttf') }}') format('truetype');
+    font-weight: 100;
     font-style: normal;
-    font-weight: normal;
-    src: url("{{ public_path('/public/fonts/Oswald-Regular.ttf') }}") format('truetype');
+}
+@font-face {
+    font-family: "Oswald";
+    src: url('{{ storage_path('fonts/Oswald-Regular.ttf') }}') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: "Oswald";
+    src: url('{{ storage_path('fonts/Oswald-Bold.ttf') }}') format('truetype');
+    font-weight: 700;
+    font-style: normal;
 }
 body{
-    font-family: 'Oswald', sans-serif;
+    font-family: "Oswald";
 }
 .encabezado{
     background: #0080ff;
     color: white;
     display: flex;
-    height: 11rem;
+    height: 12rem;
     width: 100%;
 }
 .imgPDF{
@@ -19,22 +31,17 @@ body{
     top: 0;
     left: 0;
 }
-/* h1{
-    margin-top: -0.5rem;
-    text-align: center;
-} */
+
 h2{
-    /* padding-top: 2rem; */
     text-align: center;
-    font-weight: bolder;
 }
 .Title_Informe{
-    margin-top: 1rem;
-    padding-top: 0.5rem;
+    /* margin-top: 1rem; */
+    /* padding-top: 0.5rem; */
 }
 .NombreInforme{
     text-align: center;
-    font-weight: bolder;
+    font-weight: 400;
 }
 .FerreteriaEx{
     margin-top: -0.5rem;
@@ -57,18 +64,17 @@ td, th{
     border: 1px solid #dddddd;
     text-align: center;
     padding: 8px;
+    font-weight: 400;
 }
 th{
     background-color: #0080ff;;
     color: white;
 }
 .bg-success {
-    font-weight: bolder;
     color: #28a745;
 }
 .bg-danger {
     color: #dc3545;
-    font-weight: bolder;
 }
 tr:nth-child(even) {
     background-color: #f9f9f9;

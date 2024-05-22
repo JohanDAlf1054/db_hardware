@@ -32,38 +32,39 @@ class AppServiceProvider extends ServiceProvider
             return $value > 0;
         });
         Paginator::useBootstrap();
-        $this->loadGoogle();
+        // $this->loadGoogle();
     }
 
-    public function loadGoogle(): void
-    {
-        try {
-        Storage::extend('google', function($app, $config) {
-            $options = [];
+    // public function loadGoogle(): void
+    // {
+    //     try {
+    //     Storage::extend('google', function($app, $config) {
+    //         $options = [];
 
-            if (!empty($config['teamDriveId'] ?? null)) {
-                $options['teamDriveId'] = $config['teamDriveId'];
-            }
+    //         if (!empty($config['teamDriveId'] ?? null)) {
+    //             $options['teamDriveId'] = $config['teamDriveId'];
+    //         }
 
-            if (!empty($config['sharedFolderId'] ?? null)) {
-                $options['sharedFolderId'] = $config['sharedFolderId'];
-            }
+    //         if (!empty($config['sharedFolderId'] ?? null)) {
+    //             $options['sharedFolderId'] = $config['sharedFolderId'];
+    //         }
 
-            $client = new Client();
-            $client->setClientId($config['clientId']);
-            $client->setClientSecret($config['clientSecret']);
-            $client->refreshToken($config['refreshToken']);
+    //         $client = new Client();
+    //         $client->setClientId($config['clientId']);
+    //         $client->setClientSecret($config['clientSecret']);
+    //         $client->refreshToken($config['refreshToken']);
             
-            $service = new Drive($client);
-            $adapter = new GoogleDriveAdapter($service, $config['folder'] ?? '/', $options);
-            $driver = new Filesystem($adapter);
+    //         $service = new Drive($client);
+    //         $adapter = new GoogleDriveAdapter($service, $config['folder'] ?? '/', $options);
+    //         $driver = new Filesystem($adapter);
 
-            return new FilesystemAdapter($driver, $adapter);
-        });
-    } catch(\Exception $e) {
-        // your exception handling logic
-    }
-    // ...
+    //         return new FilesystemAdapter($driver, $adapter);
+    //     });
+    // } catch(\Exception $e) {
+    //     // your exception handling logic
+    // }
+    //}
+    // // ...
 
-    }
 }
+

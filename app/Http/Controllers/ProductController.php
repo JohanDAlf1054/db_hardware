@@ -9,6 +9,7 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 Use Illuminate\Support\Facades\Session;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 /**
  * Class ProductController
@@ -26,7 +27,7 @@ class ProductController extends Controller
         $filtervalue = $request->input('filtervalue');
         $activeCheck = $request->input('check');
         $categoryId = $request->input('category_filter');
-        
+
         $productos = Product::query()
             ->when($filtervalue, function($query) use ($filtervalue) {
                 return $query->where('name_product','like','%'.$filtervalue.'%')
@@ -50,7 +51,7 @@ class ProductController extends Controller
             ->when($activeCheck, function($query) use ($activeCheck) {
                 return $query->where('status', true);
             })
-            ->get(); 
+            ->get();
 
             $categories = CategoryProduct::all();
         return view('product.index', compact('productos', 'categories'));
@@ -121,7 +122,7 @@ class ProductController extends Controller
             'autoCierre' => 'true'
         ]);
         return redirect('products');
-        
+
     }
 
     /**
@@ -196,7 +197,7 @@ class ProductController extends Controller
             Storage::delete('public/'.$producto->photo);
             $datosProducto['photo']=$request->file('photo')->store('products','public');
         }
-        
+
         Product::where('id','=',$id)->update($datosProducto);
         Session::flash('notificacion', [
             'tipo' => 'exito',
@@ -235,4 +236,17 @@ class ProductController extends Controller
         return redirect()->route('products.index');
     }
 
+    public function pdf()
+    {
+        $productos = Product::all();
+
+        $pdf = Pdf::loadView('product.pdf', ['productos' => $productos])
+                    ->setPaper('a4','landscape');
+
+        // Funcion para devolver una vista del pdf en el navegador
+        return $pdf->stream('archivo.pdf');
+
+        //Descargar el pdf directamente
+        // return $pdf->download('Informe de Productos.pdf');
+    }
 }

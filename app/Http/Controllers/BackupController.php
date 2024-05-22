@@ -18,7 +18,7 @@ class BackupController extends Controller
             'descripcion' => 'Copia de Seguridad Creada!',
             'autoCierre' => 'true'
         ]);
-        sleep(5);
+        sleep(6);
         return redirect()->back();
     }
 
@@ -30,7 +30,7 @@ class BackupController extends Controller
             'descripcion' => 'Copia de Seguridad de todo el sistema Creada!',
             'autoCierre' => 'true'
         ]);
-        sleep(5);
+        sleep(6);
         return redirect()->back();
     }
 

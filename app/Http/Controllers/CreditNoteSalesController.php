@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class CreditNoteSalesController extends Controller
 {
@@ -28,7 +29,7 @@ class CreditNoteSalesController extends Controller
                 return stripos($venta->bill_numbers, $filtro) !== false;
             });
         }
-    
+
         // Verificar si el checkbox de ventas activas está marcado
         if ($request->has('check')) {
             // Filtrar solo las ventas activas
@@ -36,10 +37,10 @@ class CreditNoteSalesController extends Controller
                 return $venta->status === 1;
             });
         }
-    
+
         // Convertir la colección de ventas filtradas en una matriz
         $ventasFiltradas = $ventas->values()->all();
-    
+
         // Devolver la vista con las ventas filtradas
         return view('credit-note-sales.index', compact('ventasFiltradas','ventas'));
     }
@@ -51,9 +52,9 @@ class CreditNoteSalesController extends Controller
     {
         $sales = Sale::where('status', 1)->get();
         return view('credit-note-sales.create', compact('sales','sale'));
-        
+
     }
-    
+
     /**
      * Store a newly created resource in storage.
      */
@@ -61,7 +62,7 @@ class CreditNoteSalesController extends Controller
     {
         try{
             DB::beginTransaction();
-            
+
         $venta = credit_note_sales::create($request->validated());
 
         $arrayProducto_id = $request->get('arrayidproducto');
@@ -101,7 +102,7 @@ class CreditNoteSalesController extends Controller
     ]);
 
         return redirect()->route('credit-note-sales.index')->with('success','Nota exitosa');
-            
+
     }
 
     /**
@@ -152,11 +153,25 @@ class CreditNoteSalesController extends Controller
     {
         // Obtener el ID de la venta del parámetro sale_id enviado desde la solicitud AJAX
         $saleId = $request->input('sale_id');
-    
+
         // Obtener los detalles de la venta correspondientes al ID de la venta
         $detallesVenta = DetalleVenta::where('sale_id', $saleId)->with('producto')->get();
-    
+
         // Devolver los detalles de la venta en formato JSON
         return response()->json(['detallesVenta' => $detallesVenta]);
+    }
+
+    public function pdf()
+    {
+        $ventas = credit_note_sales::all();
+
+        $pdf = Pdf::loadView('credit-note-sales.pdf', ['ventas' => $ventas])
+                    ->setPaper('a4','landscape');
+
+        // Funcion para devolver una vista del pdf en el navegador
+        return $pdf->stream('credit-note-sales.pdf');
+
+        //Descargar el pdf directamente
+        // return $pdf->download('Informe de Personas.pdf');
     }
 }

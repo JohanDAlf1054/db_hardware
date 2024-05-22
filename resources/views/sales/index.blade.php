@@ -46,9 +46,14 @@
                                     title="Exportar" onclick="window.location.href='{{ route('export.sale') }}'">
                                     <i class="fa-solid fa-file-arrow-down"></i>
                                 </button>
+
+                                <button type="button" class="btn btn-danger ms-2 rounded" tooltip="tooltip"
+                                    title="PDF" onclick="window.location.href='{{ route('sales.pdf') }}'">
+                                    <i class="fa-solid fa-file-pdf"></i>
+                                </button>
                             </form>
                         </div>
-                            
+
                         </div>
                        <br>
 

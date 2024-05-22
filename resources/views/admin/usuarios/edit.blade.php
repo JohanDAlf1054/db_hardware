@@ -1,6 +1,8 @@
 @auth
 @include('include.barra', ['modo'=>'Permiso de usuarios'])
 <br>
+@can('admin.usuarios.edit')
+
 <div class="content container-fluid">
     <div class="page-body">
         <div class="container-x1">
@@ -52,7 +54,12 @@
         </div>
     </div>
 </div>
-
+@else
+        <div class="mensaje_Rol">
+            <img src="{{ asset('img/Rol_no_asignado.png') }}" class="img_rol" />
+            <h2 class="texto_noRol">Pídele al administrador que se te asigne un rol.</h2>
+        </div>
+@endcan
 @endauth
 @guest
     @include('include.falta_sesion')

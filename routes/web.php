@@ -85,6 +85,7 @@ Route::get('/indexAll',[SubCategoryController::class, 'indexAll'])->name('indexA
 //Funcion Importar
 Route::post('/importbrands',[BrandController::class, 'importbrands'])->name('importbrands');
 Route::post('/importCategory',[CategoryProductController::class, 'importCategory'])->name('importCategory');
+Route::post('/importSubcategory',[SubCategoryController::class, 'importSubcategory'])->name('importSubcategory');
 Route::post('/importPerson', [PersonController::class, 'importPerson'])->name('importPerson');
 
 
@@ -107,13 +108,15 @@ Route::get('/limpiar', [App\Http\Controllers\HistorialMovimientoController::clas
 //Rutas de historial de precios
 Route::get('/reportPriceHistoryProducts', [ExportController::class,'reportPriceHistoryProducts'])->name('reportPriceHistoryProducts');
 Route::get('/reportPriceHistoryProductsPurchase', [ExportController::class,'reportPriceHistoryProductsPurchase'])->name('reportPriceHistoryProductsPurchase');
-Route::get('/historial', function () {return view('reports.historial');})->name('historial');
 
 
 //Funcion de generar PDF
 Route::get('Customer/pdf', [CustomerController::class, 'pdf'])->name('customer.pdf');
 Route::get('Supplier/pdf', [SupplierController::class, 'pdf'])->name('supplier.pdf');
 Route::get('Person/pdf', [PersonController::class, 'pdf'])->name('person.pdf');
+Route::get('Products/pdf',[ProductController::class, 'pdf'])->name('products.pdf');
+Route::get('Sales/pdf',[SalesController::class, 'pdf'])->name('sales.pdf');
+Route::get('Credit-note-sales/pdf', [CreditNoteSalesController::class, 'pdf'])->name('credit-note-sales.pdf');
 
 //Funciones De Compras
 Route::resource('purchase_supplier', App\Http\Controllers\PurchaseSupplierController::class);
@@ -125,6 +128,7 @@ Route::get('/downloadFile',[TemplateController::class, 'downloadFile'])->name('d
 Route::get('/downloadFileCategory',[TemplateController::class, 'downloadFileCategory'])->name('downloadFileCategory');
 Route::get('/downloadFileBrands',[TemplateController::class, 'downloadFileBrands'])->name('downloadFileBrands');
 Route::get('/downloadFileUnits',[TemplateController::class, 'downloadFileUnits'])->name('downloadFileUnits');
+Route::get('/downloadFileSubcategory',[TemplateController::class, 'downloadFileSubcategory'])->name('downloadFileSubcategory');
 
 
 
@@ -134,9 +138,6 @@ Route::get('/products/{id}/edit/categoryProduct/{categoryProduct}/subCategories'
 
 //Ruta para la gestion de usuario con el rol de Administrador
 Route::resource('usuarios', UsuariosController::class)->only(['index', 'edit', 'update'])->names('admin.usuarios');
-
-Route::get('/seleccionar-producto', [ExportController::class, 'report'])->name('seleccionar-producto');
-Route::get('/historial-precios', [ExportController::class, 'report'])->name('historial-precios');
 
 //Rutas para generar los backups
 Route::get('/backup/create', [BackupController::class, 'backup'])->name('backup-create');

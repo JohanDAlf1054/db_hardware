@@ -16,10 +16,9 @@
         <p>NIT 9.524.275</p>
     </div>
 <br>
-<table class="table table-striped table-hover" id="datatable"
-style="justify-content:center">
-<thead class="table-dark">
-    <tr style="text-align: center">
+<table>
+<thead>
+    <tr>
         <th>Tercero</th>
         <th>Tipo ID</th>
         <th>Identificación</th>

@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\SubcategoryImport;
 use App\Models\SubCategory;
 use App\Models\CategoryProduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Validator;
 
 /**
  * Class SubCategoryController
@@ -20,14 +23,14 @@ class SubCategoryController extends Controller
      */
     public function indexAll()
     {
-        $subCategories = SubCategory::paginate(10);
+        $subCategories = SubCategory::all();
 
         return view('sub-category.indexAll', compact('subCategories'));
     }
 
     public function index()
     {
-        $subCategories = SubCategory::where('category_id', Session::get("category_id") )->paginate(10);
+        $subCategories = SubCategory::where('category_id', Session::get("category_id") )->get();
 
         return view('sub-category.index', compact('subCategories'));
     }
@@ -147,5 +150,34 @@ class SubCategoryController extends Controller
             'autoCierre' => 'true'
         ]);
         return redirect()->route('categorySub.index');
+    }
+
+    public function importSubcategory(Request $request){
+        $validator = Validator::make($request->all(), [
+            'import_file' => 'required|mimes:xlsx'
+        ]);
+
+        if ($validator->fails()) {
+            Session::flash('notificacion', [
+                'tipo' => 'error',
+                'titulo' => 'Error!',
+                'descripcion' => 'Archivo incorrecto, debe de ser de extensión xlsx',
+                'autoCierre' => 'true'
+            ]);
+            return redirect()->route('indexAll');
+        }
+        try {
+            $file = $request->file('import_file');
+        
+            Excel::import(new SubcategoryImport, $file, 'xlsx');
+            Session::flash('notificacion', [
+                'tipo' => 'exito',
+                'titulo' => 'Éxito!',
+                'descripcion' => 'Subcategorías Agregadas Correctamente!',
+                'autoCierre' => 'true'
+            ]);
+            return redirect()->route('indexAll');
+        }catch (\Exception $e){
+        }
     }
 }

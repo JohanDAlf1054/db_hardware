@@ -21,7 +21,7 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'admin.usuarios.index'])->assignRole($role1);
         Permission::create(['name' => 'admin.usuarios.edit'])->assignRole($role1);
         Permission::create(['name' => 'admin.usuarios.update'])->assignRole($role1);
-        Permission::create(['name' => ''])->assignRole($role1);
+        Permission::create(['name' => '/backup'])->assignRole($role1);
 
         //Permisos para las vistas del proyecto -> Administrador y Trabajador
         Permission::create(['name' => 'home'])->syncRoles([$role1,$role2]);

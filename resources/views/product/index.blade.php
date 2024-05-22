@@ -77,21 +77,25 @@
                             <form action="{{ route('products.index') }}" method="get">
                                 <div class="mb-3 row">
                                     <div class="col-sm-12" style="display: flex">
-                                        <input name="filtervalue" type="text" class="form-control" 
+                                        <input name="filtervalue" type="text" class="form-control"
                                         aria-label="Text input with segmented dropdown button"  placeholder="Buscar Producto....">
                                         <button type="submit" class=" btn btn-dark  ms-2">Buscar</button>
-                                        <a type="button" class="btn btn-success ms-2 rounded" tooltip="tooltip" title="Exportar" 
+                                        <a type="button" class="btn btn-success ms-2 rounded" tooltip="tooltip" title="Exportar"
                                             href="{{route('export')}}">
                                             <i class="fa-solid fa-file-arrow-down"></i>
                                         </a>
-                                        <button type="button" class="btn btn-warning ms-2 rounded" tooltip="tooltip" 
+                                        <button type="button" class="btn btn-danger ms-2 rounded" tooltip="tooltip"
+                                            title="PDF" onclick="window.location.href='{{ route('products.pdf') }}'">
+                                            <i class="fa-solid fa-file-pdf"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-warning ms-2 rounded" tooltip="tooltip"
                                             title="Importar" data-bs-toggle="modal" data-bs-target="#importUnits">
                                             <i class="fa-solid fa-folder-open" style="color: #0a0a0a; width:24; height:24"; ></i>
                                         </button>
-                                        
+
                                     </div>
                                     {{-- <div class=" col-sm-2" style="display: flex">
-                                        
+
                                     </div> --}}
 
                                 </div>

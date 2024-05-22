@@ -11,6 +11,7 @@ use Exception;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class SalesController extends Controller
 {
@@ -28,7 +29,7 @@ class SalesController extends Controller
                 return stripos($venta->bill_numbers, $filtro) !== false;
             });
         }
-    
+
         // Verificar si el checkbox de ventas activas está marcado
         if ($request->has('check')) {
             // Filtrar solo las ventas activas
@@ -36,14 +37,14 @@ class SalesController extends Controller
                 return $venta->status === 1;
             });
         }
-    
+
         // Convertir la colección de ventas filtradas en una matriz
         $ventasFiltradas = $ventas->values()->all();
-    
+
         // Devolver la vista con las ventas filtradas
         return view('sales.index', compact('ventasFiltradas','ventas'));
     }
-    
+
 
     /**
      * Show the form for creating a new resource.
@@ -63,7 +64,7 @@ class SalesController extends Controller
     {
         try{
             DB::beginTransaction();
-            
+
         $venta = Sale::create($request->validated());
 
         $arrayProducto_id = $request->get('arrayidproducto');
@@ -90,7 +91,7 @@ class SalesController extends Controller
                 $producto = Product::find($arrayProducto_id[$cont]);
                 $stockActual = $producto->stock;
                 $cantidad = intval($arrayCantidad[$cont]);
-            
+
                 DB::table('products')
                 ->where('id',$producto->id)
                 ->update([
@@ -113,7 +114,7 @@ class SalesController extends Controller
     ]);
 
         return redirect()->route('sales.index');
-            
+
     }
 
     /**
@@ -158,5 +159,19 @@ class SalesController extends Controller
             ]);
         }
         return redirect()->route('sales.index')->with('success','Venta inactivada');
+    }
+
+    public function pdf()
+    {
+        $ventas = Sale::with('person')->get();
+
+        $pdf = Pdf::loadView('sales.pdf', ['ventas' => $ventas])
+                    ->setPaper('a4','landscape');
+
+        // Funcion para devolver una vista del pdf en el navegador
+        return $pdf->stream('ventas.pdf');
+
+        //Descargar el pdf directamente
+        // return $pdf->download('Informe de Personas.pdf');
     }
 }
