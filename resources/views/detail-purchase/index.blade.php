@@ -17,7 +17,7 @@
             <div class="card">
                 <div class="card-header">
                     <h3 class="card-title">
-                            {{ Breadcrumbs::render('detail.purchase') }}
+                        {{ Breadcrumbs::render('compras.index') }}
                     </h3>
                     </div>
                     <div class="card-body">
@@ -32,8 +32,10 @@
                                                 Detalle Compra</a></li>
                                         <li><a class="dropdown-item" href="{{ route('debit-note-supplier.index') }}">Mostrar
                                                 notas debito</a></li>
-                                        <li><a class="dropdown-item" href="{{ route('purchase_supplier.index') }}">Mostrar
-                                                    Compras</a></li>
+                                        <li><a class="dropdown-item" href="{{ route('debit-note-supplier.create') }}">Crear
+                                            nota debito</a></li>
+                                        {{-- <li><a class="dropdown-item" href="{{ route('purchase_supplier.index') }}">Mostrar
+                                                    Compras</a></li> --}}
                                         </div>
                                     </ul>
                                 </div>
@@ -70,7 +72,7 @@
         </style>
         <div class="container_datos">
             <div class="table_container p-3">
-                <div class="table-responsive">
+                <div>
                     <table class="table table-striped table-hover" style="width:100%" id="datatable">
                         <thead class="table-dark">
                             <tr style="text-align: center">

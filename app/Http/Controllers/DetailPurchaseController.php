@@ -27,39 +27,33 @@ class DetailPurchaseController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-{
-    $filtervalue = $request->get('filtervalue');
-    $status = $filtervalue == 'activo' ? 1 : ($filtervalue == 'inactivo' ? 0 : null);
+    {
+        $filtervalue = $request->get('filtervalue');
+        $status = $filtervalue == 'activo' ? 1 : ($filtervalue == 'inactivo' ? 0 : null);
 
-    $uniqueDetailPurchaseIds = DB::table('detail_purchase')
-        ->select(DB::raw('MAX(id) as id'))
-        ->groupBy('purchase_suppliers_id')
-        ->pluck('id');
+        $uniqueDetailPurchaseIds = DB::table('detail_purchase')
+            ->select(DB::raw('MAX(id) as id'))
+            ->groupBy('purchase_suppliers_id')
+            ->pluck('id');
 
-    $detailPurchases = DetailPurchase::whereIn('id', $uniqueDetailPurchaseIds)
-        ->when($status !== null, function($query) use ($status) {
-            return $query->where('status', $status);
-        })
-        ->when($filtervalue, function($query) use ($filtervalue) {
-            return $query->where('description','like','%'.$filtervalue.'%')
-                ->orWhere('price_unit','like','%'.$filtervalue.'%')
-                ->orWhere('product_tax',$filtervalue)
-                ->orWhereHas('product', function($query) use ($filtervalue){
-                    if($filtervalue){
-                        return $query->where('name_product','like','%'.$filtervalue.'%');
-                    }
-                });
-        })
-        ->get();
+        $detailPurchases = DetailPurchase::whereIn('id', $uniqueDetailPurchaseIds)
+            ->when($status !== null, function($query) use ($status) {
+                return $query->where('status', $status);
+            })
+            ->when($filtervalue, function($query) use ($filtervalue) {
+                return $query->where('description','like','%'.$filtervalue.'%')
+                    ->orWhere('price_unit','like','%'.$filtervalue.'%')
+                    ->orWhere('product_tax',$filtervalue)
+                    ->orWhereHas('product', function($query) use ($filtervalue){
+                        if($filtervalue){
+                            return $query->where('name_product','like','%'.$filtervalue.'%');
+                        }
+                    });
+            })
+            ->get();
 
-    return view('detail-purchase.index', compact('detailPurchases'));
-}
-
-
-    
-
-    
-
+        return view('detail-purchase.index', compact('detailPurchases'));
+    }
     /**
      * Show the form for creating a new resource.
      *

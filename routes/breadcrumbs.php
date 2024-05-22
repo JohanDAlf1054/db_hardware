@@ -69,43 +69,21 @@ Breadcrumbs::for('units.index', function (BreadcrumbTrail $trail) {
     $trail->parent('products');
     $trail->push('Crear unidad', route('units.index'));
 });
-
-//Compras
 Breadcrumbs::for('compras.index', function (BreadcrumbTrail $trail) {
-    $trail->push('Compras', route('purchase_supplier.index'));
+    $trail->push('Compras', route('detail-purchases.index'));
 });
 
 //Compras > Mostrar
-Breadcrumbs::for('compras.show', function (BreadcrumbTrail $trail, PurchaseSupplier $purchaseSupplier) {
+Breadcrumbs::for('compras.show', function (BreadcrumbTrail $trail, DetailPurchase $detailPurchase) {
     $trail->parent('compras.index');
-    $trail->push('Mostrar');
-    $trail->push($purchaseSupplier->id);
-});
-
-//Compras > Editar
-Breadcrumbs::for('compras.edit', function (BreadcrumbTrail $trail, PurchaseSupplier $purchaseSupplier) {
-    $trail->parent('compras.index');
-    $trail->push('Editar');
-    $trail->push($purchaseSupplier->id);
-});
-
-//Compras > Mostrar detalle de compras
-Breadcrumbs::for('detail.purchase', function (BreadcrumbTrail $trail) {
-    $trail->parent('compras.index');
-    $trail->push('Crear compra', route('detail-purchases.index'));
-});
-
-//Compras > Mostrar detalle de compras >Crear detalle de compra
-Breadcrumbs::for('detail.purchase.create', function (BreadcrumbTrail $trail) {
-    $trail->parent('detail.purchase');
-    $trail->push('Crear detalle de la compra');
-});
-
-//Compras > Mostrar detalle de compra > Mostrar
-Breadcrumbs::for('detail.purchase.show', function (BreadcrumbTrail $trail, DetailPurchase $detailPurchase) {
-    $trail->parent('detail.purchase');
     $trail->push('Mostrar');
     $trail->push($detailPurchase->id);
+});
+
+
+Breadcrumbs::for('detail.purchase.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('compras.index');
+    $trail->push('Crear detalle de la compra');
 });
 
 
