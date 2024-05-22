@@ -1,8 +1,12 @@
 @auth
 @can('categorySub')
 
-@include('include.barra', ['modo'=>'Sub Categorías'])
+@include('include.barra', ['modo'=>'Subcategorías'])
 <script src="{{ asset('js/tooltips.js') }}" defer></script>
+<link href="css/estilos_notificacion.css" rel="stylesheet"/>
+<script src="{{ asset('js/notificaciones.js')}}" defer></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.bootstrap5.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.2/css/responsive.dataTables.css">
 <br>
 <div class="container-fluid">
     <div class="row">
@@ -18,7 +22,7 @@
                         <h2 id="card_title">
                             {{ __('Todas Las Subcategorías') }}
                         </h2>
-                        <button type="button" class="btn btn-warning mx-2 rounded" tooltip="tooltip" title="Importar"  data-bs-toggle="modal" data-bs-target="#importCategory">
+                        <button type="button" class="btn btn-warning mx-2 rounded" tooltip="tooltip" title="Importar" data-bs-toggle="modal" data-bs-target="#importSubcategories">
                             <i class="fa-solid fa-folder-open" style="color: #0a0a0a; width:24; height:24"; ></i>
                         </button>
                     </div>
@@ -41,8 +45,8 @@
                     <div class="contenedor-notificacion" id="contenedor-notificacion">
                     </div>
                     <div class="table_container">
-                        <div class="table-responsive">
-                            <table class="table table-striped table-hover">
+                        <div>
+                            <table class="table table-striped table-hover" style="width:100%" id="example">
                                 <thead class="table-dark">
                                     <tr>
                                         <th>Categoría</th>
@@ -61,16 +65,54 @@
                         </div>
                     </div>
                 </div>
-                {{ $subCategories->links() }}
             </div>
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://cdn.datatables.net/2.0.5/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.0.5/js/dataTables.bootstrap5.js"></script>
+    <script src="https://cdn.datatables.net/responsive/3.0.2/js/dataTables.responsive.js"></script>
+    <script src="https://cdn.datatables.net/responsive/3.0.2/js/responsive.dataTables.js"></script>
+    <script>
+        new DataTable('#example',{
+            responsive: true,
+            lengthChange: true,
+            paging: true,
+            searching:true,
+            language: {
+                "sProcessing":     "Procesando...",
+                "sLengthMenu":     "Mostrar _MENU_ registros",
+                "sZeroRecords":    "No se encontraron resultados",
+                "sEmptyTable":     "Ningún dato disponible en esta tabla",
+                "sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+                "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix":    "",
+                "sSearch":         "Buscar:",
+                "sUrl":            "",
+                "sInfoThousands":  ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst":    "<<",
+                    "sLast":     ">>",
+                    "sNext":     ">",
+                    "sPrevious": "<"
+                },
+                "oAria": {
+                    "sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                }
+            }
+        });
+    </script>
+    @include('sub-category.modalImport')
     @else
     <div class="mensaje_Rol">
         <img src="{{ asset('img/Rol_no_asignado.png')}}" class="img_rol"/>
         <h2 class="texto_noRol">Pídele al administrador que se te asigne un rol.</h2>
     </div>
     @endcan
+</div>
 @endauth
 @guest
     @include('include.falta_sesion')

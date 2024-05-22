@@ -98,75 +98,7 @@
             <br>
             <div class="row">
             <!--Admin-->
-            {{-- <div class="col-lg-3">
-                <div class="card-style mb-30 d-flex justify-content-center">
-                    <div class="user-profile text-center">
-                        <div class="logo">
-                            @if(auth()->user()->hasRole('Administrador'))
-                                <img src="{{ asset('img/dashboard/logo_admin.png') }}" class="img-fluid">
-                            @elseif(auth()->user()->hasRole('Trabajador'))
-                                <img src="{{ asset('img/dashboard/logo_empleado.png') }}" class="img-fluid">
-                            @else
-                                <img src="{{ asset('img/dashboard/logo_panel.png') }}" class="img-fluid">
-                            @endif
-                            @if(auth()->user()->roles->count() > 0)
-                                <h2 class="mt-3">
-                                    @foreach (auth()->user()->roles as $role)
-                                        <p class="badge bg-dark">{{ $role->name }}</p>
-                                    @endforeach
-                                </h2>
-                            @else
-                                <h2 class="mt-3">
-                                    <p class="badge bg-dark">Sin Rol</p>
-                                </h2>
-                            @endif
-                            <h5 class="mt-2">{{ auth()->user()->name }}</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
-                <div class="col-lg-9">
-                    <div class="card-style mb-30">
-                      <div class="title d-flex flex-wrap justify-content-between align-items-center">
-                        <div class="left">
-                          <h6 class="text-medium mb-30">Productos con pocas existencias</h6>
-                        </div>
-                      </div>
-                      <div >
-                        <table class="table table-striped table-hover" id="example3" style="width: 100%" >
-                          <thead class="table-dark" >
-                            <tr >
-                              <th><h6 class="text-sm text-medium" style="text-align: left;">Nombre Producto</h6></th>
-                              <th><h6 class="text-sm text-medium" style="text-align: left;">Límite de Existencias</h6></th>
-                              <th><h6 class="text-sm text-medium" style="text-align: left;">Precio de Venta</h6></th>
-                              <th><h6 class="text-sm text-medium" style="text-align: left;">Estado</h6></th>
-                              <th><h6 class="text-sm text-medium" style="text-align: left;">Acción</h6></th>
-                          </thead>
-                          <tbody>
-                            @foreach ( $dataProduct as $data )
-                                <tr>
-                                    <td style="text-align: left;">{{ $data->name_product}}</td>
-                                    <td style="text-align: left;">
-                                        <p class="badge rounded-pill bg-danger">{{ $data->stock}}</p>
-                                    </td>
-                                    <td style="text-align: left;">{{ $data->selling_price }}</td>
-                                    <td style="text-align: left;">{{ ($data->status == 1) ? 'Activo' : 'Inactivo' }} </td>
-                                    <td>
-                                        <a class="btn btn-sm btn-primary " tooltip="tooltip"
-                                            title="Aumentar Exixtencias" href="{{ route('detail-purchases.create') }}">
-                                            <i class="fa-solid fa-cart-shopping"></i> 
-                                        </a>
-                                    </td>
-                                </tr>
-                            @endforeach
-                          </tbody>
-                        </table>
-                        {{ $dataProduct->links() }}
-                      </div>
-                    </div>
-                  </div>
-              </div> --}}
-              <div class="col-lg-3 col-md-6 mb-3">
+            <div class="col-lg-3 col-md-6 mb-3">
                 <div class="card-style d-flex justify-content-center align-items-center h-100">
                     <div class="user-profile text-center">
                         <div class="logo">
@@ -185,7 +117,7 @@
                                 </div>
                             @else
                                 <div class="mt-3">
-                                    <p class="badge bg-dark">Sin Rol</p>
+                                    <p style="font-size: 20px" class="badge bg-dark">Sin Rol</p>
                                 </div>
                             @endif
                             <h5 class="mt-2">{{ auth()->user()->name }}</h5>

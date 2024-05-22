@@ -100,10 +100,10 @@
 
                     @endcan
                     {{-- @can('admin.backup.index') --}}
-                    <a tooltip="tooltip" data-bs-placement="right" title="Configuración" href="/backup" class="{{ request()->route()->named('/backup') ? 'selected' : '' }}">
+                    <a tooltip="tooltip" data-bs-placement="right" title="Copia de Seguridad" href="/backup" class="{{ request()->route()->named('/backup') ? 'selected' : '' }}">
                         <div class="option">
-                            <i class="fa-solid fa-gear"></i>
-                            <h4>Configuración</h4>
+                            <i class="fa-solid fa-laptop-file"></i>
+                            <h4>Copia de Seguridad</h4>
                         </div>
                     </a>
                     {{-- @endcan --}}

@@ -8,21 +8,24 @@
             Crear Copia de Seguridad
         </a>
         <div class="dropdown ml-3">
-            <button class="btn btn-warning btn-sm dropdown-toggle px-3" id="dropdownMenuButton"
-                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <svg xmlns="http://www.w3.org/2000/svg" width="0.7875rem" height="0.7875rem" viewBox="0 0 24 24"
-                     fill="currentColor">
+            <button class="btn btn-warning btn-sm dropdown-toggle px-3" type="button" 
+                data-bs-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">
+                <svg xmlns="http://www.w3.org/2000/svg" width="0.7875rem" height="0.7875rem" viewBox="0 0 24 24"fill="currentColor">
                     <path class="heroicon-ui" d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"/>
                 </svg>
             </button>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="{{route('restore-backup')}}">
-                    Restaurar Ultima Copia de Seguridad
-                </a>
-                <a class="dropdown-item" href="{{ route('backup-system') }}" id="create-backup-only-files">
-                    Crear Copia de Seguridad de todo el Sistema
-                </a>
-            </div>
+            <ul class="dropdown-menu dropdown-menu-right">
+                <li>
+                    <a class="dropdown-item" href="{{route('restore-backup')}}">
+                        Restaurar Ultima Copia de Seguridad
+                    </a>
+                </li>
+                <li>
+                    <a class="dropdown-item" href="{{ route('backup-system') }}" id="create-backup-only-files">
+                        Crear Copia de Seguridad de todo el Sistema
+                    </a>
+                </li>
+            </ul>
         </div>
     </div>
 
@@ -118,10 +121,10 @@
                             <td style="font-size: 16px">{{ $file['date'] }}</td>
                             <td style="font-size: 16px">{{ $file['size'] }}</td>
                             <td class="text-right pr-3" style="font-size: 16px">
-                                <button class="btn btn-outline-secondary btn-sm" tooltip="tooltip" title="Descargar" target="_blank" wire:click.prevent="downloadFile('{{ $file['path'] }}')">
+                                <button class="btn btn-outline-secondary btn-sm" data-bs-toggle="tooltip" title="Descargar" target="_blank" wire:click.prevent="downloadFile('{{ $file['path'] }}')">
                                     <i class="fa-solid fa-download"></i>
                                 </button>
-                                <button class="btn btn-outline-danger btn-sm" tooltip="tooltip" title="Eliminar" target="_blank" wire:click.prevent="showDeleteModal({{ $loop->index }})">
+                                <button class="btn btn-outline-danger btn-sm" data-bs-toggle="tooltip" title="Eliminar" target="_blank" wire:click.prevent="showDeleteModal({{ $loop->index }})">
                                     <i class="fa-solid fa-trash"></i>
                                 </button>
                             </td>
@@ -164,8 +167,19 @@
         </div>
     </div>
     <script>
-        
+        document.addEventListener('DOMContentLoaded', function () {
+            // Inicializar tooltips en la carga inicial
+            const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+            const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+    
+            // Listener para actualizaciones de Livewire
+            Livewire.hook('message.processed', (message, component) => {
+                const updatedTooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+                const updatedTooltipList = [...updatedTooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+            });
+        });
     </script>
+    
     <script>
         document.addEventListener('livewire:load', function () {
             @this.updateBackupStatuses()

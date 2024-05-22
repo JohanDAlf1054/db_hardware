@@ -85,6 +85,7 @@ Route::get('/indexAll',[SubCategoryController::class, 'indexAll'])->name('indexA
 //Funcion Importar
 Route::post('/importbrands',[BrandController::class, 'importbrands'])->name('importbrands');
 Route::post('/importCategory',[CategoryProductController::class, 'importCategory'])->name('importCategory');
+Route::post('/importSubcategory',[SubCategoryController::class, 'importSubcategory'])->name('importSubcategory');
 Route::post('/importPerson', [PersonController::class, 'importPerson'])->name('importPerson');
 
 
@@ -122,6 +123,7 @@ Route::get('/downloadFile',[TemplateController::class, 'downloadFile'])->name('d
 Route::get('/downloadFileCategory',[TemplateController::class, 'downloadFileCategory'])->name('downloadFileCategory');
 Route::get('/downloadFileBrands',[TemplateController::class, 'downloadFileBrands'])->name('downloadFileBrands');
 Route::get('/downloadFileUnits',[TemplateController::class, 'downloadFileUnits'])->name('downloadFileUnits');
+Route::get('/downloadFileSubcategory',[TemplateController::class, 'downloadFileSubcategory'])->name('downloadFileSubcategory');
 
 
 
@@ -131,9 +133,6 @@ Route::get('/products/{id}/edit/categoryProduct/{categoryProduct}/subCategories'
 
 //Ruta para la gestion de usuario con el rol de Administrador
 Route::resource('usuarios', UsuariosController::class)->only(['index', 'edit', 'update'])->names('admin.usuarios');
-
-Route::get('/seleccionar-producto', [ExportController::class, 'report'])->name('seleccionar-producto');
-Route::get('/historial-precios', [ExportController::class, 'report'])->name('historial-precios');
 
 //Rutas para generar los backups
 Route::get('/backup/create', [BackupController::class, 'backup'])->name('backup-create');
