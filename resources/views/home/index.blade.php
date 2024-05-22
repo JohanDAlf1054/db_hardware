@@ -98,74 +98,73 @@
             <br>
             <div class="row">
             <!--Admin-->
-            <div class="col col-sm-8 col-lg-3">
-                <div class="card-style mb-30">
-                    <div class="user-profile">
+            <div class="col-lg-3 col-md-6 mb-3">
+                <div class="card-style d-flex justify-content-center align-items-center h-100">
+                    <div class="user-profile text-center">
                         <div class="logo">
                             @if(auth()->user()->hasRole('Administrador'))
-                                <img src="{{ asset('img/dashboard/logo_admin.png') }}">
+                                <img src="{{ asset('img/dashboard/logo_admin.png') }}" class="img-fluid mb-3">
                             @elseif(auth()->user()->hasRole('Trabajador'))
-                                <img src="{{ asset('img/dashboard/logo_empleado.png') }}">
+                                <img src="{{ asset('img/dashboard/logo_empleado.png') }}" class="img-fluid mb-3">
                             @else
-                                <img src="{{ asset('img/dashboard/logo_panel.png') }}">
+                                <img src="{{ asset('img/dashboard/logo_panel.png') }}" class="img-fluid mb-3">
                             @endif
                             @if(auth()->user()->roles->count() > 0)
-                                <h2 >
+                                <div class="mt-3">
                                     @foreach (auth()->user()->roles as $role)
-                                        <p class="badge bg-dark">{{ $role->name }}</p>
+                                        <p style="font-size: 20px" class="badge bg-dark">{{ $role->name }}</p>
                                     @endforeach
-                                </h2>
+                                </div>
                             @else
-                                <h2 style="margin-top: 20%">
-                                    <p class="badge bg-dark" >Sin Rol</p>
-                                </h2>
+                                <div class="mt-3">
+                                    <p style="font-size: 20px" class="badge bg-dark">Sin Rol</p>
+                                </div>
                             @endif
-                            <h5 style="margin-top: -9%; justify-content: center" >{{ auth()->user()->name }}</h5>
+                            <h5 class="mt-2">{{ auth()->user()->name }}</h5>
                         </div>
                     </div>
                 </div>
-                </div>
-                <div class="col-lg-9">
-                    <div class="card-style mb-30">
-                      <div class="title d-flex flex-wrap justify-content-between align-items-center">
+            </div>
+            <div class="col-lg-9 col-md-6 mb-3">
+                <div class="card-style">
+                    <div class="title d-flex flex-wrap justify-content-between align-items-center">
                         <div class="left">
-                          <h6 class="text-medium mb-30">Productos con pocas existencias</h6>
+                            <h6 class="text-medium mb-30">Productos con pocas existencias</h6>
                         </div>
-                      </div>
-                      <div >
-                        <table class="table table-striped table-hover" id="example3" style="width: 100%" >
-                          <thead class="table-dark" >
-                            <tr >
-                              <th><h6 class="text-sm text-medium" style="text-align: left;">Nombre Producto</h6></th>
-                              <th><h6 class="text-sm text-medium" style="text-align: left;">Límite de Existencias</h6></th>
-                              <th><h6 class="text-sm text-medium" style="text-align: left;">Precio de Venta</h6></th>
-                              <th><h6 class="text-sm text-medium" style="text-align: left;">Estado</h6></th>
-                              <th><h6 class="text-sm text-medium" style="text-align: left;">Acción</h6></th>
-                          </thead>
-                          <tbody>
-                            @foreach ( $dataProduct as $data )
+                    </div>
+                    <div>
+                        <table class="table table-striped table-hover" id="example3" style="width: 100%">
+                            <thead class="table-dark">
                                 <tr>
-                                    <td style="text-align: left;">{{ $data->name_product}}</td>
-                                    <td style="text-align: left;">
-                                        <p class="badge rounded-pill bg-danger">{{ $data->stock}}</p>
-                                    </td>
-                                    <td style="text-align: left;">{{ $data->selling_price }}</td>
-                                    <td style="text-align: left;">{{ ($data->status == 1) ? 'Activo' : 'Inactivo' }} </td>
-                                    <td>
-                                        <a class="btn btn-sm btn-primary " tooltip="tooltip"
-                                            title="Aumentar Exixtencias" href="{{ route('detail-purchases.create') }}">
-                                            <i class="fa-solid fa-cart-shopping"></i> 
-                                        </a>
-                                    </td>
+                                    <th><h6 class="text-sm text-medium" style="text-align: left;">Nombre Producto</h6></th>
+                                    <th><h6 class="text-sm text-medium" style="text-align: left;">Límite de Existencias</h6></th>
+                                    <th><h6 class="text-sm text-medium" style="text-align: left;">Precio de Venta</h6></th>
+                                    <th><h6 class="text-sm text-medium" style="text-align: left;">Estado</h6></th>
+                                    <th><h6 class="text-sm text-medium" style="text-align: left;">Acción</h6></th>
                                 </tr>
-                            @endforeach
-                          </tbody>
+                            </thead>
+                            <tbody>
+                                @foreach ($dataProduct as $data)
+                                    <tr>
+                                        <td style="text-align: left;">{{ $data->name_product }}</td>
+                                        <td style="text-align: left;">
+                                            <p class="badge rounded-pill bg-danger">{{ $data->stock }}</p>
+                                        </td>
+                                        <td style="text-align: left;">{{ $data->selling_price }}</td>
+                                        <td style="text-align: left;">{{ ($data->status == 1) ? 'Activo' : 'Inactivo' }}</td>
+                                        <td>
+                                            <a class="btn btn-sm btn-primary" title="Aumentar Existencias" href="{{ route('detail-purchases.create') }}">
+                                                <i class="fa-solid fa-cart-shopping"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
                         </table>
                         {{ $dataProduct->links() }}
-                      </div>
                     </div>
-                  </div>
-              </div>
+                </div>
+            </div>
             <br>
             <div class="row">
                 <div class="col-lg-6">
