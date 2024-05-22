@@ -54,7 +54,7 @@
                                             <i class="fa-solid fa-file-arrow-down"></i>
                                         </button>
 
-                                        <button type="button" class="btn btn-danger ms-2 rounded" data-bs-toggle="tooltip"
+                                        <button type="button" class="btn btn-danger ms-2 rounded" tooltip="tooltip"
                                             title="PDF" onclick="window.location.href='{{ route('person.pdf') }}'">
                                             <i class="fa-solid fa-file-pdf"></i>
                                         </button>
@@ -139,7 +139,8 @@
                                                     <td>
                                                         <a class="btn btn-sm btn-primary" tooltip="tooltip" title="Visualizar"
                                                             href="{{ route('person.show', $person->id) }}"><i
-                                                                class="fa fa-fw fa-eye"></i></a>
+                                                                class="fa fa-fw fa-eye"></i>
+                                                        </a>
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -175,4 +176,4 @@
 @guest
     @include('include.falta_sesion')
 @endguest
-{{--  @endsection  --}}
+

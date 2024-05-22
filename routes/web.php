@@ -114,6 +114,9 @@ Route::get('/historial', function () {return view('reports.historial');})->name(
 Route::get('Customer/pdf', [CustomerController::class, 'pdf'])->name('customer.pdf');
 Route::get('Supplier/pdf', [SupplierController::class, 'pdf'])->name('supplier.pdf');
 Route::get('Person/pdf', [PersonController::class, 'pdf'])->name('person.pdf');
+Route::get('Products/pdf',[ProductController::class, 'pdf'])->name('products.pdf');
+Route::get('Sales/pdf',[SalesController::class, 'pdf'])->name('sales.pdf');
+Route::get('Credit-note-sales/pdf', [CreditNoteSalesController::class, 'pdf'])->name('credit-note-sales.pdf');
 
 //Funciones De Compras
 Route::resource('purchase_supplier', App\Http\Controllers\PurchaseSupplierController::class);

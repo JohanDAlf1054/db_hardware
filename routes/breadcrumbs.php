@@ -227,8 +227,13 @@ Breadcrumbs::for('admin.index', function (BreadcrumbTrail $trail) {
     $trail->push('Usuarios', route('admin.usuarios.index'));
 });
 
-//Administrador roles
+//Administrador -> roles
 Breadcrumbs::for('admin.edit', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.index');
     $trail->push('Roles');
+});
+
+//Administrador -> Backup
+Breadcrumbs::for('backup', function (BreadcrumbTrail $trail) {
+    $trail->push('Copia de seguridad',route('backup-create'));
 });

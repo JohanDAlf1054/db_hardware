@@ -283,7 +283,7 @@ class PersonController extends Controller
 
     public function pdf()
     {
-        $people = Person::paginate();
+        $people = Person::all();
 
         $pdf = Pdf::loadView('person.pdf', ['people' => $people])
                     ->setPaper('a4','landscape');
@@ -292,7 +292,7 @@ class PersonController extends Controller
         return $pdf->stream('archivo.pdf');
 
         //Descargar el pdf directamente
-        // return $pdf->download('Informe de Clientes.pdf');
+        // return $pdf->download('Informe de Personas.pdf');
     }
 
 

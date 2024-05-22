@@ -98,14 +98,14 @@
                         </a>
 
                     @endcan
-                    {{-- @can('admin.backup.index') --}}
+                    @can('/backup')
                     <a href="/backup" class="{{ request()->route()->named('/backup') ? 'selected' : '' }}">
                         <div class="option">
                             <i class="fa-solid fa-gear"></i>
                             <h4>Configuración</h4>
                         </div>
                     </a>
-                    {{-- @endcan --}}
+                    @endcan
                     <a href="/logout">
                         <div class="option">
                             <i class="fa-solid fa-right-from-bracket"></i>

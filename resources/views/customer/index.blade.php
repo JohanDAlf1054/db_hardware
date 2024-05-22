@@ -45,7 +45,7 @@
                                         <button type="submit" class="btn btn-dark">Buscar</button>
 
                                         {{-- Botones IMPORTAR Y EXPORTAR --}}
-                                        <button type="button" class="btn btn-danger ms-2 rounded" data-bs-toggle="tooltip"
+                                        <button type="button" class="btn btn-danger ms-2 rounded" tooltip="tooltip"
                                             title="PDF" onclick="window.location.href='{{ route('customer.pdf') }}'">
                                             <i class="fa-solid fa-file-pdf"></i>
                                         </button>

@@ -48,6 +48,10 @@
                                     title="Exportar" onclick="window.location.href='{{ route('export.creditnotesale') }}'">
                                     <i class="fa-solid fa-file-arrow-down"></i>
                                 </button>
+                                <button type="button" class="btn btn-danger ms-2 rounded" tooltip="tooltip"
+                                    title="PDF" onclick="window.location.href='{{ route('credit-note-sales.pdf') }}'">
+                                    <i class="fa-solid fa-file-pdf"></i>
+                                </button>
                             </form>
                         </div>
                     </div>

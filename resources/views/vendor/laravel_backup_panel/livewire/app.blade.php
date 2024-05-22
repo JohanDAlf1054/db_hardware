@@ -1,7 +1,7 @@
 <div class="container-fluid px-4 py-1">
     <div class="d-flex align-items-end pt-4">
         <h3 class="mb-0">
-            Copia de Seguridad
+            {{ Breadcrumbs::render('backup') }}
         </h3>
         {{-- id="create-backup"  --}}
         <a id="create-backups" class="btn btn-dark btn-sm ml-auto px-3" href="{{ route('backup-create') }}" style="text-decoration: none">
@@ -164,7 +164,7 @@
         </div>
     </div>
     <script>
-        
+
     </script>
     <script>
         document.addEventListener('livewire:load', function () {
