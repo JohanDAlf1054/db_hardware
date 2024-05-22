@@ -18,7 +18,7 @@
 </head>
 <body>
     <div class="bread_crumb">
-        {{ Breadcrumbs::render('compras.show', $detailPurchase) }}
+        {{ Breadcrumbs::render('compras.show', $detailPurchase)}}
     </div>
     @push('js')
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
