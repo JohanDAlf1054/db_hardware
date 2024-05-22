@@ -169,7 +169,7 @@ class SalesController extends Controller
                     ->setPaper('a4','landscape');
 
         // Funcion para devolver una vista del pdf en el navegador
-        return $pdf->stream('ventas.pdf');
+        return $pdf->stream('Ventas.pdf');
 
         //Descargar el pdf directamente
         // return $pdf->download('Informe de Personas.pdf');
