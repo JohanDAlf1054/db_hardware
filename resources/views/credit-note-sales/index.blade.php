@@ -31,7 +31,7 @@
                             <ul class="dropdown-menu desplegable_acciones">
                                 <div class="acciones_boton">
                                     <li><a class="dropdown-item" href="{{ route('sales.create') }}">Crear nueva venta</a></li>
-                                    <li><a class="dropdown-item" href="{{ route('credit-note-sales.index') }}">Nota crédito</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('credit-note-sales.index') }}">Mostrar Nota crédito</a></li>
                                     <li><a class="dropdown-item" href="{{ route('credit-note-sales.create') }}">Crear nota crédito</a></li>
                                 </div>
                             </ul>
