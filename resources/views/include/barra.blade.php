@@ -13,6 +13,7 @@
             <link rel="stylesheet" href="{{asset('css/estilos_accesibilidad.css')}}">
             <link href="{{ asset('css/estilos_footer.css')}}" rel="stylesheet">
             <script src="https://cdn.userway.org/widget.js" data-account="whmJm4JFhq"></script>
+            <script src="{{asset('js/tooltips.js')}}" defer></script>
         </head>
         <body id="body">
             <header>
@@ -46,38 +47,38 @@
                 <div class="options__menu">
                     <span id="liPanel" class="li" >Panel</span>
                     <div id="onlinePanel" class="online"></div>
-                    <a href="/home" class="{{ request()->route()->named('home') ? 'selected' : '' }}">
+                    <a tooltip="tooltip" data-bs-placement="right" title="Inicio" href="/home" class="{{ request()->route()->named('home') ? 'selected' : '' }}">
                         <div class="option">
-                            <i class="fas fa-home" title="Inicio"></i>
+                            <i class="fas fa-home"></i>
                             <h4>Inicio</h4>
                         </div>
                     </a>
 
-                    <a href="{{ route('products.index') }}" class="{{ request()->route()->named('products.index') ? 'selected' : '' }}">
+                    <a tooltip="tooltip" data-bs-placement="right" title="Productos" href="{{ route('products.index') }}" class="{{ request()->route()->named('products.index') ? 'selected' : '' }}">
                         <div class="option">
-                            <i class='bx bxs-package' title="productos" ></i>
+                            <i class='bx bxs-package'></i>
                             <h4>Productos</h4>
                         </div>
                     </a>
 
-                    <a href="{{ route('detail-purchases.index') }}" class="{{ request()->route()->named('purchase_supplier.index') ? 'selected' : '' }}">
+                    <a tooltip="tooltip" data-bs-placement="right" title="Compras" href="{{ route('detail-purchases.index') }}" class="{{ request()->route()->named('purchase_supplier.index') ? 'selected' : '' }}">
                         <div class="option">
-                            <i class='bx bxs-dollar-circle' title="compras" ></i>
+                            <i class='bx bxs-dollar-circle'></i>
                             <h4>Compras</h4>
                         </div>
                     </a>
 
 
-                    <a href="{{ route('person.index')}}" class="{{ request()->route()->named('person.index') ? 'selected' : '' }}">
+                    <a tooltip="tooltip" data-bs-placement="right" title="Terceros" href="{{ route('person.index')}}" class="{{ request()->route()->named('person.index') ? 'selected' : '' }}">
                         <div class="option">
-                            <i class='bx bxs-user-detail' title="usuarios" ></i>
+                            <i class='bx bxs-user-detail'></i>
                             <h4>Terceros</h4>
                         </div>
                     </a>
 
-                    <a href="{{route('sales.index')}}" class="{{ request()->route()->named('sales.index') ? 'selected' : '' }}">
+                    <a tooltip="tooltip" data-bs-placement="right" title="Ventas" href="{{route('sales.index')}}" class="{{ request()->route()->named('sales.index') ? 'selected' : '' }}">
                         <div class="option">
-                            <i class='bx bxs-business' title="ventas" ></i>
+                            <i class='bx bxs-business'></i>
                             <h4>Ventas</h4>
                         </div>
                     </a>
@@ -90,7 +91,7 @@
                     {{--  Funcion para mostrar el link de roles solo para usuarios con el rol de administrador  --}}
                     @can('admin.usuarios.index')
 
-                    <a href="{{ route('admin.usuarios.index') }}" class="{{ request()->route()->named('usuarios.index') ? 'selected' : '' }}">
+                    <a tooltip="tooltip" data-bs-placement="right" title="Roles" href="{{ route('admin.usuarios.index') }}" class="{{ request()->route()->named('usuarios.index') ? 'selected' : '' }}">
                         <div class="option">
                                 <i class="fa-solid fa-users-gear"></i>
                                 <h4>Roles</h4>
@@ -99,14 +100,14 @@
 
                     @endcan
                     {{-- @can('admin.backup.index') --}}
-                    <a href="/backup" class="{{ request()->route()->named('/backup') ? 'selected' : '' }}">
+                    <a tooltip="tooltip" data-bs-placement="right" title="Configuración" href="/backup" class="{{ request()->route()->named('/backup') ? 'selected' : '' }}">
                         <div class="option">
                             <i class="fa-solid fa-gear"></i>
                             <h4>Configuración</h4>
                         </div>
                     </a>
                     {{-- @endcan --}}
-                    <a href="/logout">
+                    <a tooltip="tooltip" data-bs-placement="right" title="Cerrar Sesión" href="/logout">
                         <div class="option">
                             <i class="fa-solid fa-right-from-bracket"></i>
                             <h4>Cerrar Sesión </h4>
