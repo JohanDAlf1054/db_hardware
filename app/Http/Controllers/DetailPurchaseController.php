@@ -50,11 +50,11 @@ class DetailPurchaseController extends Controller
                     }
                 });
         })
-        ->paginate(4);
+        ->get();
 
-    return view('detail-purchase.index', compact('detailPurchases'))
-        ->with('i', (request()->input('page', 1) - 1) * $detailPurchases->perPage());
+    return view('detail-purchase.index', compact('detailPurchases'));
 }
+
 
     
 
@@ -100,24 +100,29 @@ class DetailPurchaseController extends Controller
     ]);
 
     try {
-        $latestInvoice = PurchaseSupplier::where('code', $request->input('code'))
-            ->orderBy('invoice_number_purchase', 'desc')
-            ->first();
+        $invoice_number = $request->input('code') . $request->input('invoice_number_purchase');
 
-        if ($latestInvoice) {
-            $nextInvoiceNumber = intval(substr($latestInvoice->invoice_number_purchase, 3)) + 1;
-        } else {
-            $nextInvoiceNumber = 1;
-        }
+$existingPurchase = PurchaseSupplier::where('invoice_number_purchase', $invoice_number)->first();
 
-        $invoiceNumber = 'ARM' . str_pad($nextInvoiceNumber, 4, '0', STR_PAD_LEFT);
-        $purchaseSupplier = new PurchaseSupplier;
-        $purchaseSupplier->invoice_number_purchase = $request->input('invoice_number_purchase');
-        $purchaseSupplier->date_invoice_purchase = $request->input('fecha');
-        $purchaseSupplier->code = $request->input('code');
-        $purchaseSupplier->people_id = $request->input('people_id');
-        $purchaseSupplier->users_id = $request->input('user_id');
+if ($existingPurchase) {
+    return redirect()->back()->withInput()->withErrors(['invoice_number_purchase' => 'El número de factura ya existe.']);
+}
+
+$purchaseSupplier = new PurchaseSupplier;
+$purchaseSupplier->invoice_number_purchase = $invoice_number;
+$purchaseSupplier->date_invoice_purchase = $request->input('fecha');
+$purchaseSupplier->people_id = $request->input('people_id');
+$purchaseSupplier->users_id = $request->input('user_id');
+$purchaseSupplier->save();
         $purchaseSupplier->save();
+
+        
+
+        
+
+        
+
+        
 
         $arrayIdProducto = $request->get('arrayidproducto');
         $arrayImpuesto = $request->get('arrayimpuesto');
@@ -192,6 +197,7 @@ class DetailPurchaseController extends Controller
                 }
                 $cont++;
         }
+       
 
         DB::commit();
     } catch (\Exception $e) {

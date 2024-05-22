@@ -214,17 +214,22 @@
                                 <label for="code" class="form-label">Prefijo:</label>
                                 <div class="input-group">
                                     <select name="code" id="code" class="form-control selectpicker" disabled>
-                                        <option value="Pre-" {{ isset($detailPurchase) && isset($detailPurchase->purchaseSupplier) && $detailPurchase->purchaseSupplier->code == 'Pre-' ? 'selected' : '' }}>Pre</option>
-                                        <option value="Po-" {{ isset($detailPurchase) && isset($detailPurchase->purchaseSupplier) && $detailPurchase->purchaseSupplier->code == 'Po-' ? 'selected' : '' }}>Po</option>
-                                        <option value="Es-" {{ isset($detailPurchase) && isset($detailPurchase->purchaseSupplier) && $detailPurchase->purchaseSupplier->code == 'Es-' ? 'selected' : '' }}>Es</option>
+                                        @php
+                                        $invoice_number = isset($detailPurchase) && isset($detailPurchase->purchaseSupplier) ? $detailPurchase->purchaseSupplier->invoice_number_purchase : '';
+                                        $prefix = substr($invoice_number, 0, 3);
+                                        @endphp
+                                        <option value="Pre-" {{ $prefix == 'Pre-' ? 'selected' : '' }}>Pre</option>
+                                        <option value="Po-" {{ $prefix == 'Po-' ? 'selected' : '' }}>Po</option>
+                                        <option value="Es-" {{ $prefix == 'Es-' ? 'selected' : '' }}>Es</option>
                                     </select>
                                 </div>
                             </div>
-
+                            
                             <div class="col-6 mb-2">
                                 <label for="factura" class="form-label">Número de factura</label>
-                                <input type="text" id="factura" name="factura" class="form-control" value="{{ isset($detailPurchase) && isset($detailPurchase->purchaseSupplier) ? $detailPurchase->purchaseSupplier->invoice_number_purchase : '' }}" readonly>
+                                <input type="text" id="factura" name="factura" class="form-control" value="{{ $invoice_number }}" readonly>
                             </div>
+                            
                             
                             <div class="col-6 mb-2">
                                 <label for="form_of_payment" class="form-label">Formas de pago:</label>

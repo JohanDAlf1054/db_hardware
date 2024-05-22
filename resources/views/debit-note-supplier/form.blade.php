@@ -96,8 +96,7 @@
                                                         data-price-unit="{{ $purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->price_unit : '' }}"
                                                         data-discount-total="{{ $purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->discount_total : '' }}"
                                                         data-quantity-units="{{$purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->discount_total : ''}}">
-                                                    {{ $purchaseSupplier->code . '-' . $purchaseSupplier->invoice_number_purchase }}
-                                                </option>
+                                                        {{ $purchaseSupplier->invoice_number_purchase }}                                                </option>
                                                 @endforeach
                                             </select>
                                             {!! $errors->first('factura', '<div class="invalid-feedback">:message</div>') !!}
@@ -161,7 +160,7 @@
                                             <select id="people_id" name="people_id" class="form-control{{ $errors->has('people_id') ? ' is-invalid' : '' }}">
                                                 <option value="">Seleciona una opción</option>
                                                 @foreach($people as $person)
-                                                    <option value="{{ $person->id }}">{{ $person->first_name }}</option>
+                                                <option value="{{$person->id}}">{{$person->identification_number}} - {{$person->first_name}} {{$person->other_name}} {{$person->surname}} {{$person->second_surname}} {{$person->company_name}}</option>
                                                 @endforeach
                                             </select>
                                             {!! $errors->first('people_id', '<div class="invalid-feedback">:message</div>') !!}

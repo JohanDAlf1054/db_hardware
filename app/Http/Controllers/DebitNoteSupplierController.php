@@ -25,34 +25,34 @@ class debitNoteSupplierController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-{
-    $filtervalue = $request->get('filtervalue');
-
-    if ($filtervalue) {
-        $status = $filtervalue == 'activo' ? 1 : ($filtervalue == 'inactivo' ? 0 : null);
-
-        $debitNoteSuppliers = DebitNoteSupplier::query()
-            ->when($status !== null, function($query) use ($status) {
-                return $query->where('status', $status);
-            })
-            ->when($filtervalue, function($query) use ($filtervalue) {
-                return $query->where('debit_note_code','like','%'.$filtervalue.'%')
-                    //->orWhere('quantity','like','%'.$filtervalue.'%')
-                    ->orWhere('description','like','%'.$filtervalue.'%');
-            })
-            ->paginate();
-    } else {
-        $uniqueDebitNoteSupplierIds = DB::table('debit_note_suppliers')
-            ->select(DB::raw('MAX(id) as id'))
-            ->groupBy('purchase_suppliers_id')
-            ->pluck('id');
-
-        $debitNoteSuppliers = DebitNoteSupplier::whereIn('id', $uniqueDebitNoteSupplierIds)->paginate();
+    {
+        $filtervalue = $request->get('filtervalue');
+    
+        if ($filtervalue) {
+            $status = $filtervalue == 'activo' ? 1 : ($filtervalue == 'inactivo' ? 0 : null);
+    
+            $debitNoteSuppliers = DebitNoteSupplier::query()
+                ->when($status !== null, function($query) use ($status) {
+                    return $query->where('status', $status);
+                })
+                ->when($filtervalue, function($query) use ($filtervalue) {
+                    return $query->where('debit_note_code','like','%'.$filtervalue.'%')
+                        //->orWhere('quantity','like','%'.$filtervalue.'%')
+                        ->orWhere('description','like','%'.$filtervalue.'%');
+                })
+                ->get();
+        } else {
+            $uniqueDebitNoteSupplierIds = DB::table('debit_note_suppliers')
+                ->select(DB::raw('MAX(id) as id'))
+                ->groupBy('purchase_suppliers_id')
+                ->pluck('id');
+    
+            $debitNoteSuppliers = DebitNoteSupplier::whereIn('id', $uniqueDebitNoteSupplierIds)->get();
+        }
+        
+        return view('debit-note-supplier.index', compact('debitNoteSuppliers'));
     }
     
-    return view('debit-note-supplier.index', compact('debitNoteSuppliers'))
-        ->with('i', (request()->input('page', 1) - 1) * $debitNoteSuppliers->perPage());
-}
 
     /**
      * Show the form for creating a new resource.
