@@ -189,17 +189,24 @@ class DetailPurchaseController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        $detailPurchase = DetailPurchase::with('purchaseSupplier.user')->find($id);
-        $product = Product::find($detailPurchase->products_id);
-        $users = User::all();
-        $purchaseSupplierId = $detailPurchase->purchase_suppliers_id;
-        $detailPurchases = DetailPurchase::where('purchase_suppliers_id', $purchaseSupplierId)->get();
-        $totalNeto = DetailPurchase::find($id);
-        $products = Product::all();
-        $people = Person::all();
-        return view('detail-purchase.show', compact('detailPurchases', 'detailPurchase', 'product', 'users', 'totalNeto', 'products', 'people'));
-    }
+{
+    $detailPurchase = DetailPurchase::with('purchaseSupplier.user')->find($id);
+    $invoice_number = $detailPurchase->purchaseSupplier->invoice_number_purchase;
+    $gross_total = $detailPurchase->gross_total;
+    $total_tax = $detailPurchase->total_value;
+    $net_total = $detailPurchase->net_total; 
+    $subtotal = $detailPurchase->quantity_units * $detailPurchase->price_unit;
+    $igv = $subtotal * 0.18;
+    $product = Product::find($detailPurchase->products_id);
+    $users = User::all();
+    $purchaseSupplierId = $detailPurchase->purchase_suppliers_id;
+    $detailPurchases = DetailPurchase::where('purchase_suppliers_id', $purchaseSupplierId)->get();
+    $totalNeto = DetailPurchase::find($id);
+    $products = Product::all();
+    $people = Person::all();
+    return view('detail-purchase.show', compact('detailPurchases', 'detailPurchase', 'product', 'users', 'totalNeto', 'products', 'people', 'invoice_number', 'gross_total', 'total_tax', 'net_total','subtotal','igv')); 
+}
+
     /**
      * Show the form for editing the specified resource.
      *
