@@ -105,7 +105,7 @@
                     </div>
                 </form>
                         <div class="table_container">
-                            <div class="table-responsive">
+                            <div>
                                 <table class="table table-striped table-hover" style="justify-content: center; width: 100%;" id="datatable">
                                     <thead class="table-dark">
                                         <tr style="text-align: center">
