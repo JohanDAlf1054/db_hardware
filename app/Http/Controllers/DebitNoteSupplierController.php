@@ -154,14 +154,59 @@ class debitNoteSupplierController extends Controller
             'precio_unitario.*' => 'required',
             'descuento.*' => 'required',
             'iva.*' => 'required',
-            'totalNeto' => 'required',
-            'gross_total' => 'required',
+            'totalNeto' => [
+                'required',
+                function ($attribute, $value, $fail) {
+                    if ($value < 0) {
+                        $fail('El total neto no puede ser negativo.');
+                        Session::flash('notificacion', [
+                            'tipo' => 'error',
+                            'titulo' => 'Atención!',
+                            'descripcion' => 'El total neto no puede ser negativo.',
+                            'autoCierre' => 'true'
+                        ]);
+                    }
+                },
+            ],
+            'gross_total' => [
+                'required',
+                function ($attribute, $value, $fail) {
+                    if ($value < 0) {
+                        $fail('El total bruto no puede ser negativo.');
+                        Session::flash('notificacion', [
+                            'tipo' => 'error',
+                            'titulo' => 'Atención!',
+                            'descripcion' => 'El total bruto no puede ser negativo.',
+                            'autoCierre' => 'true'
+                        ]);
+                    }
+                },
+            ],
+            'total' => [
+                'required',
+                function ($attribute, $value, $fail) {
+                    if ($value < 0) {
+                        $fail('El total no puede ser negativo.');
+                        Session::flash('notificacion', [
+                            'tipo' => 'error',
+                            'titulo' => 'Atención!',
+                            'descripcion' => 'El total no puede ser negativo.',
+                            'autoCierre' => 'true'
+                        ]);
+                    }
+                },
+            ],
             'motive' => 'required',
         ], [
             'motive.required' => 'El motivo por el cual se realiza la nota es obligatorio.',
         ]);
 
         $purchaseSupplierId = $request->input('factura');
+        $lastRecord = DebitNoteSupplier::where('purchase_suppliers_id', $purchaseSupplierId)->exists();
+
+        if ($lastRecord) {
+            return redirect()->back()->withErrors(['factura' => 'El número de factura ya tiene una nota debito.']);
+        }
         $detailPurchases = DetailPurchase::where('purchase_suppliers_id', $purchaseSupplierId)->get();
 
         if (count($detailPurchases) == 0) {

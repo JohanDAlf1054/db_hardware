@@ -87,11 +87,11 @@
                                     <table id="datatable" class="table table-striped table-hover" style="width:100%">
                                         <thead class="table-dark">
                                             <tr style="text-align: center">
-                                                <th>No</th>
+                                                <th>Nº</th>
                                                 <th>Tipo Documento</th>
-                                                <th>Numero Documento</th>
+                                                <th>Número De Documento</th>
                                                 <th>Proveedor</th>
-                                                <th>Numero de Nota</th>
+                                                <th>Número de Nota</th>
                                                 <th>Fecha De La Nota</th>
                                                 <th>Total</th>
                                                 <th>Descuento Total</th>
