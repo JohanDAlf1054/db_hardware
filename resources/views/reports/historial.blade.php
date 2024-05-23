@@ -80,13 +80,13 @@
                                 <div class="form-group d-flex align-items-center">
                                     <div class="d-flex flex-column flex-grow-1 mr-2">
                                         <label for="fecha_inicio" class="form-label">Fecha de inicio</label>
-                                        <input name="fecha_inicio" id="fecha_inicio" type="date" class="form-control" style="text-align-last:center;" value="{{ date('Y-m-d') }}">
+                                        <input name="fecha_inicio" id="fecha_inicio" type="date" class="form-control" style="text-align-last:center;">
                                     </div>
                                 </div>
                                 <div class="form-group d-flex align-items-center mt-3">
                                     <div class="d-flex flex-column flex-grow-1 mr-2">
                                         <label for="fecha_cierre" class="form-label">Fecha de cierre</label>
-                                        <input name="fecha_cierre" id="fecha_cierre" type="date" class="form-control" style="text-align-last:center;" value="{{ date('Y-m-d') }}">
+                                        <input name="fecha_cierre" id="fecha_cierre" type="date" class="form-control" style="text-align-last:center;">
                                     </div>
                                 </div>
                                 
@@ -111,7 +111,6 @@
                                         <tr style="text-align: center">
                                             <th>Nombre Del Producto</th>
                                             <th>Referencia De Fabrica</th>
-                                            <th>Cantidad Inicial</th>
                                             <th>Cantidad Entrada</th>
                                             <th>Fecha Inicial </th>
                                             <th>Fecha Final</th>
@@ -147,7 +146,6 @@
                                                         <tr>
                                                             <td style="text-align: center">{{ $producto->name_product }}</td>
                                                             <td style="text-align: center">{{ $producto->factory_reference }}</td>
-                                                            <td style="text-align: center">0</td>
                                                             <td style="text-align: center">{{ $cantidadIngresada }}</td>
                                                             <td style="text-align: center">{{ $fechaInicial }}</td> 
                                                             <td style="text-align: center">{{ $fechaFinal }}</td> 
@@ -212,7 +210,6 @@
     columns: [
         { data: 'nombre_del_producto' },
         { data: 'referencia_de_fabrica' },
-        { data: 'cantidad_inicial' },
         { data: 'cantidad_entrada' },
         { data: 'fecha_inicial' },
         { data: 'fecha_final' },

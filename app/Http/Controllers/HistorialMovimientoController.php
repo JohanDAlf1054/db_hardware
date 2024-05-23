@@ -108,11 +108,18 @@ class HistorialMovimientoController extends Controller
         $resultados = $resultados->get();
         $ventas = $ventas->get();
     
-        $datos = [];
-        foreach ($ventas as $venta) {
+        $datos = [];  // Inicializa el array de datos aquí
+
+    foreach ($products as $product) {
+        $detallesCompras = DetailPurchase::where('products_id', $product->id)->get();
+        $ventasProducto = Sale::whereHas('productos', function ($query) use ($product) {
+            $query->where('products.id', $product->id);
+        })->get();
+
+        foreach ($ventasProducto as $venta) {
             foreach ($venta->productos as $producto) {
-                if (isset($detallesCompras[$producto->id])) {
-                    $detalleCompra = $detallesCompras[$producto->id]->shift();
+                if ($producto->id == $product->id && !$detallesCompras->isEmpty()) {
+                    $detalleCompra = $detallesCompras->shift();
                     $fechaInicial = $producto->created_at->format('Y-m-d H:i:s');
                     $fechaFinal = $venta->created_at->format('Y-m-d H:i:s');
                     $fechaFactura = $detalleCompra ? $detalleCompra->created_at->format('Y-m-d H:i:s'): null; 
@@ -131,6 +138,22 @@ class HistorialMovimientoController extends Controller
                 }
             }
         }
+
+        foreach ($detallesCompras as $detalleCompra) {
+            $datos[] = [
+                'nombre_del_producto' => $product->name_product,
+                'referencia_de_fabrica' => $product->factory_reference,
+                'cantidad_inicial' => '0',
+                'cantidad_entrada' => $detalleCompra->quantity_units,
+                'fecha_inicial' => $product->created_at->format('Y-m-d H:i:s'),
+                'fecha_final' => null,
+                'fecha_de_la_factura' => $detalleCompra->created_at->format('Y-m-d H:i:s'),
+                'cantidad_de_salida' => '0',
+                'saldo_de_cantidades' => $product->stock,
+            ];
+        }
+    }
+        
     
         return view('reports.historial', compact('resultados', 'ventas', 'detailPurchases', 'products', 'ventas', 'subCategories', 'categories', 'estados', 'fecha_inicio', 'fecha_cierre', 'request', 'datos'));
     }
