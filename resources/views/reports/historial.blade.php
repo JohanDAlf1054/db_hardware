@@ -123,40 +123,7 @@
                                         $detallesCompras = \App\Models\DetailPurchase::orderBy('created_at')->get()->groupBy('products_id');
                                     @endphp
                                     <tbody>
-                                        
-                                        @if ($ventas->isEmpty() && !$request->isMethod('post'))
-                                            <tr>
-                                                <td colspan="9" style="text-align: center">Por favor, busca un movimiento.</td>
-                                            </tr>
-                                        @elseif ($ventas->isEmpty() && $request->isMethod('post'))
-                                            <tr>
-                                                <td colspan="9" style="text-align: center">Actualmente, ningún dato coincide con lo que acabas de buscar. Intenta otra búsqueda.</td>
-                                            </tr>
-                                        @else
-                                            @foreach ($ventas as $venta)
-                                                @foreach ($venta->productos as $producto)
-                                                    @if (isset($detallesCompras[$producto->id]))
-                                                        @php
-                                                            $detalleCompra = $detallesCompras[$producto->id]->shift();
-                                                            $fechaInicial = $producto->created_at; 
-                                                            $fechaFinal = $venta->created_at; 
-                                                            $fechaFactura = $detalleCompra ? $detalleCompra->created_at : null; 
-                                                            $cantidadIngresada = $detalleCompra ? $detalleCompra->quantity_units : 0;
-                                                        @endphp
-                                                        <tr>
-                                                            <td style="text-align: center">{{ $producto->name_product }}</td>
-                                                            <td style="text-align: center">{{ $producto->factory_reference }}</td>
-                                                            <td style="text-align: center">{{ $cantidadIngresada }}</td>
-                                                            <td style="text-align: center">{{ $fechaInicial }}</td> 
-                                                            <td style="text-align: center">{{ $fechaFinal }}</td> 
-                                                            <td style="text-align: center">{{ $fechaFactura }}</td> 
-                                                            <td style="text-align: center">{{ $producto->pivot->amount }}</td> 
-                                                            <td style="text-align: center">{{ $producto->stock }}</td> 
-                                                        </tr>
-                                                    @endif
-                                                @endforeach
-                                            @endforeach
-                                        @endif
+                                    
                                 </tbody>
                             </table>        
                         </div>
