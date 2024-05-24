@@ -103,54 +103,52 @@ class HistorialMovimientoController extends Controller
                 $ventasProducto = $ventas->filter(function ($venta) use ($product) {
                     return $venta->productos->contains('id', $product->id);
                 });
-            
-                $ultimoDetalleCompra = null;;
-        
+                    
                 $filtrarProducto = $request->isMethod('post') && $producto; 
+                $ultimaCantidadIngresada = '0';
+                $productoVendido = false;
+                $ultimoDetalleCompra = null;
 
-                foreach ($ventasProducto as $venta) {
-                    foreach ($venta->productos as $producto) {
-                        if ($producto->id == $product->id) {
-                            if (!$detallesComprasProducto->isEmpty()) {
-                                $ultimoDetalleCompra = $detallesComprasProducto->shift();
-                            } else {
-                                $ultimoDetalleCompra = null;
-                            }
-                            if (!$filtrarProducto || ($filtrarProducto && $ultimoDetalleCompra)) {
-                                $fechaInicial = $producto->created_at->format('Y-m-d H:i:s');
-                                $fechaFinal = $venta->created_at->format('Y-m-d H:i:s');
-                                $fechaFactura = $ultimoDetalleCompra ? $ultimoDetalleCompra->created_at->format('Y-m-d H:i:s') : 'N/A';
-                                $cantidadIngresada = $ultimoDetalleCompra ? $ultimoDetalleCompra->quantity_units : '0';
-                                $datos[] = [
-                                    'nombre_del_producto' => $producto->name_product,
-                                    'referencia_de_fabrica' => $producto->factory_reference,
-                                    'cantidad_inicial' => '0',
-                                    'cantidad_entrada' => $cantidadIngresada,
-                                    'fecha_inicial' => $fechaInicial,
-                                    'fecha_final' => $fechaFinal,
-                                    'fecha_de_la_factura' => $fechaFactura,
-                                    'cantidad_de_salida' => $producto->pivot->amount,
-                                    'saldo_de_cantidades' => $producto->stock,
-                                ];
-                            }
-                        }
+        foreach ($ventasProducto as $venta) {
+            foreach ($venta->productos as $producto) {
+                if ($producto->id == $product->id) {
+                    if (!$detallesComprasProducto->isEmpty()) {
+                        $ultimoDetalleCompra = $detallesComprasProducto->shift();
                     }
-                }
-                while (!$detallesComprasProducto->isEmpty()) {
-                    $detalleCompra = $detallesComprasProducto->shift();
+                    $fechaInicial = $producto->created_at->format('Y-m-d H:i:s');
+                    $fechaFinal = $venta->created_at->format('Y-m-d H:i:s');
+                    $fechaFactura = $ultimoDetalleCompra ? $ultimoDetalleCompra->created_at->format('Y-m-d H:i:s') : 'N/A';
+                    $cantidadIngresada = $ultimoDetalleCompra ? $ultimoDetalleCompra->quantity_units : '0';
                     $datos[] = [
-                        'nombre_del_producto' => $product->name_product,
-                        'referencia_de_fabrica' => $product->factory_reference,
+                        'nombre_del_producto' => $producto->name_product,
+                        'referencia_de_fabrica' => $producto->factory_reference,
                         'cantidad_inicial' => '0',
-                        'cantidad_entrada' => $detalleCompra->quantity_units,
-                        'fecha_inicial' => $product->created_at->format('Y-m-d H:i:s'),
-                        'fecha_final' => 'N/A',
-                        'fecha_de_la_factura' => $detalleCompra->created_at->format('Y-m-d H:i:s'),
-                        'cantidad_de_salida' => '0',
-                        'saldo_de_cantidades' => $product->stock,
+                        'cantidad_entrada' => $cantidadIngresada,
+                        'fecha_inicial' => $fechaInicial,
+                        'fecha_final' => $fechaFinal,
+                        'fecha_de_la_factura' => $fechaFactura,
+                        'cantidad_de_salida' => $producto->pivot->amount,
+                        'saldo_de_cantidades' => $producto->stock,
                     ];
                 }
             }
+        }
+
+        while (!$detallesComprasProducto->isEmpty()) {
+            $detalleCompra = $detallesComprasProducto->shift();
+            $datos[] = [
+                'nombre_del_producto' => $product->name_product,
+                'referencia_de_fabrica' => $product->factory_reference,
+                'cantidad_inicial' => '0',
+                'cantidad_entrada' => $detalleCompra->quantity_units,
+                'fecha_inicial' => $product->created_at->format('Y-m-d H:i:s'),
+                'fecha_final' => 'N/A',
+                'fecha_de_la_factura' => $detalleCompra->created_at->format('Y-m-d H:i:s'),
+                'cantidad_de_salida' => '0',
+                'saldo_de_cantidades' => $product->stock,
+            ];
+        }
+    }        
         
             return view('reports.historial', compact('products', 'subCategories', 'categories', 'estados', 'fecha_inicio', 'fecha_cierre', 'request', 'datos'));
         }
