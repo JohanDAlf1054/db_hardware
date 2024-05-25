@@ -244,7 +244,7 @@ class ProductController extends Controller
                     ->setPaper('a4','landscape');
 
         // Funcion para devolver una vista del pdf en el navegador
-        return $pdf->stream('archivo.pdf');
+        return $pdf->stream('Productos.pdf');
 
         //Descargar el pdf directamente
         // return $pdf->download('Informe de Productos.pdf');

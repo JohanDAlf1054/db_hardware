@@ -101,7 +101,6 @@
                     @endcan
                     @can('/backup')
                     <a href="/backup" class="{{ request()->route()->named('/backup') ? 'selected' : '' }}">
-                    {{-- @can('admin.backup.index') --}}
                     <a tooltip="tooltip" data-bs-placement="right" title="Copia de Seguridad" href="/backup" class="{{ request()->route()->named('/backup') ? 'selected' : '' }}">
                         <div class="option">
                             <i class="fa-solid fa-laptop-file"></i>
@@ -109,8 +108,15 @@
                         </div>
                     </a>
                     @endcan
+
+                    <a tooltip="tooltip" data-bs-placement="right" title="Configuración" href="{{route('profile.index')}}" class="{{ request()->route()->named('profile.index') ? 'selected' : '' }}">
+                        <div class="option">
+                            <i class="fa-solid fa-gears"></i>
+                            <h4>Configuración</h4>
+                        </div>
+                    </a>
+
                     <a href="/logout">
-                    {{-- @endcan --}}
                     <a tooltip="tooltip" data-bs-placement="right" title="Cerrar Sesión" href="/logout">
                         <div class="option">
                             <i class="fa-solid fa-right-from-bracket"></i>

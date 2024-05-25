@@ -202,6 +202,7 @@ Breadcrumbs::for('credit.note.sales.create', function (BreadcrumbTrail $trail) {
 
 //Administrador
 Breadcrumbs::for('admin.index', function (BreadcrumbTrail $trail) {
+    $trail->push('Administrador');
     $trail->push('Usuarios', route('admin.usuarios.index'));
 });
 
@@ -213,5 +214,24 @@ Breadcrumbs::for('admin.edit', function (BreadcrumbTrail $trail) {
 
 //Administrador -> Backup
 Breadcrumbs::for('backup', function (BreadcrumbTrail $trail) {
+    $trail->push('Administrador');
     $trail->push('Copia de seguridad',route('backup-create'));
+});
+
+//Usuario -> Datos del usuario
+Breadcrumbs::for('profile', function (BreadcrumbTrail $trail) {
+    $trail->push('Usuario');
+    $trail->push('Configuración',route('profile.index'));
+});
+
+//Usario -> Datos del usuario -> modificar
+Breadcrumbs::for('profile.edit', function (BreadcrumbTrail $trail) {
+    $trail->parent('profile');
+    $trail->push('Modificar datos');
+});
+
+//Usuario -> Datos del usuario -> Contraseña
+Breadcrumbs::for('profile.password', function (BreadcrumbTrail $trail) {
+    $trail->parent('profile');
+    $trail->push('Cambiar contraseña');
 });

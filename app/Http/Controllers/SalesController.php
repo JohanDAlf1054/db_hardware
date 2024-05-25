@@ -163,13 +163,13 @@ class SalesController extends Controller
 
     public function pdf()
     {
-        $ventas = Sale::with('person')->get();
+        $ventas = Sale::with('cliente')->get();
 
         $pdf = Pdf::loadView('sales.pdf', ['ventas' => $ventas])
                     ->setPaper('a4','landscape');
 
         // Funcion para devolver una vista del pdf en el navegador
-        return $pdf->stream('ventas.pdf');
+        return $pdf->stream('Ventas.pdf');
 
         //Descargar el pdf directamente
         // return $pdf->download('Informe de Personas.pdf');
