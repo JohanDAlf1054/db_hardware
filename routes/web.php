@@ -20,7 +20,12 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UsuariosController;
 use App\Http\Controllers\CreditNoteSalesController;
 use App\Http\Controllers\BackupController;
-
+use App\Http\Controllers\debitNoteSupplierController;
+use App\Http\Controllers\DetailPurchaseController;
+use App\Http\Controllers\UserController;
+//Funcion para revisar el cambio de contraseña
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,6 +69,15 @@ Route::post('/actualizar-contrasenia', [AuthController::class, 'actualizarContra
 
 //Rutas para la vista de administrador
 Route::resource('usuarios', UsuariosController::class)->only(['index', 'edit', 'update'])->names('admin.usuarios');
+
+//Ruta para editar los datos del usuario
+Route::middleware(['auth'])->group(function () {
+    Route::get('/profile', [UserController::class, 'index'])->name('profile.index');
+    Route::get('/profile/edit', [UserController::class, 'edit'])->name('profile.edit');
+    Route::post('/profile', [UserController::class, 'update'])->name('profile.update');
+    Route::get('/password/change', [UserController::class, 'showChangePasswordForm'])->name('password.change');
+    Route::post('/password/change', [UserController::class, 'changePassword'])->name('password.update');
+});
 
 
 
@@ -117,6 +131,7 @@ Route::get('Person/pdf', [PersonController::class, 'pdf'])->name('person.pdf');
 Route::get('Products/pdf',[ProductController::class, 'pdf'])->name('products.pdf');
 Route::get('Sales/pdf',[SalesController::class, 'pdf'])->name('sales.pdf');
 Route::get('Credit-note-sales/pdf', [CreditNoteSalesController::class, 'pdf'])->name('credit-note-sales.pdf');
+Route::get('Detail-purchases/pdf',[DetailPurchaseController::class,'pdf'])->name('detail-purchases.pdf');
 
 //Funciones De Compras
 Route::resource('purchase_supplier', App\Http\Controllers\PurchaseSupplierController::class);
@@ -147,3 +162,16 @@ Route::get('/restore/backup', [BackupController::class, 'restoreBackup'])->name(
 //Filtrar historial de precios
 Route::get('/filtrar/precios', [ExportController::class, 'filtrar'])->name('filtrar_por_fechas');
 Route::get('/filtrar/precios/purchase', [ExportController::class, 'filtrarPurchase'])->name('filtrarPurchase');
+
+
+//Prueba temporal de cambio de contraseña
+Route::get('/test-password-hash', function () {
+    $user = Auth::user();
+    $newPasswordHash = Hash::make('your_new_password');
+
+    if (Hash::check('your_new_password', $newPasswordHash)) {
+        return 'El hash de la nueva contraseña es correcto.';
+    } else {
+        return 'El hash de la nueva contraseña es incorrecto.';
+    }
+})->middleware('auth');

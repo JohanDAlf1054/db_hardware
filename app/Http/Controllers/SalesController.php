@@ -163,7 +163,7 @@ class SalesController extends Controller
 
     public function pdf()
     {
-        $ventas = Sale::with('person')->get();
+        $ventas = Sale::with('cliente')->get();
 
         $pdf = Pdf::loadView('sales.pdf', ['ventas' => $ventas])
                     ->setPaper('a4','landscape');

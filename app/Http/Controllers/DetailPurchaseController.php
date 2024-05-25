@@ -10,8 +10,9 @@ use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-use Illuminate\Support\Facades\Validator; 
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 
 
@@ -56,9 +57,9 @@ class DetailPurchaseController extends Controller
         ->with('i', (request()->input('page', 1) - 1) * $detailPurchases->perPage());
 }
 
-    
 
-    
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -72,7 +73,7 @@ class DetailPurchaseController extends Controller
         $products = Product::where('status', '1')->get();
         $users=User::all();
         $purchase_suppliers = PurchaseSupplier::all();
-    
+
         return view('detail-purchase.create', compact('detailPurchase', 'people', 'products', 'purchase_suppliers','users'));
     }
 
@@ -130,7 +131,7 @@ class DetailPurchaseController extends Controller
         if (!$arrayIdProducto || !$arrayImpuesto || !$arrayDescripcion || !$arrayCantidad || !$arrayPrecioCompra || !$arrayPrecioVenta || !$arraydescuento) {
             return redirect()->back()->withInput()->withErrors(['error' => 'Faltan datos en el formulario.']);
         }
-        
+
 
         $sizeArray = count($arrayIdProducto);
         $cont = 0;
@@ -151,10 +152,10 @@ class DetailPurchaseController extends Controller
             $input['total_value'] = $request->input('total');
             $input['gross_total'] = $request->input('totalBruto');
             $input['net_total'] = $request->input('totalNeto');
-           
-           
+
+
             $validatedData = Validator::make($input, [
-                
+
                 'description'=>'required|string',
                 'price_unit' => 'required|numeric',
                 'product_tax' => 'required|numeric|between:0,19',
@@ -171,20 +172,20 @@ class DetailPurchaseController extends Controller
                 'purchase_suppliers_id' => 'required|exists:purchase_suppliers,id',
             ])->validate();
             //dd($request);
-           
-            
+
+
             $detailPurchase = DetailPurchase::create($validatedData);
 
-          
+
                 $producto = Product::find($arrayIdProducto[$cont]);
                 $stockActual = $producto->stock;
                 $stockNuevo = intval($arrayCantidad[$cont]);
-                DB::table('products') 
+                DB::table('products')
                     ->where('id', $producto->id)
                     ->update([
                         'stock' => $stockActual + $stockNuevo
                     ]);
-            
+
                 $producto = Product::find($arrayIdProducto[$cont]);
                 if ($producto) {
                     $producto->purchase_price = $arrayPrecioCompra[$cont];
@@ -196,25 +197,25 @@ class DetailPurchaseController extends Controller
         DB::commit();
     } catch (\Exception $e) {
         DB::rollback();
-        
+
         return redirect()->back()->withInput()->withErrors(['error' => 'Error: ' . $e->getMessage()]);
     }
-    
+
     Session::flash('notificacion', [
         'tipo' => 'exito',
         'titulo' => 'Éxito!',
         'descripcion' => 'Compra Creada Exitosamente',
         'autoCierre' => 'true'
     ]);
-    
+
     return redirect()->route('detail-purchases.index');
-    
+
 }
 
 
 
 
-    
+
     /**
      * Display the specified resource.
      *
@@ -230,19 +231,19 @@ class DetailPurchaseController extends Controller
         $detailPurchases = DetailPurchase::where('purchase_suppliers_id', $purchaseSupplierId)->get();
         $totalNeto = DetailPurchase::find($id);
         $products = Product::all();
-    
+
         // Obtener todas las personas (naturales y jurídicas)
         $people = Person::all();
-    
+
         return view('detail-purchase.show', compact('detailPurchases', 'detailPurchase', 'product', 'users', 'totalNeto', 'products', 'people'));
     }
 
 
 
-    
 
-    
-    
+
+
+
 
     /**
      * Show the form for editing the specified resource.
@@ -321,20 +322,20 @@ class DetailPurchaseController extends Controller
     public function destroy($id)
     {
         $detailPurchase = DetailPurchase::find($id);
-    
+
         if ($detailPurchase) {
             if ($detailPurchase->status == 1) {
                 DetailPurchase::where('id', $detailPurchase->id)
                 ->update([
                     'status' => 0
                 ]);
-    
+
                 // Cambia el estado del purchase supplier asociado
                 PurchaseSupplier::where('id', $detailPurchase->purchase_suppliers_id)
                 ->update([
                     'status' => 0
                 ]);
-    
+
                 Session::flash('notificacion', [
                     'tipo' => 'error',
                     'titulo' => 'Atencion!',
@@ -346,13 +347,13 @@ class DetailPurchaseController extends Controller
                 ->update([
                     'status' => 1
                 ]);
-    
+
                 // Cambia el estado del purchase supplier asociado
                 PurchaseSupplier::where('id', $detailPurchase->purchase_suppliers_id)
                 ->update([
                     'status' => 1
                 ]);
-    
+
                 Session::flash('notificacion', [
                     'tipo' => 'exito',
                     'titulo' => 'Éxito!',
@@ -361,10 +362,24 @@ class DetailPurchaseController extends Controller
                 ]);
             }
         }
-    
+
         return redirect()->route('detail-purchases.index');
     }
-    
 
-    
-} 
+    public function pdf()
+    {
+        $detailPurchases = DetailPurchase::all();
+
+        $pdf = Pdf::loadView('detail-purchase.pdf', ['detailPurchases' => $detailPurchases])
+                    ->setPaper('a4','landscape');
+
+        // Funcion para devolver una vista del pdf en el navegador
+        return $pdf->stream('Detalle de compra.pdf');
+
+        //Descargar el pdf directamente
+        // return $pdf->download('Detalle de compra.pdf');
+    }
+
+
+
+}

@@ -136,13 +136,13 @@
                 <div class="formulario__grupo-input">
                     <select name="document_type" id="tipo_documento" class="formulario__input">
                         <option value="">Seleccione un tipo de documento</option>
-                        <option value="CC">Cédula de ciudadanía</option>
-                        <option value="TI">Tarjeta de identidad</option>
-                        <option value="RC">Registro civil</option>
-                        <option value="TE">Tarjeta de extaranjeria</option>
-                        <option value="CE">Cedula de extranjeria</option>
-                        <option value="NIT">Numero de identificacion tributaria</option>
-                        <option value="PP">Pasaporte</option>
+                        <option value="CC">C.C - Cédula de ciudadanía</option>
+                        <option value="TI">T.I - Tarjeta de identidad</option>
+                        <option value="RC">R.C - Registro civil</option>
+                        <option value="TE">T.E - Tarjeta de extaranjeria</option>
+                        <option value="CE">C.E - Cedula de extranjeria</option>
+                        <option value="NIT">NIT - Numero de identificacion tributaria</option>
+                        <option value="PP">P.P - Pasaporte</option>
                     </select>
                 </div>
                 <p class="formulario__input-error">Por favor seleccione un tipo de docuemneto</p>

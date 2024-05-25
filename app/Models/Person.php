@@ -93,7 +93,10 @@ class Person extends Model
      */
     protected $fillable = ['rol','identification_type','identification_number','person_type','company_name','comercial_name','first_name','other_name','surname','second_surname','digit_verification','email_address','city','address','phone','status'];
 
-    
-    
+    public function sales()
+    {
+        return $this->hasMany(Sale::class, 'clients_id');
+    }
+
 
 }
