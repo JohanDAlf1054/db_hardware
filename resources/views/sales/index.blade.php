@@ -35,7 +35,7 @@
                             </ul>
                         </div>
                            <div class="col-lg-6 col-md-6 col-sm-12">
-                            <form action="{{ route('person.index') }}" method="get" class="d-flex align-items-center">
+                            <form action="{{ route('sales.index') }}" method="get" class="d-flex align-items-center">
                                 <input name="filtervalue" type="text" class="form-control me-2"
                                     aria-label="Buscar persona" placeholder="Buscar Venta....">
                                 <button type="submit" class="btn btn-dark">Buscar</button>
@@ -74,7 +74,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($ventas as $sale)
+                                    @foreach ($ventasFiltradas as $sale)
                                     <tr style="text-align: center">
                                         <td>{{$sale->id}}</td>
                                         <td>{{$sale->dates}}</td>
