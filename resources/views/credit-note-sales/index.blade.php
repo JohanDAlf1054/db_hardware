@@ -4,10 +4,8 @@
 @extends('template')
 
 @push('css')
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/css/bootstrap-select.min.css" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<link rel="stylesheet" href="https://cdn.datatables.net/2.0.6/css/dataTables.bootstrap5.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" ></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.bootstrap5.css">
 <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.2/css/responsive.dataTables.css">
 @endpush
 
@@ -37,7 +35,7 @@
                             </ul>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-12">
-                            <form action="{{ route('person.index') }}" method="get" class="d-flex align-items-center">
+                            <form action="{{ route('credit-note-sales.index') }}" method="get" class="d-flex align-items-center">
                                 <input name="filtervalue" type="text" class="form-control me-2"
                                     aria-label="Buscar persona" placeholder="Buscar Nota Crédito....">
                                 <button type="submit" class="btn btn-dark">Buscar</button>
@@ -59,7 +57,7 @@
                     <div class="container_datos">
                         <div class="table_container">
                             <div class="table-responsive">
-                                <table id="datatable" class="table table-striped table-hover display nowrap"  style="justify-content: center; width:100%">
+                                <table class="table table-striped table-hover" style="width:100%" id="datatable">
                                     <thead class="table-dark">
                                         <tr style="text-align: center">
                                             <th>Id</th>
@@ -76,7 +74,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($ventas as $sale)
+                                        @foreach ($ventasFiltradas  as $sale)
                                         <tr style="text-align: center">
                                             <td>{{$sale->id}}</td>
                                             <td>{{$sale->date_invoice}}</td>
@@ -127,11 +125,11 @@
                                                 @endif
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                                        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Cerrar</button>
                                                         <form action="{{ route('credit-note-sales.destroy',['credit_note_sale'=>$sale->id]) }}" method="post">
                                                             @method('DELETE')
                                                             @csrf
-                                                            <button type="submit" class="btn btn-danger">Confirmar</button>
+                                                            <button type="submit" class="btn btn-primary">Confirmar</button>
                                                         </form>
                                                     </div>
                                                 </div>
@@ -149,19 +147,19 @@
     </div>
 </div>
 @endsection
+@push('js')
+    <script src="{{ asset('js/datatable.js') }}" defer></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://cdn.datatables.net/2.0.5/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.0.5/js/dataTables.bootstrap5.js"></script>
+    <script src="https://cdn.datatables.net/responsive/3.0.2/js/dataTables.responsive.js"></script>
+    <script src="https://cdn.datatables.net/responsive/3.0.2/js/responsive.dataTables.js"></script>
+    @endpush
 @else
     <div class="mensaje_Rol">
         <img src="{{ asset('img/Rol_no_asignado.png')}}" class="img_rol"/>
         <h2 class="texto_noRol">Pídele al administrador que se te asigne un rol.</h2>
     </div>
-@push('js')
-<script src="{{ asset('js/datatable.js') }}" defer></script>
-        <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-        <script src="https://cdn.datatables.net/2.0.7/js/dataTables.js"></script>
-        <script src="https://cdn.datatables.net/2.0.7/js/dataTables.bootstrap5.js"></script>
-        <script src="https://cdn.datatables.net/responsive/3.0.2/js/dataTables.responsive.js"></script>
-        <script src="https://cdn.datatables.net/responsive/3.0.2/js/responsive.dataTables.js"></script>
-@endpush
 @endcan
 @endauth
 @guest

@@ -240,4 +240,17 @@ a.selected {
     margin-right: 10rem;
 }
 
+.transparent-input {
+    background-color: transparent;
+    border: none;
+    text-align: left;
+    margin-top: -5px;
+    margin-left: -1rem;
+    color: black; /* Puedes ajustar el color del texto si lo prefieres */
+}
+
+.transparent-input:focus {
+    outline: none; /* Quitar el borde al enfocarse */
+}
+
 

@@ -18,12 +18,6 @@
     
 @section('content')
 <<div class="table-responsive px-3">
-<div class="card">
-    <div class="card-header">
-        <h2 id="card_title">
-            {{ __('Detalle de Venta') }}
-        </h2>
-    </div>
     <div class="card-body">
         <form action="{{ route('sales.store') }}" method="post">
             @csrf
@@ -179,7 +173,7 @@
                                     <label for="payments_methods" class="form-label">Forma de pago:</label>
                                     <select name="payments_methods" class="form-control selectpicker">
                                         <option value="Efectivo">Efectivo</option>
-                                        <option value="Consignacion">Consignación</option>
+                                        <option value="Consignación">Consignación</option>
                                         <option value="Tarjeta">Tarjeta</option>
                                     </select>
                                     @error('payments_methods')
@@ -228,7 +222,6 @@
             </div>
         </div>
     </div>
-</div>
  
 @endsection
 {{-- @endcan --}}

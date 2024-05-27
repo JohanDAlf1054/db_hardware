@@ -143,7 +143,7 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th colspan="8"></th>
+                        <th colspan="7"></th>
                     </tr>
                     <tr>
                         <th colspan="6">Sumas:</th>
@@ -164,44 +164,35 @@
     <div class="card-footer text-end">
         <a class="btn btn-primary" style="margin-right: 2rem" href="{{ route('sales.index') }}">Regresar</a>
     </div>
-
 </div>
 @endsection
 
 @push('js')
 <script>
-    //Variables
-    let filasSubtotal = document.getElementsByClassName('td-subtotal');
-    let cont = 0;
-    let impuesto = $('#input-impuesto').val();
-
     $(document).ready(function() {
         calcularValores();
     });
 
     function calcularValores() {
+        let filasSubtotal = document.getElementsByClassName('td-subtotal');
+        let cont = 0;
+        let impuesto = parseFloat($('#input-impuesto').val());
+
         for (let i = 0; i < filasSubtotal.length; i++) {
             cont += parseFloat(filasSubtotal[i].innerHTML);
         }
 
-        $('#th-suma').html(cont);
-        $('#th-igv').html(impuesto);
-        $('#th-total').html(round(cont + parseFloat(impuesto)));
+        let sumaRedondeada = round(cont);
+        let totalRedondeado = round(cont + impuesto);
+
+        $('#th-suma').html(sumaRedondeada.toFixed(2));
+        $('#th-igv').html(impuesto.toFixed(2));
+        $('#th-total').html(totalRedondeado.toFixed(2));
     }
 
     function round(num, decimales = 2) {
-        var signo = (num >= 0 ? 1 : -1);
-        num = num * signo;
-        if (decimales === 0) //con 0 decimales
-            return signo * Math.round(num);
-        // round(x * 10 ^ decimales)
-        num = num.toString().split('e');
-        num = Math.round(+(num[0] + 'e' + (num[1] ? (+num[1] + decimales) : decimales)));
-        // x * 10 ^ (-decimales)
-        num = num.toString().split('e');
-        return signo * (num[0] + 'e' + (num[1] ? (+num[1] - decimales) : -decimales));
+        return Math.round(num * Math.pow(10, decimales)) / Math.pow(10, decimales);
     }
-    //Fuente: https://es.stackoverflow.com/questions/48958/redondear-a-dos-decimales-cuando-sea-necesario
 </script>
 @endpush
 @else
