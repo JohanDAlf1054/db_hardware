@@ -2642,3 +2642,15 @@ Did you mean one of these?
 #50 C:\\laragon\\www\\db_hardware\\artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle()
 #51 {main}
 "} 
+[2024-05-27 10:52:01] local.ERROR: syntax error, unexpected token "(" {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): syntax error, unexpected token \"(\" at C:\\laragon\\www\\db_hardware\\app\\Models\\Department.php:14)
+[stacktrace]
+#0 {main}
+"} 
+[2024-05-27 10:52:54] local.ERROR: Unmatched '}' {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): Unmatched '}' at C:\\laragon\\www\\db_hardware\\app\\Models\\Country.php:17)
+[stacktrace]
+#0 {main}
+"} 
+[2024-05-27 10:53:01] local.ERROR: syntax error, unexpected token "class" {"exception":"[object] (Symfony\\Component\\ErrorHandler\\Error\\FatalError(code: 0): syntax error, unexpected token \"class\" at C:\\laragon\\www\\db_hardware\\app\\Models\\Country.php:14)
+[stacktrace]
+#0 {main}
+"} 

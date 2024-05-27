@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Exports\PeopleExport;
 use App\Imports\PersonImport;
 use App\Models\Person;
+
 use App\Exports\PersonTemplateExport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
@@ -57,6 +58,7 @@ class PersonController extends Controller
     public function create()
     {
         $person = new Person();
+        
         return view('person.create', compact('person'));
     }
 
