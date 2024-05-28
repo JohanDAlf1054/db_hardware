@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('countries', function (Blueprint $table) {
             $table->engine="InnoDB";
             $table->bigIncrements('id');
-            $table->tinyInteger('code');
+            $table->string('code');
             $table->string('name');
             $table->timestamps();
             });

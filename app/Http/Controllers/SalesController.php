@@ -20,31 +20,30 @@ class SalesController extends Controller
      */
     public function index(Request $request)
     {
-        $ventas = Sale::all();
+        $ventas = Sale::query();
+    
         if ($request->filled('filtervalue')) {
-            // Obtener el valor del campo de búsqueda
             $filtro = $request->input('filtervalue');
-            // Filtrar las ventas por el número de factura
-            $ventas = $ventas->filter(function ($venta) use ($filtro) {
-                return stripos($venta->bill_numbers, $filtro) !== false;
+    
+            // Realizar la búsqueda en todos los campos relevantes
+            $ventas = $ventas->where(function($query) use ($filtro) {
+                $query->where('id', 'like', "%{$filtro}%")
+                      ->orWhere('dates', 'like', "%{$filtro}%")
+                      ->orWhere('bill_numbers', 'like', "%{$filtro}%")
+                      ->orWhere('sellers', 'like', "%{$filtro}%")
+                      ->orWhere('payments_methods', 'like', "%{$filtro}%")
+                      ->orWhere('gross_totals', 'like', "%{$filtro}%")
+                      ->orWhere('taxes_total', 'like', "%{$filtro}%")
+                      ->orWhere('net_total', 'like', "%{$filtro}%");
             });
         }
-
-        // Verificar si el checkbox de ventas activas está marcado
-        if ($request->has('check')) {
-            // Filtrar solo las ventas activas
-            $ventas = $ventas->filter(function ($venta) {
-                return $venta->status === 1;
-            });
-        }
-
-        // Convertir la colección de ventas filtradas en una matriz
-        $ventasFiltradas = $ventas->values()->all();
-
+    
+        // Obtener los resultados de la consulta
+        $ventasFiltradas = $ventas->get();
+    
         // Devolver la vista con las ventas filtradas
-        return view('sales.index', compact('ventasFiltradas','ventas'));
+        return view('sales.index', compact('ventasFiltradas'));
     }
-
 
     /**
      * Show the form for creating a new resource.
@@ -163,13 +162,13 @@ class SalesController extends Controller
 
     public function pdf()
     {
-        $ventas = Sale::with('person')->get();
+        $ventas = Sale::with('cliente')->get();
 
         $pdf = Pdf::loadView('sales.pdf', ['ventas' => $ventas])
                     ->setPaper('a4','landscape');
 
         // Funcion para devolver una vista del pdf en el navegador
-        return $pdf->stream('ventas.pdf');
+        return $pdf->stream('Ventas.pdf');
 
         //Descargar el pdf directamente
         // return $pdf->download('Informe de Personas.pdf');

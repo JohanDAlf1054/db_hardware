@@ -55,6 +55,10 @@ Compras</a></li> --}}
                                             title="Exportar" onclick="window.location.href='{{ route('export.purchase') }}'">
                                             <i class="fa-solid fa-file-arrow-down"></i>
                                         </button>
+                                        <button type="button" class="btn btn-danger ms-2 rounded" tooltip="tooltip"
+                                        title="PDF" onclick="window.location.href='{{ route('detail-purchases.pdf') }}'">
+                                        <i class="fa-solid fa-file-pdf"></i>
+                                    </button>
                                     </form>
                                 </div>
                             </div>
@@ -150,7 +154,7 @@ Compras</a></li> --}}
                                                                 title="Visualizar"
                                                                 href="{{ route('detail-purchases.show', $detailPurchase->id) }}"><i
                                                                     class="fa fa-fw fa-eye"></i> {{ __('') }}</a>
-                                                            {{-- <a class="btn btn-sm btn-success" href="{{ route('detail-purchases.edit',$detailPurchase->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Editar') }}</a>--}} 
+                                                            {{-- <a class="btn btn-sm btn-success" href="{{ route('detail-purchases.edit',$detailPurchase->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Editar') }}</a>--}}
                                                             @csrf
                                                             @method('DELETE')
                                                             @if ($detailPurchase->status == true)

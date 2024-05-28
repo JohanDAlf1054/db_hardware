@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf;
 /**
  * Class DetailPurchaseController
  * @package App\Http\Controllers
@@ -192,7 +193,7 @@ class DetailPurchaseController extends Controller
         Session::flash('notificacion', [
             'tipo' => 'exito',
             'titulo' => 'Éxito!',
-            'descripcion' => 'Compra Creada Exitosamente',
+            'descripcion' => 'Compra Creada Exitosamente.',
             'autoCierre' => 'true'
         ]);
 
@@ -210,7 +211,7 @@ class DetailPurchaseController extends Controller
     $invoice_number = $detailPurchase->purchaseSupplier->invoice_number_purchase;
     $gross_total = $detailPurchase->gross_total;
     $total_tax = $detailPurchase->total_value;
-    $net_total = $detailPurchase->net_total; 
+    $net_total = $detailPurchase->net_total;
     $subtotal = $detailPurchase->quantity_units * $detailPurchase->price_unit;
     $igv = $subtotal * 0.18;
     $product = Product::find($detailPurchase->products_id);
@@ -220,7 +221,7 @@ class DetailPurchaseController extends Controller
     $totalNeto = DetailPurchase::find($id);
     $products = Product::all();
     $people = Person::all();
-    return view('detail-purchase.show', compact('detailPurchases', 'detailPurchase', 'product', 'users', 'totalNeto', 'products', 'people', 'invoice_number', 'gross_total', 'total_tax', 'net_total','subtotal','igv')); 
+    return view('detail-purchase.show', compact('detailPurchases', 'detailPurchase', 'product', 'users', 'totalNeto', 'products', 'people', 'invoice_number', 'gross_total', 'total_tax', 'net_total','subtotal','igv'));
 }
 
     /**
@@ -330,5 +331,18 @@ class DetailPurchaseController extends Controller
         }
 
         return redirect()->route('detail-purchases.index');
+    }
+    public function pdf()
+    {
+        $detailPurchases = DetailPurchase::all();
+
+        $pdf = Pdf::loadView('detail-purchase.pdf', ['detailPurchases' => $detailPurchases])
+                    ->setPaper('a4','landscape');
+
+        // Funcion para devolver una vista del pdf en el navegador
+        return $pdf->stream('Detalle de compra.pdf');
+
+        //Descargar el pdf directamente
+        // return $pdf->download('Detalle de compra.pdf');
     }
 }

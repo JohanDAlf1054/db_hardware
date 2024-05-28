@@ -70,7 +70,7 @@ class SubCategoryController extends Controller
         Session::flash('notificacion', [
             'tipo' => 'exito',
             'titulo' => 'Éxito!',
-            'descripcion' => 'Subcategoría Creada',
+            'descripcion' => 'Subcategoría Creada.',
             'autoCierre' => 'true'
         ]);
          return redirect()->route('categorySub.index');
@@ -146,7 +146,7 @@ class SubCategoryController extends Controller
         Session::flash('notificacion', [
             'tipo' => 'exito',
             'titulo' => 'Éxito!',
-            'descripcion' => 'Subcategoría Eliminada',
+            'descripcion' => 'Subcategoría Eliminada.',
             'autoCierre' => 'true'
         ]);
         return redirect()->route('categorySub.index');
@@ -161,14 +161,14 @@ class SubCategoryController extends Controller
             Session::flash('notificacion', [
                 'tipo' => 'error',
                 'titulo' => 'Error!',
-                'descripcion' => 'Archivo incorrecto, debe de ser de extensión xlsx',
+                'descripcion' => 'Archivo incorrecto, debe de ser de extensión xlsx.',
                 'autoCierre' => 'true'
             ]);
             return redirect()->route('indexAll');
         }
         try {
             $file = $request->file('import_file');
-        
+
             Excel::import(new SubcategoryImport, $file, 'xlsx');
             Session::flash('notificacion', [
                 'tipo' => 'exito',

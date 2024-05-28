@@ -237,7 +237,32 @@ a.selected {
     width: 500px;
 }
 #userwayAccessibilityIcon{
-    margin-right: 10rem;
+    margin-right: 4rem;
 }
 
+.transparent-input {
+    background-color: transparent;
+    border: none;
+    text-align: left;
+    margin-top: -5px;
+    margin-left: -1rem;
+    color: black; /* Puedes ajustar el color del texto si lo prefieres */
+}
+
+.transparent-input:focus {
+    outline: none; /* Quitar el borde al enfocarse */
+}
+
+
+/* Estilos selecpicker minicipalities */
+
+.dropdown-menu.show {
+    width: 100%;
+    max-width: none; 
+    min-width: 10px; 
+    box-sizing: border-box; 
+    overflow-x: auto; 
+    top: 100%;
+
+}
 

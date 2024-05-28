@@ -37,7 +37,7 @@
                                                     {{ __('Venta') }}
                                                     <span class="text-danger">*</span>
                                                 </label>
-                                                <input disabled type="text" name="clients_id" id="clients_id" value="{{$credit_note_sale->sale_id}}" class="form-control">
+                                                <input disabled type="text" name="clients_id" id="clients_id" value="{{$credit_note_sale->venta->bill_numbers}}" class="form-control">
                                                 {!! $errors->first('datos', '<div class="invalid-feedback">:message</div>') !!}
                                             </div>
                                         </div>
@@ -59,7 +59,7 @@
                                                     {{ __('Cliente') }}
                                                     <span class="text-danger">*</span>
                                                 </label>
-                                                <input disabled type="text" name="clients_id" id="clients_id" value="{{$credit_note_sale->clients_id}}" class="form-control">
+                                                <input disabled type="text" name="clients_id" id="clients_id" value="{{$credit_note_sale->cliente->identification_number}}" class="form-control">
                                                 {!! $errors->first('clients_id', '<div class="invalid-feedback">:message</div>') !!}
                                             </div>
                                         </div>
@@ -161,7 +161,7 @@
                                             </tbody>
                                             <tfoot>
                                                 <tr>
-                                                    <th colspan="8      "></th>
+                                                    <th colspan="8"></th>
                                                 </tr>
                                                 <tr>
                                                     <th colspan="6">Sumas:</th>
@@ -198,7 +198,40 @@
 @endsection
 
 @push('js')
+<script>
+    // Variables
+    let filasSubtotal = document.querySelectorAll('#tablaDetalleVenta tbody tr td:last-child');
+    let cont = 0;
+    let impuesto = parseFloat("{{ $credit_note_sale->taxes_total }}");
 
+    $(document).ready(function() {
+        calcularValores();
+    });
+
+    function calcularValores() {
+        cont = 0;
+        for (let i = 0; i < filasSubtotal.length; i++) {
+            cont += parseFloat(filasSubtotal[i].innerText);
+        }
+
+        $('#th-suma').text(cont.toFixed(2));
+        $('#th-igv').text(impuesto.toFixed(2));
+        $('#th-total').text(round(cont + impuesto, 2).toFixed(2));
+    }
+
+    function round(num, decimales = 2) {
+        var signo = (num >= 0 ? 1 : -1);
+        num = num * signo;
+        if (decimales === 0) //con 0 decimales
+            return signo * Math.round(num);
+        // round(x * 10 ^ decimales)
+        num = num.toString().split('e');
+        num = Math.round(+(num[0] + 'e' + (num[1] ? (+num[1] + decimales) : decimales)));
+        // x * 10 ^ (-decimales)
+        num = num.toString().split('e');
+        return signo * (num[0] + 'e' + (num[1] ? (+num[1] - decimales) : -decimales));
+    }
+</script>
 @endpush
 @else
     <div class="mensaje_Rol">

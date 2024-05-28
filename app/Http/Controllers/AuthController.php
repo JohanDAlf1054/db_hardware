@@ -101,6 +101,6 @@ class AuthController extends Controller
         DB::table('password_reset_tokens')->where(['email' => $request->email])->delete();
 
         // Devolvemos al formulario de login (devolvera un 404 puesto que no existe la ruta)
-        return redirect('/login')->with('message', 'Tu contraseña se ha cambiado correctamente');
+        return redirect('/login')->with('message', 'Tu contraseña se ha cambiado correctamente.');
     }
 }

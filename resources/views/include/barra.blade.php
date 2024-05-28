@@ -54,6 +54,13 @@
                         </div>
                     </a>
 
+                    <a tooltip="tooltip" data-bs-placement="right" title="Terceros" href="{{ route('person.index')}}" class="{{ request()->route()->named('person.index') ? 'selected' : '' }}">
+                        <div class="option">
+                            <i class='bx bxs-user-detail'></i>
+                            <h4>Terceros</h4>
+                        </div>
+                    </a>
+
                     <a tooltip="tooltip" data-bs-placement="right" title="Productos" href="{{ route('products.index') }}" class="{{ request()->route()->named('products.index') ? 'selected' : '' }}">
                         <div class="option">
                             <i class='bx bxs-package'></i>
@@ -69,12 +76,6 @@
                     </a>
 
 
-                    <a tooltip="tooltip" data-bs-placement="right" title="Terceros" href="{{ route('person.index')}}" class="{{ request()->route()->named('person.index') ? 'selected' : '' }}">
-                        <div class="option">
-                            <i class='bx bxs-user-detail'></i>
-                            <h4>Terceros</h4>
-                        </div>
-                    </a>
 
                     <a tooltip="tooltip" data-bs-placement="right" title="Ventas" href="{{route('sales.index')}}" class="{{ request()->route()->named('sales.index') ? 'selected' : '' }}">
                         <div class="option">
@@ -101,7 +102,6 @@
                     @endcan
                     @can('/backup')
                     <a href="/backup" class="{{ request()->route()->named('/backup') ? 'selected' : '' }}">
-                    {{-- @can('admin.backup.index') --}}
                     <a tooltip="tooltip" data-bs-placement="right" title="Copia de Seguridad" href="/backup" class="{{ request()->route()->named('/backup') ? 'selected' : '' }}">
                         <div class="option">
                             <i class="fa-solid fa-laptop-file"></i>
@@ -109,8 +109,15 @@
                         </div>
                     </a>
                     @endcan
+
+                    <a tooltip="tooltip" data-bs-placement="right" title="Configuración" href="{{route('profile.index')}}" class="{{ request()->route()->named('profile.index') ? 'selected' : '' }}">
+                        <div class="option">
+                            <i class="fa-solid fa-gears"></i>
+                            <h4>Configuración</h4>
+                        </div>
+                    </a>
+
                     <a href="/logout">
-                    {{-- @endcan --}}
                     <a tooltip="tooltip" data-bs-placement="right" title="Cerrar Sesión" href="/logout">
                         <div class="option">
                             <i class="fa-solid fa-right-from-bracket"></i>

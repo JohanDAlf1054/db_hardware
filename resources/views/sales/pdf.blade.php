@@ -19,35 +19,35 @@
 <table>
     <thead >
         <tr>
-            <th>Id</th>
             <th>Fecha</th>
             <th>Nº de factura</th>
-            <th>Vendedor</th>
+            <th>Identificación</th>
+            <th>Tipo de identificación</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Razon social</th>
             <th>Forma de pago</th>
             <th>Total Bruto</th>
             <th>Total Impuesto</th>
             <th>Total Neto</th>
-            <th>Estado</th>
         </tr>
     </thead>
     <tbody>
         @foreach ($ventas as $sale)
         <tr style="text-align: center">
-            <td>{{$sale->id}}</td>
             <td>{{$sale->dates}}</td>
             <td>{{$sale->bill_numbers}}</td>
-            <td>{{$sale->sellers}}</td>
+            <td>{{$sale->cliente->identification_number}}</td>
+            <td>{{$sale->cliente->identification_type}}</td>
+            <td>{{$sale->cliente->first_name}}</td>
+            <td>{{$sale->cliente->surname}}</td>
+            <td>{{$sale->cliente->company_name}}</td>
             <td>{{$sale->payments_methods}}</td>
             <td>{{$sale->gross_totals}}</td>
             <td>{{$sale->taxes_total}}</td>
             <td>{{$sale->net_total}}</td>
-            <td>
-                @if($sale->status == True)
-                <p class="badge rounded-pill bg-success" style="font-size: 15px">Activo</p>
-                @else
-                <p class="badge rounded-pill bg-danger" style="font-size: 15px">Inactivo</p>
-                @endif
-            </td>
+            {{--  Lo que se ha agregado  --}}
+
         </tr>
         @endforeach
 </body>

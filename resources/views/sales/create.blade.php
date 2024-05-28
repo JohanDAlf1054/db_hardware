@@ -18,12 +18,6 @@
     
 @section('content')
 <<div class="table-responsive px-3">
-<div class="card">
-    <div class="card-header">
-        <h2 id="card_title">
-            {{ __('Detalle de Venta') }}
-        </h2>
-    </div>
     <div class="card-body">
         <form action="{{ route('sales.store') }}" method="post">
             @csrf
@@ -141,6 +135,9 @@
                         </div>
                         <div class="p-3 border border-3 border-success">
                             <div class="row gy-4">
+
+
+
                                 <!--Cliente-->
                                 <div class="col-12">
                                     <label for="clients_id" class="form-label">Cliente:</label>
@@ -153,6 +150,10 @@
                                     <small class="text-danger">{{ '*'.$message }}</small>
                                     @enderror
                                 </div>
+
+
+
+                                
                                 <!--Fecha--->
                                 <div class="col-sm-12">
                                     <label for="dates" class="form-label">Fecha:</label>
@@ -179,7 +180,7 @@
                                     <label for="payments_methods" class="form-label">Forma de pago:</label>
                                     <select name="payments_methods" class="form-control selectpicker">
                                         <option value="Efectivo">Efectivo</option>
-                                        <option value="Consignacion">Consignación</option>
+                                        <option value="Consignación">Consignación</option>
                                         <option value="Tarjeta">Tarjeta</option>
                                     </select>
                                     @error('payments_methods')
@@ -228,7 +229,6 @@
             </div>
         </div>
     </div>
-</div>
  
 @endsection
 {{-- @endcan --}}
@@ -423,7 +423,7 @@ function eliminarProducto(indice, subtotalProducto, impuesto) {
     function showModal(message, icon = 'error') {
             const Toast = Swal.mixin({
                 toast: true,
-                position: 'top-end',
+                position: 'bottom-end',
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
