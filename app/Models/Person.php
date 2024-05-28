@@ -26,7 +26,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property $status
  * @property $created_at
  * @property $updated_at
- * @property Municipality $municipality
+ * @property Municipality $municipalities
  *
  * @package App
  * @mixin \Illuminate\Database\Eloquent\Builder

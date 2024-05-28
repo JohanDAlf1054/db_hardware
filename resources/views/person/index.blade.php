@@ -123,7 +123,7 @@
                                                     <td>{{ $person->second_surname }}</td>
                                                     <td>{{ $person->comercial_name }}</td>
                                                     <td>{{ $person->email_address }}</td>
-                                                    <td>{{ $person->municipalities->name }}</td>
+                                                    <td>{{ $person->municipalities}}</td>
                                                     <td>{{ $person->address }}</td>
                                                     <td>{{ $person->phone }}</td>
                                                     <td>
