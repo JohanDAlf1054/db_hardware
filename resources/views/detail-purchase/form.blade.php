@@ -201,7 +201,7 @@
                                                     @enderror
                                                 </div>
 
-                                                <div class="col-6 mb-2">
+                                                <div class="col-12 mb-2">
                                                     <label for="user_id" class="form-label">Empleado:</label>
                                                     <select name="user_id" id="user_id"
                                                         class="form-control selectpicker show-tick" data-live-search="true"
@@ -218,7 +218,7 @@
                                                     @enderror
                                                 </div>
                                                 <!--Impuesto---->
-                                                <div class="col-sm-6 mb-2">
+                                                <div class="col-sm-12 mb-2">
                                                     <label for="fecha" class="form-label">Fecha:</label>
                                                     <input readonly type="date" name="fecha" id="fecha"
                                                         class="form-control border-success" value="<?php echo date('Y-m-d'); ?>">
