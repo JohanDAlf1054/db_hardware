@@ -251,7 +251,7 @@
                                                             {{ __('Ciudad') }}
                                                             <span class="text-danger">*</span>
                                                         </label>
-                                                        <select name="city" id="city" class="form-control selectpicker show-tick" data-live-search="true" title="Selecciona la ciudad" data-size ='7' style="width: 100%;"">
+                                                        <select name="city" id="city" class="form-control selectpicker show-tick selectpickermunicipalities" data-live-search="true" title="Selecciona la ciudad" data-size ='4'>
                                                             @foreach ($municipalities as $municipality)
                                                                 <option value="{{ $municipality->id }}">
                                                                     {{ $municipality->name }},
