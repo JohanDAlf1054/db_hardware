@@ -55,7 +55,7 @@
                                             title="PDF" onclick="window.location.href='{{ route('customer.pdf') }}'">
                                             <i class="fa-solid fa-file-pdf"></i>
                                         </button>
-                                        
+
                                     </form>
                                 </div>
                             </div>
@@ -118,7 +118,7 @@
                                                     <td>{{ $cliente->second_surname }}</td>
                                                     <td>{{ $cliente->comercial_name }}</td>
                                                     <td>{{ $cliente->email_address }}</td>
-                                                    <td>{{ $cliente->city }}</td>
+                                                    <td>{{ $cliente->municipality->name }}</td>
                                                     <td>{{ $cliente->address }}</td>
                                                     <td>{{ $cliente->phone }}</td>
                                                     <td>

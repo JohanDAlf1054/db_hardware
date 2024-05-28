@@ -99,9 +99,8 @@ class Person extends Model
         return $this->hasMany(Sale::class, 'clients_id');
     }
 
-    public function municipalities()
+    public function municipality()
     {
-        return $this->belongsTo(Municipality::class,'municipality_id');
+        return $this->belongsTo(Municipality::class, 'city');
     }
-   
 }

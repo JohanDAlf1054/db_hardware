@@ -1,7 +1,7 @@
 @auth
 @can('person')
 
-@if ($table === 'supplier')
+{{--  @if ($table === 'supplier')
     <div class="bread_crumb">
         {{ Breadcrumbs::render('supplier.edit', $person) }}
     </div>
@@ -9,7 +9,7 @@
     <div class="bread_crumb">
         {{ Breadcrumbs::render('customer.edit', $person) }}
     </div>
-@endif
+@endif  --}}
     <form method="POST" action="{{ route('person.update', $person->id) }}"  role="form" enctype="multipart/form-data">
         {{ method_field('PATCH') }}
         @csrf

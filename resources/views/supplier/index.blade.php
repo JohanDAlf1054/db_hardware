@@ -118,7 +118,7 @@
                                                     <td>{{ $proveedor->second_surname }}</td>
                                                     <td>{{ $proveedor->comercial_name }}</td>
                                                     <td>{{ $proveedor->email_address }}</td>
-                                                    <td>{{ $proveedor->city }}</td>
+                                                    <td>{{ $proveedor->municipality->name }}</td>
                                                     <td>{{ $proveedor->address }}</td>
                                                     <td>{{ $proveedor->phone }}</td>
                                                     <td>
