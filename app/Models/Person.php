@@ -101,8 +101,7 @@ class Person extends Model
 
     public function municipalities()
     {
-        return $this->hasOne('App\Models\Municipality','id','municipality');
+        return $this->belongsTo(Municipality::class,'municipality_id');
     }
-
-
+   
 }

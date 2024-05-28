@@ -177,3 +177,6 @@ Route::get('/test-password-hash', function () {
         return 'El hash de la nueva contraseña es incorrecto.';
     }
 })->middleware('auth');
+
+
+

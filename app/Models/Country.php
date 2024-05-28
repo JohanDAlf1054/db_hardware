@@ -11,8 +11,8 @@ class Country extends Model
 
     protected $fillable = ['code', 'name'];
 
-    public function municipalities()
+    public function departments()
     {
-        return $this->hasMany(Department::class);
+        return $this->hasMany(Department::class, 'countries_id');
     }
 }

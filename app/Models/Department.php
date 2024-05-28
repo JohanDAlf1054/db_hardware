@@ -11,13 +11,13 @@ class Department extends Model
 
     protected $fillable = ['code', 'name', 'countries_id'];
 
-    public function countries()
+    public function country()
     {
-        return $this->belongsTo(Country::class);
+        return $this->belongsTo(Country::class, 'countries_id');
     }
 
     public function municipalities()
     {
-        return $this->hasMany(Municipality::class);
+        return $this->hasMany(Municipality::class, 'departments_id');
     }
 }
