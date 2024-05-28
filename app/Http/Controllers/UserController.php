@@ -79,7 +79,7 @@ class UserController extends Controller
     Session::flash('notificacion', [
         'tipo' => 'exito',
         'titulo' => 'Exito!',
-        'descripcion' => 'La Informacion del perfil se ha actualizado exitosamente',
+        'descripcion' => 'La Informacion del perfil se ha actualizado exitosamente.',
         'autoCierre' => 'true'
     ]);
 
@@ -109,7 +109,7 @@ public function changePassword(Request $request)
         Session::flash('notificacion', [
             'tipo' => 'error',
             'titulo' => 'Atencion!',
-            'descripcion' => 'La contraseña actual no es correcta',
+            'descripcion' => 'La contraseña actual no es correcta.',
             'autoCierre' => 'true'
         ]);
         return redirect()->route('profile.index');
@@ -122,7 +122,7 @@ public function changePassword(Request $request)
     Session::flash('notificacion', [
         'tipo' => 'exito',
         'titulo' => 'Exito!',
-        'descripcion' => 'Contraseña actualizada exitosamente',
+        'descripcion' => 'Contraseña actualizada exitosamente.',
         'autoCierre' => 'true'
     ]);
 

@@ -121,14 +121,14 @@ class CategoryProductController extends Controller
             Session::flash('notificacion', [
                 'tipo' => 'error',
                 'titulo' => 'Error!',
-                'descripcion' => 'Archivo incorrecto, debe de ser de extensión xlsx',
+                'descripcion' => 'Archivo incorrecto, debe de ser de extensión xlsx.',
                 'autoCierre' => 'true'
             ]);
             return redirect()->route('category.index');
         }
         try {
             $file = $request->file('import_file');
-        
+
             Excel::import(new CategoryImport, $file, 'xlsx');
             Session::flash('notificacion', [
                 'tipo' => 'exito',

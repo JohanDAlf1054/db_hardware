@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
 {
-    //
+    //Ingreso de la pagina
     public function show(){
         if (Auth::check()) {
             return redirect('/home');
@@ -19,23 +20,21 @@ class LoginController extends Controller
 
     public function login(LoginRequest $request){
         $credentials = $request->getCredentials();
-        // //Validacion si el correo electronico existen en la BD
-        // $user = \App\Models\User::where('email', $request->email)->first();
-        // if (!$user) {
-        //     throw ValidationException::withMessages([
-        //         'email' => __('auth.failed'),
-        //     ]);
-        // }
 
-        if(!Auth::validate($credentials)){
-            throw ValidationException::withMessages([
-                'email' => __('auth.failed'),
-                'password' => __('auth.password')
-            ]);
-            return redirect()->to('login')
-                ->withErrors(trans('auth.failed'));
+        //Validacion si el correo electronico existe en la BD
+
+        $user = User::where('email', $credentials['email'])->first();
+        if(!$user){
+            return redirect()->back()->withErrors([
+                'email' => 'El correo electronico no está registrado.',
+            ])->withInput();
         }
-        $user = Auth::getProvider()->retrieveByCredentials($credentials);
+
+        if(!Auth::validate($credentials)) {
+            return redirect()->back()->withErrors([
+                'password' => __('auth.password'),
+            ])->withInput();
+        }
 
         Auth::login($user);
 

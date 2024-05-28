@@ -210,19 +210,19 @@ class debitNoteSupplierController extends Controller
         $detailPurchases = DetailPurchase::where('purchase_suppliers_id', $purchaseSupplierId)->get();
 
         if (count($detailPurchases) == 0) {
-            return redirect()->back()->withErrors(['factura' => 'Porfavor Ingrese un Numero de factura']);
+            return redirect()->back()->withErrors(['factura' => 'Porfavor Ingrese un Numero de factura.']);
         }
 
         $productos = $request->input('producto');
         $cantidades = $request->input('cantidad');
 
         if (count($cantidades) == 0) {
-            return redirect()->back()->withErrors(['factura' => 'Por favor, ingrese una cantidad valida']);
+            return redirect()->back()->withErrors(['factura' => 'Por favor, ingrese una cantidad valida.']);
         }
 
         foreach ($cantidades as $cantidad) {
             if ($cantidad < 0) {
-                return redirect()->back()->withErrors(['cantidad' => 'No se aceptan valores negativos']);
+                return redirect()->back()->withErrors(['cantidad' => 'No se aceptan valores negativos.']);
             }
         }
         $descripciones = $request->input('descripcion');
@@ -254,7 +254,7 @@ class debitNoteSupplierController extends Controller
         Session::flash('notificacion', [
             'tipo' => 'exito',
             'titulo' => 'Éxito!',
-            'descripcion' => 'Nota Debito Creada Exitosamente',
+            'descripcion' => 'Nota Debito Creada Exitosamente.',
             'autoCierre' => 'true'
         ]);
         return redirect()->route('debit-note-supplier.index');

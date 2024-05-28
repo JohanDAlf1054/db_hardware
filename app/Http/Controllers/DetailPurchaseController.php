@@ -177,7 +177,7 @@ class DetailPurchaseController extends Controller
         Session::flash('notificacion', [
             'tipo' => 'exito',
             'titulo' => 'Éxito!',
-            'descripcion' => 'Compra Creada Exitosamente',
+            'descripcion' => 'Compra Creada Exitosamente.',
             'autoCierre' => 'true'
         ]);
 
