@@ -54,6 +54,13 @@
                         </div>
                     </a>
 
+                    <a tooltip="tooltip" data-bs-placement="right" title="Terceros" href="{{ route('person.index')}}" class="{{ request()->route()->named('person.index') ? 'selected' : '' }}">
+                        <div class="option">
+                            <i class='bx bxs-user-detail'></i>
+                            <h4>Terceros</h4>
+                        </div>
+                    </a>
+
                     <a tooltip="tooltip" data-bs-placement="right" title="Productos" href="{{ route('products.index') }}" class="{{ request()->route()->named('products.index') ? 'selected' : '' }}">
                         <div class="option">
                             <i class='bx bxs-package'></i>
@@ -69,12 +76,6 @@
                     </a>
 
 
-                    <a tooltip="tooltip" data-bs-placement="right" title="Terceros" href="{{ route('person.index')}}" class="{{ request()->route()->named('person.index') ? 'selected' : '' }}">
-                        <div class="option">
-                            <i class='bx bxs-user-detail'></i>
-                            <h4>Terceros</h4>
-                        </div>
-                    </a>
 
                     <a tooltip="tooltip" data-bs-placement="right" title="Ventas" href="{{route('sales.index')}}" class="{{ request()->route()->named('sales.index') ? 'selected' : '' }}">
                         <div class="option">
