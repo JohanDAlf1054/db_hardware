@@ -254,7 +254,7 @@ class PersonController extends Controller
             Session::flash('notificacion', [
                 'tipo' => 'exito',
                 'titulo' => 'Éxito!',
-                'descripcion' => 'Datos de personas importados de forma exitosa',
+                'descripcion' => 'Datos de personas importados de forma exitosa.',
                 'autoCierre' => 'true'
             ]);
 

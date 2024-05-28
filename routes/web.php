@@ -164,14 +164,3 @@ Route::get('/filtrar/precios', [ExportController::class, 'filtrar'])->name('filt
 Route::get('/filtrar/precios/purchase', [ExportController::class, 'filtrarPurchase'])->name('filtrarPurchase');
 
 
-//Prueba temporal de cambio de contraseña
-Route::get('/test-password-hash', function () {
-    $user = Auth::user();
-    $newPasswordHash = Hash::make('your_new_password');
-
-    if (Hash::check('your_new_password', $newPasswordHash)) {
-        return 'El hash de la nueva contraseña es correcto.';
-    } else {
-        return 'El hash de la nueva contraseña es incorrecto.';
-    }
-})->middleware('auth');

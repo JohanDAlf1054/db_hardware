@@ -97,7 +97,7 @@ class CreditNoteSalesController extends Controller
     Session::flash('notificacion', [
         'tipo' => 'exito',
         'titulo' => 'Éxito!',
-        'descripcion' => 'Nota Credito Creada Exitosamente',
+        'descripcion' => 'Nota Credito Creada Exitosamente.',
         'autoCierre' => 'true'
     ]);
 
@@ -146,7 +146,7 @@ class CreditNoteSalesController extends Controller
                 'status' => 1
             ]);
         }
-        return redirect()->route('credit-note-sales.index')->with('success','Nota crédito inactivada');
+        return redirect()->route('credit-note-sales.index')->with('success','Nota crédito inactivada.');
     }
 
     public function obtenerDetalleVenta(Request $request)

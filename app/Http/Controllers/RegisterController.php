@@ -26,10 +26,10 @@ class RegisterController extends Controller
             Session::flash('notificacion', [
                 'tipo' => 'exito',
                 'titulo' => 'Éxito!',
-                'descripcion' => 'Se ha creado el usuario correctamente',
+                'descripcion' => 'Se ha creado el usuario correctamente.',
                 'autoCierre' => 'true'
             ]);
-            //Asignar el rol de administrador para el primer registro dentro del proyecto. 
+            //Asignar el rol de administrador para el primer registro dentro del proyecto.
             if (User::count() === 1) {
                 $user->assignRole('Administrador');
             }
