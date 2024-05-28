@@ -199,17 +199,25 @@
                                                 {!! $errors->first('email_address', '<div class="invalid-feedback">El campo correo electrónico es obligatorio</div>') !!}
                                             </div>
                                         </div>
+
+
                                         {{--  Ciudad  --}}
                                         <div class="col-sm-6 md-6">
                                             <div class="mb-3">
-                                                <label for="city" class="form-label" style="font-weight: bolder">
-                                                {{ __('Ciudad')}}
+                                                <label for="municipality" class="form-label" style="font-weight: bolder">
+                                                    {{ __('Ciudad') }}
                                                     <span class="text-danger">*</span>
                                                 </label>
-                                                {{ Form::text('city', $person->city, ['class' => 'form-control' . ($errors->has('city') ? ' is-invalid' : ''), 'placeholder' => 'Ciudad']) }}
+                                                {{ Form::select('city',$municipalities, $person->mulicipalities,['class' => 'form-control selectpicker show-tick' . ($errors->has('city') ? ' is-invalid' : ''), 'placeholder' => 'Selecciona la ciudad', 'data-live-search' => 'true', 'data-size'=>'3']) }}
+                                               
                                                 {!! $errors->first('city', '<div class="invalid-feedback">El campo ciudad es obligatorio</div>') !!}
                                             </div>
                                         </div>
+
+                                        
+                                   
+                                            
+                                               
                                         {{--  Direccion  --}}
                                         <div class="col-sm-6 md-6">
                                             <div class="mb-3">

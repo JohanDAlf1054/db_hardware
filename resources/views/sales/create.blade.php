@@ -141,6 +141,9 @@
                         </div>
                         <div class="p-3 border border-3 border-success">
                             <div class="row gy-4">
+
+
+
                                 <!--Cliente-->
                                 <div class="col-12">
                                     <label for="clients_id" class="form-label">Cliente:</label>
@@ -153,6 +156,10 @@
                                     <small class="text-danger">{{ '*'.$message }}</small>
                                     @enderror
                                 </div>
+
+
+
+                                
                                 <!--Fecha--->
                                 <div class="col-sm-12">
                                     <label for="dates" class="form-label">Fecha:</label>

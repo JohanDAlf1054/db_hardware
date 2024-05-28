@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Exports\PeopleExport;
 use App\Imports\PersonImport;
 use App\Models\Person;
-
+use App\Models\Municipality;
 use App\Exports\PersonTemplateExport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
@@ -59,7 +59,9 @@ class PersonController extends Controller
     {
         $person = new Person();
         
-        return view('person.create', compact('person'));
+        $municipalities = Municipality::pluck('name', 'id');
+        
+        return view('person.create', compact('person', 'municipalities'));
     }
 
     /**
