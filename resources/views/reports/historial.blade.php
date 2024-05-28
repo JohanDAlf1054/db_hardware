@@ -140,6 +140,14 @@
 <script src="https://cdn.datatables.net/2.0.7/js/dataTables.bootstrap5.js"></script>
 <script src="https://cdn.datatables.net/responsive/3.0.2/js/dataTables.responsive.js"></script>
 <script src="https://cdn.datatables.net/responsive/3.0.2/js/responsive.dataTables.js"></script>
+<script src="https://cdn.datatables.net/buttons/3.0.2/js/dataTables.buttons.js"></script>
+<script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.dataTables.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+<script src="https://cdn.datatables.net/buttons/3.0.2/js/buttons.html5.min.js"></script>
+
+
 <script>
   var table = $('#datatable').DataTable({
     responsive: true,
@@ -183,7 +191,24 @@
         { data: 'fecha_de_la_factura' },
         { data: 'cantidad_de_salida' },
         { data: 'saldo_de_cantidades' }
-    ]
+    ],
+    layout: {
+            topRight: {
+                buttons: [ 
+                    {
+                        'extend': 'excelHtml5',
+                        'text': '<i class="fa fa-file-excel"></i>',
+                        'titleAtter': 'Excel',
+                        'className': 'btn btn-success',
+                    },
+                    {
+                        'extend': 'pdfHtml5',
+                        'text': '<i class="fa fa-file-pdf"></i>',
+                        'className': 'btn btn-danger'
+                    }
+                ]
+            }
+        }
 });
 </script>
 <style>

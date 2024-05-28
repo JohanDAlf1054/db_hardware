@@ -25,31 +25,42 @@ class debitNoteSupplierController extends Controller
     public function index(Request $request)
     {
         $filtervalue = $request->get('filtervalue');
-
-        if ($filtervalue) {
-            $status = $filtervalue == 'activo' ? 1 : ($filtervalue == 'inactivo' ? 0 : null);
-
-            $debitNoteSuppliers = DebitNoteSupplier::query()
-                ->when($status !== null, function ($query) use ($status) {
-                    return $query->where('status', $status);
-                })
-                ->when($filtervalue, function ($query) use ($filtervalue) {
-                    return $query->where('debit_note_code', 'like', '%' . $filtervalue . '%')
-                        //->orWhere('quantity','like','%'.$filtervalue.'%')
-                        ->orWhere('description', 'like', '%' . $filtervalue . '%');
-                })
-                ->get();
-        } else {
-            $uniqueDebitNoteSupplierIds = DB::table('debit_note_suppliers')
-                ->select(DB::raw('MAX(id) as id'))
-                ->groupBy('purchase_suppliers_id')
-                ->pluck('id');
-
-            $debitNoteSuppliers = DebitNoteSupplier::whereIn('id', $uniqueDebitNoteSupplierIds)->get();
-        }
-
+        $status = $filtervalue == 'activo' ? 1 : ($filtervalue == 'inactivo' ? 0 : null);
+    
+        $uniqueDebitNoteSupplierIds = DB::table('debit_note_suppliers')
+            ->select(DB::raw('MAX(id) as id'))
+            ->groupBy('purchase_suppliers_id')
+            ->pluck('id');
+    
+        $debitNoteSuppliers = DebitNoteSupplier::whereIn('id', $uniqueDebitNoteSupplierIds)
+            ->when($filtervalue, function ($query) use ($filtervalue, $status) {
+                $filtervalue = strtolower($filtervalue); 
+                return $query->whereRaw('LOWER(debit_note_code) LIKE ?', ['%' . $filtervalue . '%'])
+                    ->orWhereRaw('LOWER(description) LIKE ?', ['%' . $filtervalue . '%'])
+                    ->orWhereRaw('LOWER(total) LIKE ?', ['%' . $filtervalue . '%'])
+                    ->orWhere('quantity', intval($filtervalue)) 
+                    ->orWhere('status', $status) 
+                    ->orWhereHas('detailPurchase', function ($query) use ($filtervalue) {
+                        return $query->whereRaw('LOWER(discount_total) LIKE ?', ['%' . $filtervalue . '%'])
+                            ->orWhereRaw('LOWER(product_tax) LIKE ?', ['%' . $filtervalue . '%'])
+                            ->orWhereRaw('LOWER(form_of_payment) LIKE ?', ['%' . $filtervalue . '%']);
+                    })
+                    ->orWhereHas('purchaseSupplier', function ($query) use ($filtervalue) {
+                        return $query->whereRaw('LOWER(invoice_number_purchase) LIKE ?', ['%' . $filtervalue . '%'])
+                            ->orWhereHas('person', function ($query) use ($filtervalue) {
+                                return $query->whereRaw('LOWER(identification_type) LIKE ?', ['%' . $filtervalue . '%'])
+                                    ->orWhereRaw('LOWER(identification_number) LIKE ?', ['%' . $filtervalue . '%'])
+                                    ->orWhereRaw('LOWER(company_name) LIKE ?', ['%' . $filtervalue . '%'])
+                                    ->orWhereRaw('LOWER(first_name) LIKE ?', ['%' . $filtervalue . '%'])
+                                    ->orWhereRaw('LOWER(other_name) LIKE ?', ['%' . $filtervalue . '%']);
+                            });
+                    });
+            })
+            ->get();
+    
         return view('debit-note-supplier.index', compact('debitNoteSuppliers'));
     }
+    
     /**
      * Show the form for creating a new resource.
      *

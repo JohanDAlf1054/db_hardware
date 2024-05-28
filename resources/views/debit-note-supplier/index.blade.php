@@ -131,10 +131,10 @@
                                                     </td>
                                                     <td>
                                                         @if ($debitNoteSupplier->status == 1)
-                                                            <p class="badge rounded-pill bg-success text-dark"
+                                                            <p class="badge rounded-pill bg-success text-white"
                                                                 style="font-size: 15px">Activo</p>
                                                         @else
-                                                            <p class="badge rounded-pill bg-danger" style="font-size: 15px">
+                                                            <p class="badge rounded-pill bg-danger text-white" style="font-size: 15px">
                                                                 Inactivo</p>
                                                         @endif
                                                     </td>

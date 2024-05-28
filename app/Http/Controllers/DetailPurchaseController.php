@@ -24,33 +24,49 @@ class DetailPurchaseController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(Request $request)
-    {
-        $filtervalue = $request->get('filtervalue');
-        $status = $filtervalue == 'activo' ? 1 : ($filtervalue == 'inactivo' ? 0 : null);
+{
+    $filtervalue = $request->get('filtervalue');
+    $status = $filtervalue == 'activo' ? 1 : ($filtervalue == 'inactivo' ? 0 : null);
 
-        $uniqueDetailPurchaseIds = DB::table('detail_purchase')
-            ->select(DB::raw('MAX(id) as id'))
-            ->groupBy('purchase_suppliers_id')
-            ->pluck('id');
+    $uniqueDetailPurchaseIds = DB::table('detail_purchase')
+        ->select(DB::raw('MAX(id) as id'))
+        ->groupBy('purchase_suppliers_id')
+        ->pluck('id');
 
-        $detailPurchases = DetailPurchase::whereIn('id', $uniqueDetailPurchaseIds)
-            ->when($status !== null, function ($query) use ($status) {
-                return $query->where('status', $status);
-            })
-            ->when($filtervalue, function ($query) use ($filtervalue) {
-                return $query->where('description', 'like', '%' . $filtervalue . '%')
-                    ->orWhere('price_unit', 'like', '%' . $filtervalue . '%')
-                    ->orWhere('product_tax', $filtervalue)
-                    ->orWhereHas('product', function ($query) use ($filtervalue) {
-                        if ($filtervalue) {
-                            return $query->where('name_product', 'like', '%' . $filtervalue . '%');
-                        }
-                    });
-            })
-            ->get();
+    $detailPurchases = DetailPurchase::whereIn('id', $uniqueDetailPurchaseIds)
+        ->when($filtervalue, function ($query) use ($filtervalue, $status) {
+            $filtervalue = strtolower($filtervalue); // Convertir a minúsculas para hacer la búsqueda insensible a mayúsculas y minúsculas
+            return $query->whereRaw('LOWER(description) LIKE ?', ['%' . $filtervalue . '%'])
+                ->orWhereRaw('LOWER(price_unit) LIKE ?', ['%' . $filtervalue . '%'])
+                ->orWhere('product_tax', $filtervalue)
+                ->orWhereRaw('LOWER(net_total) LIKE ?', ['%' . $filtervalue . '%'])
+                ->orWhereRaw('LOWER(total_value) LIKE ?', ['%' . $filtervalue . '%'])
+                ->orWhereRaw('LOWER(gross_total) LIKE ?', ['%' . $filtervalue . '%'])
+                ->orWhereRaw('LOWER(discount_total) LIKE ?', ['%' . $filtervalue . '%'])
+                ->orWhereRaw('LOWER(form_of_payment) LIKE ?', ['%' . $filtervalue . '%'])
+                ->orWhere('status', $status) // Agregar esta línea para buscar por estado
+                ->orWhereHas('purchaseSupplier', function ($query) use ($filtervalue) {
+                    return $query->whereHas('person', function ($query) use ($filtervalue) {
+                        return $query->whereRaw('LOWER(identification_type) LIKE ?', ['%' . $filtervalue . '%'])
+                            ->orWhereRaw('LOWER(identification_number) LIKE ?', ['%' . $filtervalue . '%'])
+                            ->orWhereRaw('LOWER(company_name) LIKE ?', ['%' . $filtervalue . '%'])
+                            ->orWhereRaw('LOWER(first_name) LIKE ?', ['%' . $filtervalue . '%'])
+                            ->orWhereRaw('LOWER(other_name) LIKE ?', ['%' . $filtervalue . '%']);
+                    })
+                    ->orWhereRaw('LOWER(invoice_number_purchase) LIKE ?', ['%' . $filtervalue . '%']); // Agregar esta línea para buscar por invoice_number_purchase
+                })
+                ->orWhereHas('product', function ($query) use ($filtervalue) {
+                    if ($filtervalue) {
+                        return $query->whereRaw('LOWER(name_product) LIKE ?', ['%' . $filtervalue . '%']);
+                    }
+                });
+        })
+        ->get();
 
-        return view('detail-purchase.index', compact('detailPurchases'));
-    }
+    return view('detail-purchase.index', compact('detailPurchases'));
+}
+
+
     /**
      * Show the form for creating a new resource.
      *
