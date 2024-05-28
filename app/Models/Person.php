@@ -26,6 +26,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property $status
  * @property $created_at
  * @property $updated_at
+ * @property Municipality $municipality
  *
  * @package App
  * @mixin \Illuminate\Database\Eloquent\Builder
@@ -98,5 +99,9 @@ class Person extends Model
         return $this->hasMany(Sale::class, 'clients_id');
     }
 
-
+    public function municipalities()
+    {
+        return $this->belongsTo(Municipality::class,'municipality_id');
+    }
+   
 }

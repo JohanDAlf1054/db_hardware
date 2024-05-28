@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Exports\PeopleExport;
 use App\Imports\PersonImport;
 use App\Models\Person;
+use App\Models\Municipality;
 use App\Exports\PersonTemplateExport;
+use App\Models\Country;
+use App\Models\Department;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
@@ -57,7 +60,12 @@ class PersonController extends Controller
     public function create()
     {
         $person = new Person();
-        return view('person.create', compact('person'));
+        
+        $municipalities = Municipality::with('department.country')->get();
+        $departments = Department::select('id', 'name')->get();
+        $countries = Country::select('id', 'name')->get();
+        
+        return view('person.create', compact('person', 'municipalities', 'departments', 'countries'));
     }
 
     /**
