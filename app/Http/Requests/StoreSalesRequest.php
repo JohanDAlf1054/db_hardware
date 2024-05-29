@@ -39,4 +39,18 @@ class StoreSalesRequest extends FormRequest
         ]);
 }
 
+public function attributes(): array
+{
+    return [
+        'dates' => 'fecha',
+        'bill_numbers' => 'número de factura',
+        'sellers' => 'vendedor',
+        'payments_methods' => 'método de pago',
+        'gross_totals' => 'total bruto',
+        'taxes_total' => 'total impuesto',
+        'net_total' => 'total neto',
+        'clients_id' => 'cliente',
+    ];
+}
+
 }
