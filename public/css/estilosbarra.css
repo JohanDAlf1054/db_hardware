@@ -211,6 +211,7 @@ a.selected {
 .dropdown-menu li:hover{
     background-color: #fff;
 }
+
 .bread_crumb{
     border: 1px solid #efebeb;
     border-radius: 10px;
@@ -220,7 +221,7 @@ a.selected {
     width: 99%;
     padding-left: 2rem;
     padding-top: 1rem;
-    font-size: 18px;
+    font-size: 25px;
 }
 .mensaje_Rol{
     /* border: 2px solid black; */
@@ -256,13 +257,11 @@ a.selected {
 
 /* Estilos selecpicker minicipalities */
 
-.dropdown-menu.show {
+.dropdown-menu.show{
     width: 100%;
     max-width: none; 
     min-width: 10px; 
     box-sizing: border-box; 
     overflow-x: auto; 
-    top: 100%;
-
 }
 
