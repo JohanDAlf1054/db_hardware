@@ -130,10 +130,10 @@
                                                     </td>
                                                     <td>
                                                         <a class="btn btn-sm btn-primary" tooltip="tooltip" title="Visualizar"
-                                                            href="{{ route('person.show', $proveedor->id) }}"><i
+                                                            href="{{ route('supplier.show', $proveedor->id) }}"><i
                                                                 class="fa fa-fw fa-eye"></i></a>
                                                         <a class="btn btn-sm btn-success" tooltip="tooltip" title="Modificar"
-                                                            href="{{ route('person.edit', $proveedor->id) }}"><i
+                                                            href="{{ route('supplier.edit', $proveedor->id) }}"><i
                                                                 class="fa fa-fw fa-edit"></i></a>
 
                                                         {{--  <!-- Button trigger modal -->  --}}
