@@ -119,7 +119,6 @@ class PersonController extends Controller
             return redirect()->route('person.index');
         }
 
-
     }
 
 
@@ -145,9 +144,11 @@ class PersonController extends Controller
      */
     public function edit($id)
     {
-        $person = Person::find($id);
-
-        return view('person.edit', compact('person'));
+        $person = Person::with('municipality')->findOrFail($id); 
+        $municipalities = Municipality::with('department.country')->get();
+    
+        return view('person.edit', compact('person', 'municipalities'));
+    
     }
 
     /**

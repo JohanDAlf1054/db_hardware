@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Person;
+use App\Models\Municipality;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -35,9 +36,11 @@ class SupplierController extends Controller
 
     public function edit($id)
 {
-    $person = Person::findOrFail($id);
+    $person = Person::with('municipality')->findOrFail($id); 
+    $municipalities = Municipality::with('department.country')->get();
     $table = 'supplier';
-    return view('person.edit', compact('person', 'table'));
+
+    return view('person.edit', compact('person', 'municipalities', 'table'));
 }
 
 public function show($id)

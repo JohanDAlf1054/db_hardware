@@ -169,7 +169,7 @@
                                                     {{ __('Ciudad') }}
                                                     <span class="text-info">*</span>
                                                 </label>
-                                                <input type="text" class="form-control" id="rol" value="{{$person->city}}" readonly>
+                                                <input type="text" class="form-control" id="rol" value="{{$person->municipality->name}}" readonly>
                                             </div>
                                         </div>
                                         <div class="col-sm-6 md-6">

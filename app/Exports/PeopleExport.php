@@ -109,7 +109,7 @@ class PeopleExport implements FromQuery, WithHeadings, WithCustomStartCell, With
             }
 
             // Definir el rango desde A1 hasta L4 para el encabezado
-            $headerRange = 'A1:N3';
+            $headerRange = 'A1:O3';
 
             // Aplicar color azul al encabezado
             $sheet->getDelegate()->getStyle($headerRange)->applyFromArray([
@@ -129,7 +129,7 @@ class PeopleExport implements FromQuery, WithHeadings, WithCustomStartCell, With
                 ],
             ]);
 
-            $sheet->getDelegate()->getStyle('A5:N5')->applyFromArray([
+            $sheet->getDelegate()->getStyle('A5:O5')->applyFromArray([
                 'fill' => [
                     'fillType' => Fill::FILL_SOLID,
                     'startColor' => ['argb' => 'd3d3d3'], // Gris claro
@@ -148,7 +148,7 @@ class PeopleExport implements FromQuery, WithHeadings, WithCustomStartCell, With
             
             $title = $this->title();
             // Fusionar celdas para el encabezado
-            $sheet->getDelegate()->mergeCells('A1:N1');
+            $sheet->getDelegate()->mergeCells('A1:O1');
             $sheet->setCellValue('A1', 'Informe de ' . $title);
             $sheet->getStyle('A1')->getFont()->setSize(20); // Tamaño de letra para "Informe de Ventas"
             $sheet->getStyle('A1')->getFont()->setBold(true); // Ajustar a negrita
@@ -156,14 +156,14 @@ class PeopleExport implements FromQuery, WithHeadings, WithCustomStartCell, With
             $sheet->getStyle('A1')->getFont()->getColor()->setARGB(Color::COLOR_WHITE); // Letra blanca
 
             // Agregar "Ferretería La Excelencia" y "NIT 9.524.275" en celdas separadas
-            $sheet->getDelegate()->mergeCells('A2:N2');
+            $sheet->getDelegate()->mergeCells('A2:O2');
             $sheet->setCellValue('A2', 'Ferretería La Excelencia');
             $sheet->getStyle('A2')->getFont()->setSize(16); // Tamaño de letra para "Ferretería La Excelencia"
             $sheet->getStyle('A2')->getFont()->setBold(false); // Ajustar a negrita
             $sheet->getStyle('A2')->getAlignment()->setWrapText(true);
             $sheet->getStyle('A2')->getFont()->getColor()->setARGB(Color::COLOR_WHITE); // Letra blanca
 
-            $sheet->getDelegate()->mergeCells('A3:N3');
+            $sheet->getDelegate()->mergeCells('A3:O3');
             $sheet->setCellValue('A3', 'NIT 9.524.275');
             $sheet->getStyle('A3')->getFont()->setSize(14); // Tamaño de letra para "NIT 9.524.275"
             $sheet->getStyle('A3')->getFont()->setBold(false); // Ajustar a negrita
