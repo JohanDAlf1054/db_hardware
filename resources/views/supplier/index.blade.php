@@ -44,14 +44,16 @@
                                             aria-label="Buscar persona" placeholder="Buscar persona....">
                                         <button type="submit" class="btn btn-dark">Buscar</button>
 
-                                        {{-- Botones IMPORTAR Y EXPORTAR --}}
-                                        <button type="button" class="btn btn-danger ms-2 rounded" tooltip="tooltip"
-                                            title="PDF" onclick="window.location.href='{{ route('supplier.pdf') }}'">
-                                            <i class="fa-solid fa-file-pdf"></i>
-                                        </button>
+                                        {{-- Botones EXPORTAR --}}
+                                    
                                         <button type="button" class="btn btn-success ms-2 rounded" tooltip="tooltip"
                                             title="Exportar" onclick="window.location.href='{{ route('export.supplier') }}'">
                                             <i class="fa-solid fa-file-arrow-down"></i>
+                                        </button>
+
+                                        <button type="button" class="btn btn-danger ms-2 rounded" tooltip="tooltip"
+                                            title="PDF" onclick="window.location.href='{{ route('supplier.pdf') }}'">
+                                            <i class="fa-solid fa-file-pdf"></i>
                                         </button>
                                     </form>
                                 </div>
@@ -116,7 +118,7 @@
                                                     <td>{{ $proveedor->second_surname }}</td>
                                                     <td>{{ $proveedor->comercial_name }}</td>
                                                     <td>{{ $proveedor->email_address }}</td>
-                                                    <td>{{ $proveedor->city }}</td>
+                                                    <td>{{ $proveedor->municipality->name }}</td>
                                                     <td>{{ $proveedor->address }}</td>
                                                     <td>{{ $proveedor->phone }}</td>
                                                     <td>

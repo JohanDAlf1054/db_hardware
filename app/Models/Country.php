@@ -9,9 +9,8 @@ class Country extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['code', 'name'];
-
-    public function departments()
+    
+    public function department()
     {
         return $this->hasMany(Department::class, 'countries_id');
     }

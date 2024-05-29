@@ -44,16 +44,18 @@
                                             aria-label="Buscar persona" placeholder="Buscar persona....">
                                         <button type="submit" class="btn btn-dark">Buscar</button>
 
-                                        {{-- Botones IMPORTAR Y EXPORTAR --}}
+                                        {{-- Botones EXPORTAR --}}
+                                
+                                        <button type="button" class="btn btn-success ms-2 rounded" data-bs-toggle="tooltip"
+                                            title="Exportar" onclick="window.location.href='{{ route('export.customer') }}'">
+                                            <i class="fa-solid fa-file-arrow-down"></i>
+                                        </button>
+
                                         <button type="button" class="btn btn-danger ms-2 rounded" tooltip="tooltip"
                                             title="PDF" onclick="window.location.href='{{ route('customer.pdf') }}'">
                                             <i class="fa-solid fa-file-pdf"></i>
                                         </button>
 
-                                        <button type="button" class="btn btn-success ms-2 rounded" data-bs-toggle="tooltip"
-                                            title="Exportar" onclick="window.location.href='{{ route('export.customer') }}'">
-                                            <i class="fa-solid fa-file-arrow-down"></i>
-                                        </button>
                                     </form>
                                 </div>
                             </div>
@@ -116,7 +118,7 @@
                                                     <td>{{ $cliente->second_surname }}</td>
                                                     <td>{{ $cliente->comercial_name }}</td>
                                                     <td>{{ $cliente->email_address }}</td>
-                                                    <td>{{ $cliente->city }}</td>
+                                                    <td>{{ $cliente->municipality->name }}</td>
                                                     <td>{{ $cliente->address }}</td>
                                                     <td>{{ $cliente->phone }}</td>
                                                     <td>

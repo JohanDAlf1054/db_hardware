@@ -60,12 +60,10 @@ class PersonController extends Controller
     public function create()
     {
         $person = new Person();
-        
         $municipalities = Municipality::with('department.country')->get();
-        $departments = Department::select('id', 'name')->get();
-        $countries = Country::select('id', 'name')->get();
-        
-        return view('person.create', compact('person', 'municipalities', 'departments', 'countries'));
+        $people = Person::with('municipality')->get();
+    
+        return view('person.create', compact('person', 'municipalities', 'people'));
     }
 
     /**
@@ -121,7 +119,6 @@ class PersonController extends Controller
             return redirect()->route('person.index');
         }
 
-
     }
 
 
@@ -147,9 +144,11 @@ class PersonController extends Controller
      */
     public function edit($id)
     {
-        $person = Person::find($id);
-
-        return view('person.edit', compact('person'));
+        $person = Person::with('municipality')->findOrFail($id); 
+        $municipalities = Municipality::with('department.country')->get();
+    
+        return view('person.edit', compact('person', 'municipalities'));
+    
     }
 
     /**
