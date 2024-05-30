@@ -9,7 +9,7 @@
         </div>
         <div class="modal-body">
             <div>
-                {{ $detailPurchase->status == 1 ? '¿Seguro que quiere inactivar el detalle de compra?' : '¿Seguro que quiere activar el detalle de compra?' }}
+                {{ $detailPurchase->status == 1 ? '¿Seguro que desea inactivar la compra?' : '¿Seguro que desea activar la compra?' }}
             </div>
         </div>
         <div class="modal-footer">

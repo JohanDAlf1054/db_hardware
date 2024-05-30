@@ -8,7 +8,7 @@
             <meta charset="UTF-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Nota Debito</title>
+            <title>Nota Débito</title>
             <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
             <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
             <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
@@ -59,7 +59,7 @@
                             <div class="card card-default">
                                 <div class="card-header" style="display: flex">
                                     <h3 class="card-title">
-                                        {{ 'Nota Debito' }}
+                                        {{ 'Nota Débito' }}
                                     </h3>
                                 </div>
                                 <script>
@@ -78,7 +78,7 @@
                                         <div class="col-sm-6 md-6">
                                             <div class="md-3" style="margin-bottom: 16px">
                                                 <label for="factura" class="form-label" style="font-weight: bolder">
-                                                    {{ __('Buscar Factura') }}
+                                                    {{ __('Buscar Factura De Compra') }}
                                                     <span class="text-danger">*</span>
                                                 </label>
                                                 <select id="factura" name="factura"
@@ -105,7 +105,7 @@
                                         <div class="col-sm-6 md-6">
                                             <div class="md-3" style="margin-bottom: 16px">
                                                 <label for="date_invoice" class="form-label" style="font-weight: bolder">
-                                                    {{ __('Fecha de Creación Nota Debito') }}
+                                                    {{ __('Fecha de Creación Nota Débito') }}
                                                     <span class="text-danger">*</span>
                                                 </label>
                                                 <input type="date" id="date_invoice" name="date_invoice"
@@ -118,13 +118,13 @@
                                         <div class="col-sm-6 md-6">
                                             <div class="mb-3">
                                                 <label for="debit_note_code" class="form-label" style="font-weight: bolder">
-                                                    {{ __('Número de Nota Debito') }}
+                                                    {{ __('Número de Nota Débito') }}
                                                     <span class="text-danger">*</span>
                                                 </label>
                                                 <input type="number" id="debit_note_code" name="debit_note_code"
                                                     value="{{ $debitNoteId }}"
                                                     class="form-control{{ $errors->has('debit_note_code') ? ' is-invalid' : '' }}"
-                                                    placeholder="Número de Nota Debito">
+                                                    placeholder="Número de Nota Débito">
                                                 {!! $errors->first('debit_note_code', '<div class="invalid-feedback">:message</div>') !!}
                                             </div>
                                         </div>

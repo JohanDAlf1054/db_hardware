@@ -30,14 +30,15 @@
                                             aria-expanded="false">Acciones</button>
                                         <ul class="dropdown-menu desplegable_acciones">
                                             <div class="acciones_boton">
-                                                <li><a class="dropdown-item" href="{{ route('detail-purchases.create') }}">Crear
-                                                        Detalle Compra</a></li>
+                                                <li><a class="dropdown-item" href="{{ route('detail-purchases.create') }}">Crear Compra
+                                                </a></li>
                                                 <li><a class="dropdown-item"
-                                                        href="{{ route('debit-note-supplier.index') }}">Mostrar
-                                                        notas debito</a></li>
+                                                    href="{{ route('debit-note-supplier.create') }}">Crear nota débito
+                                                </a></li>
+
                                                 <li><a class="dropdown-item"
-                                                        href="{{ route('debit-note-supplier.create') }}">Crear
-                                                        nota debito</a></li>
+                                                        href="{{ route('debit-note-supplier.index') }}">Mostrar notas débito</a></li>
+                                                
                                                 {{-- <li><a class="dropdown-item" href="{{ route('purchase_supplier.index') }}">Mostrar
 Compras</a></li> --}}
                                             </div>
