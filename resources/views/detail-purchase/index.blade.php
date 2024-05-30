@@ -131,11 +131,11 @@ Compras</a></li> --}}
 
                                                     </td>
 
-                                                    <td>{{ $detailPurchase->net_total }}</td>
-                                                    <td>{{ $detailPurchase->total_value }}</td>
-                                                    <td>{{ $detailPurchase->gross_total }}</td>
-                                                    <td>{{ $detailPurchase->product_tax }}%</td>
-                                                    <td>{{ $detailPurchase->discount_total }}</td>
+                                                    <td>${{ number_format($detailPurchase->net_total, 2, '.', ',') }}</td>
+                                                    <td>${{ number_format($detailPurchase->total_value, 2, '.', ',') }}</td>
+                                                    <td>${{ number_format($detailPurchase->gross_total, 2, '.', ',') }}</td>
+                                                    <td>{{ number_format($detailPurchase->product_tax, 2, '.', ',') }}%</td>
+                                                    <td>${{ number_format($detailPurchase->discount_total, 2, '.', ',') }}</td>
                                                     <td>{{ $detailPurchase->form_of_payment }}</td>
                                                     <td>
                                                         @if ($detailPurchase->status == 1)

@@ -16,16 +16,6 @@
         </head>
 
         <body>
-            @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
-
             <div class="container-fluid">
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="nav navbar-nav ml-auto">
@@ -147,8 +137,10 @@
                                                                 <tr>
                                                                     <th></th>
                                                                     <th colspan="7">Subtotal</th>
-                                                                    <th colspan="2"><input type="hidden" id="total_value" name="total_value">
-                                                                        <span id="sumas">0</span></th>
+                                                                    <th colspan="2">
+                                                                        <input type="hidden" id="total_value_raw" name="total_value_raw" value="">
+                                                                        <span id="sumas">0</span>
+                                                                    </th>
                                                                 </tr>
                                                                 <tr>
                                                                     <th></th>
@@ -411,7 +403,7 @@
                     }
                 }
 
-
+                
                 function agregarProducto() {
                     let idProducto = $('#producto_id').val();
                     if ($("#tabla_detalle input[name='arrayidproducto[]']").filter(function() {
@@ -479,19 +471,22 @@
                         limpiarCampos();
                         cont++;
                         disableButtons();
-                        $('#sumas').html(sumas);
-                        $('#igv').html(igv);
-                        $('#total_value').val(sumas);
-                        $('#totalBruto').html(totalBruto);
-                        $('#totalNeto').html(totalNeto);
-                        $('#descuento').html(descuentoTotal);
-                        $('#inputTotal').val(total);
+                        $('#sumas').html(formatearMoneda(sumas));
+                        $('#igv').html(formatearMoneda(igv));
+                        $('#total_value_raw').val(sumas);
+                        $('#totalBruto').html(formatearMoneda(totalBruto));
+                        $('#totalNeto').html(formatearMoneda(totalNeto));
+                        $('#descuento').html(formatearMoneda(descuentoTotal));
+                        $('#inputTotal').val(formatearMoneda(total));
                         $('#hiddenTotalBruto').val(totalBruto);
                         $('#hiddenTotalNeto').val(totalNeto);
+                        
                     }
 
                 }
-
+                function formatearMoneda(valor) {
+                return `$${valor.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}`;
+                }
                 function eliminarProducto(indice, impuesto, descuentoProductoParam) {
                     descuentoTotal -= parseFloat(descuentoProductoParam);
                     sumas -= round(subtotal[indice]);
@@ -501,13 +496,13 @@
                     totalNeto = total;
 
                     //Mostrar los campos calculados
-                    $('#sumas').html(sumas);
-                    $('#igv').html(igv);
-                    $('#total_value').val(sumas);
-                    $('#totalBruto').html(totalBruto);
-                    $('#totalNeto').html(totalNeto);
-                    $('#descuento').html(descuentoTotal);
-                    $('#inputTotal').val(total);
+                    $('#sumas').html(formatearMoneda(sumas));
+                    $('#igv').html(formatearMoneda(igv));
+                    $('#total_value').val(formatearMoneda(sumas));
+                    $('#totalBruto').html(formatearMoneda(totalBruto));
+                    $('#totalNeto').html(formatearMoneda(totalNeto));
+                    $('#descuento').html(formatearMoneda(descuentoTotal));
+                    $('#inputTotal').val(formatearMoneda(total));
                     $('#hiddenTotalBruto').val(totalBruto);
                     $('#hiddenTotalNeto').val(totalNeto);
                     //Eliminar el fila de la tabla
