@@ -30,11 +30,19 @@ class SalesController extends Controller
                 $query->where('id', 'like', "%{$filtro}%")
                       ->orWhere('dates', 'like', "%{$filtro}%")
                       ->orWhere('bill_numbers', 'like', "%{$filtro}%")
-                      ->orWhere('sellers', 'like', "%{$filtro}%")
-                      ->orWhere('payments_methods', 'like', "%{$filtro}%")
                       ->orWhere('gross_totals', 'like', "%{$filtro}%")
                       ->orWhere('taxes_total', 'like', "%{$filtro}%")
-                      ->orWhere('net_total', 'like', "%{$filtro}%");
+                      ->orWhere('total_discounts', 'like', "%{$filtro}%")
+                      ->orWhere('net_total', 'like', "%{$filtro}%")
+                      // Buscar por nombre de cliente
+                      ->orWhereHas('cliente', function($query) use ($filtro) {
+                          $query->where('company_name', 'like', "%{$filtro}%")
+                                ->orWhere('first_name', 'like', "%{$filtro}%")
+                                ->orWhere('other_name', 'like', "%{$filtro}%")
+                                ->orWhere('surname', 'like', "%{$filtro}%")
+                                ->orWhere('second_surname', 'like', "%{$filtro}%")
+                                ->orWhere('identification_number', 'like', "%{$filtro}%");
+                      });
             });
         }
     
@@ -72,6 +80,7 @@ class SalesController extends Controller
         $arrayPrecioVenta = $request->get('arrayprecioventa');
         $arrayDescuento = $request->get('arraydescuento');
         $arrayImpuesto = $request->get('arrayimpuesto');
+        $arrayimpuestoval = $request->get('arrayimpuestoval');
 
         $siseArray = count($arrayProducto_id);
             $cont = 0;
@@ -79,11 +88,12 @@ class SalesController extends Controller
         while($cont < $siseArray){
             $venta->productos()->syncWithoutDetaching([
                 $arrayProducto_id[$cont] => [
-                    'references' => $arrayReferencia[$cont],
                     'amount' => $arrayCantidad[$cont],
+                    'references' => $arrayReferencia[$cont],
                     'selling_price' => $arrayPrecioVenta[$cont],
                     'discounts' => $arrayDescuento[$cont],
-                    'tax' => $arrayImpuesto[$cont]
+                    'tax' => $arrayImpuesto[$cont],
+                    'iva' =>  $arrayimpuestoval[$cont]
                 ]
              ]);
 

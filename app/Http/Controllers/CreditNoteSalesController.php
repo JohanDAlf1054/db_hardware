@@ -67,11 +67,12 @@ class CreditNoteSalesController extends Controller
         $venta = credit_note_sales::create($request->validated());
 
         $arrayProducto_id = $request->get('arrayidproducto');
-        $arrayReferencia = $request->get('arrayreference');
         $arrayCantidad = $request->get('amount');
+        $arrayReferencia = $request->get('arrayreference');
         $arrayPrecioVenta = $request->get('selling_price');
         $arrayDescuento = $request->get('discounts');
         $arrayImpuesto = $request->get('tax');
+        $arrayimpuestoval = $request->get('arrayimpuestoval');
 
         $siseArray = count($arrayProducto_id);
             $cont = 0;
@@ -79,11 +80,12 @@ class CreditNoteSalesController extends Controller
         while($cont < $siseArray){
             $venta->productos()->syncWithoutDetaching([
                 $arrayProducto_id[$cont] => [
-                    'references' => $arrayReferencia[$cont],
                     'amount' => $arrayCantidad[$cont],
+                    'references' => $arrayReferencia[$cont],
                     'selling_price' => $arrayPrecioVenta[$cont],
                     'discounts' => $arrayDescuento[$cont],
-                    'tax' => $arrayImpuesto[$cont]
+                    'tax' => $arrayImpuesto[$cont],
+                    'iva' =>  $arrayimpuestoval[$cont]
                 ]
              ]);
 

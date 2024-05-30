@@ -27,6 +27,7 @@ class CreditNotePostRequest extends FormRequest
             'payments_methods' => 'required',
             'gross_totals' => 'required',
             'taxes_total' => 'required',
+            'total_discounts' => 'required',
             'net_total' => 'required',
             'date_credit_notes'=> 'required',
             'reason' => 'required',

@@ -17,7 +17,7 @@ class credit_note_sales extends Model
 
     public function productos(){
         return $this->belongsToMany(Product::class)->withTimestamps()
-        ->withPivot('references','amount','selling_price','discounts','tax');
+        ->withPivot('references','amount','selling_price','discounts','tax','iva');
     }
 
     public function venta()
