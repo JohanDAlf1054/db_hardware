@@ -53,6 +53,7 @@ class CustomerController extends Controller
     {
         $data = $request->all();
         $data['id'] = $person->id;
+        
 
         $rules = Person::staticRules($data);
 

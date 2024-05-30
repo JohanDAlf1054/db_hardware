@@ -233,15 +233,14 @@
                                                             {{ __('Ciudad') }}
                                                             <span class="text-danger">*</span>
                                                         </label>
-                                                        <select name="city" id="city" class="form-control selectpicker show-tick" data-live-search="true" data-dropup-auto="false" title="Selecciona la ciudad" data-size ='3'>
+                                                        <select name="city" id="city" class="form-control selectpicker show-tick" data-live-search="true" data-dropup-auto="false" title="Selecciona la ciudad" data-size='3'>
                                                             @foreach ($municipalities as $municipality)
-                                                                <option value="{{ $municipality->id }}">
-                                                                    {{ $municipality->name }},
-                                                                    {{ $municipality->department->name}},
-                                                                    {{ $municipality->department->country->name}}
+                                                                <option value="{{ $municipality->id }}" {{ $municipality->id == $person->city ? 'selected' : '' }}>
+                                                                    {{ $municipality->name }}, {{ $municipality->department->name }}, {{ $municipality->department->country->name }}
                                                                 </option>
                                                             @endforeach
                                                         </select>
+                                                        
                                                         @error('city')
                                                             <small class="text-danger">{{ '*' . $message }}</small>
                                                         @enderror
