@@ -255,13 +255,4 @@ a.selected {
 }
 
 
-/* Estilos selecpicker minicipalities */
-
-.dropdown-menu.show{
-    width: 100%;
-    max-width: none; 
-    min-width: 10px; 
-    box-sizing: border-box; 
-    overflow-x: auto; 
-}
 

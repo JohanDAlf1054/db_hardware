@@ -61,11 +61,7 @@ class ProductsExport implements FromCollection, WithHeadings, WithCustomStartCel
                 'brands_id'  => $marca,
                 'measurement_units_id' => $unidad,
                 'stock'  => $sale->stock,
-                'status' => $status,
-               
-               
-                
-              
+                'status' => $status,          
              
             ];
         });

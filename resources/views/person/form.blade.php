@@ -227,22 +227,6 @@
                                                     </div>
                                                 </div>
 
-                                                {{--  Correo electronico  --}}
-                                                <div class="col-sm-6 md-6">
-                                                    <div class="mb-3">
-                                                        <label for="email_address" class="form-label"
-                                                            style="font-weight: bolder">
-                                                            {{ __('Correo electrónico') }}
-                                                            <span class="text-danger">*</span>
-                                                        </label>
-                                                        {{ Form::text('email_address', $person->email_address, ['class' => 'form-control' . ($errors->has('email_address') ? ' is-invalid' : ''), 'placeholder' => 'Correo electrónico']) }}
-                                                        {!! $errors->first(
-                                                            'email_address',
-                                                            '<div class="invalid-feedback">El campo correo electrónico es obligatorio</div>',
-                                                        ) !!}
-                                                    </div>
-                                                </div>
-
 
                                                 {{--  Ciudad  --}}
                                                 <div class="col-sm-6 md-6">
@@ -277,6 +261,23 @@
                                                         {!! $errors->first('address', '<div class="invalid-feedback">El campo dirección es obligatorio</div>') !!}
                                                     </div>
                                                 </div>
+
+                                                {{--  Correo electronico  --}}
+                                                <div class="col-sm-6 md-6">
+                                                    <div class="mb-3">
+                                                        <label for="email_address" class="form-label"
+                                                            style="font-weight: bolder">
+                                                            {{ __('Correo electrónico') }}
+                                                            <span class="text-danger">*</span>
+                                                        </label>
+                                                        {{ Form::text('email_address', $person->email_address, ['class' => 'form-control' . ($errors->has('email_address') ? ' is-invalid' : ''), 'placeholder' => 'Correo electrónico']) }}
+                                                        {!! $errors->first(
+                                                            'email_address',
+                                                            '<div class="invalid-feedback">El campo correo electrónico es obligatorio</div>',
+                                                        ) !!}
+                                                    </div>
+                                                </div>
+
                                                 {{--  Número de celular  --}}
                                                 <div class="col-sm-6 md-6">
                                                     <div class="mb-3">

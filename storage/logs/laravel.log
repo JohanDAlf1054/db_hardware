@@ -9251,3 +9251,11 @@
 #64 C:\\laragon\\www\\db_hardware\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\resources\\server.php(16): require_once('...')
 #65 {main}
 "} 
+[2024-05-29 16:07:58] local.ERROR: Command "seevr" is not defined. {"exception":"[object] (Symfony\\Component\\Console\\Exception\\CommandNotFoundException(code: 0): Command \"seevr\" is not defined. at C:\\laragon\\www\\db_hardware\\vendor\\symfony\\console\\Application.php:737)
+[stacktrace]
+#0 C:\\laragon\\www\\db_hardware\\vendor\\symfony\\console\\Application.php(266): Symfony\\Component\\Console\\Application->find()
+#1 C:\\laragon\\www\\db_hardware\\vendor\\symfony\\console\\Application.php(175): Symfony\\Component\\Console\\Application->doRun()
+#2 C:\\laragon\\www\\db_hardware\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php(201): Symfony\\Component\\Console\\Application->run()
+#3 C:\\laragon\\www\\db_hardware\\artisan(35): Illuminate\\Foundation\\Console\\Kernel->handle()
+#4 {main}
+"} 
