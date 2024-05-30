@@ -207,7 +207,13 @@
                                 </div>
                             </div>
                             <div class="card-footer text-end">
-                                <a class="btn btn-primary" style="margin-right: 5rem" href="{{ route('person.index') }}">Regresar</a>
+                                @if($table === 'supplier')
+                                    <a class="btn btn-primary" href="{{ route('supplier.index') }}">Regresar</a>
+                                @elseif ($table === 'customer')
+                                    <a class="btn btn-primary" href="{{ route('customer.index') }}">Regresar</a>
+                                @elseif ($table === 'person')
+                                <a class="btn btn-primary" href="{{ route('person.index') }}">Regresar</a>
+                                @endif
                             </div>
                         </div>
                     </div>

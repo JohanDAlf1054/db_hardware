@@ -27,14 +27,20 @@
                                     <div class="dropdown">
                                         <button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown"
                                             aria-expanded="false">Acciones</button>
-                                        <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="{{ route('person.create') }}">Crear nueva
-                                                    persona</a></li>
-                                            <li><a class="dropdown-item" href="{{ route('person.index') }}">Mostrar tabla
-                                                    general</a></li>
-                                            <li><a class="dropdown-item" href="{{ route('customer.index') }}">Mostrar
-                                                    clientes</a></li>
-                                        </ul>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <a class="dropdown-item" href="{{ route('person.create') }}">Crear nueva persona</a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item" href="{{ route('supplier.index') }}">Mostrar proveedores</a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item" href="{{ route('customer.index') }}">Mostrar clientes</a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item" href="{{ route('person.index')}}">Tabla general de terceros</a>
+                                                </li>
+                                            </ul>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12">
@@ -45,10 +51,10 @@
                                         <button type="submit" class="btn btn-dark">Buscar</button>
 
                                         {{-- Botones EXPORTAR --}}
-                                    
+
                                         <button type="button" class="btn btn-success ms-2 rounded" tooltip="tooltip"
-                                            title="Exportar" onclick="window.location.href='{{ route('export.supplier') }}'">
-                                            <i class="fa-solid fa-file-arrow-down"></i>
+                                            title="Excel" onclick="window.location.href='{{ route('export.supplier') }}'">
+                                            <i class="fa-solid fa-file-excel"></i>
                                         </button>
 
                                         <button type="button" class="btn btn-danger ms-2 rounded" tooltip="tooltip"
