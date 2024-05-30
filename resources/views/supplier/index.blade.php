@@ -27,14 +27,20 @@
                                     <div class="dropdown">
                                         <button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown"
                                             aria-expanded="false">Acciones</button>
-                                        <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="{{ route('person.create') }}">Crear nueva
-                                                    persona</a></li>
-                                            <li><a class="dropdown-item" href="{{ route('person.index') }}">Mostrar tabla
-                                                    general</a></li>
-                                            <li><a class="dropdown-item" href="{{ route('customer.index') }}">Mostrar
-                                                    clientes</a></li>
-                                        </ul>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <a class="dropdown-item" href="{{ route('person.create') }}">Crear nueva persona</a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item" href="{{ route('supplier.index') }}">Mostrar proveedores</a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item" href="{{ route('customer.index') }}">Mostrar clientes</a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item" href="{{ route('person.index')}}">Tabla general de terceros</a>
+                                                </li>
+                                            </ul>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12">
@@ -44,14 +50,16 @@
                                             aria-label="Buscar persona" placeholder="Buscar persona....">
                                         <button type="submit" class="btn btn-dark">Buscar</button>
 
-                                        {{-- Botones IMPORTAR Y EXPORTAR --}}
+                                        {{-- Botones EXPORTAR --}}
+
+                                        <button type="button" class="btn btn-success ms-2 rounded" tooltip="tooltip"
+                                            title="Excel" onclick="window.location.href='{{ route('export.supplier') }}'">
+                                            <i class="fa-solid fa-file-excel"></i>
+                                        </button>
+
                                         <button type="button" class="btn btn-danger ms-2 rounded" tooltip="tooltip"
                                             title="PDF" onclick="window.location.href='{{ route('supplier.pdf') }}'">
                                             <i class="fa-solid fa-file-pdf"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-success ms-2 rounded" tooltip="tooltip"
-                                            title="Exportar" onclick="window.location.href='{{ route('export.supplier') }}'">
-                                            <i class="fa-solid fa-file-arrow-down"></i>
                                         </button>
                                     </form>
                                 </div>
@@ -116,7 +124,7 @@
                                                     <td>{{ $proveedor->second_surname }}</td>
                                                     <td>{{ $proveedor->comercial_name }}</td>
                                                     <td>{{ $proveedor->email_address }}</td>
-                                                    <td>{{ $proveedor->city }}</td>
+                                                    <td>{{ $proveedor->municipality->name }}</td>
                                                     <td>{{ $proveedor->address }}</td>
                                                     <td>{{ $proveedor->phone }}</td>
                                                     <td>
@@ -130,10 +138,10 @@
                                                     </td>
                                                     <td>
                                                         <a class="btn btn-sm btn-primary" tooltip="tooltip" title="Visualizar"
-                                                            href="{{ route('person.show', $proveedor->id) }}"><i
+                                                            href="{{ route('supplier.show', $proveedor->id) }}"><i
                                                                 class="fa fa-fw fa-eye"></i></a>
                                                         <a class="btn btn-sm btn-success" tooltip="tooltip" title="Modificar"
-                                                            href="{{ route('person.edit', $proveedor->id) }}"><i
+                                                            href="{{ route('supplier.edit', $proveedor->id) }}"><i
                                                                 class="fa fa-fw fa-edit"></i></a>
 
                                                         {{--  <!-- Button trigger modal -->  --}}

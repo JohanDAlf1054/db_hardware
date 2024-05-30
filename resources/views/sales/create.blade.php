@@ -135,9 +135,6 @@
                         </div>
                         <div class="p-3 border border-3 border-success">
                             <div class="row gy-4">
-
-
-
                                 <!--Cliente-->
                                 <div class="col-12">
                                     <label for="clients_id" class="form-label">Cliente:</label>
@@ -149,11 +146,7 @@
                                     @error('clients_id')
                                     <small class="text-danger">{{ '*'.$message }}</small>
                                     @enderror
-                                </div>
-
-
-
-                                
+                                </div>                                
                                 <!--Fecha--->
                                 <div class="col-sm-12">
                                     <label for="dates" class="form-label">Fecha:</label>
@@ -293,6 +286,11 @@
             return $(this).val() == idProducto;
         }).length > 0) {
             showModal('El producto ya está en la lista');
+            return;
+        }
+
+        if (parseFloat(descuento) > parseFloat(precioVenta)) {
+            showModal('El descuento no puede ser mayor que el precio del producto');
             return;
         }
         

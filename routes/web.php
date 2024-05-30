@@ -134,6 +134,7 @@ Route::get('Products/pdf',[ProductController::class, 'pdf'])->name('products.pdf
 Route::get('Sales/pdf',[SalesController::class, 'pdf'])->name('sales.pdf');
 Route::get('Credit-note-sales/pdf', [CreditNoteSalesController::class, 'pdf'])->name('credit-note-sales.pdf');
 Route::get('Detail-purchases/pdf',[DetailPurchaseController::class,'pdf'])->name('detail-purchases.pdf');
+Route::get('Debit-note-supplier/pdf', [debitNoteSupplierController::class,'pdf'])->name('debit-note-supplier.pdf');
 
 //Funciones De Compras
 Route::resource('purchase_supplier', App\Http\Controllers\PurchaseSupplierController::class);

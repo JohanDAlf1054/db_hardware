@@ -19,10 +19,15 @@ class CustomerController extends Controller
             ->where('rol', 'Cliente')
             ->when($filtervalue, function ($query) use ($filtervalue) {
                 return $query->where('identification_number', 'like', '%' . $filtervalue . '%')
-                    ->orWhere('first_name', 'like', '%' . $filtervalue . '%')
-                    ->orWhere('surname', 'like', '%' . $filtervalue . '%')
-                    ->orWhere('email_address', 'like', '%' . $filtervalue . '%')
-                    ->orWhere('company_name', 'like', '%' . $filtervalue . '%');
+                ->orWhere('first_name','like','%'.$filtervalue.'%')
+                ->orWhere('identification_number','like','%'.$filtervalue.'%')
+                ->orWhere('first_name','like','%'.$filtervalue.'%')
+                ->orWhere('other_name','like','%'.$filtervalue.'%')
+                ->orWhere('surname','like','%'.$filtervalue.'%')
+                ->orWhere('second_surname','like','%'.$filtervalue.'%')
+                ->orWhere('email_address','like','%'.$filtervalue.'%')
+                ->orWhere('company_name','like','%'.$filtervalue.'%')
+                ->orWhere('phone','like','%'.$filtervalue.'%');
             })
             ->paginate();
 

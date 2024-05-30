@@ -27,14 +27,20 @@
                                     <div class="dropdown">
                                         <button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown"
                                             aria-expanded="false">Acciones</button>
-                                        <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="{{ route('person.create') }}">Crear nueva
-                                                    persona</a></li>
-                                            <li><a class="dropdown-item" href="{{ route('supplier.index') }}">Mostrar
-                                                    proveedores</a></li>
-                                            <li><a class="dropdown-item" href="{{ route('person.index') }}">Mostrar la tabla
-                                                    general</a></li>
-                                        </ul>
+                                            <ul class="dropdown-menu">
+                                                <li>
+                                                    <a class="dropdown-item" href="{{ route('person.create') }}">Crear nueva persona</a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item" href="{{ route('supplier.index') }}">Mostrar proveedores</a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item" href="{{ route('customer.index') }}">Mostrar clientes</a>
+                                                </li>
+                                                <li>
+                                                    <a class="dropdown-item" href="{{ route('person.index')}}">Tabla general de terceros</a>
+                                                </li>
+                                            </ul>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12">
@@ -44,16 +50,18 @@
                                             aria-label="Buscar persona" placeholder="Buscar persona....">
                                         <button type="submit" class="btn btn-dark">Buscar</button>
 
-                                        {{-- Botones IMPORTAR Y EXPORTAR --}}
+                                        {{-- Botones EXPORTAR --}}
+
+                                        <button type="button" class="btn btn-success ms-2 rounded" data-bs-toggle="tooltip"
+                                            title="Excel" onclick="window.location.href='{{ route('export.customer') }}'">
+                                            <i class="fa-solid fa-file-excel"></i>
+                                        </button>
+
                                         <button type="button" class="btn btn-danger ms-2 rounded" tooltip="tooltip"
                                             title="PDF" onclick="window.location.href='{{ route('customer.pdf') }}'">
                                             <i class="fa-solid fa-file-pdf"></i>
                                         </button>
 
-                                        <button type="button" class="btn btn-success ms-2 rounded" data-bs-toggle="tooltip"
-                                            title="Exportar" onclick="window.location.href='{{ route('export.customer') }}'">
-                                            <i class="fa-solid fa-file-arrow-down"></i>
-                                        </button>
                                     </form>
                                 </div>
                             </div>
@@ -116,7 +124,7 @@
                                                     <td>{{ $cliente->second_surname }}</td>
                                                     <td>{{ $cliente->comercial_name }}</td>
                                                     <td>{{ $cliente->email_address }}</td>
-                                                    <td>{{ $cliente->city }}</td>
+                                                    <td>{{ $cliente->municipality->name }}</td>
                                                     <td>{{ $cliente->address }}</td>
                                                     <td>{{ $cliente->phone }}</td>
                                                     <td>

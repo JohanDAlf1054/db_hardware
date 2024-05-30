@@ -3,7 +3,7 @@
 namespace App\Exports;
 
 use App\Models\Person;
-use Maatwebsite\Excel\Concerns\FromQuery;
+use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
@@ -19,7 +19,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use Maatwebsite\Excel\Concerns\WithTitle;
 
 
-class PeopleExport implements FromQuery, WithHeadings, WithCustomStartCell, WithTitle, WithEvents
+class PeopleExport implements FromCollection, WithHeadings, WithCustomStartCell, WithTitle, WithEvents
 {
     use Exportable;
 
@@ -64,19 +64,26 @@ class PeopleExport implements FromQuery, WithHeadings, WithCustomStartCell, With
 
     public function query()
     {
+        $query = Person::query()
+            ->select('rol', 'identification_type', 'identification_number', 'digit_verification', 'company_name', 'first_name', 'other_name', 'surname', 'second_surname', 'comercial_name', 'email_address', 'city', 'address', 'phone', 'status');
+
         if ($this->role === 'supplier') {
-            return Person::query()
-                ->select('rol', 'identification_type', 'identification_number', 'digit_verification', 'company_name', 'first_name', 'other_name', 'surname', 'second_surname', 'comercial_name', 'email_address', 'city', 'address', 'phone')
-                ->where('rol', 'Proveedor');
+            $query->where('rol', 'Proveedor');
         } elseif ($this->role === 'customer') {
-            return Person::query()
-                ->select('rol', 'identification_type', 'identification_number', 'digit_verification', 'company_name', 'first_name', 'other_name', 'surname', 'second_surname', 'comercial_name', 'email_address', 'city', 'address', 'phone')
-                ->where('rol', 'Cliente');
+            $query->where('rol', 'Cliente');
         } else {
-            return Person::query()
-                ->select('rol', 'identification_type', 'identification_number', 'digit_verification', 'company_name', 'first_name', 'other_name', 'surname', 'second_surname', 'comercial_name', 'email_address', 'city', 'address', 'phone')
-                ->whereIn('rol', ['proveedor', 'cliente']);
+            $query->whereIn('rol', ['proveedor', 'cliente']);
         }
+
+        // Aplicar la transformación para el estado
+        return $query->get()->map(function ($person) {
+            $person->status = $person->status ? 'Activo' : 'Inactivo';
+            return $person;
+        });
+    }
+    public function collection()
+    {
+        return $this->query();
     }
 
     public function startCell(): string
@@ -103,13 +110,26 @@ class PeopleExport implements FromQuery, WithHeadings, WithCustomStartCell, With
                 $drawing->setCoordinates('A1'); // Celda donde se insertará la imagen
                 $drawing->setWorksheet($sheet->getDelegate());
 
+                foreach($sheet->getDelegate()->getRowIterator() as $row){
+                    foreach ($row->getCellIterator() as $cell){
+                        if($cell->getValue() === 'Activo'){
+                            $cell->getStyle()->applyFromArray([
+                                'font' => ['color' => ['argb' => 'FF28a745']],
+                            ]);
+                        }elseif($cell->getValue() === 'Inactivo'){
+                            $cell->getStyle()->applyFromArray([
+                                'font' => ['color' => ['argb' => 'FFdc3545']],
+                            ]);
+                        }
+                    }
+                }
             // Ajustar automáticamente el tamaño de las columnas según su contenido
             foreach ($sheet->getColumnIterator() as $column) {
                 $sheet->getDelegate()->getColumnDimension($column->getColumnIndex())->setAutoSize(true);
             }
 
             // Definir el rango desde A1 hasta L4 para el encabezado
-            $headerRange = 'A1:N3';
+            $headerRange = 'A1:O3';
 
             // Aplicar color azul al encabezado
             $sheet->getDelegate()->getStyle($headerRange)->applyFromArray([
@@ -129,7 +149,7 @@ class PeopleExport implements FromQuery, WithHeadings, WithCustomStartCell, With
                 ],
             ]);
 
-            $sheet->getDelegate()->getStyle('A5:N5')->applyFromArray([
+            $sheet->getDelegate()->getStyle('A5:O5')->applyFromArray([
                 'fill' => [
                     'fillType' => Fill::FILL_SOLID,
                     'startColor' => ['argb' => 'd3d3d3'], // Gris claro
@@ -145,10 +165,10 @@ class PeopleExport implements FromQuery, WithHeadings, WithCustomStartCell, With
                 ],
             ]);
 
-            
+
             $title = $this->title();
             // Fusionar celdas para el encabezado
-            $sheet->getDelegate()->mergeCells('A1:N1');
+            $sheet->getDelegate()->mergeCells('A1:O1');
             $sheet->setCellValue('A1', 'Informe de ' . $title);
             $sheet->getStyle('A1')->getFont()->setSize(20); // Tamaño de letra para "Informe de Ventas"
             $sheet->getStyle('A1')->getFont()->setBold(true); // Ajustar a negrita
@@ -156,14 +176,14 @@ class PeopleExport implements FromQuery, WithHeadings, WithCustomStartCell, With
             $sheet->getStyle('A1')->getFont()->getColor()->setARGB(Color::COLOR_WHITE); // Letra blanca
 
             // Agregar "Ferretería La Excelencia" y "NIT 9.524.275" en celdas separadas
-            $sheet->getDelegate()->mergeCells('A2:N2');
+            $sheet->getDelegate()->mergeCells('A2:O2');
             $sheet->setCellValue('A2', 'Ferretería La Excelencia');
             $sheet->getStyle('A2')->getFont()->setSize(16); // Tamaño de letra para "Ferretería La Excelencia"
             $sheet->getStyle('A2')->getFont()->setBold(false); // Ajustar a negrita
             $sheet->getStyle('A2')->getAlignment()->setWrapText(true);
             $sheet->getStyle('A2')->getFont()->getColor()->setARGB(Color::COLOR_WHITE); // Letra blanca
 
-            $sheet->getDelegate()->mergeCells('A3:N3');
+            $sheet->getDelegate()->mergeCells('A3:O3');
             $sheet->setCellValue('A3', 'NIT 9.524.275');
             $sheet->getStyle('A3')->getFont()->setSize(14); // Tamaño de letra para "NIT 9.524.275"
             $sheet->getStyle('A3')->getFont()->setBold(false); // Ajustar a negrita
@@ -182,7 +202,8 @@ class PeopleExport implements FromQuery, WithHeadings, WithCustomStartCell, With
             ]);
         },
     ];
+
 }
-    
-    
+
+
 }

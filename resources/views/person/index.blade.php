@@ -32,12 +32,15 @@
                                         <button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown"
                                             aria-expanded="false">Acciones</button>
                                         <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="{{ route('person.create') }}">Crear nueva
-                                                    persona</a></li>
-                                            <li><a class="dropdown-item" href="{{ route('supplier.index') }}">Mostrar
-                                                    proveedores</a></li>
-                                            <li><a class="dropdown-item" href="{{ route('customer.index') }}">Mostrar
-                                                    clientes</a></li>
+                                            <li>
+                                                <a class="dropdown-item" href="{{ route('person.create') }}">Crear nueva persona</a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="{{ route('supplier.index') }}">Mostrar proveedores</a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="{{ route('customer.index') }}">Mostrar clientes</a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
@@ -50,8 +53,8 @@
                                         {{-- Botones IMPORTAR Y EXPORTAR --}}
 
                                         <button type="button" class="btn btn-success ms-2 rounded" tooltip="tooltip"
-                                            title="Exportar" onclick="window.location.href='{{ route('export.person') }}'">
-                                            <i class="fa-solid fa-file-arrow-down"></i>
+                                            title="Excel" onclick="window.location.href='{{ route('export.person') }}'">
+                                            <i class="fa-solid fa-file-excel"></i>
                                         </button>
 
                                         <button type="button" class="btn btn-danger ms-2 rounded" tooltip="tooltip"
@@ -123,7 +126,7 @@
                                                     <td>{{ $person->second_surname }}</td>
                                                     <td>{{ $person->comercial_name }}</td>
                                                     <td>{{ $person->email_address }}</td>
-                                                    <td>{{ $person->municipalities->name }}</td>
+                                                    <td>{{ $person->municipality->name }}</td>
                                                     <td>{{ $person->address }}</td>
                                                     <td>{{ $person->phone }}</td>
                                                     <td>

@@ -169,7 +169,7 @@
                                                     {{ __('Ciudad') }}
                                                     <span class="text-info">*</span>
                                                 </label>
-                                                <input type="text" class="form-control" id="rol" value="{{$person->city}}" readonly>
+                                                <input type="text" class="form-control" id="rol" value="{{$person->municipality->name}}" readonly>
                                             </div>
                                         </div>
                                         <div class="col-sm-6 md-6">
@@ -207,7 +207,13 @@
                                 </div>
                             </div>
                             <div class="card-footer text-end">
-                                <a class="btn btn-primary" style="margin-right: 5rem" href="{{ route('person.index') }}">Regresar</a>
+                                @if($table === 'supplier')
+                                    <a class="btn btn-primary" href="{{ route('supplier.index') }}">Regresar</a>
+                                @elseif ($table === 'customer')
+                                    <a class="btn btn-primary" href="{{ route('customer.index') }}">Regresar</a>
+                                @elseif ($table === 'person')
+                                <a class="btn btn-primary" href="{{ route('person.index') }}">Regresar</a>
+                                @endif
                             </div>
                         </div>
                     </div>

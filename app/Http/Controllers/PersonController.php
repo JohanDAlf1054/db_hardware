@@ -38,9 +38,15 @@ class PersonController extends Controller
                 return $query->where('identification_number','like','%'.$filtervalue.'%');
             })
             ->orWhere('first_name','like','%'.$filtervalue.'%')
+            ->orWhere('identification_number','like','%'.$filtervalue.'%')
+            ->orWhere('first_name','like','%'.$filtervalue.'%')
+            ->orWhere('other_name','like','%'.$filtervalue.'%')
             ->orWhere('surname','like','%'.$filtervalue.'%')
+            ->orWhere('second_surname','like','%'.$filtervalue.'%')
             ->orWhere('email_address','like','%'.$filtervalue.'%')
             ->orWhere('company_name','like','%'.$filtervalue.'%')
+            ->orWhere('city','like','%'.$filtervalue.'%')
+            ->orWhere('phone','like','%'.$filtervalue.'%')
             ->paginate();
 
         // Retorna la vista con la lista de personas
@@ -60,12 +66,11 @@ class PersonController extends Controller
     public function create()
     {
         $person = new Person();
-        
+        $table = 'person';
         $municipalities = Municipality::with('department.country')->get();
-        $departments = Department::select('id', 'name')->get();
-        $countries = Country::select('id', 'name')->get();
-        
-        return view('person.create', compact('person', 'municipalities', 'departments', 'countries'));
+        $people = Person::with('municipality')->get();
+
+        return view('person.create', compact('person', 'municipalities', 'people', 'table'));
     }
 
     /**
@@ -121,7 +126,6 @@ class PersonController extends Controller
             return redirect()->route('person.index');
         }
 
-
     }
 
 
@@ -147,9 +151,11 @@ class PersonController extends Controller
      */
     public function edit($id)
     {
-        $person = Person::find($id);
+        $person = Person::with('municipality')->findOrFail($id);
+        $municipalities = Municipality::with('department.country')->get();
 
-        return view('person.edit', compact('person'));
+        return view('person.edit', compact('person', 'municipalities'));
+
     }
 
     /**
