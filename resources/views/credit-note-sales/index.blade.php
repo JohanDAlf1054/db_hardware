@@ -23,16 +23,20 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-12">
-                            <button type="button" class="btn btn-dark dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">Acciones
-                                <span class="visually-hidden">Acciones</span>
-                            </button>
-                            <ul class="dropdown-menu desplegable_acciones">
-                                <div class="acciones_boton">
-                                    <li><a class="dropdown-item" href="{{ route('sales.create') }}">Crear nueva venta</a></li>
-                                    <li><a class="dropdown-item" href="{{ route('credit-note-sales.index') }}">Mostrar Nota crédito</a></li>
-                                    <li><a class="dropdown-item" href="{{ route('credit-note-sales.create') }}">Crear nota crédito</a></li>
-                                </div>
-                            </ul>
+
+                            {{-- Desplegable de opciones --}}
+                            <div class="dropdown">
+                                <button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown"
+                                    aria-expanded="false">Acciones</button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="{{ route('sales.create') }}">Crear
+                                            venta</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('credit-note-sales.create') }}">Crear
+                                            nota crédito</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('credit-note-sales.index') }}">Mostrar
+                                        nota crédito</a></li>
+                                </ul>
+                            </div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-12">
                             <form action="{{ route('credit-note-sales.index') }}" method="get" class="d-flex align-items-center">
@@ -60,14 +64,14 @@
                                 <table class="table table-striped table-hover" style="width:100%" id="datatable">
                                     <thead class="table-dark">
                                         <tr style="text-align: center">
-                                            <th>Id</th>
-                                            <th>Fecha de venta</th>
-                                            <th>Vendedor</th>
-                                            <th>Forma de pago</th>
+                                            <th>No</th>
+                                            <th>Fecha Elaboración</th>
+                                            <Th>Identificación</th>
+                                            <th>Nombre Tercero</th>
                                             <th>Total Bruto</th>
-                                            <th>Total Impuesto</th>
-                                            <th>Total Neto</th>
-                                            <th>Fecha Nota Crédito</th>
+                                            <th>IVA</th>
+                                            <th>Total descuento</th>
+                                            <th>Total factura</th>
                                             <th>Motivo</th>
                                             <th>Estado</th>
                                             <th>Acciones</th>
@@ -77,13 +81,13 @@
                                         @foreach ($ventasFiltradas  as $sale)
                                         <tr style="text-align: center">
                                             <td>{{$sale->id}}</td>
-                                            <td>{{$sale->date_invoice}}</td>
-                                            <td>{{$sale->sellers}}</td>
-                                            <td>{{$sale->payments_methods}}</td>
-                                            <td>{{$sale->gross_totals}}</td>
-                                            <td>{{$sale->taxes_total}}</td>
-                                            <td>{{$sale->net_total}}</td>
                                             <td>{{$sale->date_credit_notes}}</td>
+                                            <td>{{$sale->cliente->identification_number}}</td>
+                                            <td>{{ "{$sale->cliente->company_name} {$sale->cliente->first_name} {$sale->cliente->other_name} {$sale->cliente->surname} {$sale->cliente->second_surname}" }}</td>
+                                            <td>${{ number_format($sale->gross_totals, 2, '.', ',') }}</td>
+                                            <td>${{ number_format($sale->taxes_total, 2, '.', ',') }}</td>
+                                            <td>${{ number_format($sale->total_discounts, 2, '.', ',') }}</td>
+                                            <td>${{ number_format($sale->net_total, 2, '.', ',') }}</td>
                                             <td>{{$sale->reason}}</td>
                                             <td>
                                                 @if($sale->status == True)

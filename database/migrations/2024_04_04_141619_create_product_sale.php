@@ -15,11 +15,12 @@ return new class extends Migration
             $table->id();
             $table->foreignId('sale_id')->constrained('sales')->onDelete('cascade');
             $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
-            $table->string('references');
             $table->integer('amount');
-            $table->decimal('selling_price',10,2);
-            $table->decimal('discounts',8,2);   
+            $table->string('references');
+            $table->decimal('selling_price');
+            $table->decimal('discounts');   
             $table->decimal('tax');   
+            $table->decimal('iva');   
             $table->timestamps();
         });
     }

@@ -137,14 +137,14 @@
                                         <table id="tablaDetalleVenta" class="table table-hover w-100">
                                             <thead class="bg-dark-blue">
                                                 <tr>
-                                                    <th>Id</th>
                                                     <th>Producto</th>
-                                                    <th>Referencia</th>
                                                     <th>Cantidad</th>
-                                                    <th>Precio de Venta</th>
+                                                    <th>Referencia</th>
+                                                    <th>Precio Unitario</th>
                                                     <th>Descuento</th>
-                                                    <th>Impuesto</th>
-                                                    <th>Subtototal</th>
+                                                    <th>%</th>
+                                                    <th>Iva</th>
+                                                    <th>Precio unitario de venta</th>   
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -154,7 +154,23 @@
                                             <div class="col-md-12 text-end">
                                                 <div class="row">
                                                     <div class="col-md-6 text-end">
-                                                        <label for="gross_totals" class="form-label">Sumas:</label>
+                                                        <label for="subtotal" class="form-label">Subtotal:</label>
+                                                    </div>
+                                                    <div class="col-md-6 text-end">
+                                                        <input type="number" id="subtotal" name="subtotal" value="0" class="form-control transparent-input" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6 text-end">
+                                                        <label for="total_discounts" class="form-label">Total Descuento:</label>
+                                                    </div>
+                                                    <div class="col-md-6 text-end">
+                                                        <input type="number" id="total_discounts" name="total_discounts" value="0" class="form-control transparent-input" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6 text-end">
+                                                        <label for="gross_totals" class="form-label">Total Bruto:</label>
                                                     </div>
                                                     <div class="col-md-6 text-end">
                                                         <input type="number" id="gross_totals" name="gross_totals" value="0" class="form-control transparent-input" readonly>
@@ -162,7 +178,7 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-6 text-end">
-                                                        <label for="taxes_total" class="form-label">Impuesto:</label>
+                                                        <label for="taxes_total" class="form-label">Iva:</label>
                                                     </div>
                                                     <div class="col-md-6 text-end">
                                                         <input type="number" id="taxes_total" name="taxes_total" value="0" class="form-control transparent-input" readonly>
@@ -170,7 +186,7 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-md-6 text-end">
-                                                        <label for="net_total" class="form-label">Total:</label>
+                                                        <label for="net_total" class="form-label">Total Factura:</label>
                                                     </div>
                                                     <div class="col-md-6 text-end">
                                                         <input type="number" id="net_total" name="net_total" value="0" class="form-control transparent-input" readonly>
@@ -204,117 +220,142 @@
 @push('js')
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/js/bootstrap-select.min.js"></script>
 <script>
-    $(document).ready(function() {
-        // Capturar el evento change del select #datos
-        $('#datos').change(mostrarValores);
+   $(document).ready(function() {
+    // Capturar el evento change del select #datos
+    $('#datos').change(mostrarValores);
 
-        // Adjuntar evento input a los inputs de cantidad
-        $(document).on('input', 'input[name="amount[]"]', recalcularPrecios);
-    });
+    // Adjuntar evento input a los inputs de cantidad y precio de venta
+    $(document).on('input', 'input[name="amount[]"], input[name="selling_price[]"]', recalcularPrecios);
+
+    // Inicializar selectpicker de Bootstrap para los selects
+    $('.selectpicker').selectpicker();
+});
 
     function mostrarValores() {
-        let dataVenta = document.getElementById('datos').value.split('-');
-        let fecha = dataVenta.slice(1, 4).join('-');
-        $('#cliente-id').val(dataVenta[5]);
-        $('#clients_id').val(dataVenta[6]); // suponiendo que dataVenta[6] es el ID del cliente
-        $('#date_invoice').val(fecha);
-        $('#sellers').val(dataVenta[4]); // suponiendo que dataVenta[4] es el ID del vendedor
-        $('#payments_methods').val(dataVenta[7]); // suponiendo que dataVenta[7] es el método de pago
-        let selectedSaleId = dataVenta[0]; // Obtener el ID de la venta seleccionada
-        $('#sale_id').val(selectedSaleId); // Guardar el ID de la venta seleccionada en el campo sale_id
-        let totalSubtotales = 0; // Variable para el total de subtotales
-        let totalImpuestos = 0;   // Variable para el total de impuestos
+    let dataVenta = document.getElementById('datos').value.split('-');
+    let fecha = dataVenta.slice(1, 4).join('-');
+    $('#cliente-id').val(dataVenta[5]);
+    $('#clients_id').val(dataVenta[6]); // suponiendo que dataVenta[6] es el ID del cliente
+    $('#date_invoice').val(fecha);
+    $('#sellers').val(dataVenta[4]); // suponiendo que dataVenta[4] es el ID del vendedor
+    $('#payments_methods').val(dataVenta[7]); // suponiendo que dataVenta[7] es el método de pago
+    let selectedSaleId = dataVenta[0]; // Obtener el ID de la venta seleccionada
+    $('#sale_id').val(selectedSaleId); // Guardar el ID de la venta seleccionada en el campo sale_id
+    let totalSubtotales = 0; // Variable para el total de subtotales
+    let totalDescuentos = 0; // Variable para el total de descuentos
+    let totalImpuestos = 0; // Variable para el total de impuestos
 
-        // Realizar una solicitud AJAX al servidor para obtener el detalle de la venta
-        $.ajax({
-            url: '/obtener-detalle-venta',
-            type: 'GET',
-            data: { sale_id: selectedSaleId },
-            success: function(response) {
-                // Limpiar la tabla de productos antes de agregar los nuevos
-                $('#tablaDetalleVenta tbody').empty();
+    // Realizar una solicitud AJAX al servidor para obtener el detalle de la venta
+    $.ajax({
+        url: '/obtener-detalle-venta',
+        type: 'GET',
+        data: { sale_id: selectedSaleId },
+        success: function(response) {
+            // Limpiar la tabla de productos antes de agregar los nuevos
+            $('#tablaDetalleVenta tbody').empty();
 
-                // Iterar sobre los detalles de venta y agregarlos a la tabla
-                response.detallesVenta.forEach(function(detalle) {
-                    // Calcular subtotal
-                    var subtotal = (detalle.amount * detalle.selling_price) - detalle.discounts;
-                    totalSubtotales += subtotal;
+            // Iterar sobre los detalles de venta y agregarlos a la tabla
+            response.detallesVenta.forEach(function(detalle) {
+                // Calcular subtotal
+                var subtotal = (detalle.amount * detalle.selling_price);
+                totalSubtotales += subtotal;
 
-                    // Calcular impuesto
-                    var impuesto = (detalle.selling_price * detalle.tax) / 100;
-                    totalImpuestos += impuesto;
+                // Calcular impuesto
+                var impuesto = detalle.tax;
+                totalImpuestos += (subtotal * impuesto) / 100;
 
-                    $('#tablaDetalleVenta tbody').append(`
-                        <tr>
-                            <td><input type="text" name="arrayidproducto[]" class="form-control" value="${detalle.product_id}" readonly></td>
-                            <td><input type="text" name="arrayname[]" class="form-control" value="${detalle.producto.name_product}" readonly></td>
-                            <td><input type="text" name="arrayreference[]" class="form-control" value="${detalle.references}" readonly></td>
-                            <td><input type="text" name="amount[]" class="form-control" value="${detalle.amount}"></td>
-                            <td><input type="text" name="selling_price[]" class="form-control" value="${detalle.selling_price}" readonly></td>
-                            <td><input type="text" name="discounts[]" class="form-control" value="${detalle.discounts}" readonly></td>
-                            <td><input type="text" name="tax[]" class="form-control" value="${detalle.tax}" readonly></td>
-                            <input type="hidden" class="td-impuesto" value="${impuesto.toFixed(2)}">
-                            <td class="td-subtotal">${subtotal.toFixed(2)}</td>
-                        </tr>
-                    `);
-                });
+                // Calcular descuentos totales
+                totalDescuentos += parseFloat(detalle.discounts);
 
-                // Calcular el total final sumando el total de subtotales y el total de impuestos
-                var total = totalSubtotales + totalImpuestos;
+                $('#tablaDetalleVenta tbody').append(`
+                    <tr>
+                        <input type="hidden" name="arrayidproducto[]" class="form-control" value="${detalle.product_id}" readonly>
+                        <td><input type="text" name="arrayname[]" class="form-control" value="${detalle.producto.name_product}" readonly></td>
+                        <td><input type="text" name="amount[]" class="form-control" value="${detalle.amount}"></td>
+                        <td><input type="text" name="arrayreference[]" class="form-control" value="${detalle.references}" readonly></td>
+                        <td><input type="text" name="selling_price[]" class="form-control" value="${detalle.selling_price}"></td>
+                        <td><input type="text" name="discounts[]" class="form-control" value="${detalle.discounts}" readonly></td>
+                        <td><input type="text" name="tax[]" class="form-control" value="${detalle.tax}" readonly></td>
+                        <td><input type="text" name="arrayimpuestoval[]" class="form-control" value="${((subtotal * impuesto) / 100).toFixed(2)}" readonly></td>
+                        <td class="td-subtotal">${subtotal.toFixed(2)}</td>
+                    </tr>
+                `);
+            });
 
-                // Actualizar el valor del input de total de subtotales
-                $('#gross_totals').val(totalSubtotales.toFixed(2));
+            // Calcular el total bruto
+            var totalBruto = totalSubtotales - totalDescuentos;
+            var totalFactura = totalBruto + totalImpuestos;
+            
 
-                // Actualizar el valor del input de total de impuestos
-                $('#taxes_total').val(totalImpuestos.toFixed(2));
+            // Actualizar el valor del input de subtotal
+            $('#subtotal').val(totalSubtotales.toFixed(2));
 
-                // Actualizar el valor del input de total final
-                $('#net_total').val(total.toFixed(2));
-            },
-            error: function(xhr, status, error) {
-                console.error(error);
-            }
-        });
-    }
+            // Actualizar el valor del input de descuentos
+            $('#total_discounts').val(totalDescuentos.toFixed(2));
 
-    function recalcularPrecios() {
-        $('#tablaDetalleVenta tbody tr').each(function() {
-            var fila = $(this);
+            // Actualizar el valor del input de total bruto
+            $('#gross_totals').val(totalBruto.toFixed(2));
 
-            var cantidad = parseInt(fila.find('input[name="amount[]"]').val());
-            var precioVenta = parseFloat(fila.find('input[name="selling_price[]"]').val());
-            var descuento = parseFloat(fila.find('input[name="discounts[]"]').val());
-            var impuesto = parseFloat(fila.find('input[name="tax[]"]').val());
+            // Actualizar el valor del input de total de impuestos
+            $('#taxes_total').val(totalImpuestos.toFixed(2));
 
-            var subtotal = (cantidad * precioVenta) - descuento;
-            var impuestoTotal = (precioVenta * impuesto * cantidad) / 100; // El impuesto se calcula con la cantidad original
+            // Actualizar el valor del input de total factura
+            $('#net_total').val(totalFactura.toFixed(2));
+        },
+        error: function(xhr, status, error) {
+            console.error(error);
+        }
+    });
+}
 
-            fila.find('.td-subtotal').text(subtotal.toFixed(2));
-            fila.find('.td-impuesto').text(impuestoTotal.toFixed(2));
-        });
 
-        recalcularTotales(); // Se deben recalcular los totales después de recalcular los precios
-    }
+function recalcularPrecios() {
+    $('#tablaDetalleVenta tbody tr').each(function() {
+        var fila = $(this);
 
-    function recalcularTotales() {
-        var totalSubtotales = 0;
-        var totalImpuestos = 0;
+        var cantidad = parseInt(fila.find('input[name="amount[]"]').val());
+        var precioVenta = parseFloat(fila.find('input[name="selling_price[]"]').val());
+        var descuento = parseFloat(fila.find('input[name="discounts[]"]').val());
+        var impuesto = parseFloat(fila.find('input[name="tax[]"]').val());
 
-        $('#tablaDetalleVenta tbody tr').each(function() {
-            var subtotalFila = parseFloat($(this).find('.td-subtotal').text());
-            var impuestoFila = parseFloat($(this).find('.td-impuesto').text());
+        var subtotal = (cantidad * precioVenta);
+        var impuestoval = (subtotal * impuesto) / 100;
 
-            totalSubtotales += subtotalFila;
-            totalImpuestos += impuestoFila;
-        });
+        fila.find('.td-subtotal').text(subtotal.toFixed(2));
+        fila.find('input[name="arrayimpuestoval[]"]').val(impuestoval.toFixed(2));
+    });
 
-        var totalFinal = totalSubtotales + totalImpuestos;
+    recalcularTotales(); // Se deben recalcular los totales después de recalcular los precios
+}
 
-        $('#gross_totals').val(totalSubtotales.toFixed(2));
-        $('#taxes_total').val(totalImpuestos.toFixed(2));
-        $('#net_total').val(totalFinal.toFixed(2));
-    }
+function recalcularTotales() {
+    var totalSubtotales = 0;
+    var totalDescuentos = 0;
+    var totalImpuestos = 0;
 
+    $('#tablaDetalleVenta tbody tr').each(function() {
+        var subtotalFila = parseFloat($(this).find('.td-subtotal').text());
+        var descuentoFila = parseFloat($(this).find('input[name="discounts[]"]').val());
+        var impuestoFila = parseFloat($(this).find('input[name="arrayimpuestoval[]"]').val());
+
+        totalSubtotales += subtotalFila;
+        totalDescuentos += descuentoFila;
+        totalImpuestos += impuestoFila;
+    });
+
+    var totalBruto = totalSubtotales - totalDescuentos;
+    var totalFactura = totalBruto + totalImpuestos;
+
+
+
+    $('#subtotal').val(totalSubtotales.toFixed(2));
+    $('#total_discounts').val(totalDescuentos.toFixed(2));
+    $('#gross_totals').val(totalBruto.toFixed(2));
+    $('#taxes_total').val(totalImpuestos.toFixed(2));
+    $('#net_total').val(totalFactura.toFixed(2));
+}
+
+        
     // Función para mostrar la alerta con el mensaje personalizado
     function showModal(message, icon = 'error') {
         const Toast = Swal.mixin({
@@ -359,19 +400,28 @@
 
             // Verificar si hay campos de cantidad sin llenar o menores a 1
             const cantidadInputs = document.querySelectorAll('input[name="amount[]"]');
-            for (let i = 0; i < cantidadInputs.length; i++) {
-                const cantidad = parseInt(cantidadInputs[i].value);
-                if (!cantidad || cantidad < 1) {
-                    event.preventDefault(); // Detener el envío del formulario
-                    const productName = cantidadInputs[i].closest('tr').querySelector('input[name="arrayname[]"]').value;
-                    showModal(`Por favor, ingresa una cantidad válida (mayor o igual a 1) para el producto "${productName}".`, 'error');
-                    return; // Salir de la función al encontrar un campo sin llenar o con valor incorrecto
-                }
-            }
+for (let i = 0; i < cantidadInputs.length; i++) {
+    const cantidad = parseInt(cantidadInputs[i].value);
+    if (!cantidad || cantidad < 1) {
+        event.preventDefault(); // Detener el envío del formulario
+        const productName = cantidadInputs[i].closest('tr').querySelector('input[name="arrayname[]"]').value;
+        showModal(`Por favor, ingresa una cantidad válida (mayor o igual a 1) para el producto "${productName}".`, 'error');
+        return; // Salir de la función al encontrar un campo sin llenar o con valor incorrecto
+    }
+
+    const precioVenta = parseFloat(cantidadInputs[i].closest('tr').querySelector('input[name="selling_price[]"]').value);
+    if (!precioVenta || precioVenta <= 0) {
+        event.preventDefault(); // Detener el envío del formulario
+        const productName = cantidadInputs[i].closest('tr').querySelector('input[name="arrayname[]"]').value;
+        showModal(`Por favor, ingresa un precio de venta válido (mayor a 0) para el producto "${productName}".`, 'error');
+        return; // Salir de la función al encontrar un campo sin llenar o con valor incorrecto
+    }
+}
         });
     });
 </script>
 @endpush
+
 @else
     <div class="mensaje_Rol">
         <img src="{{ asset('img/Rol_no_asignado.png')}}" class="img_rol"/>

@@ -70,7 +70,7 @@
                                                         class="form-control" step="0.1">
                                                 </div>
                                                 <div class="col-6 mb-2">
-                                                    <label for="discount_total" class="form-label">Descuento Total</label>
+                                                    <label for="discount_total" class="form-label">Descuento</label>
                                                     <input type="number" id="discount_total" name="discount_total"
                                                         min="0" max="100" step="1" class="form-control"
                                                         placeholder="Ingrese el valor de descuento"
