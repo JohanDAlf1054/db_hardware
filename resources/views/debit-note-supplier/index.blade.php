@@ -125,11 +125,10 @@
                                                     </td>
                                                     <td>{{ $debitNoteSupplier->debit_note_code }}</td>
                                                     <td>{{ $debitNoteSupplier->date_invoice }}</td>
-                                                    <td>{{ round($debitNoteSupplier->total, 2) }}</td>
-                                                    <td>{{ $debitNoteSupplier->detailPurchase ? $debitNoteSupplier->detailPurchase->discount_total : 'N/A' }}
-                                                    </td>
-                                                    <td>{{ $debitNoteSupplier->detailPurchase ? $debitNoteSupplier->detailPurchase->product_tax : 'N/A' }}
-                                                    </td>
+                                                    <td>${{ number_format($debitNoteSupplier->total, 2, '.', ',') }}</td>
+                                                    <td>${{ $debitNoteSupplier->detailPurchase ? number_format($debitNoteSupplier->detailPurchase->discount_total, 2, '.', ',') : 'N/A' }}</td>
+                                                    <td>{{ $debitNoteSupplier->detailPurchase ? number_format($debitNoteSupplier->detailPurchase->product_tax, 2, '.', ',') : 'N/A' }}%</td>
+
                                                     <td>{{ $debitNoteSupplier->quantity }}</td>
                                                     <td>{{ $debitNoteSupplier->detailPurchase ? $debitNoteSupplier->detailPurchase->form_of_payment : 'N/A' }}
                                                     </td>

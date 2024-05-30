@@ -179,7 +179,7 @@
                                                             <label for="total" class="form-label">Total</label>
                                                         </div>
                                                         <div class="col-md-6 text-end">
-                                                            <input type="text" id="total" name="total" value="{{ $debitNoteSupplier->total }}" class="form-control" readonly>
+                                                            <input type="text" id="total" name="total" value="${{ number_format($debitNoteSupplier->total, 2, '.', ',') }}" class="form-control" readonly>
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -187,7 +187,7 @@
                                                             <label for="totalBruto" class="form-label">Total Bruto</label>
                                                         </div>
                                                         <div class="col-md-6 text-end">
-                                                            <input type="text" id="totalBruto" name="gross_total" value="{{ $debitNoteSupplier->gross_total }}" class="form-control" readonly>
+                                                            <input type="text" id="totalBruto" name="gross_total" value="${{ number_format($debitNoteSupplier->gross_total, 2, '.', ',') }}" class="form-control" readonly>
                                                         </div>
                                                     </div>
                                                     <div class="row">
@@ -195,9 +195,10 @@
                                                             <label for="totalNeto" class="form-label">Total Neto</label>
                                                         </div>
                                                         <div class="col-md-6 text-end">
-                                                            <input type="text" id="totalNeto" name="totalNeto" value="{{ $debitNoteSupplier->net_total }}" class="form-control" readonly>
+                                                            <input type="text" id="totalNeto" name="totalNeto" value="${{ number_format($debitNoteSupplier->net_total, 2, '.', ',') }}" class="form-control" readonly>
                                                         </div>
                                                     </div>
+                                                    
                                                     
                                                 </div>
                                             </div>
