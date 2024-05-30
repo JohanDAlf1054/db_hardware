@@ -22,13 +22,13 @@
             <div class="caja_trasera">
                 <div class="caja-tra-login">
                 <h3>¿Ya estas registrado?</h3>
-                <p>Inicio sesion para entrar en la pagina</p>
-                <button id="btn_iniciar_sesion">Iniciar Sesion</button>
+                <p>Inicio sesión para entrar en la pagina</p>
+                <button id="btn_iniciar_sesion">Iniciar Sesión</button>
             </div>
 
             <div class="caja-tra-register">
                 <h3>¿Aún no tienes una cuenta?</h3>
-                <p>Regístrate para Iniciar seción</p>
+                <p>Regístrate para Iniciar sesión</p>
                 <button id="btn_registrarse">Registrarse</button>
             </div>
         </div>
@@ -37,7 +37,7 @@
             <!-- Formulario para el login del usuario -->
             <form action="/login" method="POST" class="formulario_login" id="formulario">
             @csrf
-            <h2>Iniciar sesion</h2>
+            <h2>Iniciar sesión</h2>
             <hr />
 
             <!-- Grupo para el input de usuario -->
