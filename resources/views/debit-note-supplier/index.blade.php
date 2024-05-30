@@ -48,7 +48,7 @@
                                             placeholder="Buscar Nota....">
                                         <button type="submit" class="btn btn-dark" style="margin-left: 10px;">Buscar</button>
                                         <button type="button" class="btn btn-success ms-2 rounded" tooltip="tooltip"
-                                            title="Exportar" onclick="window.location.href='{{ route('export.debitnote') }}'">
+                                            title="Excel" onclick="window.location.href='{{ route('export.debitnote') }}'">
                                             <i class="fa-solid fa-file-excel"></i>
                                         </button>
                                         <button type="button" class="btn btn-danger ms-2 rounded" tooltip="tooltip"
