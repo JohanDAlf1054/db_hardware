@@ -47,9 +47,13 @@
                                             aria-label="Text input with segmented dropdown button"
                                             placeholder="Buscar Nota....">
                                         <button type="submit" class="btn btn-dark" style="margin-left: 10px;">Buscar</button>
-                                        <button type="button" class="btn btn-success ms-2 rounded" data-bs-toggle="tooltip"
-                                            title="Exportar" onclick="window.location.href='{{ route('export.debitnote') }}'">
-                                            <i class="fa-solid fa-file-arrow-down"></i>
+                                        <button type="button" class="btn btn-success ms-2 rounded" tooltip="tooltip"
+                                            title="Excel" onclick="window.location.href='{{ route('export.debitnote') }}'">
+                                            <i class="fa-solid fa-file-excel"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-danger ms-2 rounded" tooltip="tooltip"
+                                            title="PDF" onclick="window.location.href='{{ route('debit-note-supplier.pdf') }}'">
+                                            <i class="fa-solid fa-file-pdf"></i>
                                         </button>
                                     </form>
                                 </div>
@@ -121,11 +125,10 @@
                                                     </td>
                                                     <td>{{ $debitNoteSupplier->debit_note_code }}</td>
                                                     <td>{{ $debitNoteSupplier->date_invoice }}</td>
-                                                    <td>{{ round($debitNoteSupplier->total, 2) }}</td>
-                                                    <td>{{ $debitNoteSupplier->detailPurchase ? $debitNoteSupplier->detailPurchase->discount_total : 'N/A' }}
-                                                    </td>
-                                                    <td>{{ $debitNoteSupplier->detailPurchase ? $debitNoteSupplier->detailPurchase->product_tax : 'N/A' }}
-                                                    </td>
+                                                    <td>${{ number_format($debitNoteSupplier->total, 2, '.', ',') }}</td>
+                                                    <td>${{ $debitNoteSupplier->detailPurchase ? number_format($debitNoteSupplier->detailPurchase->discount_total, 2, '.', ',') : 'N/A' }}</td>
+                                                    <td>{{ $debitNoteSupplier->detailPurchase ? number_format($debitNoteSupplier->detailPurchase->product_tax, 2, '.', ',') : 'N/A' }}%</td>
+
                                                     <td>{{ $debitNoteSupplier->quantity }}</td>
                                                     <td>{{ $debitNoteSupplier->detailPurchase ? $debitNoteSupplier->detailPurchase->form_of_payment : 'N/A' }}
                                                     </td>

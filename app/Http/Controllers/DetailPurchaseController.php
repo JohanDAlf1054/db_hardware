@@ -100,12 +100,17 @@ class DetailPurchaseController extends Controller
             'people_id' => 'required',
             'invoice_number_purchase' => 'required',
             'code' => 'required',
+            'form_of_payment' => 'required',
+            'method_of_payment' => 'required',
         ], [
             'user_id.required' => 'El empleado a cargo de la compra es obligatorio',
             'people_id.required' => 'Seleccionar un proveedor es obligatorio',
             'invoice_number_purchase.required' => 'El número de factura es obligatorio',
-            'code.required' => 'El prefijo es obligatorio'
+            'code.required' => 'El prefijo es obligatorio',
+            'form_of_payment.required' => 'La forma de pago es obligatoria',
+            'method_of_payment.required' => 'El método de pago es obligatorio',
         ]);
+        
 
         try {
             $invoice_number = $request->input('code') . $request->input('invoice_number_purchase');
@@ -148,7 +153,7 @@ class DetailPurchaseController extends Controller
                 $input['method_of_payment'] = $request->input('method_of_payment');
                 $input['discount_total'] = $arraydescuento[$cont];
                 $input['total_tax'] = $arraydescuento[$cont];
-                $input['total_value'] = $request->input('total');
+                $input['total_value'] = $request->input('total_value_raw');
                 $input['gross_total'] = $request->input('totalBruto');
                 $input['net_total'] = $request->input('totalNeto');
                 $validatedData = Validator::make($input, [
@@ -157,8 +162,8 @@ class DetailPurchaseController extends Controller
                     'product_tax' => 'required|numeric|between:0,19',
                     'quantity_units' => 'required|numeric',
                     'date_purchase' => 'required|date',
-                    'form_of_payment' => 'required|in:tarjeta,efectivo',
-                    'method_of_payment' => 'required|in:cuotas,contado',
+                    'form_of_payment' => 'required|string',
+                    'method_of_payment' => 'required|string',
                     'discount_total' => 'required|numeric',
                     'gross_total' => 'required|numeric',
                     'total_tax' => 'required|numeric',

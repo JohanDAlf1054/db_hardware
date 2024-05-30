@@ -19,9 +19,15 @@ class SupplierController extends Controller
         ->where('rol', 'Proveedor')
         ->where(function ($query) use ($filtervalue) {
             $query->where('first_name', 'like', '%' . $filtervalue . '%')
-                ->orWhere('surname', 'like', '%' . $filtervalue . '%')
-                ->orWhere('email_address', 'like', '%' . $filtervalue . '%')
-                ->orWhere('company_name', 'like', '%' . $filtervalue . '%');
+            ->orWhere('first_name','like','%'.$filtervalue.'%')
+            ->orWhere('identification_number','like','%'.$filtervalue.'%')
+            ->orWhere('first_name','like','%'.$filtervalue.'%')
+            ->orWhere('other_name','like','%'.$filtervalue.'%')
+            ->orWhere('surname','like','%'.$filtervalue.'%')
+            ->orWhere('second_surname','like','%'.$filtervalue.'%')
+            ->orWhere('email_address','like','%'.$filtervalue.'%')
+            ->orWhere('company_name','like','%'.$filtervalue.'%')
+            ->orWhere('phone','like','%'.$filtervalue.'%');
         })
         ->paginate();
 
@@ -36,7 +42,7 @@ class SupplierController extends Controller
 
     public function edit($id)
 {
-    $person = Person::with('municipality')->findOrFail($id); 
+    $person = Person::with('municipality')->findOrFail($id);
     $municipalities = Municipality::with('department.country')->get();
     $table = 'supplier';
 

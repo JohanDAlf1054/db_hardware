@@ -8,7 +8,7 @@
             <meta charset="UTF-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Nota Debito</title>
+            <title>Nota Débito</title>
             <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
             <script src="https://kit.fontawesome.com/41bcea2ae3.js" crossorigin="anonymous"></script>
             <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
@@ -59,7 +59,7 @@
                             <div class="card card-default">
                                 <div class="card-header" style="display: flex">
                                     <h3 class="card-title">
-                                        {{ 'Nota Debito' }}
+                                        {{ 'Nota Débito' }}
                                     </h3>
                                 </div>
                                 <script>
@@ -78,7 +78,7 @@
                                         <div class="col-sm-6 md-6">
                                             <div class="md-3" style="margin-bottom: 16px">
                                                 <label for="factura" class="form-label" style="font-weight: bolder">
-                                                    {{ __('Buscar Factura') }}
+                                                    {{ __('Buscar Factura De Compra') }}
                                                     <span class="text-danger">*</span>
                                                 </label>
                                                 <select id="factura" name="factura"
@@ -86,16 +86,18 @@
                                                     data-size="5" title="Seleccione una factura">
                                                     <option value="">Seleccione un prefijo y número de factura</option>
                                                     @foreach ($purchaseSuppliers as $purchaseSupplier)
-                                                        <option value="{{ $purchaseSupplier->id }}"
-                                                            data-users-id="{{ $purchaseSupplier->users_id }}"
-                                                            data-people-id="{{ $purchaseSupplier->people_id }}"
-                                                            data-date-purchase="{{ $purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->date_purchase : '' }}"
-                                                            data-product-name="{{ $purchaseSupplier->detailPurchase && $purchaseSupplier->detailPurchase->product ? $purchaseSupplier->detailPurchase->product->name_product : '' }}"
-                                                            data-product-tax="{{ $purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->product_tax : '' }}"
-                                                            data-price-unit="{{ $purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->price_unit : '' }}"
-                                                            data-discount-total="{{ $purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->discount_total : '' }}"
-                                                            data-quantity-units="{{ $purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->discount_total : '' }}">
-                                                            {{ $purchaseSupplier->invoice_number_purchase }} </option>
+                                                    <option value="{{ $purchaseSupplier->id }}"
+                                                        data-users-id="{{ $purchaseSupplier->users_id }}"
+                                                        data-people-id="{{ $purchaseSupplier->people_id }}"
+                                                        data-date-purchase="{{ $purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->date_purchase : '' }}"
+                                                        data-product-name="{{ $purchaseSupplier->detailPurchase && $purchaseSupplier->detailPurchase->product ? $purchaseSupplier->detailPurchase->product->name_product : '' }}"
+                                                        data-product-tax="{{ $purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->product_tax : '' }}"
+                                                        data-price-unit="{{ $purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->price_unit : '' }}"
+                                                        data-discount-total="{{ $purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->discount_total : '' }}"
+                                                        data-quantity-units="{{ $purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->discount_total : '' }}"
+                                                        data-description="{{ $purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->description : '' }}"> <!-- Aquí está el nuevo atributo -->
+                                                        {{ $purchaseSupplier->invoice_number_purchase }}
+                                                    </option>
                                                     @endforeach
                                                 </select>
                                                 {!! $errors->first('factura', '<div class="invalid-feedback">:message</div>') !!}
@@ -105,7 +107,7 @@
                                         <div class="col-sm-6 md-6">
                                             <div class="md-3" style="margin-bottom: 16px">
                                                 <label for="date_invoice" class="form-label" style="font-weight: bolder">
-                                                    {{ __('Fecha de Creación Nota Debito') }}
+                                                    {{ __('Fecha de Creación Nota Débito') }}
                                                     <span class="text-danger">*</span>
                                                 </label>
                                                 <input type="date" id="date_invoice" name="date_invoice"
@@ -118,13 +120,13 @@
                                         <div class="col-sm-6 md-6">
                                             <div class="mb-3">
                                                 <label for="debit_note_code" class="form-label" style="font-weight: bolder">
-                                                    {{ __('Número de Nota Debito') }}
+                                                    {{ __('Número de Nota Débito') }}
                                                     <span class="text-danger">*</span>
                                                 </label>
                                                 <input type="number" id="debit_note_code" name="debit_note_code"
                                                     value="{{ $debitNoteId }}"
                                                     class="form-control{{ $errors->has('debit_note_code') ? ' is-invalid' : '' }}"
-                                                    placeholder="Número de Nota Debito">
+                                                    placeholder="Número de Nota Débito">
                                                 {!! $errors->first('debit_note_code', '<div class="invalid-feedback">:message</div>') !!}
                                             </div>
                                         </div>
@@ -238,7 +240,7 @@
                                                 <div class="col-md-12 text-end">
                                                     <div class="row">
                                                         <div class="col-md-6 text-end">
-                                                            <label for="total" class="form-label">Total</label>
+                                                            <label for="total" class="form-label">Subtotal</label>
                                                         </div>
                                                         <div class="col-md-6 text-end">
                                                             <input type="number" id="total" name="total"
@@ -256,7 +258,7 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-md-6 text-end">
-                                                            <label for="totalNeto" class="form-label">Total Neto</label>
+                                                            <label for="totalNeto" class="form-label">Total Factura</label>
                                                         </div>
                                                         <div class="col-md-6 text-end">
                                                             <input type="number" id="totalNeto" name="totalNeto"
@@ -358,7 +360,8 @@ ARREGLO ASOCIATIVO GENERAMOS LAS FILAS QUE NECESITAMOS MOSTRAR --}}
                                 detail.product_name + '"></td>' +
                                 '<td><input type="number" name="cantidad[]" class="form-control" value="' +
                                 detail.quantity_units + '"></td>' +
-                                '<td><input type="text" name="descripcion[]" class="form-control"></td>' +
+                                '<td><input type="text" name="descripcion[]" class="form-control" value="' +
+        detail.descuento + '"></td>' +
                                 '<td><input type="number" name="precio_unitario[]" class="form-control" value="' +
                                 detail.price_unit + '"></td>' +
                                 '<td><input type="number" name="descuento[]" class="form-control" value="' +
@@ -394,31 +397,31 @@ ARREGLO ASOCIATIVO GENERAMOS LAS FILAS QUE NECESITAMOS MOSTRAR --}}
 
 
             function calcularTotales() {
-                var total = 0;
-                var totalBruto = 0;
-                var descuentoTotal = 0;
-                var totalIva = 0;
+    var total = 0;
+    var totalBruto = 0;
+    var descuentoTotal = 0;
+    var totalIva = 0;
 
-                document.querySelectorAll('#tabla_detalle tbody tr').forEach(function(row) {
-                    var cantidad = Number(row.querySelector('input[name="cantidad[]"]').value);
-                    var precio_unitario = Number(row.querySelector('input[name="precio_unitario[]"]').value);
-                    var iva = Number(row.querySelector('input[name="iva[]"]').value) / 100;
-                    var descuento = Number(row.querySelector('input[name="descuento[]"]').value);
-                    var subtotal = Math.round(cantidad * precio_unitario * 100) / 100;
-                    var ivaTotal = Math.round(subtotal * iva * 100) / 100;
+    document.querySelectorAll('#tabla_detalle tbody tr').forEach(function(row) {
+        var cantidad = Number(row.querySelector('input[name="cantidad[]"]').value);
+        var precio_unitario = Number(row.querySelector('input[name="precio_unitario[]"]').value);
+        var iva = Number(row.querySelector('input[name="iva[]"]').value) / 100;
+        var descuento = Number(row.querySelector('input[name="descuento[]"]').value);
+        var subtotal = Math.round(cantidad * precio_unitario * 100) / 100;
+        var ivaTotal = Math.round(subtotal * iva * 100) / 100;
 
-                    total += subtotal + ivaTotal;
-                    totalBruto += subtotal;
-                    descuentoTotal += descuento;
-                    totalIva += ivaTotal;
-                });
+        total += subtotal;
+        totalBruto += subtotal - descuento;
+        descuentoTotal += descuento;
+        totalIva += ivaTotal;
+    });
 
-                var totalNeto = Math.round((totalBruto - descuentoTotal) * 100) / 100;
+    var totalNeto = Math.round((totalBruto + totalIva) * 100) / 100;
 
-                document.getElementById('total').value = Math.round(total * 100) / 100;
-                document.getElementById('totalBruto').value = Math.round(totalBruto * 100) / 100;
-                document.getElementById('totalNeto').value = Math.round(totalNeto * 100) / 100;
-            }
+    document.getElementById('total').value = Math.round(total * 100) / 100;
+    document.getElementById('totalBruto').value = Math.round(totalBruto * 100) / 100;
+    document.getElementById('totalNeto').value = Math.round(totalNeto * 100) / 100;
+}
         </script>
         </body>
 

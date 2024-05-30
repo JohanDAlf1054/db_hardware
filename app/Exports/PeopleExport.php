@@ -3,7 +3,7 @@
 namespace App\Exports;
 
 use App\Models\Person;
-use Maatwebsite\Excel\Concerns\FromQuery;
+use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
@@ -19,7 +19,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Drawing;
 use Maatwebsite\Excel\Concerns\WithTitle;
 
 
-class PeopleExport implements FromQuery, WithHeadings, WithCustomStartCell, WithTitle, WithEvents
+class PeopleExport implements FromCollection, WithHeadings, WithCustomStartCell, WithTitle, WithEvents
 {
     use Exportable;
 
@@ -64,19 +64,26 @@ class PeopleExport implements FromQuery, WithHeadings, WithCustomStartCell, With
 
     public function query()
     {
+        $query = Person::query()
+            ->select('rol', 'identification_type', 'identification_number', 'digit_verification', 'company_name', 'first_name', 'other_name', 'surname', 'second_surname', 'comercial_name', 'email_address', 'city', 'address', 'phone', 'status');
+
         if ($this->role === 'supplier') {
-            return Person::query()
-                ->select('rol', 'identification_type', 'identification_number', 'digit_verification', 'company_name', 'first_name', 'other_name', 'surname', 'second_surname', 'comercial_name', 'email_address', 'city', 'address', 'phone')
-                ->where('rol', 'Proveedor');
+            $query->where('rol', 'Proveedor');
         } elseif ($this->role === 'customer') {
-            return Person::query()
-                ->select('rol', 'identification_type', 'identification_number', 'digit_verification', 'company_name', 'first_name', 'other_name', 'surname', 'second_surname', 'comercial_name', 'email_address', 'city', 'address', 'phone')
-                ->where('rol', 'Cliente');
+            $query->where('rol', 'Cliente');
         } else {
-            return Person::query()
-                ->select('rol', 'identification_type', 'identification_number', 'digit_verification', 'company_name', 'first_name', 'other_name', 'surname', 'second_surname', 'comercial_name', 'email_address', 'city', 'address', 'phone')
-                ->whereIn('rol', ['proveedor', 'cliente']);
+            $query->whereIn('rol', ['proveedor', 'cliente']);
         }
+
+        // Aplicar la transformación para el estado
+        return $query->get()->map(function ($person) {
+            $person->status = $person->status ? 'Activo' : 'Inactivo';
+            return $person;
+        });
+    }
+    public function collection()
+    {
+        return $this->query();
     }
 
     public function startCell(): string
@@ -103,6 +110,19 @@ class PeopleExport implements FromQuery, WithHeadings, WithCustomStartCell, With
                 $drawing->setCoordinates('A1'); // Celda donde se insertará la imagen
                 $drawing->setWorksheet($sheet->getDelegate());
 
+                foreach($sheet->getDelegate()->getRowIterator() as $row){
+                    foreach ($row->getCellIterator() as $cell){
+                        if($cell->getValue() === 'Activo'){
+                            $cell->getStyle()->applyFromArray([
+                                'font' => ['color' => ['argb' => 'FF28a745']],
+                            ]);
+                        }elseif($cell->getValue() === 'Inactivo'){
+                            $cell->getStyle()->applyFromArray([
+                                'font' => ['color' => ['argb' => 'FFdc3545']],
+                            ]);
+                        }
+                    }
+                }
             // Ajustar automáticamente el tamaño de las columnas según su contenido
             foreach ($sheet->getColumnIterator() as $column) {
                 $sheet->getDelegate()->getColumnDimension($column->getColumnIndex())->setAutoSize(true);
@@ -145,7 +165,7 @@ class PeopleExport implements FromQuery, WithHeadings, WithCustomStartCell, With
                 ],
             ]);
 
-            
+
             $title = $this->title();
             // Fusionar celdas para el encabezado
             $sheet->getDelegate()->mergeCells('A1:O1');
@@ -182,7 +202,8 @@ class PeopleExport implements FromQuery, WithHeadings, WithCustomStartCell, With
             ]);
         },
     ];
+
 }
-    
-    
+
+
 }

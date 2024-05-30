@@ -100,10 +100,11 @@
                         <th>Producto</th>
                         <th>Cantidad</th>
                         <th>Descripcion</th>
-                        <th>Impuesto</th>
-                        <th>Descuento</th>
                         <th>Precio Unitario</th>
-                        <th>Sub Total</th>
+                        <th>Descuento</th>
+                        <th>%</th>
+                        <th>Iva</th>
+                        <th>Precio Unitario De Venta</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -112,9 +113,10 @@
                             <td>{{ $detailPurchase->product->name_product }}</td>
                             <td class="quantity_units">{{ $detailPurchase->quantity_units }}</td>
                             <td>{{ $detailPurchase->description }}</td>
+                            <td class="price_unit">{{ round($detailPurchase->price_unit, 2) }}</td>
                             <td>{{ $detailPurchase->discount_total }}</td>
                             <td class="product_tax">{{ round($detailPurchase->product_tax, 2).'%' }}</td>
-                            <td class="price_unit">{{ round($detailPurchase->price_unit, 2) }}</td>
+                            <td class="iva">{{ $iva = $detailPurchase->quantity_units * $detailPurchase->price_unit * $detailPurchase->product_tax / 100 }}</td>
                             <td class="subtotal">{{ $detailPurchase->quantity_units * $detailPurchase->price_unit }}</td>
                         </tr>
                     @endforeach
@@ -123,24 +125,27 @@
                     <tr>
                         <th colspan="8"></th>
                     </tr>
-                
                     <tr>
-                        <th colspan="6">IGV:</th>
-                        <th id="th-igv">{{ $igv }}</th>
+                        <th colspan="7">Subtotal:</th>
+                        <th id="th-igv">${{ number_format($total_tax, 2) }}</th>
+                    </tr>
+                    <tr>
+                        <th colspan="7">Descuento:</th>
+                        <th id="th-discount">${{ number_format($detailPurchases->sum('discount_total'), 2) }}</th>
+                    </tr>
+                    <tr>
+                        <th colspan="7">Total Bruto:</th>
+                        <th id="th-total">${{ number_format($gross_total, 2) }}</th>
+                    </tr>
+                    <tr>
+                        <th colspan="7">IVA %</th>
+                        <th id="th-igv">${{ number_format($detailPurchases->sum(function($detailPurchase) { return $detailPurchase->quantity_units * $detailPurchase->price_unit * $detailPurchase->product_tax / 100; }), 2) }}</th>
+                    </tr>
+                    <tr>
+                        <th colspan="7">Total Factura:</th>
+                        <th id="th-total">${{ number_format($net_total, 2) }}</th>
                     </tr>
                     
-                    <tr>
-                        <th colspan="6">Total:</th>
-                        <th id="th-total">{{ $total_tax }}</th>
-                    </tr>
-                    <tr>
-                        <th colspan="6">Total Bruto:</th>
-                        <th id="th-total">{{ $gross_total }}</th>
-                    </tr>
-                    <tr>
-                        <th colspan="6">Total Neto:</th>
-                        <th id="th-total">{{ $net_total }}</th>
-                    </tr>
                     
                 </tfoot>
             </table>

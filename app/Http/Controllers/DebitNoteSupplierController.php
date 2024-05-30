@@ -11,6 +11,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf;
 /**
  * Class debitNoteSupplierController
  * @package App\Http\Controllers
@@ -26,20 +27,20 @@ class debitNoteSupplierController extends Controller
     {
         $filtervalue = $request->get('filtervalue');
         $status = $filtervalue == 'activo' ? 1 : ($filtervalue == 'inactivo' ? 0 : null);
-    
+
         $uniqueDebitNoteSupplierIds = DB::table('debit_note_suppliers')
             ->select(DB::raw('MAX(id) as id'))
             ->groupBy('purchase_suppliers_id')
             ->pluck('id');
-    
+
         $debitNoteSuppliers = DebitNoteSupplier::whereIn('id', $uniqueDebitNoteSupplierIds)
             ->when($filtervalue, function ($query) use ($filtervalue, $status) {
-                $filtervalue = strtolower($filtervalue); 
+                $filtervalue = strtolower($filtervalue);
                 return $query->whereRaw('LOWER(debit_note_code) LIKE ?', ['%' . $filtervalue . '%'])
                     ->orWhereRaw('LOWER(description) LIKE ?', ['%' . $filtervalue . '%'])
                     ->orWhereRaw('LOWER(total) LIKE ?', ['%' . $filtervalue . '%'])
-                    ->orWhere('quantity', intval($filtervalue)) 
-                    ->orWhere('status', $status) 
+                    ->orWhere('quantity', intval($filtervalue))
+                    ->orWhere('status', $status)
                     ->orWhereHas('detailPurchase', function ($query) use ($filtervalue) {
                         return $query->whereRaw('LOWER(discount_total) LIKE ?', ['%' . $filtervalue . '%'])
                             ->orWhereRaw('LOWER(product_tax) LIKE ?', ['%' . $filtervalue . '%'])
@@ -57,10 +58,10 @@ class debitNoteSupplierController extends Controller
                     });
             })
             ->get();
-    
+
         return view('debit-note-supplier.index', compact('debitNoteSuppliers'));
     }
-    
+
     /**
      * Show the form for creating a new resource.
      *
@@ -101,6 +102,7 @@ class debitNoteSupplierController extends Controller
                 'price_unit' => $detailPurchase->price_unit,
                 'product_tax' => $detailPurchase->product_tax,
                 'discount_total' => $detailPurchase->discount_total,
+                'descuento'=> $detailPurchase->description,
                 'quantity_units' => $detailPurchase->quantity_units,
             ];
         }
@@ -459,5 +461,19 @@ class debitNoteSupplierController extends Controller
         }
 
         return redirect()->route('debit-note-supplier.index');
+    }
+
+    public function pdf()
+    {
+        $debitNoteSuppliers = debitNoteSupplier::all();
+
+        $pdf = Pdf::loadView('debit-note-supplier.pdf', ['debitNoteSuppliers' => $debitNoteSuppliers])
+                    ->setPaper('a4','landscape');
+
+        // Funcion para devolver una vista del pdf en el navegador
+        return $pdf->stream('Compras - Nota debito.pdf');
+
+        //Descargar el pdf directamente
+        // return $pdf->download(Compras - Nota debito.pdf');
     }
 }
