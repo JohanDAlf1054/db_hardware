@@ -102,6 +102,7 @@ class debitNoteSupplierController extends Controller
                 'price_unit' => $detailPurchase->price_unit,
                 'product_tax' => $detailPurchase->product_tax,
                 'discount_total' => $detailPurchase->discount_total,
+                'descuento'=> $detailPurchase->description,
                 'quantity_units' => $detailPurchase->quantity_units,
             ];
         }
