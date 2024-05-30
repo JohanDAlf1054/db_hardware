@@ -253,6 +253,10 @@ a.selected {
 .transparent-input:focus {
     outline: none; /* Quitar el borde al enfocarse */
 }
-
+.CiudadPerson .selectpicker {
+    height: 50%;
+    background-color: rgb(114, 72, 72);
+    display: flex;
+}
 
 
