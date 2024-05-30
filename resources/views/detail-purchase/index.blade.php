@@ -30,14 +30,15 @@
                                             aria-expanded="false">Acciones</button>
                                         <ul class="dropdown-menu desplegable_acciones">
                                             <div class="acciones_boton">
-                                                <li><a class="dropdown-item" href="{{ route('detail-purchases.create') }}">Crear
-                                                        Detalle Compra</a></li>
+                                                <li><a class="dropdown-item" href="{{ route('detail-purchases.create') }}">Crear Compra
+                                                </a></li>
                                                 <li><a class="dropdown-item"
-                                                        href="{{ route('debit-note-supplier.index') }}">Mostrar
-                                                        notas debito</a></li>
+                                                    href="{{ route('debit-note-supplier.create') }}">Crear nota débito
+                                                </a></li>
+
                                                 <li><a class="dropdown-item"
-                                                        href="{{ route('debit-note-supplier.create') }}">Crear
-                                                        nota debito</a></li>
+                                                        href="{{ route('debit-note-supplier.index') }}">Mostrar notas débito</a></li>
+                                                
                                                 {{-- <li><a class="dropdown-item" href="{{ route('purchase_supplier.index') }}">Mostrar
 Compras</a></li> --}}
                                             </div>
@@ -51,14 +52,14 @@ Compras</a></li> --}}
                                             aria-label="Text input with segmented dropdown button"
                                             placeholder="Buscar Compra....">
                                         <button type="submit" class="btn btn-dark" style="margin-left: 10px;">Buscar</button>
-                                        <button type="button" class="btn btn-success ms-2 rounded" data-bs-toggle="tooltip"
-                                            title="Exportar" onclick="window.location.href='{{ route('export.purchase') }}'">
-                                            <i class="fa-solid fa-file-arrow-down"></i>
+                                        <button type="button" class="btn btn-success ms-2 rounded" tooltip="tooltip"
+                                            title="Excel" onclick="window.location.href='{{ route('export.purchase') }}'">
+                                            <i class="fa-solid fa-file-excel"></i>
                                         </button>
                                         <button type="button" class="btn btn-danger ms-2 rounded" tooltip="tooltip"
-                                        title="PDF" onclick="window.location.href='{{ route('detail-purchases.pdf') }}'">
-                                        <i class="fa-solid fa-file-pdf"></i>
-                                    </button>
+                                            title="PDF" onclick="window.location.href='{{ route('detail-purchases.pdf') }}'">
+                                            <i class="fa-solid fa-file-pdf"></i>
+                                        </button>
                                     </form>
                                 </div>
                             </div>

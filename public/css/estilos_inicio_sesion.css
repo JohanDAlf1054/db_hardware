@@ -517,3 +517,14 @@ main {
     top: 13px;
     background-color: white;
 }
+/* Quitar las flechas de los campos de tipo number */
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+/* Quitar las flechas de los campos de tipo number en Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+

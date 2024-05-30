@@ -10,7 +10,7 @@
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Agregar Persona</title>
-          
+
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
             <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
             <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -285,14 +285,20 @@
                                                             {{ __('Número telefónico') }}
                                                             <span class="text-danger">*</span>
                                                         </label>
-                                                        {{ Form::text('phone', $person->phone, ['class' => 'form-control' . ($errors->has('phone') ? ' is-invalid' : ''), 'placeholder' => 'Número telefónico']) }}
+                                                        {{ Form::number('phone', $person->phone, ['class' => 'form-control' . ($errors->has('phone') ? ' is-invalid' : ''), 'placeholder' => 'Número telefónico']) }}
                                                         {!! $errors->first('phone', '<div class="invalid-feedback">El campo teléfono es obligatorio</div>') !!}
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="card-footer text-end">
+                                            @if($table === 'supplier')
+                                            <a class="btn btn-primary" href="{{ route('supplier.index') }}">Regresar</a>
+                                            @elseif ($table === 'customer')
+                                            <a class="btn btn-primary" href="{{ route('customer.index') }}">Regresar</a>
+                                            @elseif($table === 'person')
                                             <a class="btn btn-primary" href="{{ route('person.index') }}">Regresar</a>
+                                            @endif
                                             <button type="submit" class="btn btn-success">{{ __('Guardar') }}</button>
                                         </div>
                                     </div>

@@ -141,10 +141,22 @@ class CreditNoteSalesController extends Controller
             ->update([
                 'status' => 0
             ]);
+            Session::flash('notificacion', [
+                'tipo' => 'error',
+                'titulo' => 'Atencion!',
+                'descripcion' => 'La nota crédito se ha inactivado correctamente.',
+                'autoCierre' => 'true'
+            ]);
         } else {
             credit_note_sales::where('id', $sale->id)
             ->update([
                 'status' => 1
+            ]);
+            Session::flash('notificacion', [
+                'tipo' => 'exito',
+                'titulo' => 'Éxito!',
+                'descripcion' => 'La nota crédito se ha vuelto a activar.',
+                'autoCierre' => 'true'
             ]);
         }
         return redirect()->route('credit-note-sales.index')->with('success','Nota crédito inactivada.');

@@ -34,4 +34,20 @@ class CreditNotePostRequest extends FormRequest
             'sale_id'=> 'required'
         ];
     }
+
+    public function attributes(): array
+{
+    return [
+        'date_invoice' => 'fecha de factura',
+        'sellers' => 'vendedor',
+        'payments_methods' => 'método de pago',
+        'gross_totals' => 'total bruto',
+        'taxes_total' => 'total impuesto',
+        'net_total' => 'total neto',
+        'date_credit_notes' => 'fecha de nota de crédito',
+        'reason' => 'razón',
+        'clients_id' => 'cliente',
+        'sale_id' => 'venta',
+    ];
+}
 }

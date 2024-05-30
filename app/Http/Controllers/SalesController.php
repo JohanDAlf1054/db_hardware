@@ -151,10 +151,22 @@ class SalesController extends Controller
             ->update([
                 'status' => 0
             ]);
+            Session::flash('notificacion', [
+                'tipo' => 'error',
+                'titulo' => 'Atencion!',
+                'descripcion' => 'La venta se ha inactivado correctamente.',
+                'autoCierre' => 'true'
+            ]);
         } else {
             Sale::where('id', $sale->id)
             ->update([
                 'status' => 1
+            ]);
+            Session::flash('notificacion', [
+                'tipo' => 'exito',
+                'titulo' => 'Éxito!',
+                'descripcion' => 'La venta se ha vuelto a activar.',
+                'autoCierre' => 'true'
             ]);
         }
         return redirect()->route('sales.index')->with('success','Venta inactivada');

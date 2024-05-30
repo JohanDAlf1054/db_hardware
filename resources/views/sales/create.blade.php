@@ -288,6 +288,11 @@
             showModal('El producto ya está en la lista');
             return;
         }
+
+        if (parseFloat(descuento) > parseFloat(precioVenta)) {
+            showModal('El descuento no puede ser mayor que el precio del producto');
+            return;
+        }
         
     // Validaciones
     if (idProducto != '' && cantidad != '') {
