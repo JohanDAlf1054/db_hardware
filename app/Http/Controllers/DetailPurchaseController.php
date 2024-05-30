@@ -153,7 +153,7 @@ class DetailPurchaseController extends Controller
                 $input['method_of_payment'] = $request->input('method_of_payment');
                 $input['discount_total'] = $arraydescuento[$cont];
                 $input['total_tax'] = $arraydescuento[$cont];
-                $input['total_value'] = $request->input('total_value');
+                $input['total_value'] = $request->input('total_value_raw');
                 $input['gross_total'] = $request->input('totalBruto');
                 $input['net_total'] = $request->input('totalNeto');
                 $validatedData = Validator::make($input, [

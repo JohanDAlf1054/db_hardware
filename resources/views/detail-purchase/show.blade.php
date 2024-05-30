@@ -127,27 +127,25 @@
                     </tr>
                     <tr>
                         <th colspan="7">Subtotal:</th>
-                        <th id="th-igv">{{ $total_tax}}</th>
+                        <th id="th-igv">${{ number_format($total_tax, 2) }}</th>
                     </tr>
                     <tr>
                         <th colspan="7">Descuento:</th>
-                        <th id="th-discount">{{ $detailPurchases->sum('discount_total') }}</th>
+                        <th id="th-discount">${{ number_format($detailPurchases->sum('discount_total'), 2) }}</th>
                     </tr>
                     <tr>
                         <th colspan="7">Total Bruto:</th>
-                        <th id="th-total">{{ $gross_total }}</th>
+                        <th id="th-total">${{ number_format($gross_total, 2) }}</th>
                     </tr>
-                    
                     <tr>
                         <th colspan="7">IVA %</th>
-                        <th id="th-igv">{{ $detailPurchases->sum(function($detailPurchase) { return $detailPurchase->quantity_units * $detailPurchase->price_unit * $detailPurchase->product_tax / 100; }) }}</th>
+                        <th id="th-igv">${{ number_format($detailPurchases->sum(function($detailPurchase) { return $detailPurchase->quantity_units * $detailPurchase->price_unit * $detailPurchase->product_tax / 100; }), 2) }}</th>
                     </tr>
-                    
-
                     <tr>
                         <th colspan="7">Total Factura:</th>
-                        <th id="th-total">{{ $net_total }}</th>
+                        <th id="th-total">${{ number_format($net_total, 2) }}</th>
                     </tr>
+                    
                     
                 </tfoot>
             </table>
