@@ -9,7 +9,7 @@
             <meta charset="UTF-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Agregar Persona</title>
+            <title>Agregar tercero</title>
 
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
             <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
@@ -56,7 +56,7 @@
                                     <div class="card card-default">
                                         <div class="card-header" style="display: flex">
                                             <h3 class="card-title">
-                                                {{ __('Persona') }}
+                                                {{ __('Tercero') }}
                                             </h3>
                                             <div class="card-actions" style="padding-top: 9px; padding-left: 20px">
                                                 <a href="" class="btn-action">
@@ -139,7 +139,7 @@
                                                 <div class="col-sm-6 md-6">
                                                     <div class="mb-3">
                                                         <label for="person_type" class="form-label" style="font-weight: bolder">
-                                                            {{ __('Tipo de persona') }}
+                                                            {{ __('Tipo de tercero') }}
                                                             <span class="text-danger">*</span>
                                                         </label>
                                                         {{ Form::select('person_type', ['Persona natural' => 'Persona natural', 'Persona jurídica' => 'Persona jurídica'], $person->person_type, ['id' => 'person_type', 'class' => 'form-select' . ($errors->has('person_type') ? ' is-invalid' : ''), 'placeholder' => 'Seleciona una opción']) }}

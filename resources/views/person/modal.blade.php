@@ -9,7 +9,7 @@
         </div>
         <div class="modal-body">
             <div>
-                {{ $person->status == True ? '¿Seguro que quiere inactivar la persona?' : '¿Seguro que quiere activar la persona?' }}
+                {{ $person->status == True ? '¿Seguro que quiere inactivar al tercero?' : '¿Seguro que quiere activar al tercero?' }}
             </div>
         </div>
         <div class="modal-footer">
@@ -32,7 +32,7 @@
     <div class="modal-dialog">
     <div class="modal-content">
         <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Importar Personas</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Importar Tercero</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">

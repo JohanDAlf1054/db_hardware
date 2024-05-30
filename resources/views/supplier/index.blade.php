@@ -29,16 +29,13 @@
                                             aria-expanded="false">Acciones</button>
                                             <ul class="dropdown-menu">
                                                 <li>
-                                                    <a class="dropdown-item" href="{{ route('person.create') }}">Crear nueva persona</a>
+                                                    <a class="dropdown-item" href="{{ route('person.create') }}">Crear tercero</a>
+                                                </li>                                                
+                                                <li>
+                                                    <a class="dropdown-item" href="{{ route('customer.index') }}">Ver clientes</a>
                                                 </li>
                                                 <li>
-                                                    <a class="dropdown-item" href="{{ route('supplier.index') }}">Mostrar proveedores</a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item" href="{{ route('customer.index') }}">Mostrar clientes</a>
-                                                </li>
-                                                <li>
-                                                    <a class="dropdown-item" href="{{ route('person.index')}}">Tabla general de terceros</a>
+                                                    <a class="dropdown-item" href="{{ route('person.index')}}">Ver tabla general de terceros</a>
                                                 </li>
                                             </ul>
                                     </div>

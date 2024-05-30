@@ -107,57 +107,57 @@ Breadcrumbs::for('debit.note.supplie.show', function (BreadcrumbTrail $trail, De
 });
 
 
-//Personas
+//Terceros
 Breadcrumbs::for('person.index', function (BreadcrumbTrail $trail) {
-    $trail->push('Personas', route('person.index'));
+    $trail->push('Terceros', route('person.index'));
 });
 
-//Personas > Crear
+//Terceros > Crear
 Breadcrumbs::for('person.create', function (BreadcrumbTrail $trail) {
     $trail->parent('person.index');
-    $trail->push('Crear personas');
+    $trail->push('Crear terceros');
 });
 
-//Personas > Mostrar
+//Terceros > Mostrar
 Breadcrumbs::for('person.show', function (BreadcrumbTrail $trail, Person $person) {
     $trail->parent('person.index');
     $trail->push('Mostrar');
     $trail->push($person->identification_number);
 });
 
-// Personas > Proveedores
+// Terceross > Proveedores
 Breadcrumbs::for('supplier.index', function (BreadcrumbTrail $trail) {
     $trail->parent('person.index');
     $trail->push('Proveedores', route('supplier.index'));
 });
 
-// Personas > Clientes
+// Terceros > Clientes
 Breadcrumbs::for('customer.index', function (BreadcrumbTrail $trail) {
     $trail->parent('person.index');
     $trail->push('Clientes', route('customer.index'));
 });
-// Personas > Proveedores > Editar
+// Terceros > Proveedores > Editar
 Breadcrumbs::for('supplier.edit', function (BreadcrumbTrail $trail, Person $person) {
     $trail->parent('supplier.index');
     $trail->push('Editar');
     $trail->push($person->identification_number);
 });
 
-// Personas > Proveedores > Mostrar
+// Terceros > Proveedores > Mostrar
 Breadcrumbs::for('supplier.show', function (BreadcrumbTrail $trail, Person $person) {
     $trail->parent('supplier.index');
     $trail->push('Mostrar');
     $trail->push($person->identification_number);
 });
 
-// Personas > Clientes > Editar
+// Terceros > Clientes > Editar
 Breadcrumbs::for('customer.edit', function (BreadcrumbTrail $trail, Person $person) {
     $trail->parent('customer.index');
     $trail->push('Editar');
     $trail->push($person->identification_number);
 });
 
-//Personas > Clientes > Mostrar
+//Terceros > Clientes > Mostrar
 Breadcrumbs::for('customer.show', function (BreadcrumbTrail $trail, Person $person) {
     $trail->parent('customer.index');
     $trail->push('Mostrar');

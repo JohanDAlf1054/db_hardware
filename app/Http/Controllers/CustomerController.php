@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Person;
+use App\Models\Municipality;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
@@ -43,8 +44,9 @@ class CustomerController extends Controller
     public function edit($id)
     {
         $person = Person::findOrFail($id);
+        $municipalities = Municipality::with('department.country')->get();
         $table = 'customer';
-        return view('person.edit', compact('person', 'table'));
+        return view('person.edit', compact('person', 'table','municipalities'));
     }
 
     public function update(Request $request, Person $person)
