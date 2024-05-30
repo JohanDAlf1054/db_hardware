@@ -35,7 +35,7 @@
                                 <div class="acciones_boton">
                                     <li><a class="dropdown-item" href="{{ route('brand.index') }}">Crear Marca</a></li>
                                     <li><a class="dropdown-item" href="{{ route('category.index') }}">Crear Categoría</a></li>
-                                    <li><a class="dropdown-item" href="{{ route('products.create') }}">Crear Producto</a></li>                                  
+                                    <li><a class="dropdown-item" href="{{ route('products.create') }}">Crear Producto</a></li>
                                     <li><a class="dropdown-item" href="{{ route('units.index') }}">Crear Unidad</a></li>
                                     <li><a class="dropdown-item" href="{{ route('reportPriceHistoryProducts') }}">Generar Historial de Ventas</a></li>
                                     <li><a class="dropdown-item" href="{{ route('reportPriceHistoryProductsPurchase') }}">Generar Historial de Compras</a></li>
@@ -80,9 +80,9 @@
                                         <input name="filtervalue" type="text" class="form-control"
                                         aria-label="Text input with segmented dropdown button"  placeholder="Buscar Producto....">
                                         <button type="submit" class=" btn btn-dark  ms-2">Buscar</button>
-                                        <a type="button" class="btn btn-success ms-2 rounded" tooltip="tooltip" title="Exportar"
+                                        <a type="button" class="btn btn-success ms-2 rounded" tooltip="tooltip" title="Excel"
                                             href="{{route('export')}}">
-                                            <i class="fa-solid fa-file-arrow-down"></i>
+                                            <i class="fa-solid fa-file-excel"></i>
                                         </a>
                                         <button type="button" class="btn btn-danger ms-2 rounded" tooltip="tooltip"
                                             title="PDF" onclick="window.location.href='{{ route('products.pdf') }}'">

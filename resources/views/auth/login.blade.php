@@ -122,7 +122,7 @@
                     <span class="text_red">*</span>
                 </label>
                 <div class="formulario__grupo-input">
-                    <input type="text" class="formulario__input" placeholder="Ejemplo: 3002000" name="phone_number" id="phone_number">
+                    <input type="number" class="formulario__input" placeholder="Ejemplo: 3002000" name="phone_number" id="phone_number">
                     <i class="formulario__validacion-estado far fa-times-circle"></i>
                 </div>
                 <p class="formulario__input-error">El telefono solo puede contener numeros con una cantidad de 10 digitos</p>
