@@ -226,14 +226,16 @@
                                                         ) !!}
                                                     </div>
                                                 </div>
+
+
                                                 {{--  Ciudad  --}}
                                                 <div class="col-sm-6 md-6">
-                                                    <div class="mb-3">
+                                                    <div class="mb-3" >
                                                         <label for="municipality" class="form-label" style="font-weight: bolder">
                                                             {{ __('Ciudad') }}
                                                             <span class="text-danger">*</span>
                                                         </label>
-                                                        <select name="city" id="city" class="form-control selectpicker show-tick" data-live-search="true" data-dropup-auto="false" title="Selecciona la ciudad" data-size ='3'>
+                                                        <select name="city" id="city" class="form-control selectpicker show-tick" data-live-search="true" title="Selecciona la ciudad" data-size ='4'>
                                                             @foreach ($municipalities as $municipality)
                                                                 <option value="{{ $municipality->id }}">
                                                                     {{ $municipality->name }},
@@ -367,11 +369,7 @@
                     $(document).ready(function() {
                         $('.selectpicker').selectpicker();
                     });
-
-                    
                 </script>
-
-                
         </body>
 
         </html>

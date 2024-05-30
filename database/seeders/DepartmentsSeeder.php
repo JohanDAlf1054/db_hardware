@@ -2423,7 +2423,7 @@ class DepartmentsSeeder extends Seeder
             ['id' => 2407, 'code' => '4 ', 'name' => 'Saint David ', 'countries_id' => 173],
             ['id' => 2408, 'code' => '5 ', 'name' => 'Saint George ', 'countries_id' => 173],
             ['id' => 2409, 'code' => '6 ', 'name' => 'Saint Patrick ', 'countries_id' => 173],
-            ['id' => 2410, 'code' => '7 ', 'name' => 'San Vicente y las Granadinas San Vicent ', 'countries_id' => 173],
+            ['id' => 2410, 'code' => '7 ', 'name' => 'Bandera de San Vicente y las Granadinas San Vicent ', 'countries_id' => 173],
             ['id' => 2411, 'code' => '1 ', 'name' => 'Jamestown ', 'countries_id' => 174],
             ['id' => 2412, 'code' => '1 ', 'name' => 'Anse La Raye ', 'countries_id' => 175],
             ['id' => 2413, 'code' => '2 ', 'name' => 'Castries ', 'countries_id' => 175],
