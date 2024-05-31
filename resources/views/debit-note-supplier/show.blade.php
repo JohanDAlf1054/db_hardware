@@ -100,7 +100,8 @@
                                         <div class="col-sm-6 md-6">
                                             <div class="mb-3">
                                                 <label for="people_id" class="form-label" style="font-weight: bolder">{{ __('Proveedor') }} <span class="text-danger">*</span></label>
-                                                <input type="text" id="people_id" name="people_id" class="form-control{{ $errors->has('people_id') ? ' is-invalid' : '' }}" value="{{ $detailPurchase->purchaseSupplier->person->identification_number }} - {{ $detailPurchase->purchaseSupplier->person->first_name }} {{ $detailPurchase->purchaseSupplier->person->other_name }} {{ $detailPurchase->purchaseSupplier->person->surname }} {{ $detailPurchase->purchaseSupplier->person->second_surname }} {{ $detailPurchase->purchaseSupplier->person->company_name }}" readonly>
+                                                <input type="text" id="people_id" name="people_id" class="form-control{{ $errors->has('people_id') ? ' is-invalid' : '' }}" value="{{ optional($detailPurchase->purchaseSupplier->person)->identification_number ?? 'nn' }} - {{ optional($detailPurchase->purchaseSupplier->person)->first_name ?? 'nn' }} {{ optional($detailPurchase->purchaseSupplier->person)->other_name ?? 'nn' }} {{ optional($detailPurchase->purchaseSupplier->person)->surname ?? 'nn' }} {{ optional($detailPurchase->purchaseSupplier->person)->second_surname ?? 'nn' }} {{ optional($detailPurchase->purchaseSupplier->person)->company_name ?? 'nn' }}" readonly>
+
                                                 {!! $errors->first('people_id', '<div class="invalid-feedback">:message</div>') !!}
                                             </div>
                                         </div>
