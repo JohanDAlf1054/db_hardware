@@ -177,12 +177,23 @@
                                                 <div class="col-md-12 text-end">
                                                     <div class="row">
                                                         <div class="col-md-6 text-end">
-                                                            <label for="total" class="form-label">Total</label>
+                                                            <label for="total" class="form-label">SubTotal</label>
                                                         </div>
                                                         <div class="col-md-6 text-end">
                                                             <input type="text" id="total" name="total" value="${{ number_format($debitNoteSupplier->total, 2, '.', ',') }}" class="form-control" readonly>
                                                         </div>
                                                     </div>
+                                                    <div class="row">
+                                                        <div class="col-md-6 text-end">
+                                                            <label for="descuento" class="form-label">Descuento</label>
+                                                        </div>
+                                                        <div class="col-md-6 text-end">
+                                                            <input type="text" id="descuento" name="descuento" value="{{ number_format($descuentoTotal, 2) }}" class="form-control" readonly>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    
+                                                    
                                                     <div class="row">
                                                         <div class="col-md-6 text-end">
                                                             <label for="totalBruto" class="form-label">Total Bruto</label>
@@ -193,7 +204,18 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="col-md-6 text-end">
-                                                            <label for="totalNeto" class="form-label">Total Neto</label>
+                                                            <label for="iva" class="form-label">IVA %</label>
+                                                        </div>
+                                                        <div class="col-md-6 text-end">
+                                                            <input type="text" id="iva" name="iva" value="{{ $debitNoteSupplier->net_total - $debitNoteSupplier->gross_total   }}" class="form-control" readonly>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    
+                                                    
+                                                    <div class="row">
+                                                        <div class="col-md-6 text-end">
+                                                            <label for="totalNeto" class="form-label">Total Factura</label>
                                                         </div>
                                                         <div class="col-md-6 text-end">
                                                             <input type="text" id="totalNeto" name="totalNeto" value="${{ number_format($debitNoteSupplier->net_total, 2, '.', ',') }}" class="form-control" readonly>
@@ -285,39 +307,48 @@
             });
         </script>
         <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                var cantidadInput = document.querySelector('input[name="cantidad"]');
-                var precioUnitarioInput = document.getElementById('precio_unitario');
-                var descuentoInput = document.getElementById('descuento');
-                var ivaInput = document.getElementById('iva');
+           document.addEventListener('DOMContentLoaded', function() {
+    // Función para calcular los totales
+    var calcularTotales = function() {
+        var total = 0;
+        var totalBruto = 0;
+        var descuentoTotal = 0;
+        var totalIva = 0;
 
-                var totalInput = document.getElementById('total');
-                var totalBrutoInput = document.getElementById('totalBruto');
-                var totalNetoInput = document.getElementById('totalNeto');
+        document.querySelectorAll('#tabla_detalle tbody tr').forEach(function(row) {
+            var cantidad = Number(row.querySelector('input[name="cantidad[]"]').value);
+            var precio_unitario = Number(row.querySelector('input[name="precio_unitario[]"]').value);
+            var iva = Number(row.querySelector('input[name="iva[]"]').value) / 100;
+            var descuento = Number(row.querySelector('input[name="descuento[]"]').value);
+            var subtotal = Math.round(cantidad * precio_unitario * 100) / 100;
+            var ivaTotal = Math.round(subtotal * iva * 100) / 100;
 
-                // Función para calcular los totales
-                var calcularTotales = function() {
-                    var cantidad = parseFloat(cantidadInput.value) || 0;
-                    var precioUnitario = parseFloat(precioUnitarioInput.value) || 0;
-                    var descuento = parseFloat(descuentoInput.value) || 0;
-                    var iva = parseFloat(ivaInput.value) || 0;
+            total += subtotal;
+            totalBruto += subtotal - descuento;
+            descuentoTotal += descuento;
+            totalIva += ivaTotal;
+        });
 
-                    var totalBruto = cantidad * precioUnitario;
-                    var total = totalBruto - descuento;
-                    var totalNeto = total + total * iva / 100;
+        var totalNeto = Math.round((totalBruto + totalIva) * 100) / 100;
 
-                    totalInput.value = total.toFixed(2);
-                    totalBrutoInput.value = totalBruto.toFixed(2);
-                    totalNetoInput.value = totalNeto.toFixed(2);
-                };
+        document.getElementById('total').value = total.toFixed(2);
+        document.getElementById('totalBruto').value = totalBruto.toFixed(2);
+        document.getElementById('totalNeto').value = totalNeto.toFixed(2);
+        document.getElementById('Descuento').value = descuentoTotal.toFixed(2);
+        document.getElementById('iva').value = totalIva.toFixed(2);
+    };
 
-                // Agregar el evento 'input' a los campos
-                cantidadInput.addEventListener('input', calcularTotales);
-                precioUnitarioInput.addEventListener('input', calcularTotales);
-                descuentoInput.addEventListener('input', calcularTotales);
-                ivaInput.addEventListener('input', calcularTotales);
-            });
+    // Agregar el evento 'input' a los campos
+    document.querySelectorAll('input[name="cantidad[]"], input[name="precio_unitario[]"], input[name="descuento[]"], input[name="iva[]"]').forEach(function(input) {
+        input.addEventListener('input', calcularTotales);
+    });
+
+    // Llama a calcularTotales al cargar la página para calcular los totales iniciales
+    calcularTotales();
+});
+
         </script>
+        
         </body>
 
         </html>

@@ -286,7 +286,11 @@ class debitNoteSupplierController extends Controller
         $debitNoteSuppliers = debitNoteSupplier::where('purchase_suppliers_id', $purchaseSupplierId)->get();
 
         $detailPurchases = DetailPurchase::with('purchaseSupplier', 'product')->get();
-
+        $descuentoTotal = 0;
+        foreach ($debitNoteSuppliers as $debitNoteSupplier) {
+            $descuentoTotal += $debitNoteSupplier->detailPurchase->discount_total;
+        }
+        
         $detailPurchaseData = [];
         $detailPurchaseDates = [];
         $detailPurchaseProducts = [];
@@ -311,7 +315,7 @@ class debitNoteSupplierController extends Controller
         $users = User::all();
         $purchaseSuppliers = PurchaseSupplier::all();
 
-        return view('debit-note-supplier.show', compact('debitNoteSuppliers', 'debitNoteSupplier', 'detailPurchase', 'detailPurchases', 'people', 'products', 'users', 'purchaseSuppliers', 'detailPurchaseData', 'detailPurchaseDates', 'detailPurchaseProducts','debitNoteId'));
+        return view('debit-note-supplier.show', compact('debitNoteSuppliers', 'debitNoteSupplier', 'detailPurchase', 'detailPurchases', 'people', 'products', 'users', 'purchaseSuppliers', 'detailPurchaseData', 'detailPurchaseDates', 'detailPurchaseProducts','debitNoteId', 'descuentoTotal'));
     }
     /**
      * Show the form for editing the specified resource.

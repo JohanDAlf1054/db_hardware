@@ -14,7 +14,16 @@
             <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
 
         </head>
-
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    
         <body>
             <div class="container-fluid">
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -30,7 +39,7 @@
                                 <div class="row gy-4">
                                     <!------Compra producto---->
                                     <div class="col-xl-8">
-                                        <div class="text-white bg-primary p-1 text-center">
+                                        <div class="text-white bg-primary p-1 text-center"style="font-size: 20px;">
                                             Detalles de la compra
                                         </div>
                                         <div class="p-3 border border-3 border-primary">
@@ -158,8 +167,12 @@
                                                                 <tr>
                                                                     <th></th>
                                                                     <th colspan="7">IVA %</th>
-                                                                    <th colspan="2"><span id="igv">0</span></th>
+                                                                    <th colspan="2">
+                                                                        <input type="hidden" id="igv_input" name="igv" value="">
+                                                                        <span id="igv">0</span>
+                                                                    </th>
                                                                 </tr>
+                                                                
                                                                 
                                                                 <tr>
                                                                     <th></th>
@@ -182,7 +195,7 @@
                                         </div>
                                     </div>
                                     <div class="col-xl-4">
-                                        <div class="text-white bg-success p-1 text-center">
+                                        <div class="text-white bg-success p-1 text-center"style="font-size: 20px;">
                                             Datos generales
                                         </div>
                                         <div class="p-3 border border-3 border-success">
@@ -228,6 +241,27 @@
                                                     <input readonly type="date" name="fecha" id="fecha"
                                                         class="form-control border-success" value="<?php echo date('Y-m-d'); ?>">
                                                 </div>
+                                                <div class="col-6 mb-2">
+                                                    <label for="invoice_type" class="form-label">Factura De Compra:</label>
+                                                    <input type="text" id="invoice_type" name="invoice_type" class="form-control" value="FC" readonly >
+                                                    @error('invoice_type')
+                                                        <small class="text-danger">{{ '*' . $message }}</small>
+                                                    @enderror
+                                                </div>
+                                                
+                                                <div class="col-6 mb-2">
+                                                    <label for="id" class="form-label">ID:</label>
+                                                    <input type="text" id="id" name="id" class="form-control" value="{{ DB::table('detail_purchase')->max('id') + 1 }}" readonly>
+                                                    @error('id')
+                                                        <small class="text-danger">{{ '*' . $message }}</small>
+                                                    @enderror
+                                                </div>
+                                                
+                                                <!-- Aquí van tus otros campos -->
+                                                
+                                                
+                                                <!-- Aquí van tus otros campos -->
+                                                
                                                 <div class="col-6 mb-2">
                                                     <label for="code" class="form-label">Prefijo:</label>
                                                     <div class="input-group">
@@ -388,6 +422,7 @@
                     $('#descuento').html(descuentoTotal);
                     $('#inputTotal').val(total);
                     $('#hiddenTotalBruto').val(totalBruto);
+                    $('#igv_input').val(igv);
                     $('#hiddenTotalNeto').val(totalNeto);
 
 
@@ -479,6 +514,7 @@
                         $('#descuento').html(formatearMoneda(descuentoTotal));
                         $('#inputTotal').val(formatearMoneda(total));
                         $('#hiddenTotalBruto').val(totalBruto);
+                        $('#igv_input').val(igv);
                         $('#hiddenTotalNeto').val(totalNeto);
                         
                     }
@@ -504,6 +540,7 @@
                     $('#descuento').html(formatearMoneda(descuentoTotal));
                     $('#inputTotal').val(formatearMoneda(total));
                     $('#hiddenTotalBruto').val(totalBruto);
+                    $('#igv_input').val(igv);
                     $('#hiddenTotalNeto').val(totalNeto);
                     //Eliminar el fila de la tabla
                     $('#fila' + indice).remove();
@@ -574,6 +611,7 @@
                     }
                 });
             </script>
+
         @endcan
     @endauth
     @guest

@@ -127,7 +127,7 @@
                     </tr>
                     <tr>
                         <th colspan="7">Subtotal:</th>
-                        <th id="th-igv">${{ number_format($total_tax, 2) }}</th>
+                        <th id="th-igv">${{ number_format($total_value, 2) }}</th>
                     </tr>
                     <tr>
                         <th colspan="7">Descuento:</th>
@@ -139,7 +139,7 @@
                     </tr>
                     <tr>
                         <th colspan="7">IVA %</th>
-                        <th id="th-igv">${{ number_format($detailPurchases->sum(function($detailPurchase) { return $detailPurchase->quantity_units * $detailPurchase->price_unit * $detailPurchase->product_tax / 100; }), 2) }}</th>
+                        <th id="th-igv">${{ number_format($total_tax, 2) }}</th>
                     </tr>
                     <tr>
                         <th colspan="7">Total Factura:</th>
