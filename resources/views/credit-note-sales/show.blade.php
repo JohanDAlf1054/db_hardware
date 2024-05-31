@@ -59,7 +59,7 @@
                                                     {{ __('Cliente') }}
                                                     <span class="text-danger">*</span>
                                                 </label>
-                                                <input disabled type="text" name="clients_id" id="clients_id" value="{{$credit_note_sale->cliente->identification_number}}" class="form-control">
+                                                <input disabled type="text" name="clients_id" id="clients_id" value="{{$credit_note_sale->cliente->identification_number}} - {{$credit_note_sale->cliente->company_name}}{{$credit_note_sale->cliente->first_name}} {{$credit_note_sale->cliente->other_name}} {{$credit_note_sale->cliente->surname}} {{$credit_note_sale->cliente->second_surname}} " class="form-control">
                                                 {!! $errors->first('clients_id', '<div class="invalid-feedback">:message</div>') !!}
                                             </div>
                                         </div>
@@ -124,12 +124,13 @@
                                             <thead class="bg-dark-blue">
                                                 <tr>
                                                     <th>Producto</th>
-                                                    <th>Referencia</th>
                                                     <th>Cantidad</th>
-                                                    <th>Precio de Venta</th>
+                                                    <th>Referencia</th>
+                                                    <th>Precio Unitario</th>
                                                     <th>Descuento</th>
-                                                    <th>Impuesto</th>
-                                                    <th>Subtototal</th>
+                                                    <th>%</th>
+                                                    <th>Iva</th>
+                                                    <th>Precio unitario de venta</th>  
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -139,52 +140,64 @@
                                                         {{$item->name_product}}
                                                     </td>
                                                     <td>
-                                                        {{$item->pivot->references}}
-                                                    </td>
-                                                    <td>
                                                         {{$item->pivot->amount}}
                                                     </td>
                                                     <td>
-                                                        {{$item->pivot->selling_price}}
+                                                        {{$item->pivot->references}}
                                                     </td>
                                                     <td>
-                                                        {{$item->pivot->discounts}}
+                                                        ${{ number_format($item->pivot->selling_price, 2, '.', ',') }}
+                                                    </td>
+                                                    <td>
+                                                        ${{ number_format($item->pivot->discounts, 2, '.', ',') }}
                                                     </td>
                                                     <td>
                                                         {{$item->pivot->tax}}
                                                     </td>
+                                                    <td>
+                                                        ${{ number_format($item->pivot->iva, 2, '.', ',') }}
+                                                    </td>
                                                     <td class="td-subtotal">
-                                                        {{($item->pivot->amount) * ($item->pivot->selling_price) - ($item->pivot->discounts)}}
+                                                        ${{ number_format(($item->pivot->amount) * ($item->pivot->selling_price), 2, '.', ',') }}
                                                     </td>
                                                 </tr>
-                                                @endforeach
-                                            </tbody>
-                                            <tfoot>
-                                                <tr>
-                                                    <th colspan="8"></th>
-                                                </tr>
-                                                <tr>
-                                                    <th colspan="6">Sumas:</th>
-                                                    <th id="th-suma"><input disabled  type="text"  class="form-control" value="{{$credit_note_sale->gross_totals}}"></th>
-                                                </tr>
-                                                <tr>
-                                                    <th colspan="6">IGV:</th>
-                                                    <th id="th-igv">  <input disabled  type="text"  class="form-control" value="{{$credit_note_sale->taxes_total}}"></th>
-                                                </tr>
-                                                <tr>
-                                                    <th colspan="6">Total:</th>
-                                                    <th id="th-total"> <input disabled  type="text"  class="form-control" value="{{$credit_note_sale->net_total}}"></th>
-                                                </tr>
-                                            </tfoot>
-                                        </table>
-                                        {{-- Input oculto para el ID de venta --}}
-                                        <input type="hidden" name="sale_id" id="sale_id">
+                                            @endforeach
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <th colspan="7"></th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th colspan="7">Subtotal:</th>
+                                                        <th id="th-suma"></th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th colspan="7">Total Descuentos:</th>
+                                                        <th id="th-descuentos"></th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th colspan="7">Total Bruto:</th>
+                                                        <th id="th-gross"></th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th colspan="7">IVA:</th>
+                                                        <th id="th-igv"></th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th colspan="7">Total Factura:</th>
+                                                        <th id="th-total"></th>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                            {{-- Input oculto para el ID de venta --}}
+                                            <input type="hidden" name="sale_id" id="sale_id">
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            {{-- Footer de la tarjeta --}}
-                            <div class="card-footer text-end">
-                                <a class="btn btn-primary" style="margin-right: 2rem" href="{{ route('credit-note-sales.index') }}">Regresar</a>
+                                {{-- Footer de la tarjeta --}}
+                                <div class="card-footer text-end">
+                                    <a class="btn btn-primary" style="margin-right: 2rem" href="{{ route('credit-note-sales.index') }}">Regresar</a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -192,46 +205,61 @@
             </div>
         </div>
     </div>
-</div>
 
 
-@endsection
+    @endsection
 
-@push('js')
-<script>
-    // Variables
-    let filasSubtotal = document.querySelectorAll('#tablaDetalleVenta tbody tr td:last-child');
-    let cont = 0;
-    let impuesto = parseFloat("{{ $credit_note_sale->taxes_total }}");
-
-    $(document).ready(function() {
-        calcularValores();
-    });
-
-    function calcularValores() {
-        cont = 0;
-        for (let i = 0; i < filasSubtotal.length; i++) {
-            cont += parseFloat(filasSubtotal[i].innerText);
+    @push('js')
+    <script>
+        // Variables
+        let filasSubtotal = document.getElementsByClassName('td-subtotal');
+        let cont = 0;
+        let impuesto = parseFloat("{{ $credit_note_sale->taxes_total }}");
+        let descuento = parseFloat("{{ $credit_note_sale->total_discounts }}");
+        let totalbruto = parseFloat("{{ $credit_note_sale->gross_totals }}");
+    
+        $(document).ready(function() {
+            calcularValores();
+        });
+    
+        function calcularValores() {
+            cont = 0;
+            for (let i = 0; i < filasSubtotal.length; i++) {
+    // Obtener el valor de la celda, eliminar el símbolo de la moneda y las comas, y convertirlo a número
+    cont += parseFloat(filasSubtotal[i].innerHTML.replace('$', '').replace(/,/g, ''));
+}
+    
+            // Formatear los valores antes de mostrarlos
+            let sumaFormateada = formatCurrency(cont.toFixed(2));
+            let igvFormateado = formatCurrency(impuesto.toFixed(2));
+            let descuentoFormateado = formatCurrency(descuento.toFixed(2));
+            let totalbrutoFormateado = formatCurrency(totalbruto.toFixed(2));
+            let totalFormateado = formatCurrency(round(totalbruto + impuesto, 2).toFixed(2));
+    
+            $('#th-suma').text(sumaFormateada);
+            $('#th-igv').text(igvFormateado);
+            $('#th-descuentos').text(descuentoFormateado);
+            $('#th-gross').text(totalbrutoFormateado);
+            $('#th-total').text(totalFormateado);
         }
-
-        $('#th-suma').text(cont.toFixed(2));
-        $('#th-igv').text(impuesto.toFixed(2));
-        $('#th-total').text(round(cont + impuesto, 2).toFixed(2));
-    }
-
-    function round(num, decimales = 2) {
-        var signo = (num >= 0 ? 1 : -1);
-        num = num * signo;
-        if (decimales === 0) //con 0 decimales
-            return signo * Math.round(num);
-        // round(x * 10 ^ decimales)
-        num = num.toString().split('e');
-        num = Math.round(+(num[0] + 'e' + (num[1] ? (+num[1] + decimales) : decimales)));
-        // x * 10 ^ (-decimales)
-        num = num.toString().split('e');
-        return signo * (num[0] + 'e' + (num[1] ? (+num[1] - decimales) : -decimales));
-    }
-</script>
+    
+        function round(num, decimales = 2) {
+            var signo = (num >= 0 ? 1 : -1);
+            num = num * signo;
+            if (decimales === 0) //con 0 decimales
+                return signo * Math.round(num);
+            // round(x * 10 ^ decimales)
+            num = num.toString().split('e');
+            num = Math.round(+(num[0] + 'e' + (num[1] ? (+num[1] + decimales) : decimales)));
+            // x * 10 ^ (-decimales)
+            num = num.toString().split('e');
+            return signo * (num[0] + 'e' + (num[1] ? (+num[1] - decimales) : -decimales));
+        }
+        function formatCurrency(value) {
+            let formattedValue = new Intl.NumberFormat('es-PE', { style: 'currency', currency: 'PEN' }).format(value);
+            return formattedValue.replace('S/', '$');
+        }
+    </script>
 @endpush
 @else
     <div class="mensaje_Rol">

@@ -169,7 +169,7 @@ class PersonController extends Controller
     {
         $data = $request->all();
         $data['id'] = $person->id;
-
+        
         $rules = Person::staticRules($data);
 
         $validator = Validator::make($data, $rules);

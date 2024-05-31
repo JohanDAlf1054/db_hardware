@@ -1,10 +1,10 @@
 @auth
 
 
-    @include('include.barra', ['modo' => 'Personas'])
+    @include('include.barra', ['modo' => 'Terceros'])
 
     <head>
-        <title>Personas</title>
+        <title>Terceros</title>
         <link href="css/estilos_vista_persona.css" rel="stylesheet" />
         <link href="css/estilos_notificacion.css" rel="stylesheet" />
         <link rel="stylesheet" href="https://cdn.datatables.net/2.0.6/css/dataTables.bootstrap5.css">
@@ -33,21 +33,21 @@
                                             aria-expanded="false">Acciones</button>
                                         <ul class="dropdown-menu">
                                             <li>
-                                                <a class="dropdown-item" href="{{ route('person.create') }}">Crear nueva persona</a>
+                                                <a class="dropdown-item" href="{{ route('person.create') }}">Crear tercero</a>
                                             </li>
                                             <li>
-                                                <a class="dropdown-item" href="{{ route('supplier.index') }}">Mostrar proveedores</a>
+                                                <a class="dropdown-item" href="{{ route('customer.index') }}">Ver clientes</a>
                                             </li>
                                             <li>
-                                                <a class="dropdown-item" href="{{ route('customer.index') }}">Mostrar clientes</a>
-                                            </li>
+                                                <a class="dropdown-item" href="{{ route('supplier.index') }}">Ver proveedores</a>
+                                            </li>                                            
                                         </ul>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                                     <form action="{{ route('person.index') }}" method="get" class="d-flex align-items-center">
                                         <input name="filtervalue" type="text" class="form-control me-2"
-                                            aria-label="Buscar persona" placeholder="Buscar persona....">
+                                            aria-label="Buscar tercero" placeholder="Buscar tercero....">
                                         <button type="submit" class="btn btn-dark">Buscar</button>
 
                                         {{-- Botones IMPORTAR Y EXPORTAR --}}

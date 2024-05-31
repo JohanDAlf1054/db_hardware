@@ -78,13 +78,13 @@
                                                 <tr>
                                                     <th>#</th>
                                                     <th>Producto</th>
+                                                    <th>Cantidad</th>
                                                     <th>Referencia</th>
-                                                    <th>Cant</th>
-                                                    <th>Valor Unitario</th>
-                                                    <th>% Desc</th>
-                                                    <th>Impuesto</th>
-                                                    <th>Subtotal</th>
-                                                    <th></th>
+                                                    <th>Precio Unitario</th>
+                                                    <th>Descuento</th>
+                                                    <th>%</th>
+                                                    <th>Iva</th>
+                                                    <th>Precio unitario de venta</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -102,17 +102,27 @@
                                             <tfoot>
                                                 <tr>
                                                     <th></th>
+                                                    <th colspan="4">Subtotal</th>
+                                                    <th colspan="2"><input type="hidden" name="subtotal" value="0" id="inputSubtotal"><span id="subtotal">0</span></th>
+                                                </tr>
+                                                <tr>
+                                                    <th></th>
+                                                    <th colspan="4">Total Descuentos</th>
+                                                    <th colspan="2"><input type="hidden" name="total_discounts" value="0" id="inputTotal_discounts"><span id="total_discounts">0</span></th>
+                                                </tr>
+                                                <tr>
+                                                    <th></th>
                                                     <th colspan="4">Total Bruto</th>
                                                     <th colspan="2"><input type="hidden" name="gross_totals" value="0" id="inputGross"><span id="gross_totals">0</span></th>
                                                 </tr>
                                                 <tr>
                                                     <th></th>
-                                                    <th colspan="4">Total Iva %</th>
+                                                    <th colspan="4">IVA</th>
                                                     <th colspan="2"><input type="hidden" name="taxes_total" value="0" id="inputTaxes"><span id="taxes_total">0</span></th>
                                                 </tr>
                                                 <tr>
                                                     <th></th>
-                                                    <th colspan="4">Total Neto</th>
+                                                    <th colspan="4">Total Factura</th>
                                                     <th colspan="2"> <input type="hidden" name="net_total" value="0" id="inputTotal"><span id="net_total">0</span></th>
                                                 </tr>
                                             </tfoot>
@@ -171,7 +181,7 @@
                                 <!--Forma de pago-->
                                 <div class="col-12">
                                     <label for="payments_methods" class="form-label">Forma de pago:</label>
-                                    <select name="payments_methods" class="form-control selectpicker">
+                                    <select name="payments_methods" class="form-control selectpicker" title="Selecciona la forma de pago">
                                         <option value="Efectivo">Efectivo</option>
                                         <option value="Consignación">Consignación</option>
                                         <option value="Tarjeta">Tarjeta</option>
@@ -183,7 +193,7 @@
                                 <!--Vendedor-->
                                 <div class="col-12">
                                     <label for="sellers" class="form-label">Vendedor:</label>
-                                    <select name="sellers" id="sellers" class="form-control selectpicker show-tick" data-live-search="true" title="Selecciona el vendedor" data-size='3'>
+                                    <select name="sellers" id="sellers" class="form-control selectpicker" title="Selecciona el vendedor" data-size='3'>
                                         @foreach ($users as $item)
                                         <option value="{{$item->name}}">{{$item->name}}</option>
                                         @endforeach
@@ -195,15 +205,24 @@
                                 <input type="hidden" name="factory_reference" id="factory_reference">
                                 <!--Botones--->
                                 <div class="col-12 text-center">
+              
                                     <button type="submit" class="btn btn-success" id="guardar">Realizar venta</button>
+                                 
+                                            <a class="btn btn-primary" style="margin-right: 2rem" href="{{ route('sales.index') }}">Regresar</a>
+                                
                                 </div>
                             </div>
                         </div>
                     </div>
+                    
                 </div>
+                
             </div>
+            
         </form>
+       
     </div>
+   
     <!-- Modal para cancelar la venta -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -229,36 +248,27 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/js/bootstrap-select.min.js"></script>
 <script>
     $(document).ready(function() {
-
         $('#product_id').change(mostrarValores);
-
-
         $('#btn_agregar').click(function() {
             agregarProducto();
         });
-
         $('#btnCancelarVenta').click(function() {
             cancelarVenta();
         });
-
         disableButtons();
-
-
     });
 
     //Variables
     let cont = 0;
     let subtotal = [];
     let sumas = 0;
-    let sumasdescuento=0;
     let igv = 0;
     let total = 0;
-
-
+    let totalDescuentos = 0; // Variable para almacenar el total de descuentos
 
     function mostrarValores() {
         let dataProducto = document.getElementById('product_id').value.split('-');
-        console.log(dataProducto)
+        console.log(dataProducto);
         $('#stock').val(dataProducto[1]);
         $('#selling_price').val(dataProducto[2]);
         $('#tax').val(dataProducto[3]);
@@ -267,7 +277,6 @@
 
     function agregarProducto() {
     let dataProducto = document.getElementById('product_id').value.split('-');
-    // Obtener valores de los campos
     let idProducto = dataProducto[0];
     let nameProducto = $('#product_id option:selected').text();
     let cantidad = $('#amount').val();
@@ -275,62 +284,65 @@
     let descuento = $('#discounts').val();
     let stock = $('#stock').val();
     let factoryreference = $('#factory_reference').val();
-    let impuesto = parseFloat(dataProducto[3]); // Obtener el impuesto del array
+    let impuesto = parseFloat(dataProducto[3]);
 
-    if (descuento == '') {
+    if (descuento === '') {
         descuento = 0;
     }
 
-       // Verificar si el producto ya está en la tabla
-       if ($("#tabla_detalle input[name='arrayidproducto[]']").filter(function() {
-            return $(this).val() == idProducto;
-        }).length > 0) {
-            showModal('El producto ya está en la lista');
-            return;
-        }
+    if ($("#tabla_detalle input[name='arrayidproducto[]']").filter(function() {
+        return $(this).val() == idProducto;
+    }).length > 0) {
+        showModal('El producto ya está en la lista');
+        return;
+    }
 
-        if (parseFloat(descuento) > parseFloat(precioVenta)) {
-            showModal('El descuento no puede ser mayor que el precio del producto');
-            return;
-        }
-        
-    // Validaciones
-    if (idProducto != '' && cantidad != '') {
-        if (parseInt(cantidad) > 0 && (cantidad % 1 == 0) && parseFloat(descuento) >= 0) {
+    if (parseFloat(descuento) > parseFloat(precioVenta)) {
+        showModal('El descuento no puede ser mayor que el precio del producto');
+        return;
+    }
+
+    if (idProducto !== '' && cantidad !== '') {
+        if (parseInt(cantidad) > 0 && (cantidad % 1 === 0) && parseFloat(descuento) >= 0) {
             if (parseInt(cantidad) <= parseInt(stock)) {
-                // Calcular subtotal del producto
-                let subtotalProducto = round(cantidad * precioVenta - descuento);
+                let subtotalProducto = round(cantidad * precioVenta);
+                
                 subtotal[cont] = subtotalProducto;
                 sumas += subtotal[cont];
-                igv += round(subtotalProducto / 100 * impuesto); // Ajustar el impuesto acumulativo
-                total = round(sumas + igv);
+                let impuestoval = round(subtotalProducto / 100 * impuesto);
+                igv += impuestoval; 
+                totalDescuentos += parseFloat(descuento);
+                let totalbruto = round(sumas - totalDescuentos); // Calcula total bruto restando el descuento total del subtotal
+                total = round(totalbruto + igv);
 
-                // Crear la fila
                 let fila = '<tr id="fila' + cont + '">' +
                     '<th>' + (cont + 1) + '</th>' +
                     '<td><input type="hidden" name="arrayidproducto[]" value="' + idProducto + '">' + nameProducto + '</td>' +
-                    '<td><input type="hidden" name="arrayname[]" value="' + factoryreference + '">' + factoryreference + '</td>' +
                     '<td><input type="hidden" name="arraycantidad[]" value="' + cantidad + '">' + cantidad + '</td>' +
+                    '<td><input type="hidden" name="arrayname[]" value="' + factoryreference + '">' + factoryreference + '</td>' +
                     '<td><input type="hidden" name="arrayprecioventa[]" value="' + precioVenta + '">' + precioVenta + '</td>' +
                     '<td><input type="hidden" name="arraydescuento[]" value="' + descuento + '">' + descuento + '</td>' +
                     '<td><input type="hidden" name="arrayimpuesto[]" value="' + impuesto + '">' + impuesto + '%'+ '</td>' +
+                    '<td><input type="hidden" name="arrayimpuestoval[]" value="' + impuestoval + '">' + impuestoval + '</td>' +
                     '<td>' + subtotalProducto + '</td>' +
-                    '<td><button class="btn btn-danger" type="button" onClick="eliminarProducto(' + cont + ', ' + subtotalProducto + ', ' + impuesto + ')"><i class="fa-solid fa-trash"></i></button></td>' +
+                    '<td><button class="btn btn-danger" type="button" onClick="eliminarProducto(' + cont + ', ' + subtotalProducto + ', ' + impuestoval + ', ' + descuento + ')"><i class="fa-solid fa-trash"></i></button></td>' +
                     '</tr>';
 
-                // Acciones después de añadir la fila
                 $('#tabla_detalle').append(fila);
                 limpiarCampos();
                 cont++;
                 disableButtons();
 
-                // Actualizar los campos calculados
-                $('#gross_totals').html(sumas);
-                $('#inputGross').val(sumas);
+                $('#subtotal').html(sumas);
+                $('#inputSubtotal').val(sumas);
                 $('#taxes_total').html(igv);
                 $('#inputTaxes').val(igv);
+                $('#gross_totals').html(totalbruto);
+                $('#inputGross').val(totalbruto);
                 $('#net_total').html(total);
                 $('#inputTotal').val(total);
+                $('#total_discounts').html(totalDescuentos);
+                $('#inputTotal_discounts').val(totalDescuentos);
             } else {
                 showModal('Cantidad incorrecta');
             }
@@ -342,61 +354,65 @@
     }
 }
 
-function eliminarProducto(indice, subtotalProducto, impuesto) {
-    // Restar el subtotal del producto eliminado de la suma total
-    sumas -= round(subtotalProducto);
-    igv -= round(subtotalProducto / 100 * impuesto); // Restar el impuesto correspondiente al producto eliminado
-    total = round(sumas + igv);
+function eliminarProducto(index, subtotalProducto, impuestoval, descuento) {
+    sumas -= subtotalProducto;
+    igv -= impuestoval;
+    totalDescuentos -= parseFloat(descuento);
+    let totalbruto = round(sumas - totalDescuentos); // Calcula total bruto restando el descuento total del subtotal
+    total = round(totalbruto + igv);
 
-    // Actualizar los campos mostrados
-    $('#gross_totals').html(sumas);
-    $('#inputGross').val(sumas);
+    $('#fila' + index).remove();
+
+    $('#subtotal').html(sumas);
+    $('#inputSubtotal').val(sumas);
     $('#taxes_total').html(igv);
     $('#inputTaxes').val(igv);
+    $('#gross_totals').html(totalbruto);
+    $('#inputGross').val(totalbruto);
     $('#net_total').html(total);
     $('#inputTotal').val(total);
-
-    // Eliminar el fila de la tabla
-    $('#fila' + indice).remove();
+    $('#total_discounts').html(totalDescuentos);
+    $('#inputTotal_discounts').val(totalDescuentos);
 
     disableButtons();
 }
 
 
-    function cancelarVenta() {
-        //Elimar el tbody de la tabla
-        $('#tabla_detalle tbody').empty();
+function cancelarVenta() {
+    $('#tabla_detalle tbody').empty();
+    let fila = '<tr>' +
+        '<th></th>' +
+        '<td></td>' +
+        '<td></td>' +
+        '<td></td>' +
+        '<td></td>' +
+        '<td></td>' +
+        '<td></td>' +
+        '</tr>';
+    $('#tabla_detalle').append(fila);
 
-        //Añadir una nueva fila a la tabla
-        let fila = '<tr>' +
-            '<th></th>' +
-            '<td></td>' +
-            '<td></td>' +
-            '<td></td>' +
-            '<td></td>' +
-            '<td></td>' +
-            '<td></td>' +
-            '</tr>';
-        $('#tabla_detalle').append(fila);
+    cont = 0;
+    subtotal = [];
+    sumas = 0;
+    igv = 0;
+    total = 0;
+    totalDescuentos = 0;
 
-        //Reiniciar valores de las variables
-        cont = 0;
-        subtotal = [];
-        sumas = 0;
-        igv = 0;
-        total = 0;
+    $('#subtotal').html(sumas);
+    $('#inputSubtotal').val(sumas);
+    $('#taxes_total').html(igv);
+    $('#inputTaxes').val(igv);
+    $('#gross_totals').html(totalbruto);
+    $('#inputGross').val(totalbruto);
+    $('#net_total').html(total);
+    $('#inputTotal').val(total);
+    $('#total_discounts').html(totalDescuentos);
+    $('#inputTotal_discounts').val(totalDescuentos);
 
-        //Mostrar los campos calculados
-        $('#gross_totals').html(sumas);
-        $('#inputGross').val(sumas);
-        $('#taxes_total').html(igv);
-        $('#inputTaxes').val(igv);
-        $('#net_total').html(total);
-        $('#inputTotal').val(total);
+    limpiarCampos();
+    disableButtons();
+}
 
-        limpiarCampos();
-        disableButtons();
-    }
 
     function disableButtons() {
         if (total == 0) {
@@ -419,40 +435,31 @@ function eliminarProducto(indice, subtotalProducto, impuesto) {
     }
 
     function showModal(message, icon = 'error') {
-            const Toast = Swal.mixin({
-                toast: true,
-                position: 'bottom-end',
-                showConfirmButton: false,
-                timer: 3000,
-                timerProgressBar: true,
-                didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer)
-                    toast.addEventListener('mouseleave', Swal.resumeTimer)
-                }
-            })
+        const Toast = Swal.mixin({
+            toast: true,
+            position: 'bottom-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+            }
+        })
 
-            Toast.fire({
-                icon: icon,
-                title: message
-            })
+        Toast.fire({
+            icon: icon,
+            title: message
+        })
     }
 
     function round(num, decimales = 2) {
-        var signo = (num >= 0 ? 1 : -1);
-        num = num * signo;
-        if (decimales === 0) //con 0 decimales
-            return signo * Math.round(num);
-        // round(x * 10 ^ decimales)
-        num = num.toString().split('e');
-        num = Math.round(+(num[0] + 'e' + (num[1] ? (+num[1] + decimales) : decimales)));
-        // x * 10 ^ (-decimales)
-        num = num.toString().split('e');
-        return signo * (num[0] + 'e' + (num[1] ? (+num[1] - decimales) : -decimales));
-    }
-    //Fuente: https://es.stackoverflow.com/questions/48958/redondear-a-dos-decimales-cuando-sea-necesario
+    var factor = Math.pow(10, decimales);
+    return Math.round(num * factor) / factor;
+}
 </script>
-
 @endpush
+
 @else
     <div class="mensaje_Rol">
         <img src="{{ asset('img/Rol_no_asignado.png')}}" class="img_rol"/>

@@ -29,44 +29,13 @@
         <div class="col-sm-6">
             <div class="input-group" id="hide-group">
                 <span class="input-group-text"><i class="fa-solid fa-hashtag"></i></span>
-                <input disabled type="text" class="form-control" value="Número de comprobante: ">
+                <input disabled type="text" class="form-control" value="Comprobante: ">
             </div>
         </div>
         <div class="col-sm-6">
             <div class="input-group">
                 <span title="Número de comprobante" id="icon-form" class="input-group-text"><i class="fa-solid fa-hashtag"></i></span>
                 <input disabled type="text" class="form-control" value="{{$sale->bill_numbers}}">
-            </div>
-        </div>
-    </div>
-
-    <!---Cliente--->
-    <div class="row mb-4">
-        <div class="col-sm-6">
-            <div class="input-group" id="hide-group">
-                <span class="input-group-text"><i class="fa-solid fa-user-tie"></i></span>
-                <input disabled type="text" class="form-control" value="Cliente: ">
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="input-group">
-                <span title="Cliente" class="input-group-text" id="icon-form"><i class="fa-solid fa-user-tie"></i></span>
-                <input disabled type="text" class="form-control" value="{{$sale->cliente->identification_number}}">
-            </div>
-        </div>
-    </div>
-
-    <div class="row mb-4">
-        <div class="col-sm-6">
-            <div class="input-group" id="hide-group">
-                <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
-                <input disabled type="text" class="form-control" value="Vendedor: ">
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="input-group">
-                <span title="Vendedor" class="input-group-text" id="icon-form"><i class="fa-solid fa-user"></i></span>
-                <input disabled type="text" class="form-control" value="{{$sale->sellers}}">
             </div>
         </div>
     </div>
@@ -85,10 +54,64 @@
             </div>
         </div>
     </div>
+    <!---Cliente--->
+    <div class="row mb-4">
+        <div class="col-sm-6">
+            <div class="input-group" id="hide-group">
+                <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
+                <input disabled type="text" class="form-control" value="Cliente: ">
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="input-group">   
+                <span title="Cliente" class="input-group-text" id="icon-form"><i class="fa-solid fa-user"></i></span>
+                <input disabled type="text" class="form-control" value="{{$sale->cliente->identification_number}} - {{$sale->cliente->company_name}}{{$sale->cliente->first_name}} {{$sale->cliente->other_name}} {{$sale->cliente->surname}} {{$sale->cliente->second_surname}}">
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-sm-6">
+            <div class="input-group" id="hide-group">
+                <span class="input-group-text"><i class="fa-solid fa-user-tie"></i></span>
+                <input disabled type="text" class="form-control" value="Vendedor: ">
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span title="Vendedor" class="input-group-text" id="icon-form"><i class="fa-solid fa-user-tie"></i></span>
+                <input disabled type="text" class="form-control" value="{{$sale->sellers}}">
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-sm-6">
+            <div class="input-group" id="hide-group">
+                <span class="input-group-text"><i class="fa-solid fa-credit-card"></i></span>
+                <input disabled type="text" class="form-control" value="Forma de pago: ">
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="input-group">
+                <span title="Forma de pago" class="input-group-text" id="icon-form"><i class="fa-solid fa-credit-card"></i></span>
+                <input disabled type="text" class="form-control" value="{{$sale->payments_methods}}">
+            </div>
+        </div>
+    </div>
+
+   
 
         <div class="col-sm-6">
             <div class="input-group">
                 <input type="hidden"   id="input-impuesto" disabled type="text" class="form-control" value="{{ $sale->taxes_total }}">
+            </div>
+
+        </div>
+
+        <div class="col-sm-6">
+            <div class="input-group">
+                <input type="hidden"   id="input-descuentos" disabled type="text" class="form-control" value="{{ $sale->total_discounts }}">
             </div>
 
         </div>
@@ -106,37 +129,27 @@
                 <thead class="bg-primary text-white">
                     <tr class="align-top">
                         <th>Producto</th>
-                        <th>Referencia</th>
                         <th>Cantidad</th>
-                        <th>Precio de venta</th>
+                        <th>Referencia</th>
+                        <th>Precio unitario</th>
                         <th>Descuento</th>
-                        <th>Impuesto</th>
-                        <th>Subtotal</th>
+                        <th>%</th>
+                        <th>IVA</th> 
+                        <th>Precio unitario de venta</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($sale->productos as $item)
                     <tr>
-                        <td>
-                            {{$item->name_product}}
-                        </td>
-                        <td>
-                            {{$item->pivot->references}}
-                        </td>
-                        <td>
-                            {{$item->pivot->amount}}
-                        </td>
-                        <td>
-                            {{$item->pivot->selling_price}}
-                        </td>
-                        <td>
-                            {{$item->pivot->discounts}}
-                        </td>
-                        <td>
-                            {{$item->pivot->tax}}
-                        </td>
+                        <td>{{$item->name_product}}</td>
+                        <td>{{$item->pivot->amount}}</td>
+                        <td>{{$item->pivot->references}}</td>
+                        <td class="td-selling-price">${{ number_format($item->pivot->selling_price, 2, '.', ',') }}</td>
+                        <td class="td-discount">${{ number_format($item->pivot->discounts, 2, '.', ',') }}</td>
+                        <td>{{$item->pivot->tax}}</td>
+                        <td class="td-iva">${{ number_format($item->pivot->iva, 2, '.', ',') }}</td>
                         <td class="td-subtotal">
-                            {{($item->pivot->amount) * ($item->pivot->selling_price) - ($item->pivot->discounts)}}
+                            ${{ number_format(($item->pivot->amount) * ($item->pivot->selling_price), 2, '.', ',') }}
                         </td>
                     </tr>
                     @endforeach
@@ -146,15 +159,23 @@
                         <th colspan="7"></th>
                     </tr>
                     <tr>
-                        <th colspan="6">Sumas:</th>
+                        <th colspan="7">Subtotal:</th>
                         <th id="th-suma"></th>
                     </tr>
                     <tr>
-                        <th colspan="6">IGV:</th>
+                        <th colspan="7">Total Descuentos:</th>
+                        <th id="th-descuentos"></th>
+                    </tr>
+                    <tr>
+                        <th colspan="7">Total Bruto:</th>
+                        <th id="th-gross"></th>
+                    </tr>
+                    <tr>
+                        <th colspan="7">IVA:</th>
                         <th id="th-igv"></th>
                     </tr>
                     <tr>
-                        <th colspan="6">Total:</th>
+                        <th colspan="7">Total Factura:</th>
                         <th id="th-total"></th>
                     </tr>
                 </tfoot>
@@ -175,23 +196,43 @@
 
     function calcularValores() {
         let filasSubtotal = document.getElementsByClassName('td-subtotal');
+        let filasDescuento = document.getElementsByClassName('td-discount');
+        let filasIVA = document.getElementsByClassName('td-iva');
         let cont = 0;
-        let impuesto = parseFloat($('#input-impuesto').val());
+        let totalDescuentos = 0;
+        let igv = 0;
 
+        // Calcular el subtotal
         for (let i = 0; i < filasSubtotal.length; i++) {
-            cont += parseFloat(filasSubtotal[i].innerHTML);
+            cont += parseFloat(filasSubtotal[i].innerHTML.replace('$', '').replace(/,/g, ''));
+            totalDescuentos += parseFloat(filasDescuento[i].innerHTML.replace('$', '').replace(/,/g, ''));
+            igv += parseFloat(filasIVA[i].innerHTML.replace('$', '').replace(/,/g, ''));
         }
 
-        let sumaRedondeada = round(cont);
-        let totalRedondeado = round(cont + impuesto);
+        // Calcular total bruto
+        let totalbruto = cont - totalDescuentos;
 
-        $('#th-suma').html(sumaRedondeada.toFixed(2));
-        $('#th-igv').html(impuesto.toFixed(2));
-        $('#th-total').html(totalRedondeado.toFixed(2));
+        // Redondear los valores si es necesario
+        let sumaRedondeada = round(cont);
+        let totalBrutoRedondeado = round(totalbruto);
+        let igvRedondeado = round(igv);
+        let totalRedondeado = round(totalbruto + igv);
+
+        // Mostrar los valores en las celdas correspondientes
+        $('#th-suma').html(formatCurrency(sumaRedondeada));
+        $('#th-descuentos').html(formatCurrency(totalDescuentos));
+        $('#th-gross').html(formatCurrency(totalBrutoRedondeado));
+        $('#th-igv').html(formatCurrency(igvRedondeado));
+        $('#th-total').html(formatCurrency(totalRedondeado));
     }
 
     function round(num, decimales = 2) {
         return Math.round(num * Math.pow(10, decimales)) / Math.pow(10, decimales);
+    }
+
+    function formatCurrency(value) {
+        let formattedValue = new Intl.NumberFormat('es-PE', { style: 'currency', currency: 'PEN' }).format(value);
+        return formattedValue.replace('S/', '$');
     }
 </script>
 @endpush

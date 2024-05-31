@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('payments_methods');
             $table->decimal('gross_totals');
             $table->decimal('taxes_total');
+            $table->decimal('total_discounts');
             $table->decimal('net_total');
             $table->boolean('status')->default(true);
             $table->bigInteger('clients_id')->unsigned();

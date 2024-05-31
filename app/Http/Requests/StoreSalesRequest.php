@@ -28,6 +28,7 @@ class StoreSalesRequest extends FormRequest
             'payments_methods' => 'required' ,
             'gross_totals' => 'required' ,
             'taxes_total' => 'required' ,
+            'total_discounts' => 'required' ,
             'net_total' => 'required' ,
             'clients_id'=> 'required|exists:people,id'
         ];

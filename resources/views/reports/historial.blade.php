@@ -198,13 +198,23 @@
                     {
                         'extend': 'excelHtml5',
                         'text': '<i class="fa fa-file-excel"></i>',
-                        'titleAtter': 'Excel',
                         'className': 'btn btn-success',
+                        'attr': {
+                            'tooltip': 'tooltip',
+                            'title': 'Excel'
+                        }
                     },
                     {
                         'extend': 'pdfHtml5',
                         'text': '<i class="fa fa-file-pdf"></i>',
-                        'className': 'btn btn-danger'
+                        'className': 'btn btn-danger',
+                        'orientation': 'landscape',
+                        'pageSize': 'LEGAL',
+                        'download': 'open',
+                        'attr': {
+                            'tooltip': 'tooltip',
+                            'title': 'PDF'
+                        }
                     }
                 ]
             }

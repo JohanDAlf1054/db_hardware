@@ -84,7 +84,8 @@
                                                 {{ __('Categoría del producto') }}
                                                     <span class="text-danger">*</span>
                                               </label>
-                                              {{ Form::select('category_products_id', $categorias, $producto->category_products_id, ['class' => 'form-control selectpicker' . ($errors->has('category_products_id') ? ' is-invalid' : ''), 'placeholder' => 'Seleccione la categoria', 'data-live-search' => 'true', 'id' => 'categoryProduct']) }}
+                                              {{ Form::select('category_products_id', $categorias, $producto->category_products_id, ['class' => 'form-control selectpicker' . ($errors->has('category_products_id') ? ' is-invalid' : ''),
+                                                            'placeholder' => 'Seleccione la categoria','data-size' => '5', 'data-live-search' => 'true', 'id' => 'categoryProduct']) }}
                                               {!! $errors->first('category_products_id', '<div class="invalid-feedback">:message</div>') !!}
                                             </div>
                                         </div>
@@ -110,7 +111,8 @@
                                                     {{ __('Unidad de medida') }}
                                                     <span class="text-danger">*</span>
                                                 </label>
-                                                {{ Form::select('measurement_units_id', $unidades, $producto->measurement_units_id, ['class' => 'form-control selectpicker' . ($errors->has('measurement_units_id') ? ' is-invalid' : ''), 'placeholder' => 'Selecciona la unidad', 'data-live-search' => 'true'] ) }}
+                                                {{ Form::select('measurement_units_id', $unidades, $producto->measurement_units_id, ['class' => 'form-control selectpicker show-tick custom-select-size' . ($errors->has('measurement_units_id') ? ' is-invalid' : ''),
+                                                                'data-live-search' => 'true', 'data-width' => 'auto', 'data-size' => '5', 'data-dropup-auto' => 'false'] ) }}
                                                 {!! $errors->first('measurement_units_id', '<div class="invalid-feedback">:message</div>') !!}
                                             </div>
                                         </div>
@@ -137,12 +139,12 @@
                                                 {{ __('Marca del producto') }}
                                                 <span class="text-danger">*</span>
                                             </label>
-                                            {{ Form::select('brands_id', $marcas, $producto->brands_id, ['class' => 'form-control selectpicker' . ($errors->has('brands_id') ? ' is-invalid' : ''), 'placeholder' => 'Selecciona una marca', 'data-live-search' => 'true']) }}
+                                            {{ Form::select('brands_id', $marcas, $producto->brands_id, ['class' => 'form-control selectpicker' . ($errors->has('brands_id') ? ' is-invalid' : ''), 'placeholder' => 'Selecciona una marca', 'data-live-search' => 'true','data-size' => '5']) }}
                                             {!! $errors->first('brands_id', '<div class="invalid-feedback">:message</div>') !!}
                                         </div>
                                         <div class="col-sm-6 col-md-6" style="margin-bottom: 16px">
                                             <label class="form-label" for="selling_price" style="font-weight: bolder">
-                                                {{ __('Precio de venta') }}
+                                                {{ __('Precio de venta sin IVA') }}
                                                 <span class="text-danger">*</span>
                                             </label>
                                             {{ Form::number('selling_price', $producto->selling_price, ['class' => 'form-control ' . ($errors->has('selling_price') ? ' is-invalid' : ''), 'placeholder' => '0', 'id' => 'selling_price' ]) }}

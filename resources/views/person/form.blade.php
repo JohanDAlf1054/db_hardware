@@ -9,13 +9,12 @@
             <meta charset="UTF-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Agregar Persona</title>
+            <title>Agregar tercero</title>
 
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/css/bootstrap-select.min.css">
             <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
             <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.18/js/bootstrap-select.min.js"></script>
 
 
         </head>
@@ -56,19 +55,9 @@
                                     <div class="card card-default">
                                         <div class="card-header" style="display: flex">
                                             <h3 class="card-title">
-                                                {{ __('Persona') }}
+                                                {{ __('Tercero') }}
                                             </h3>
-                                            <div class="card-actions" style="padding-top: 9px; padding-left: 20px">
-                                                <a href="" class="btn-action">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24"
-                                                        height="24" viewBox="0 0 24 24" stroke-width="2"
-                                                        stroke="currentColor" fill="none" stroke-linecap="round"
-                                                        stroke-linejoin="round">
-                                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                                        <path d="M18 6l-12 12"></path>
-                                                        <path d="M6 6l12 12"></path>
-                                                    </svg>
-                                                </a>
+                                            <div class="card-actions" style="padding-top: 9px; padding-left: 20px">                                               
                                             </div>
                                         </div>
                                         <div class="card-body">
@@ -139,7 +128,7 @@
                                                 <div class="col-sm-6 md-6">
                                                     <div class="mb-3">
                                                         <label for="person_type" class="form-label" style="font-weight: bolder">
-                                                            {{ __('Tipo de persona') }}
+                                                            {{ __('Tipo de tercero') }}
                                                             <span class="text-danger">*</span>
                                                         </label>
                                                         {{ Form::select('person_type', ['Persona natural' => 'Persona natural', 'Persona jurídica' => 'Persona jurídica'], $person->person_type, ['id' => 'person_type', 'class' => 'form-select' . ($errors->has('person_type') ? ' is-invalid' : ''), 'placeholder' => 'Seleciona una opción']) }}
@@ -226,40 +215,21 @@
                                                         ) !!}
                                                     </div>
                                                 </div>
-
-                                                {{--  Correo electronico  --}}
-                                                <div class="col-sm-6 md-6">
-                                                    <div class="mb-3">
-                                                        <label for="email_address" class="form-label"
-                                                            style="font-weight: bolder">
-                                                            {{ __('Correo electrónico') }}
-                                                            <span class="text-danger">*</span>
-                                                        </label>
-                                                        {{ Form::text('email_address', $person->email_address, ['class' => 'form-control' . ($errors->has('email_address') ? ' is-invalid' : ''), 'placeholder' => 'Correo electrónico']) }}
-                                                        {!! $errors->first(
-                                                            'email_address',
-                                                            '<div class="invalid-feedback">El campo correo electrónico es obligatorio</div>',
-                                                        ) !!}
-                                                    </div>
-                                                </div>
-
-
                                                 {{--  Ciudad  --}}
                                                 <div class="col-sm-6 md-6">
-                                                    <div class="mb-3" >
+                                                    <div class="mb-3">
                                                         <label for="municipality" class="form-label" style="font-weight: bolder">
                                                             {{ __('Ciudad') }}
                                                             <span class="text-danger">*</span>
                                                         </label>
-                                                        <select name="city" id="city" class="form-control selectpicker show-tick" data-live-search="true" title="Selecciona la ciudad" data-size ='4'>
+                                                        <select name="city" id="city" class="form-control selectpicker show-tick CiudadPerson" data-live-search="true" data-dropup-auto="false" title="Selecciona la ciudad" data-size='4'>
                                                             @foreach ($municipalities as $municipality)
-                                                                <option value="{{ $municipality->id }}">
-                                                                    {{ $municipality->name }},
-                                                                    {{ $municipality->department->name}},
-                                                                    {{ $municipality->department->country->name}}
+                                                                <option value="{{ $municipality->id }}" {{ $municipality->id == $person->city ? 'selected' : '' }}>
+                                                                    {{ $municipality->name }}, {{ $municipality->department->name }}, {{ $municipality->department->country->name }}
                                                                 </option>
                                                             @endforeach
                                                         </select>
+                                                        
                                                         @error('city')
                                                             <small class="text-danger">{{ '*' . $message }}</small>
                                                         @enderror
@@ -277,6 +247,23 @@
                                                         {!! $errors->first('address', '<div class="invalid-feedback">El campo dirección es obligatorio</div>') !!}
                                                     </div>
                                                 </div>
+
+                                                {{--  Correo electronico  --}}
+                                                <div class="col-sm-6 md-6">
+                                                    <div class="mb-3">
+                                                        <label for="email_address" class="form-label"
+                                                            style="font-weight: bolder">
+                                                            {{ __('Correo electrónico') }}
+                                                            <span class="text-danger">*</span>
+                                                        </label>
+                                                        {{ Form::text('email_address', $person->email_address, ['class' => 'form-control' . ($errors->has('email_address') ? ' is-invalid' : ''), 'placeholder' => 'Correo electrónico']) }}
+                                                        {!! $errors->first(
+                                                            'email_address',
+                                                            '<div class="invalid-feedback">El campo correo electrónico es obligatorio</div>',
+                                                        ) !!}
+                                                    </div>
+                                                </div>
+
                                                 {{--  Número de celular  --}}
                                                 <div class="col-sm-6 md-6">
                                                     <div class="mb-3">
@@ -364,11 +351,8 @@
                         }
                     });
                 </script>
-                <script type="text/javascript">
-                    $(document).ready(function() {
-                        $('.selectpicker').selectpicker();
-                    });
-                </script>
+                
+                
         </body>
 
         </html>

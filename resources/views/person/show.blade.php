@@ -49,7 +49,7 @@
                         <div class="card card-default">
                             <div class="card-header style="display: flex">
                                 <h3 class="card-title">
-                                    {{__('Visualización persona')}}
+                                    {{__('Visualización tercero')}}
                                 </h3>
                             </div>
                             <div class="card-body">

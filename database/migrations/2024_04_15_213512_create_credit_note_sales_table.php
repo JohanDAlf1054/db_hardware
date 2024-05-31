@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('payments_methods');
             $table->decimal('gross_totals');
             $table->decimal('taxes_total');
+            $table->decimal('total_discounts');
             $table->decimal('net_total');
             $table->date('date_credit_notes');
             $table->string('reason');

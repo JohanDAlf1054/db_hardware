@@ -16,6 +16,7 @@ class CategoryProducts extends Migration
             $table->bigIncrements('id');
             $table->string('name')->unique();
             $table->string('description')->nullable();
+            $table->boolean('status')->default(True);
             $table->timestamps();
         });
     }
