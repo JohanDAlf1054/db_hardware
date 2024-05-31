@@ -320,11 +320,11 @@
                     '<td><input type="hidden" name="arrayidproducto[]" value="' + idProducto + '">' + nameProducto + '</td>' +
                     '<td><input type="hidden" name="arraycantidad[]" value="' + cantidad + '">' + cantidad + '</td>' +
                     '<td><input type="hidden" name="arrayname[]" value="' + factoryreference + '">' + factoryreference + '</td>' +
-                    '<td><input type="hidden" name="arrayprecioventa[]" value="' + precioVenta + '">' + formatCurrency(precioVenta) + '</td>' +
-                    '<td><input type="hidden" name="arraydescuento[]" value="' + descuento + '">' + formatCurrency(descuento) + '</td>' +
+                    '<td><input type="hidden" name="arrayprecioventa[]" value="' + precioVenta + '">' + precioVenta + '</td>' +
+                    '<td><input type="hidden" name="arraydescuento[]" value="' + descuento + '">' + descuento + '</td>' +
                     '<td><input type="hidden" name="arrayimpuesto[]" value="' + impuesto + '">' + impuesto + '%'+ '</td>' +
-                    '<td><input type="hidden" name="arrayimpuestoval[]" value="' + impuestoval + '">' + formatCurrency(impuestoval) + '</td>' +
-                    '<td>' + formatCurrency(subtotalProducto) + '</td>' +
+                    '<td><input type="hidden" name="arrayimpuestoval[]" value="' + impuestoval + '">' + impuestoval + '</td>' +
+                    '<td>' + subtotalProducto + '</td>' +
                     '<td><button class="btn btn-danger" type="button" onClick="eliminarProducto(' + cont + ', ' + subtotalProducto + ', ' + impuestoval + ', ' + descuento + ')"><i class="fa-solid fa-trash"></i></button></td>' +
                     '</tr>';
 
@@ -333,16 +333,16 @@
                 cont++;
                 disableButtons();
 
-                $('#subtotal').html(formatCurrency(sumas));
-                $('#inputSubtotal').val(formatCurrency(sumas));
-                $('#taxes_total').html(formatCurrency(igv));
-                $('#inputTaxes').val(formatCurrency(igv));
-                $('#gross_totals').html(formatCurrency(totalbruto));
-                $('#inputGross').val(formatCurrency(totalbruto));
-                $('#net_total').html(formatCurrency(total));
-                $('#inputTotal').val(formatCurrency(total));
-                $('#total_discounts').html(formatCurrency(totalDescuentos));
-                $('#inputTotal_discounts').val(formatCurrency(totalDescuentos));
+                $('#subtotal').html(sumas);
+                $('#inputSubtotal').val(sumas);
+                $('#taxes_total').html(igv);
+                $('#inputTaxes').val(igv);
+                $('#gross_totals').html(totalbruto);
+                $('#inputGross').val(totalbruto);
+                $('#net_total').html(total);
+                $('#inputTotal').val(total);
+                $('#total_discounts').html(totalDescuentos);
+                $('#inputTotal_discounts').val(totalDescuentos);
             } else {
                 showModal('Cantidad incorrecta');
             }
@@ -363,24 +363,20 @@ function eliminarProducto(index, subtotalProducto, impuestoval, descuento) {
 
     $('#fila' + index).remove();
 
-    $('#subtotal').html(formatCurrency(sumas));
-    $('#inputSubtotal').val(formatCurrency(sumas));
-    $('#taxes_total').html(formatCurrency(igv));
-    $('#inputTaxes').val(formatCurrency(igv));
-    $('#gross_totals').html(formatCurrency(totalbruto));
-    $('#inputGross').val(formatCurrency(totalbruto));
-    $('#net_total').html(formatCurrency(total));
-    $('#inputTotal').val(formatCurrency(total));
-    $('#total_discounts').html(formatCurrency(totalDescuentos));
-    $('#inputTotal_discounts').val(formatCurrency(totalDescuentos));
+    $('#subtotal').html(sumas);
+    $('#inputSubtotal').val(sumas);
+    $('#taxes_total').html(igv);
+    $('#inputTaxes').val(igv);
+    $('#gross_totals').html(totalbruto);
+    $('#inputGross').val(totalbruto);
+    $('#net_total').html(total);
+    $('#inputTotal').val(total);
+    $('#total_discounts').html(totalDescuentos);
+    $('#inputTotal_discounts').val(totalDescuentos);
 
     disableButtons();
 }
 
-function formatCurrency(value) {
-        let formattedValue = new Intl.NumberFormat('es-PE', { style: 'currency', currency: 'PEN' }).format(value);
-        return formattedValue.replace('S/', '$');
-    }
 
 function cancelarVenta() {
     $('#tabla_detalle tbody').empty();
@@ -402,16 +398,16 @@ function cancelarVenta() {
     total = 0;
     totalDescuentos = 0;
 
-    $('#subtotal').html(formatCurrency(sumas));
-    $('#inputSubtotal').val(formatCurrency(sumas));
-    $('#taxes_total').html(formatCurrency(igv));
-    $('#inputTaxes').val(formatCurrency(igv));
-    $('#gross_totals').html(formatCurrency(0));
-    $('#inputGross').val(formatCurrency(0));
-    $('#net_total').html(formatCurrency(total));
-    $('#inputTotal').val(formatCurrency(total));
-    $('#total_discounts').html(formatCurrency(totalDescuentos));
-    $('#inputTotal_discounts').val(formatCurrency(totalDescuentos));
+    $('#subtotal').html(sumas);
+    $('#inputSubtotal').val(sumas);
+    $('#taxes_total').html(igv);
+    $('#inputTaxes').val(igv);
+    $('#gross_totals').html(totalbruto);
+    $('#inputGross').val(totalbruto);
+    $('#net_total').html(total);
+    $('#inputTotal').val(total);
+    $('#total_discounts').html(totalDescuentos);
+    $('#inputTotal_discounts').val(totalDescuentos);
 
     limpiarCampos();
     disableButtons();

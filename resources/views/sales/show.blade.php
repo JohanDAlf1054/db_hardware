@@ -65,7 +65,7 @@
         <div class="col-sm-6">
             <div class="input-group">   
                 <span title="Cliente" class="input-group-text" id="icon-form"><i class="fa-solid fa-user"></i></span>
-                <input disabled type="text" class="form-control" value="{{$sale->cliente->identification_number}}">
+                <input disabled type="text" class="form-control" value="{{$sale->cliente->identification_number}} - {{$sale->cliente->company_name}}{{$sale->cliente->first_name}} {{$sale->cliente->other_name}} {{$sale->cliente->surname}} {{$sale->cliente->second_surname}}">
             </div>
         </div>
     </div>
