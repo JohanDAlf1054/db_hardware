@@ -142,13 +142,30 @@ class SubCategoryController extends Controller
     public function destroy($id)
     {
         $subCategory = SubCategory::find($id);
-        $subCategory->delete();
-        Session::flash('notificacion', [
-            'tipo' => 'exito',
-            'titulo' => 'Éxito!',
-            'descripcion' => 'Subcategoría Eliminada.',
-            'autoCierre' => 'true'
-        ]);
+        if ($subCategory->status == 1) {
+            SubCategory::where('id', $subCategory->id)
+                ->update([
+                    'status' => 0
+                ]);
+                Session::flash('notificacion', [
+                    'tipo' => 'exito',
+                    'titulo' => 'Éxito!',
+                    'descripcion' => 'La subcategoría se ha inactivado',
+                    'autoCierre' => 'true'
+                ]);
+        } else {
+            SubCategory::where('id', $subCategory->id)
+                ->update([
+                    'status' => 1
+                ]);
+                Session::flash('notificacion', [
+                    'tipo' => 'exito',
+                    'titulo' => 'Éxito!',
+                    'descripcion' => 'La subcategoría se ha activado',
+                    'autoCierre' => 'true'
+                ]);
+        }
+        
         return redirect()->route('categorySub.index');
     }
 

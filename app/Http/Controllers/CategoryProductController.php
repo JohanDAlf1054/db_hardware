@@ -145,12 +145,4 @@ class CategoryProductController extends Controller
     {
         return response()->json($categoryProduct->subCategories);
     }
-
-    public function subCategoriesEdit($id, $category)
-    {
-        $producto = Product::find($id);
-        $category = CategoryProduct::find($category); // Asumiendo que hay una relación en tu modelo Product
-        $subCategories = $category->subCategories;
-        return response()->json($subCategories);
-    }
 }

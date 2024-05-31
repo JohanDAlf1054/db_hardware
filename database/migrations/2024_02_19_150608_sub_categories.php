@@ -16,6 +16,7 @@ class SubCategories extends Migration
             $table->bigIncrements('id');
             $table->string('name')->unique();
             $table->string('description')->nullable();
+            $table->boolean('status')->default(True);
             $table->bigInteger('category_id')->unsigned();
             $table->timestamps();
             $table->foreign('category_id')->references('id')->on('category_products');

@@ -8,7 +8,7 @@ use App\Models\MeasurementUnit;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-Use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Session;
 use Barryvdh\DomPDF\Facade\Pdf;
 
 /**
@@ -17,7 +17,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
  */
 class ProductController extends Controller
 {
- /**
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -29,31 +29,31 @@ class ProductController extends Controller
         $categoryId = $request->input('category_filter');
 
         $productos = Product::query()
-            ->when($filtervalue, function($query) use ($filtervalue) {
-                return $query->where('name_product','like','%'.$filtervalue.'%')
-                ->orWhere('description_long','like','%'.$filtervalue.'%')
-                ->orWhere('factory_reference','like','%'.$filtervalue.'%')
-                ->orWhere('classification_tax',$filtervalue)
-                ->orWhereHas('brand', function($query) use ($filtervalue){
-                    if($filtervalue){
-                        return $query->where('name',$filtervalue);
-                    }
-                })
-                ->orWhereHas('measurementUnit', function($query) use ($filtervalue){
-                    if($filtervalue){
-                        return $query->where('name','like','%'.$filtervalue.'%');
-                    }
-                });
+            ->when($filtervalue, function ($query) use ($filtervalue) {
+                return $query->where('name_product', 'like', '%' . $filtervalue . '%')
+                    ->orWhere('description_long', 'like', '%' . $filtervalue . '%')
+                    ->orWhere('factory_reference', 'like', '%' . $filtervalue . '%')
+                    ->orWhere('classification_tax', $filtervalue)
+                    ->orWhereHas('brand', function ($query) use ($filtervalue) {
+                        if ($filtervalue) {
+                            return $query->where('name', $filtervalue);
+                        }
+                    })
+                    ->orWhereHas('measurementUnit', function ($query) use ($filtervalue) {
+                        if ($filtervalue) {
+                            return $query->where('name', 'like', '%' . $filtervalue . '%');
+                        }
+                    });
             })
-            ->when($categoryId, function($query) use ($categoryId) {
+            ->when($categoryId, function ($query) use ($categoryId) {
                 return $query->where('category_products_id', $categoryId);
             })
-            ->when($activeCheck, function($query) use ($activeCheck) {
+            ->when($activeCheck, function ($query) use ($activeCheck) {
                 return $query->where('status', true);
             })
             ->get();
 
-            $categories = CategoryProduct::all();
+        $categories = CategoryProduct::all();
         return view('product.index', compact('productos', 'categories'));
     }
 
@@ -65,10 +65,10 @@ class ProductController extends Controller
     public function create()
     {
         $producto = new Product();
-        $categorias = CategoryProduct::pluck('name','id');
-        $marcas = Brand::pluck('name','id');
-        $unidades = MeasurementUnit::pluck('name','id');
-        return view('product.create', compact('producto', 'categorias','marcas','unidades'));
+        $categorias = CategoryProduct::where('status', 1)->pluck('name', 'id');
+        $marcas = Brand::where('status', 1)->pluck('name', 'id');
+        $unidades = MeasurementUnit::where('status', 1)->pluck('name', 'id')->prepend('Selecciona la unidad', '');
+        return view('product.create', compact('producto', 'categorias', 'marcas', 'unidades'));
     }
 
 
@@ -80,49 +80,48 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $campos=[
-            'name_product'=>'required|string|max:100|unique:products,name_product' ,
+        $campos = [
+            'name_product' => 'required|string|max:100|unique:products,name_product',
             // 'description_long'=>'required|string|max:100',
-            'factory_reference'=>'required|string|max:100|unique:products,factory_reference',
-            'classification_tax'=>'required|string|max:100',
+            'factory_reference' => 'required|string|max:100|unique:products,factory_reference',
+            'classification_tax' => 'required|string|max:100',
             'selling_price' => 'required|numeric|greater_than_zero',
             'subcategory_product' => 'required|string|max:100',
-            'category_products_id'=>'required|max:100',
-            'brands_id'=>'required|max:100',
-            'measurement_units_id'=>'required|max:100',
-            'photo'=>'nullable|max:10000|mimes:jpg,png,jpeg',
+            'category_products_id' => 'required|max:100',
+            'brands_id' => 'required|max:100',
+            'measurement_units_id' => 'required|max:100',
+            'photo' => 'nullable|max:10000|mimes:jpg,png,jpeg',
         ];
-        $mensaje=[
-            'name_product.required'=>'Escriba el nombre del producto',
-            'name_product.unique'=>'Este producto ya existe!',
+        $mensaje = [
+            'name_product.required' => 'Escriba el nombre del producto',
+            'name_product.unique' => 'Este producto ya existe!',
             // 'description_long.required'=>'Escriba una breve descripción',
-            'factory_reference.required'=>'Escriba la referencia del producto',
+            'factory_reference.required' => 'Escriba la referencia del producto',
             'factory_reference.unique' => 'Esta referencia de fábrica ya está en uso',
-            'classification_tax.required'=>'Selecione la clasificacion',
+            'classification_tax.required' => 'Selecione la clasificacion',
             'selling_price.required' => 'Escriba el precio de venta',
             'selling_price.numeric' => 'El precio de venta debe ser numérico',
             'selling_price.greater_than_zero' => 'El precio de venta debe ser mayor a 0',
-            'subcategory_product.required'=>'Selecione la Sub Categoría',
-            'category_products_id.required'=>'Selecione la Categoría',
-            'brands_id.required'=>'Selecione la marca',
-            'measurement_units_id.required'=>'Selecione la Unidad de Medida',
+            'subcategory_product.required' => 'Selecione la Sub Categoría',
+            'category_products_id.required' => 'Selecione la Categoría',
+            'brands_id.required' => 'Selecione la marca',
+            'measurement_units_id.required' => 'Selecione la Unidad de Medida',
         ];
         $this->validate($request, $campos, $mensaje);
 
         $datosProducto = request()->except('_token');
 
-        if($request->hasFile('photo')){
-            $datosProducto['photo']=$request->file('photo')->store('products','public');
+        if ($request->hasFile('photo')) {
+            $datosProducto['photo'] = $request->file('photo')->store('products', 'public');
         }
         Product::create($datosProducto);
         Session::flash('notificacion', [
             'tipo' => 'exito',
             'titulo' => 'Éxito!',
-            'descripcion' => 'El producto se ha creado.',
+            'descripcion' => 'El producto se ha creado exitosamente',
             'autoCierre' => 'true'
         ]);
         return redirect('products');
-
     }
 
     /**
@@ -147,11 +146,11 @@ class ProductController extends Controller
     public function edit($id)
     {
         $producto = Product::find($id);
-        $categorias = CategoryProduct::pluck('name','id');
-        $marcas = Brand::pluck('name','id');
-        $unidades = MeasurementUnit::pluck('name','id');
+        $categorias = CategoryProduct::where('status', 1)->pluck('name', 'id');
+        $marcas = Brand::where('status', 1)->pluck('name', 'id');
+        $unidades = MeasurementUnit::where('status', 1)->pluck('name', 'id')->prepend('Selecciona la unidad', '');
 
-        return view('product.edit', compact('producto','categorias','marcas','unidades'));
+        return view('product.edit', compact('producto', 'categorias', 'marcas', 'unidades'));
     }
 
     /**
@@ -163,46 +162,46 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $campos=[
-            'name_product'=>'required|string|max:100|unique:products,name_product,' . $id,
+        $campos = [
+            'name_product' => 'required|string|max:100|unique:products,name_product,' . $id,
             // 'description_long'=>'required|string|max:100',
             'factory_reference' => 'required|string|max:100|unique:products,factory_reference,' . $id,
-            'classification_tax'=>'required|string|max:100',
+            'classification_tax' => 'required|string|max:100',
             'selling_price' => 'required|numeric|greater_than_zero',
-            'category_products_id'=>'required|max:100',
-            'brands_id'=>'required|max:100',
-            'measurement_units_id'=>'required|max:100',
-            'photo'=>'nullable|max:10000|mimes:jpg,png,jpeg',
+            'category_products_id' => 'required|max:100',
+            'brands_id' => 'required|max:100',
+            'measurement_units_id' => 'required|max:100',
+            'photo' => 'nullable|max:10000|mimes:jpg,png,jpeg',
         ];
-        $mensaje=[
-            'name_product.required'=>'Escriba el nombre del producto',
-            'name_product.unique'=>'Este producto ya existe!',
+        $mensaje = [
+            'name_product.required' => 'Escriba el nombre del producto',
+            'name_product.unique' => 'Este producto ya existe!',
             // 'description_long.required'=>'Escriba una breve descripción',
-            'factory_reference.required'=>'Escriba la referencia del producto',
+            'factory_reference.required' => 'Escriba la referencia del producto',
             'factory_reference.unique' => 'Esta referencia de fábrica ya está en uso',
-            'classification_tax.required'=>'Selecione la clasificacion',
+            'classification_tax.required' => 'Selecione la clasificacion',
             'selling_price.required' => 'Escriba el precio de venta',
             'selling_price.numeric' => 'El precio de venta debe ser numérico',
             'selling_price.greater_than_zero' => 'El precio de venta debe ser mayor a 0',
-            'category_products_id.required'=>'Selecione la categoria',
-            'brands_id.required'=>'Selecione la marca',
-            'measurement_units_id.required'=>'Selecione la unidad de medida',
+            'category_products_id.required' => 'Selecione la categoria',
+            'brands_id.required' => 'Selecione la marca',
+            'measurement_units_id.required' => 'Selecione la unidad de medida',
         ];
         $this->validate($request, $campos, $mensaje);
 
-        $datosProducto=request()->except(['_token','_method']);
+        $datosProducto = request()->except(['_token', '_method']);
 
         if ($request->hasFile('photo')) {
             $producto = Product::findOrFail($id);
-            Storage::delete('public/'.$producto->photo);
-            $datosProducto['photo']=$request->file('photo')->store('products','public');
+            Storage::delete('public/' . $producto->photo);
+            $datosProducto['photo'] = $request->file('photo')->store('products', 'public');
         }
 
-        Product::where('id','=',$id)->update($datosProducto);
+        Product::where('id', '=', $id)->update($datosProducto);
         Session::flash('notificacion', [
             'tipo' => 'exito',
             'titulo' => 'Éxito!',
-            'descripcion' => 'Producto fue modificado!',
+            'descripcion' => 'El producto se ha modificado exitosamente',
             'autoCierre' => 'true'
         ]);
         return redirect('products');
@@ -218,21 +217,28 @@ class ProductController extends Controller
         $producto = Product::find($id);
         if ($producto->status == 1) {
             Product::where('id', $producto->id)
-            ->update([
-                'status' => 0
+                ->update([
+                    'status' => 0
+                ]);
+            Session::flash('notificacion', [
+                'tipo' => 'error',
+                'titulo' => 'Éxito!',
+                'descripcion' => 'El producto se ha inactivado.',
+                'autoCierre' => 'true'
             ]);
         } else {
             Product::where('id', $producto->id)
-            ->update([
-                'status' => 1
+                ->update([
+                    'status' => 1
+                ]);
+            Session::flash('notificacion', [
+                'tipo' => 'exito',
+                'titulo' => 'Éxito!',
+                'descripcion' => 'El producto se ha activado.',
+                'autoCierre' => 'true'
             ]);
         }
-        Session::flash('notificacion', [
-            'tipo' => 'exito',
-            'titulo' => 'Éxito!',
-            'descripcion' => 'Actualización estado Producto!',
-            'autoCierre' => 'true'
-        ]);
+        
         return redirect()->route('products.index');
     }
 
@@ -241,7 +247,7 @@ class ProductController extends Controller
         $productos = Product::all();
 
         $pdf = Pdf::loadView('product.pdf', ['productos' => $productos])
-                    ->setPaper('a4','landscape');
+            ->setPaper('a4', 'landscape');
 
         // Funcion para devolver una vista del pdf en el navegador
         return $pdf->stream('Productos.pdf');
