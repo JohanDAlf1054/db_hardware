@@ -61,7 +61,9 @@ class SalesController extends Controller
         $clients = Person::where('status', 1)->get();
         $products = Product::where('status', 1)->get();
         $users = User::all();
-        return view('sales.create', compact('clients', 'products','users'));
+        $nextSaleId = Sale::max('id') + 1;
+
+        return view('sales.create', compact('products', 'clients', 'users', 'nextSaleId'));
     }
 
     /**
