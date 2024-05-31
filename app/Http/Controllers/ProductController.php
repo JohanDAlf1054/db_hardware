@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\ProductImport;
 use App\Models\Brand;
 use App\Models\CategoryProduct;
 use App\Models\MeasurementUnit;
@@ -10,6 +11,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Session;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
 
 /**
  * Class ProductController
@@ -254,5 +257,42 @@ class ProductController extends Controller
 
         //Descargar el pdf directamente
         // return $pdf->download('Informe de Productos.pdf');
+    }
+
+    public function importProduct(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'import_file' => 'required|mimes:xlsx'
+        ]);
+
+        if ($validator->fails()) {
+            Session::flash('notificacion', [
+                'tipo' => 'error',
+                'titulo' => 'Error!',
+                'descripcion' => 'Archivo incorrecto, debe de ser de extensión xlsx.',
+                'autoCierre' => 'true'
+            ]);
+            return redirect()->to('products');
+        }
+        try {
+            $file = $request->file('import_file');
+
+            Excel::import(new ProductImport, $file, 'xlsx');
+            Session::flash('notificacion', [
+                'tipo' => 'exito',
+                'titulo' => 'Éxito!',
+                'descripcion' => 'Los datos se han agregado exitosamente',
+                'autoCierre' => 'true'
+            ]);
+            return redirect()->to('products');
+        }catch (\Exception $e){
+            Session::flash('notificacion', [
+                'tipo' => 'error',
+                'titulo' => 'Éxito!',
+                'descripcion' => 'Los datos no se han agregado exitosamente, verifique el archivo de excel',
+                'autoCierre' => 'true'
+            ]);
+            return redirect()->to('products');
+        }
     }
 }

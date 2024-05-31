@@ -19,7 +19,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property $stock
  * @property $subcategory_product
  * @property $category_products_id
- * @property $subcategory_product_id
  * @property $brands_id
  * @property $measurement_units_id
  * @property $created_at

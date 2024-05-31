@@ -144,7 +144,7 @@
                                         </div>
                                         <div class="col-sm-6 col-md-6" style="margin-bottom: 16px">
                                             <label class="form-label" for="selling_price" style="font-weight: bolder">
-                                                {{ __('Precio de venta') }}
+                                                {{ __('Precio de venta sin IVA') }}
                                                 <span class="text-danger">*</span>
                                             </label>
                                             {{ Form::number('selling_price', $producto->selling_price, ['class' => 'form-control ' . ($errors->has('selling_price') ? ' is-invalid' : ''), 'placeholder' => '0', 'id' => 'selling_price' ]) }}

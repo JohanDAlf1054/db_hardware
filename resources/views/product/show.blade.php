@@ -173,13 +173,27 @@
                                             <td>
                                                 <div class="input-group" id="hide-group">
                                                     <span class="input-group-text"><i class='bx bx-dollar-circle'></i></span>
-                                                    <input disabled type="text" class="form-control" value="Precio de Venta: ">
+                                                    <input disabled type="text" class="form-control" value="Precio de Compra: ">
                                                 </div>
                                             </td>
                                             <td>
                                                 <div class="input-group" id="hide-group">
                                                     <span class="input-group-text"><i class='bx bx-dollar-circle'></i></span>
-                                                    <input disabled type="text" class="form-control" value=" {{ $producto->selling_price}} ">
+                                                    <input disabled type="text" class="form-control" value=" ${{ number_format ($producto->purchase_price,2,'.',',') }}">
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <div class="input-group" id="hide-group">
+                                                    <span class="input-group-text"><i class='bx bx-dollar-circle'></i></span>
+                                                    <input disabled type="text" class="form-control" value="Precio de Venta sin IVA: ">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="input-group" id="hide-group">
+                                                    <span class="input-group-text"><i class='bx bx-dollar-circle'></i></span>
+                                                    <input disabled type="text" class="form-control" value="${{ number_format ($producto->selling_price,2,'.',',') }}">
                                                 </div>
                                             </td>
                                         </tr>
