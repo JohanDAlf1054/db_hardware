@@ -121,11 +121,15 @@ Compras</a></li> --}}
                                                     </td>
 
                                                     <td>
-                                                        @if ($detailPurchase->purchaseSupplier->person->person_type === 'Persona jurídica')
-                                                            {{ $detailPurchase->purchaseSupplier->person->company_name }}
+                                                        @if ($detailPurchase->purchaseSupplier->person)
+                                                            @if ($detailPurchase->purchaseSupplier->person->person_type === 'Persona jurídica')
+                                                                {{ $detailPurchase->purchaseSupplier->person->company_name }}
+                                                            @else
+                                                                {{ $detailPurchase->purchaseSupplier->person->first_name }}
+                                                                {{ $detailPurchase->purchaseSupplier->person->other_name }}
+                                                            @endif
                                                         @else
-                                                            {{ $detailPurchase->purchaseSupplier->person->first_name }}
-                                                            {{ $detailPurchase->purchaseSupplier->person->other_name }}
+                                                            {{ 'nn' }}
                                                         @endif
                                                     </td>
 
