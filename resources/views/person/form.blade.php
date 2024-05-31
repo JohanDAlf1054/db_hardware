@@ -98,7 +98,7 @@
                                                             {{ __('Número de identificación') }}
                                                             <span class="text-danger">*</span>
                                                         </label>
-                                                        {{ Form::text('identification_number', $person->identification_number, ['id' => 'identification_number1', 'class' => 'form-control' . ($errors->has('identification_number') ? ' is-invalid' : ''), 'placeholder' => 'Número de identificación']) }}
+                                                        {{ Form::number('identification_number', $person->identification_number, ['id' => 'identification_number1', 'class' => 'form-control' . ($errors->has('identification_number') ? ' is-invalid' : ''), 'placeholder' => 'Número de identificación']) }}
                                                         {!! $errors->first(
                                                             'identification_number',
                                                             '<div class="invalid-feedback">El campo número de identificación es obligatorio</div>',
