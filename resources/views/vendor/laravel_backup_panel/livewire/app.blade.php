@@ -33,7 +33,7 @@
         <div class="col-12">
             <div class="card shadow mb-4">
                 <div class="card-header d-flex align-items-end">
-                    <button class="btn btn-primary btn-sm btn-refresh ml-auto"
+                    <button data-bs-toggle="tooltip" title="Recargar" class="btn btn-primary btn-sm btn-refresh ml-auto"
                             wire:loading.class="loading"
                             wire:loading.attr="disabled"
                             wire:click="updateBackupStatuses"
@@ -93,7 +93,7 @@
                         </div>
                     @endif
 
-                    <button tooltip="tooltips" title="Cargar" class="btn btn-primary btn-sm btn-refresh ml-auto"
+                    <button data-bs-toggle="tooltip" title="Recargar" class="btn btn-primary btn-sm btn-refresh ml-auto"
                                 wire:loading.class="loading"
                                 wire:loading.attr="disabled"
                                 wire:click="getFiles"

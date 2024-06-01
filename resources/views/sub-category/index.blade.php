@@ -41,9 +41,9 @@
                             <table  class="table table-striped" style="width:100%;justify-content: center" id="example">
                                 <thead class="table-dark">
                                     <tr>
-                                        <th>Nombre de la Subcategoría</th>
-                                        <th>Descripción</th>
-                                        <th>Estado</th>
+                                        <th style="text-align: center">Nombre de la Subcategoría</th>
+                                        <th style="text-align: center">Descripción</th>
+                                        <th style="text-align: center">Estado</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
@@ -51,8 +51,8 @@
                                     @foreach ($subCategories as $subCategory)
                                         <tr>
 
-                                            <td>{{ $subCategory->name }}</td>
-                                            <td>{{ $subCategory->description }}</td>
+                                            <td style="text-align: center">{{ $subCategory->name }}</td>
+                                            <td style="text-align: center">{{ $subCategory->description }}</td>
                                             <td style="text-align: center">
                                                 @if ($subCategory->status == 1)
                                                     <p class="badge rounded-pill bg-success text-white" style="font-size: 15px">Activo</p>

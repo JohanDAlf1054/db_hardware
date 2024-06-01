@@ -147,6 +147,7 @@ Route::get('/downloadFileCategory',[TemplateController::class, 'downloadFileCate
 Route::get('/downloadFileBrands',[TemplateController::class, 'downloadFileBrands'])->name('downloadFileBrands');
 Route::get('/downloadFileUnits',[TemplateController::class, 'downloadFileUnits'])->name('downloadFileUnits');
 Route::get('/downloadFileSubcategory',[TemplateController::class, 'downloadFileSubcategory'])->name('downloadFileSubcategory');
+Route::get('/downloadFileProduct',[TemplateController::class, 'downloadFileProduct'])->name('downloadFileProduct');
 
 
 
