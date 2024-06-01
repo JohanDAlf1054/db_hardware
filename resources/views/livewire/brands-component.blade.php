@@ -48,9 +48,9 @@
                                         @foreach ($brands as $brand)
                                             <tr>
                                                 <td style="text-align: center">{{ $brand->id }}</td>
-                                                <td style="text-align: left">{{ $brand->abbrevation }}</td>
+                                                <td style="text-align: center">{{ $brand->abbrevation }}</td>
                                                 <td style="text-align: center">{{ $brand->code }}</td>
-                                                <td style="text-align: left">{{ $brand->name }}</td>
+                                                <td style="text-align: center">{{ $brand->name }}</td>
                                                 <td style="text-align: center">
                                                     @if ($brand->status == 1)
                                                         <p class="badge rounded-pill bg-success text-white" style="font-size: 15px">Activo</p>

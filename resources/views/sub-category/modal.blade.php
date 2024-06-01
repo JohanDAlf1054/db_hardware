@@ -9,7 +9,7 @@
         </div>
         <div class="modal-body">
             <div>
-                {{ $subCategory->status == 1 ? '¿Seguro que quiere inactivar el producto?' : '¿Seguro que quiere activar el producto?' }}
+                {{ $subCategory->status == 1 ? '¿Seguro que quiere inactivar el registro?' : '¿Seguro que quiere activar el registro?' }}
             </div>
         </div>
         <div class="modal-footer">

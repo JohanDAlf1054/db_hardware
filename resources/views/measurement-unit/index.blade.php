@@ -36,7 +36,7 @@
         responsive: true,
         lengthChange: true,
         // paging: false,
-        searching:true,
+        searching:false,
         language: {
             "sProcessing":     "Procesando...",
             "sLengthMenu":     "Mostrar _MENU_ registros",

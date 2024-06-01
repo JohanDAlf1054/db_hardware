@@ -26,7 +26,11 @@ class BrandsComponent extends Component
 
     public function render()
     {
-        $brands = Brand::where('name','like', '%'.$this->search.'%')->get();
+        $brands = Brand::where('name','like', '%'.$this->search.'%')
+                        ->orWhere('code', 'like', '%' . $this->search . '%')
+                        ->orWhere('abbrevation', 'like', '%' . $this->search . '%')
+                        ->orWhere('status', 'like', '%' . $this->search . '%')
+                        ->get();
         return view('livewire.brands-component', compact('brands'));
     }
 
@@ -80,9 +84,9 @@ class BrandsComponent extends Component
 
     public function update($id){
         $this->validate([
-            'name' => 'required|max:50|unique:brands,name'.$id,
-            'code' => 'required|max:50|unique:brands,code'.$id,
-            'abbrevation' => 'required|max:50|unique:brands,abbrevation'.$id,
+            'name' => 'required|max:50|unique:brands,name,' . $id,
+            'code' => 'required|max:50|unique:brands,code,' . $id,
+            'abbrevation' => 'required|max:50|unique:brands,abbrevation,' . $id,
         ],[
             'abbrevation.required' => 'La abreviación es requerida',
             'abbrevation.unique' => 'La abreviación ya exite!',

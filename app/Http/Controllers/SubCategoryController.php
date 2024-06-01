@@ -59,8 +59,8 @@ class SubCategoryController extends Controller
                 'description' => 'required|max:100',
         ];
         $mensaje = [
-            'name.required'=>'Escriba el nombre de la Subcategoria',
-            'name.unique'=>'Esta Subcategoria ya existte!',
+            'name.required'=>'Escriba el nombre de la Subcategoría',
+            'name.unique'=>'Esta Subcategoría ya existte!',
             'description.required'=>'Escriba una breve descripción',
         ];
         $this->validate($request, $campos, $mensaje);
@@ -70,7 +70,7 @@ class SubCategoryController extends Controller
         Session::flash('notificacion', [
             'tipo' => 'exito',
             'titulo' => 'Éxito!',
-            'descripcion' => 'Subcategoría Creada.',
+            'descripcion' => 'La subcategoría se ha creado exitosamente',
             'autoCierre' => 'true'
         ]);
          return redirect()->route('categorySub.index');
@@ -113,7 +113,7 @@ class SubCategoryController extends Controller
     public function update(Request $request, SubCategory $subCategory, $id)
     {
         $campos = [
-            'name' => 'required|string|max:100|unique:sub_categories,name,',
+            'name' => 'required|string|max:100|unique:sub_categories,name,' . $id,
             'description' => 'required|max:100',
     ];
     $mensaje = [
@@ -128,7 +128,7 @@ class SubCategoryController extends Controller
         Session::flash('notificacion', [
             'tipo' => 'exito',
             'titulo' => 'Éxito!',
-            'descripcion' => 'Subcategoría Modificada',
+            'descripcion' => 'La subcategoría se ha modificado exitosamente',
             'autoCierre' => 'true'
         ]);
         return redirect()->route('categorySub.index');
@@ -190,11 +190,19 @@ class SubCategoryController extends Controller
             Session::flash('notificacion', [
                 'tipo' => 'exito',
                 'titulo' => 'Éxito!',
-                'descripcion' => 'Subcategorías Agregadas Correctamente!',
+                'descripcion' => 'Los datos se han agregado exitosamente',
                 'autoCierre' => 'true'
             ]);
             return redirect()->route('indexAll');
         }catch (\Exception $e){
+            Excel::import(new SubcategoryImport, $file, 'xlsx');
+            Session::flash('notificacion', [
+                'tipo' => 'error',
+                'titulo' => 'Error!',
+                'descripcion' => 'Los datos no se han agregado exitosamente',
+                'autoCierre' => 'true'
+            ]);
+            return redirect()->route('indexAll');
         }
     }
 }

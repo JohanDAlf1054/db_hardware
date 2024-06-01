@@ -36,10 +36,15 @@ class ProductController extends Controller
                 return $query->where('name_product', 'like', '%' . $filtervalue . '%')
                     ->orWhere('description_long', 'like', '%' . $filtervalue . '%')
                     ->orWhere('factory_reference', 'like', '%' . $filtervalue . '%')
-                    ->orWhere('classification_tax', $filtervalue)
+                    ->orWhere('classification_tax', 'like', '%' . $filtervalue . '%')
+                    ->orWhere('selling_price', 'like', '%' . $filtervalue . '%')
+                    ->orWhere('purchase_price', 'like', '%' . $filtervalue . '%')
+                    ->orWhere('status', 'like', '%' . $filtervalue . '%')
+                    ->orWhere('stock', 'like', '%' . $filtervalue . '%')
+                    ->orWhere('selling_price', 'like', '%' . $filtervalue . '%')
                     ->orWhereHas('brand', function ($query) use ($filtervalue) {
                         if ($filtervalue) {
-                            return $query->where('name', $filtervalue);
+                            return $query->where('name', 'like', '%' . $filtervalue . '%');
                         }
                     })
                     ->orWhereHas('measurementUnit', function ($query) use ($filtervalue) {
@@ -245,20 +250,6 @@ class ProductController extends Controller
         return redirect()->route('products.index');
     }
 
-    public function pdf()
-    {
-        $productos = Product::all();
-
-        $pdf = Pdf::loadView('product.pdf', ['productos' => $productos])
-            ->setPaper('a4', 'landscape');
-
-        // Funcion para devolver una vista del pdf en el navegador
-        return $pdf->stream('Productos.pdf');
-
-        //Descargar el pdf directamente
-        // return $pdf->download('Informe de Productos.pdf');
-    }
-
     public function importProduct(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -288,11 +279,26 @@ class ProductController extends Controller
         }catch (\Exception $e){
             Session::flash('notificacion', [
                 'tipo' => 'error',
-                'titulo' => 'Éxito!',
+                'titulo' => 'Error!',
                 'descripcion' => 'Los datos no se han agregado exitosamente, verifique el archivo de excel',
                 'autoCierre' => 'true'
             ]);
             return redirect()->to('products');
         }
     }
+
+    public function pdf()
+    {
+        $productos = Product::all();
+
+        $pdf = Pdf::loadView('product.pdf', ['productos' => $productos])
+            ->setPaper('a4', 'landscape');
+
+        // Funcion para devolver una vista del pdf en el navegador
+        return $pdf->stream('Productos.pdf');
+
+        //Descargar el pdf directamente
+        // return $pdf->download('Informe de Productos.pdf');
+    }
+
 }

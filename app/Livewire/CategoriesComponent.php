@@ -15,9 +15,17 @@ class CategoriesComponent extends Component
     public $search='';
     public $Id, $name, $description;
 
+    protected $rules = [
+        'name' => 'required|max:50',
+        'description' => 'required|max:50'
+    ];
+
     public function render()
     {   
-        $categories = CategoryProduct::where('name','like', '%'.$this->search.'%')->get();
+        $categories = CategoryProduct::where('name','like', '%'.$this->search.'%')
+                    ->orWhere('description', 'like', '%' . $this->search . '%')
+                    ->orWhere('status', 'like', '%' . $this->search . '%')
+                    ->get();
         return view('livewire.categories-component', compact('categories'));
     }
 
@@ -27,7 +35,7 @@ class CategoriesComponent extends Component
             'description' => 'required|max:50'
         ],[
             'name.required' => 'El nombre es requerido',
-            'name.unique' => 'Esta categoria ya existe',
+            'name.unique' => 'Esta categoría ya existe',
             'description.required' => 'La descripción es requerida'
         ]);
         $category = New CategoryProduct();
@@ -68,11 +76,11 @@ class CategoriesComponent extends Component
 
     public function update($id){
         $this->validate([
-            'name' => 'required|max:50|unique:category_products,name',
+            'name' => 'required|max:50|unique:category_products,name,' . $id,
             'description' => 'required|max:50'
         ],[
             'name.required' => 'El nombre es requerido',
-            'name.unique' => 'Esta categoria ya existe',
+            'name.unique' => 'Esta categoría ya existe',
             'description.required' => 'La descripción es requerida'
         ]);
         $category = CategoryProduct::find($id);
