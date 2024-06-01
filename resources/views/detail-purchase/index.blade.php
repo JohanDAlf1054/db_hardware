@@ -95,15 +95,14 @@ Compras</a></li> --}}
                                         <thead class="table-dark">
                                             <tr style="text-align: center">
                                                 <th style="text-align: center">No</th>
-                                                <th style="text-align: center">Tipo Documento</th>
-                                                <th style="text-align: center">Numero Documento</th>
-                                                <th style="text-align: center">Proveedor</th>
-                                                <th style="text-align: center">Total Neto</th>
-                                                <th style="text-align: center">Total Impuesto</th>
+                                                <th style="text-align: center">Número De Factura</th>
+                                                <th style="text-align: center">Fecha De Elaboración</th>
+                                                <th style="text-align: center">Identificación</th>
+                                                <th style="text-align: center">Nombre Proveedor</th>
                                                 <th style="text-align: center">Total Bruto</th>
                                                 <th style="text-align: center">Iva</th>
                                                 <th style="text-align: center">Descuento</th>
-                                                <th style="text-align: center">Metodo de Pago</th>
+                                                <th style="text-align: center">Total Factura</th>
                                                 <th style="text-align: center">Estado</th>
                                                 <th style="text-align: center">Acciones</th>
                                             </tr>
@@ -115,32 +114,25 @@ Compras</a></li> --}}
                                             @foreach ($detailPurchases as $detailPurchase)
                                                 <tr style="text-align: center;">
                                                     <td>{{ ++$i }}</td>
-                                                    <td>{{ optional($detailPurchase->purchaseSupplier->person)->identification_type ?? 'Error: No se encontró el proveedor' }}
-                                                    </td>
-                                                    <td>{{ optional($detailPurchase->purchaseSupplier->person)->identification_number ?? 'Error: No se encontró el proveedor' }}
-                                                    </td>
-
+                                                    <td>{{ $detailPurchase->purchaseSupplier->invoice_number_purchase ?? 'Error: No se encontró el número de factura' }}</td>
+                                                    <td>{{ $detailPurchase->date_purchase ?? 'Error: No se encontró la fecha de elaboración' }}</td>
+                                                    <td>{{ optional($detailPurchase->purchaseSupplier->person)->identification_type ?? 'Error: No se encontró el proveedor' }}</td>
                                                     <td>
                                                         @if ($detailPurchase->purchaseSupplier->person)
                                                             @if ($detailPurchase->purchaseSupplier->person->person_type === 'Persona jurídica')
                                                                 {{ $detailPurchase->purchaseSupplier->person->company_name }}
                                                             @else
                                                                 {{ $detailPurchase->purchaseSupplier->person->first_name }}
-                                                                {{ $detailPurchase->purchaseSupplier->person->other_name }}
+                                                                {{ $detailPurchase->purchaseSupplier->person->surname }}
                                                             @endif
                                                         @else
                                                             {{ 'nn' }}
                                                         @endif
                                                     </td>
-
-                                                    </td>
-
-                                                    <td>${{ number_format($detailPurchase->net_total, 2, '.', ',') }}</td>
-                                                    <td>${{ number_format($detailPurchase->total_value, 2, '.', ',') }}</td>
                                                     <td>${{ number_format($detailPurchase->gross_total, 2, '.', ',') }}</td>
                                                     <td>{{ number_format($detailPurchase->product_tax, 2, '.', ',') }}%</td>
                                                     <td>${{ number_format($detailPurchase->discount_total, 2, '.', ',') }}</td>
-                                                    <td>{{ $detailPurchase->form_of_payment }}</td>
+                                                    <td>${{ number_format($detailPurchase->net_total, 2, '.', ',') }}</td>
                                                     <td>
                                                         @if ($detailPurchase->status == 1)
                                                             <p class="badge rounded-pill bg-success text-white"
