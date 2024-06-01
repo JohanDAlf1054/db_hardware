@@ -15,7 +15,8 @@ class MeasurementUnits extends Migration
             $table->engine="InnoDB";
             $table->bigIncrements('id');
             $table->string('code')->unique();
-            $table->string('name')->unique();
+            $table->string('name');
+            $table->boolean('status')->default(True);
             $table->timestamps();
         });
     }

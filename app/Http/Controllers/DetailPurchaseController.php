@@ -152,7 +152,7 @@ class DetailPurchaseController extends Controller
                 $input['form_of_payment'] = $request->input('form_of_payment');
                 $input['method_of_payment'] = $request->input('method_of_payment');
                 $input['discount_total'] = $arraydescuento[$cont];
-                $input['total_tax'] = $arraydescuento[$cont];
+                $input['total_tax'] = $request->input('igv');
                 $input['total_value'] = $request->input('total_value_raw');
                 $input['gross_total'] = $request->input('totalBruto');
                 $input['net_total'] = $request->input('totalNeto');
@@ -215,7 +215,8 @@ class DetailPurchaseController extends Controller
     $detailPurchase = DetailPurchase::with('purchaseSupplier.user')->find($id);
     $invoice_number = $detailPurchase->purchaseSupplier->invoice_number_purchase;
     $gross_total = $detailPurchase->gross_total;
-    $total_tax = $detailPurchase->total_value;
+    $total_value = $detailPurchase->total_value;
+    $total_tax = $detailPurchase->total_tax;
     $net_total = $detailPurchase->net_total;
     $subtotal = $detailPurchase->quantity_units * $detailPurchase->price_unit;
     $igv = $subtotal * 0.18;
@@ -226,7 +227,7 @@ class DetailPurchaseController extends Controller
     $totalNeto = DetailPurchase::find($id);
     $products = Product::all();
     $people = Person::all();
-    return view('detail-purchase.show', compact('detailPurchases', 'detailPurchase', 'product', 'users', 'totalNeto', 'products', 'people', 'invoice_number', 'gross_total', 'total_tax', 'net_total','subtotal','igv'));
+    return view('detail-purchase.show', compact('detailPurchases', 'detailPurchase', 'product', 'users', 'totalNeto', 'products', 'people', 'invoice_number', 'gross_total', 'total_tax', 'total_value','net_total','subtotal','igv'));
 }
 
     /**

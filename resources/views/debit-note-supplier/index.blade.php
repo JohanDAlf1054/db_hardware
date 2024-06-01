@@ -92,16 +92,14 @@
                                         <thead class="table-dark">
                                             <tr style="text-align: center">
                                                 <th>Nº</th>
-                                                <th>Tipo Documento</th>
-                                                <th>Número De Documento</th>
-                                                <th>Proveedor</th>
-                                                <th>Número de Nota</th>
-                                                <th>Fecha De La Nota</th>
-                                                <th>Total</th>
-                                                <th>Descuento Total</th>
-                                                <th>Impuesto Producto</th>
-                                                <th>Cantidad</th>
-                                                <th>Método de Pago</th>
+                                                <th>Fecha De Elaboración</th>
+                                                <th>Identificación</th>
+                                                <th>Nombre Proveedor</th>
+                                                <th>Total Bruto</th>
+                                                <th>Iva</th>
+                                                <th>Descuento</th>
+                                                <th>Total Factura</th>
+                                                <th>Motivo</th>
                                                 <th>Estado</th>
                                                 <th>Acciones</th>
                                             </tr>
@@ -110,29 +108,24 @@
                                             @foreach ($debitNoteSuppliers as $key => $debitNoteSupplier)
                                                 <tr style="text-align: center;">
                                                     <td>{{ $key + 1 }}</td>
-                                                    <td>{{ optional($debitNoteSupplier->detailPurchase->purchaseSupplier->person)->identification_type ?? 'Error: No se encontró el Empleado' }}
-                                                    </td>
-                                                    <td>{{ optional($debitNoteSupplier->detailPurchase->purchaseSupplier->person)->identification_number ?? 'Error: No se encontró el Empleado' }}
-                                                    </td>
-
+                                                    <td>{{ $debitNoteSupplier->date_invoice ?? 'Error: No se encontró la fecha de elaboración' }}</td>
+                                                    <td>{{ optional($debitNoteSupplier->detailPurchase->purchaseSupplier->person)->identification_number ?? 'Error: No se encontró el Empleado' }}</td>
                                                     <td>
                                                         @if (optional($debitNoteSupplier->purchaseSupplier->person)->person_type === 'Persona jurídica')
                                                             {{ optional($debitNoteSupplier->purchaseSupplier->person)->company_name ?? 'Error: No se encontró la Empresa' }}
                                                         @else
                                                             {{ optional($debitNoteSupplier->purchaseSupplier->person)->first_name ?? 'Error: No se encontró el Empleado' }}
-                                                            {{ optional($debitNoteSupplier->purchaseSupplier->person)->other_name ?? '' }}
+                                                            {{ optional($debitNoteSupplier->purchaseSupplier->person)->surname ?? '' }}
                                                         @endif
                                                     </td>
-                                                    <td>{{ $debitNoteSupplier->debit_note_code }}</td>
-                                                    <td>{{ $debitNoteSupplier->date_invoice }}</td>
-                                                    <td>${{ number_format($debitNoteSupplier->total, 2, '.', ',') }}</td>
-                                                    <td>${{ $debitNoteSupplier->detailPurchase ? number_format($debitNoteSupplier->detailPurchase->discount_total, 2, '.', ',') : 'N/A' }}</td>
-                                                    <td>{{ $debitNoteSupplier->detailPurchase ? number_format($debitNoteSupplier->detailPurchase->product_tax, 2, '.', ',') : 'N/A' }}%</td>
-
-                                                    <td>{{ $debitNoteSupplier->quantity }}</td>
-                                                    <td>{{ $debitNoteSupplier->detailPurchase ? $debitNoteSupplier->detailPurchase->form_of_payment : 'N/A' }}
+                                                    <td>${{ number_format($debitNoteSupplier->gross_total, 2, '.', ',') ?? 'Error: No se encontró el total bruto' }}</td>
+                                                    <td>{{ number_format(optional($debitNoteSupplier->detailPurchase)->product_tax, 2, '.', ',') }}%</td>
+                                                    <td>${{ number_format(optional($debitNoteSupplier->detailPurchase)->discount_total, 2, '.', ',') ?? 'Error: No se encontró el descuento total' }}</td>
+                                                    <td>${{ number_format($debitNoteSupplier->net_total, 2, '.', ',') ?? 'Error: No se encontró el total de la factura' }}</td>
+                                                    <td style="text-align: center; max-width: 100px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                                        {{ $debitNoteSupplier->motive ?? 'Error: No se encontró el motivo' }}
                                                     </td>
-                                                    <td>
+                                                                                                        <td>
                                                         @if ($debitNoteSupplier->status == 1)
                                                             <p class="badge rounded-pill bg-success text-white"
                                                                 style="font-size: 15px">Activo</p>

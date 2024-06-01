@@ -59,7 +59,7 @@
                                                     {{ __('Cliente') }}
                                                     <span class="text-danger">*</span>
                                                 </label>
-                                                <input disabled type="text" name="clients_id" id="clients_id" value="{{$credit_note_sale->cliente->identification_number}}" class="form-control">
+                                                <input disabled type="text" name="clients_id" id="clients_id" value="{{$credit_note_sale->cliente->identification_number}} - {{$credit_note_sale->cliente->company_name}}{{$credit_note_sale->cliente->first_name}} {{$credit_note_sale->cliente->other_name}} {{$credit_note_sale->cliente->surname}} {{$credit_note_sale->cliente->second_surname}} " class="form-control">
                                                 {!! $errors->first('clients_id', '<div class="invalid-feedback">:message</div>') !!}
                                             </div>
                                         </div>

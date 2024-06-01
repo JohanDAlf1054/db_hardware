@@ -6,7 +6,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" ></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.6/css/dataTables.bootstrap5.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.2/css/responsive.dataTables.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.0.2/css/buttons.dataTables.css">
+    {{-- <link rel="stylesheet" href="https://cdn.datatables.net/buttons/3.0.2/css/buttons.dataTables.css"> --}}
 </head>
 <div class="container-fluid">
     <div class="row">
@@ -219,13 +219,23 @@
                     {
                         'extend': 'excelHtml5',
                         'text': '<i class="fa fa-file-excel"></i>',
-                        'titleAtter': 'Excel',
-                        'className': 'btn btn-warning',
+                        'className': 'btn btn-success',
+                        'attr': {
+                            'tooltip': 'tooltip',
+                            'title': 'Excel'
+                        }
                     },
                     {
                         'extend': 'pdfHtml5',
                         'text': '<i class="fa fa-file-pdf"></i>',
-                        'className': 'btn btn-success'
+                        'className': 'btn btn-danger',
+                        'orientation': 'landscape',
+                        'pageSize': 'LEGAL',
+                        'download': 'open',
+                        'attr': {
+                            'tooltip': 'tooltip',
+                            'title': 'PDF'
+                        }
                     }
                 ]
             }

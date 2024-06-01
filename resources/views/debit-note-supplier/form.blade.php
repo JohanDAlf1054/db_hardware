@@ -236,33 +236,47 @@
                                                     </tr>
                                                 </tbody>
                                             </table>
-                                            <div class="row">
-                                                <div class="col-md-12 text-end">
-                                                    <div class="row">
-                                                        <div class="col-md-6 text-end">
-                                                            <label for="total" class="form-label">Subtotal</label>
+                                                <div class="row">
+                                                    <div class="col-md-12 text-end">
+                                                        <div class="row">
+                                                            <div class="col-md-6 text-end">
+                                                                <label for="total" class="form-label">Subtotal</label>
+                                                            </div>
+                                                            <div class="col-md-6 text-end">
+                                                                <input type="number" id="total" name="total" value="0" class="form-control">
+                                                            </div>
                                                         </div>
-                                                        <div class="col-md-6 text-end">
-                                                            <input type="number" id="total" name="total"
-                                                                value="0" class="form-control">
+                                                        <div class="row">
+                                                            <div class="col-md-6 text-end">
+                                                                <label for="Descuento" class="form-label">Descuento</label>
+                                                            </div>
+                                                            <div class="col-md-6 text-end">
+                                                                <input type="number" id="Descuento" name="Descuento" value="0" class="form-control">
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-md-6 text-end">
-                                                            <label for="totalBruto" class="form-label">Total Bruto</label>
+                                                        <div class="row">
+                                                            <div class="col-md-6 text-end">
+                                                                <label for="totalBruto" class="form-label">Total Bruto</label>
+                                                            </div>
+                                                            <div class="col-md-6 text-end">
+                                                                <input type="number" id="totalBruto" name="gross_total" value="0" class="form-control">
+                                                            </div>
                                                         </div>
-                                                        <div class="col-md-6 text-end">
-                                                            <input type="number" id="totalBruto" name="gross_total"
-                                                                value="0" class="form-control">
+                                                        <div class="row">
+                                                            <div class="col-md-6 text-end">
+                                                                <label for="iva" class="form-label">IVA%</label>
+                                                            </div>
+                                                            <div class="col-md-6 text-end">
+                                                                <input type="number" id="iva" name="iva" value="0" class="form-control">
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-md-6 text-end">
-                                                            <label for="totalNeto" class="form-label">Total Factura</label>
-                                                        </div>
-                                                        <div class="col-md-6 text-end">
-                                                            <input type="number" id="totalNeto" name="totalNeto"
-                                                                value="0" class="form-control">
+                                                        <div class="row">
+                                                            <div class="col-md-6 text-end">
+                                                                <label for="totalNeto" class="form-label">Total Factura</label>
+                                                            </div>
+                                                            <div class="col-md-6 text-end">
+                                                                <input type="number" id="totalNeto" name="totalNeto" value="0" class="form-control">
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -421,6 +435,8 @@ ARREGLO ASOCIATIVO GENERAMOS LAS FILAS QUE NECESITAMOS MOSTRAR --}}
     document.getElementById('total').value = Math.round(total * 100) / 100;
     document.getElementById('totalBruto').value = Math.round(totalBruto * 100) / 100;
     document.getElementById('totalNeto').value = Math.round(totalNeto * 100) / 100;
+    document.getElementById('Descuento').value = Math.round(descuentoTotal * 100) / 100;
+    document.getElementById('iva').value = Math.round(totalIva * 100) / 100;
 }
         </script>
         </body>

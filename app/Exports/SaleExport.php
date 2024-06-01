@@ -36,6 +36,7 @@ class SaleExport implements FromCollection, WithHeadings, WithCustomStartCell, W
                 'payments_methods',
                 'gross_totals',
                 'taxes_total',
+                'total_discounts',
                 'net_total',
                 'status',
                 'clients_id'
@@ -46,15 +47,17 @@ class SaleExport implements FromCollection, WithHeadings, WithCustomStartCell, W
                 $status = $sale->status ? 'Activo' : 'Inactivo';
                 return [
                     'id' => $sale->id,
-                    'dates' => $sale->dates,
                     'bill_numbers' => $sale->bill_numbers,
-                    'sellers' => $sale->sellers,
-                    'payments_methods' => $sale->payments_methods,
+                    'dates' => $sale->dates,
+                    'client_name' => $fullName,
                     'gross_totals' => $sale->gross_totals,
                     'taxes_total' => $sale->taxes_total,
+                    'total_discounts' => $sale->total_discounts,
                     'net_total' => $sale->net_total,
-                    'status' => $status,
-                    'client_name' => $fullName
+                    'sellers' => $sale->sellers,
+                    'payments_methods' => $sale->payments_methods,
+                    'status' => $status
+                    
                 ];
             });
     }
@@ -62,16 +65,17 @@ class SaleExport implements FromCollection, WithHeadings, WithCustomStartCell, W
     public function headings(): array
     {
         return [
-            'Id',
-            'Fecha',
-            'N° de factura',
+            'No',
+            'Comprobante',
+            'Fecha elaboración',
+            'Cliente',
+            'Total Bruto',
+            'IVA',
+            'Total Descuentos',
+            'Total Factura',
             'Vendedor',
             'Forma de Pago',
-            'Total bruto',
-            'Total impuesto',
-            'Total Neto',
-            'Estado',
-            'Cliente'
+            'Estado'
         ];
     }
 
@@ -108,7 +112,7 @@ class SaleExport implements FromCollection, WithHeadings, WithCustomStartCell, W
             }
 
             // Definir el rango desde A1 hasta L4 para el encabezado
-            $headerRange = 'A1:J3';
+            $headerRange = 'A1:K3';
 
             // Aplicar color azul al encabezado
             $sheet->getDelegate()->getStyle($headerRange)->applyFromArray([
@@ -128,7 +132,7 @@ class SaleExport implements FromCollection, WithHeadings, WithCustomStartCell, W
                 ],
             ]);
 
-            $sheet->getDelegate()->getStyle('A5:J5')->applyFromArray([
+            $sheet->getDelegate()->getStyle('A5:K5')->applyFromArray([
                 'fill' => [
                     'fillType' => Fill::FILL_SOLID,
                     'startColor' => ['argb' => 'd3d3d3'], // Gris claro
@@ -147,7 +151,7 @@ class SaleExport implements FromCollection, WithHeadings, WithCustomStartCell, W
             
 
             // Fusionar celdas para el encabezado
-            $sheet->getDelegate()->mergeCells('A1:J1');
+            $sheet->getDelegate()->mergeCells('A1:K1');
             $sheet->setCellValue('A1', 'Informe de Ventas');
             $sheet->getStyle('A1')->getFont()->setSize(20); // Tamaño de letra para "Informe de Ventas"
             $sheet->getStyle('A1')->getFont()->setBold(true); // Ajustar a negrita
@@ -155,14 +159,14 @@ class SaleExport implements FromCollection, WithHeadings, WithCustomStartCell, W
             $sheet->getStyle('A1')->getFont()->getColor()->setARGB(Color::COLOR_WHITE); // Letra blanca
 
             // Agregar "Ferretería La Excelencia" y "NIT 9.524.275" en celdas separadas
-            $sheet->getDelegate()->mergeCells('A2:J2');
+            $sheet->getDelegate()->mergeCells('A2:K2');
             $sheet->setCellValue('A2', 'Ferretería La Excelencia');
             $sheet->getStyle('A2')->getFont()->setSize(16); // Tamaño de letra para "Ferretería La Excelencia"
             $sheet->getStyle('A2')->getFont()->setBold(false); // Ajustar a negrita
             $sheet->getStyle('A2')->getAlignment()->setWrapText(true);
             $sheet->getStyle('A2')->getFont()->getColor()->setARGB(Color::COLOR_WHITE); // Letra blanca
 
-            $sheet->getDelegate()->mergeCells('A3:J3');
+            $sheet->getDelegate()->mergeCells('A3:K3');
             $sheet->setCellValue('A3', 'NIT 9.524.275');
             $sheet->getStyle('A3')->getFont()->setSize(14); // Tamaño de letra para "NIT 9.524.275"
             $sheet->getStyle('A3')->getFont()->setBold(false); // Ajustar a negrita

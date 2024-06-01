@@ -22,16 +22,6 @@
                                 <i class="fa-solid fa-folder-open" style="color: #0a0a0a; width=24; height=24"; ></i>
                             </button>
                         </div>
-                        @if ($message = Session::get('success'))
-                            <div class="alert alert-success">
-                                <p>{{ $message }}</p>
-                            </div>
-                        @endif
-                        @if($message = Session::get('error'))
-                            <div class="alert alert-danger">
-                                <p>{{ session('error') }}</p>
-                            </div>
-                        @endif
                         <div class="table_container">
                             <div>
                                 <table class="table table-striped table-hover"  style="justify-content: center;width:100%" id="datatable">
@@ -40,6 +30,7 @@
                                             <th style="text-align: center">Id</th>
                                             <th style="text-align: center">Nombre</th>
                                             <th style="text-align: center">Descripción</th>
+                                            <th style="text-align: center">Estado</th>
                                             <th style="text-align: center">Acciones</th>
                                         </tr>
                                     </thead>
@@ -50,10 +41,24 @@
                                                 <td style="text-align: center">{{ $category->name}}</td>
                                                 <td style="text-align: center">{{ $category->description }}</td>
                                                 <td style="text-align: center">
+                                                    @if ($category->status == 1)
+                                                        <p class="badge rounded-pill bg-success text-white" style="font-size: 15px">Activo</p>
+                                                    @else
+                                                        <p class="badge rounded-pill bg-danger"  style="font-size: 15px">Inactivo</p>
+                                                    @endif
+                                                </td>
+                                                <td style="text-align: center">
                                                     <div class="btn-group" role="group" aria-label="Basic example">
                                                         <button type="button" class="btn btn-sm btn-warning rounded" tooltip="tooltip" title="Crear Subcategorías" wire:click='show("{{ $category->id }}")'>Crear Subcategorías</button>
                                                         <button type="button" class="btn btn-sm btn-success mx-2 rounded" tooltip="tooltip" title="Modificar"  data-bs-toggle="modal" data-bs-target="#Modal"  wire:click='edit("{{ $category->id }}")'><i class="fa fa-fw fa-edit"></i> </i> </button>
-                                                        <button type="button" class="btn btn-danger btn-sm rounded" tooltip="tooltip" title="Eliminar" wire:click='delete("{{ $category->id }}")'><i class="fa fa-fw fa-trash"></i></button>
+                                                        <!-- Modal de Confirmacion -->
+                                                        @if ($category->status == true)
+                                                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" tooltip="tooltip"
+                                                        title="Inactivar" data-bs-target="#confirmationDestroy-{{$category->id}}"><i class="fa fa-fw fa-trash"></i></button>
+                                                        @else
+                                                        <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"  tooltip="tooltip"
+                                                        title="Activar" data-bs-target="#confirmationDestroy-{{$category->id}}"><i class="fa-solid fa-rotate"></i></button>
+                                                        @endif
                                                     </div>
                                                 </td>
                                             </tr>
@@ -87,4 +92,5 @@
     </div>
     @include('components.modalfooter')
     @include('category-product.modalImport')
+    @include('category-product.modal')
 </div>

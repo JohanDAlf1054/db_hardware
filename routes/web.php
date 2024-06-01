@@ -101,7 +101,7 @@ Route::post('/importbrands',[BrandController::class, 'importbrands'])->name('imp
 Route::post('/importCategory',[CategoryProductController::class, 'importCategory'])->name('importCategory');
 Route::post('/importSubcategory',[SubCategoryController::class, 'importSubcategory'])->name('importSubcategory');
 Route::post('/importPerson', [PersonController::class, 'importPerson'])->name('importPerson');
-
+Route::post('/importProduct', [ProductController::class, 'importProduct'])->name('importProduct');
 
 //Funcion Export Informes
 Route::get('export_index', [ExportController::class, 'index_informes'])->name('index_informes');
@@ -147,6 +147,7 @@ Route::get('/downloadFileCategory',[TemplateController::class, 'downloadFileCate
 Route::get('/downloadFileBrands',[TemplateController::class, 'downloadFileBrands'])->name('downloadFileBrands');
 Route::get('/downloadFileUnits',[TemplateController::class, 'downloadFileUnits'])->name('downloadFileUnits');
 Route::get('/downloadFileSubcategory',[TemplateController::class, 'downloadFileSubcategory'])->name('downloadFileSubcategory');
+Route::get('/downloadFileProduct',[TemplateController::class, 'downloadFileProduct'])->name('downloadFileProduct');
 
 
 

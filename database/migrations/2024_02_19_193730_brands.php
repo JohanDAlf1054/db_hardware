@@ -14,9 +14,10 @@ class Brands extends Migration
         Schema::create('brands', function(Blueprint $table){
             $table->engine="InnoDB";
             $table->bigIncrements('id');
-            $table->string('abbrevation')->nullable();
             $table->string('code')->unique();
             $table->string('name')->unique();
+            $table->string('abbrevation')->nullable();
+            $table->boolean('status')->default(True);
             $table->timestamps();
         });
     }

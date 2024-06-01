@@ -41,8 +41,9 @@
                             <table  class="table table-striped" style="width:100%;justify-content: center" id="example">
                                 <thead class="table-dark">
                                     <tr>
-                                        <th>Nombre de la Subcategoría</th>
-                                        <th>Descripción</th>
+                                        <th style="text-align: center">Nombre de la Subcategoría</th>
+                                        <th style="text-align: center">Descripción</th>
+                                        <th style="text-align: center">Estado</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
@@ -50,15 +51,25 @@
                                     @foreach ($subCategories as $subCategory)
                                         <tr>
 
-                                            <td>{{ $subCategory->name }}</td>
-                                            <td>{{ $subCategory->description }}</td>
+                                            <td style="text-align: center">{{ $subCategory->name }}</td>
+                                            <td style="text-align: center">{{ $subCategory->description }}</td>
+                                            <td style="text-align: center">
+                                                @if ($subCategory->status == 1)
+                                                    <p class="badge rounded-pill bg-success text-white" style="font-size: 15px">Activo</p>
+                                                @else
+                                                    <p class="badge rounded-pill bg-danger"  style="font-size: 15px">Inactivo</p>
+                                                @endif
+                                            </td>
                                             <td>
-                                                <form action="{{ route('categorySub.destroy',$subCategory->id) }}" method="POST">
-                                                    <a class="btn btn-sm btn-success" tooltip="tooltip" title="Modificar" href="{{ route('categorySub.edit',$subCategory->id) }}"><i class="fa fa-fw fa-edit"></i></a>
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm" tooltip="tooltip" title="Eliminar"><i class="fa fa-fw fa-trash"></i></button>
-                                                </form>
+                                                <a class="btn btn-sm btn-success" tooltip="tooltip" title="Modificar" href="{{ route('categorySub.edit',$subCategory->id) }}"><i class="fa fa-fw fa-edit"></i></a>
+                                                <!-- Modal de Confirmacion -->
+                                                @if ($subCategory->status == true)
+                                                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" tooltip="tooltip"
+                                                title="Inactivar" data-bs-target="#confirmationDestroy-{{$subCategory->id}}"><i class="fa fa-fw fa-trash"></i></button>
+                                                @else
+                                                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal"  tooltip="tooltip"
+                                                title="Activar" data-bs-target="#confirmationDestroy-{{$subCategory->id}}"><i class="fa-solid fa-rotate"></i></button>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach
@@ -81,6 +92,7 @@
             </div>
         </div>
     </div>
+    @include('sub-category.modal')
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
     <script src="https://cdn.datatables.net/2.0.5/js/dataTables.js"></script>
     <script src="https://cdn.datatables.net/2.0.5/js/dataTables.bootstrap5.js"></script>

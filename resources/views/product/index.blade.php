@@ -89,15 +89,10 @@
                                             <i class="fa-solid fa-file-pdf"></i>
                                         </button>
                                         <button type="button" class="btn btn-warning ms-2 rounded" tooltip="tooltip"
-                                            title="Importar" data-bs-toggle="modal" data-bs-target="#importUnits">
+                                            title="Importar" data-bs-toggle="modal" data-bs-target="#importProducts">
                                             <i class="fa-solid fa-folder-open" style="color: #0a0a0a; width:24; height:24"; ></i>
                                         </button>
-
                                     </div>
-                                    {{-- <div class=" col-sm-2" style="display: flex">
-
-                                    </div> --}}
-
                                 </div>
                             </form>
                         </div>
@@ -113,7 +108,7 @@
                                     <th style="text-align: center">Referencia Fabrica</th>
                                     <th style="text-align: center">Clasificación Tributaria</th>
                                     <th style="text-align: center">Precio de Compra</th>
-                                    <th style="text-align: center">Precio de Venta</th>
+                                    <th style="text-align: center">Precio de Venta sin IVA</th>
                                     <th style="text-align: center">Marca</th>
                                     <th style="text-align: center">Unidad de Medida</th>
                                     <th style="text-align: center">Existencias</th>
@@ -130,8 +125,8 @@
                                         <td style="text-align: center">{{ $producto->name_product }}</td>
                                         <td style="text-align: center">{{ $producto->factory_reference }}</td>
                                         <td style="text-align: center">{{ $producto->classification_tax }}</td>
-                                        <td style="text-align: center">{{ $producto->purchase_price }}</td>
-                                        <td style="text-align: center">{{ $producto->selling_price }}</td>
+                                        <td style="text-align: center">${{ number_format ($producto->purchase_price,2,'.',',') }}</td>
+                                        <td style="text-align: center">${{ number_format ($producto->selling_price,2,'.',',') }}</td>
                                         <td style="text-align: center">{{ $producto->brand->name }}</td>
                                         <td style="text-align: center">{{ $producto->measurementUnit->name }}</td>
                                         <td style="text-align: center">
@@ -196,6 +191,7 @@
 </div>
 {{-- @include('sweetalert::alert') --}}
 @include('product.modal')
+@include('product.modalImport')
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
