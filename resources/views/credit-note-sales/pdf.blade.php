@@ -23,10 +23,10 @@
                 <th>Fecha de venta</th>
                 <th>Vendedor</th>
                 <th>Forma de pago</th>
-                <th>Total Bruto</th>
-                <th>Total Impuesto</th>
-                <th>Total Neto</th>
-                <th>Fecha Nota Crédito</th>
+                <th>Total bruto</th>
+                <th>Total impuesto</th>
+                <th>Total neto</th>
+                <th>Fecha nota crédito</th>
                 <th>Motivo</th>
                 <th>Estado</th>
             </tr>

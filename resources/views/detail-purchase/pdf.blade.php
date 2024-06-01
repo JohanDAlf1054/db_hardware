@@ -22,13 +22,13 @@
             <th>Fecha</th>
             <th>N° de factura</th>
             <th>Identificación</th>
-            <th>Tipo Documento</th>
+            <th>Tipo de identificación</th>
             <th>Proveedor</th>
             <th>Forma de Pago</th>
-            <th>Total Neto</th>
-            <th>Iva</th>
-            <th>Total</th>
-            <th>Descuento</th>
+            <th>Total bruto</th>
+            <th>Total impuesto</th>
+            <th>Total neto</th>
+
         </tr>
     </thead>
     <tbody>
@@ -48,10 +48,12 @@
                     @endif
                 </td>
                 <td>{{ $detailPurchase->form_of_payment }}</td>
-                <td>{{ $detailPurchase->net_total }}</td>
-                <td>{{ $detailPurchase->product_tax }}%</td>
-                <td>{{ $detailPurchase->total_value }}</td>
-                <td>{{ $detailPurchase->discount_total }}</td>
+                <td>{{$detailPurchase->gross_total}}</td>
+                <td>{{$detailPurchase->total_tax}}</td>
+                <td>{{$detailPurchase->net_total}}</td>
+
+
+
 
             </tr>
         @endforeach

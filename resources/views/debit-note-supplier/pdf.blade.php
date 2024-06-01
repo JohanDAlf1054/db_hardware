@@ -21,15 +21,15 @@
         <tr style="text-align: center">
             <th>Nº</th>
             <th>Tipo Documento</th>
-            <th>Número De Documento</th>
+            <th>Número de documento</th>
             <th>Proveedor</th>
-            <th>Número de Nota</th>
-            <th>Fecha De La Nota</th>
+            <th>Número de nota</th>
+            <th>Fecha de la nota</th>
             <th>Total</th>
-            <th>Descuento Total</th>
-            <th>Impuesto Producto</th>
+            <th>Descuento total</th>
+            <th>Impuesto producto</th>
             <th>Cantidad</th>
-            <th>Método de Pago</th>
+            <th>Método de pago</th>
             <th>Estado</th>
         </tr>
     </thead>

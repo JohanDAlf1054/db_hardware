@@ -19,17 +19,17 @@
 <table>
     <thead>
         <tr>
-            <th style="text-align: center">Categoría </th>
-            <th style="text-align: center">Subcategoría</th>
-            <th style="text-align: center">Nombre</th>
-            <th style="text-align: center">Referencia Fabrica</th>
-            <th style="text-align: center">Clasificación Tributaria</th>
-            <th style="text-align: center">Precio de Compra</th>
-            <th style="text-align: center">Precio de Venta</th>
-            <th style="text-align: center">Marca</th>
-            <th style="text-align: center">Unidad de Medida</th>
-            <th style="text-align: center">Existencias</th>
-            <th style="text-align: center">Estado</th>
+            <th>Categoría </th>
+            <th>Subcategoría</th>
+            <th>Nombre</th>
+            <th>Referencia Fabrica</th>
+            <th>Clasificación tributaria</th>
+            <th>Precio de compra</th>
+            <th>Precio de venta</th>
+            <th>Marca</th>
+            <th>Unidad de Medida</th>
+            <th>Existencias</th>
+            <th>Estado</th>
         </tr>
     </thead>
     <tbody>
