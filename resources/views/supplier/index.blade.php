@@ -145,7 +145,7 @@
 
                                                         @if ($proveedor->status == true)
                                                             <button type="button" class="btn btn-danger btn-sm"
-                                                                data-bs-toggle="modal" data-bs-toggle="tooltip"
+                                                                data-bs-toggle="modal" tooltip="tooltip"
                                                                 title="Inactivar"
                                                                 data-bs-target="#confirmationDestroy-{{ $proveedor->id }}"><i
                                                                     class="fa fa-fw fa-trash"></i></button>
