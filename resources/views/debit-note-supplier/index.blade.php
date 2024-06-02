@@ -31,12 +31,16 @@
                                         <button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown"
                                             aria-expanded="false">Acciones</button>
                                         <ul class="dropdown-menu">
-                                            {{-- <li><a class="dropdown-item" href="{{ route('purchase_supplier.index') }}">Mostrar Las Compras A Proveedor</a></li> --}}
-                                            <li><a class="dropdown-item" href="{{ route('debit-note-supplier.create') }}">Crear
-                                                    Nueva Nota Debito</a></li>
 
-                                            <li><a class="dropdown-item" href="{{ route('detail-purchases.index') }}">Mostrar
-                                                    Detalles De Compras</a></li>
+                                            <li><a class="dropdown-item"
+                                                href="{{ route('debit-note-supplier.create') }}">Crear nota débito
+                                            </a></li>
+                                            <li><a class="dropdown-item" href="{{ route('detail-purchases.create') }}">Crear Compra
+                                            </a></li>
+                                            
+
+                                            <li><a class="dropdown-item"
+                                                    href="{{ route('detail-purchases.index') }}">Mostrar Compras</a></li>
                                         </ul>
                                     </div>
                                 </div>

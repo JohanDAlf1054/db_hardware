@@ -9,7 +9,7 @@
         </div>
         <div class="modal-body">
             <div>
-                {{ $debitNoteSupplier->status == 1 ? '¿Seguro que quiere inactivar la nota de débito?' : '¿Seguro que quiere activar la nota de débito?' }}
+                {{ $debitNoteSupplier->status == 1 ? '¿Seguro que quiere inactivar la nota débito?' : '¿Seguro que quiere activar la nota débito?' }}
             </div>
         </div>
         <div class="modal-footer">
