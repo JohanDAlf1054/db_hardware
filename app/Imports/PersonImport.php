@@ -32,7 +32,7 @@ class PersonImport implements ToModel, WithHeadingRow, WithBatchInserts, WithChu
             'second_surname'=> $row['segundo_apellido'],
             'comercial_name'=> $row['nombre_comercial'],
             'email_address'=> $row['correo_electronico'],
-            'city'=> $row['ciudad'],
+            'municipality_id'=> $row['ciudad'],
             'address'=> $row['direccion'],
             'phone'=> $row['celular'],
             'status' => true,

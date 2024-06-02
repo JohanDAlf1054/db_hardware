@@ -165,7 +165,7 @@
                                         </div>
                                         <div class="col-sm-6 md-6">
                                             <div class="mb-3">
-                                                <label for="city" class="form-label" style="font-weight: bolder">
+                                                <label for="municipality_id" class="form-label" style="font-weight: bolder">
                                                     {{ __('Ciudad') }}
                                                     <span class="text-info">*</span>
                                                 </label>
