@@ -30,7 +30,6 @@
             <th>Total Bruto</th>
             <th>Total Impuesto</th>
             <th>Total Neto</th>
-        </tr>
     </thead>
     <tbody>
         @foreach ($ventas as $sale)

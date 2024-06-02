@@ -23,7 +23,6 @@
             </ul>
         </div>
     @endif
-    
         <body>
             <div class="container-fluid">
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">

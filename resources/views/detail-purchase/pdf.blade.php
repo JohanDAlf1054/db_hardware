@@ -29,6 +29,7 @@
             <th>Iva</th>
             <th>Total</th>
             <th>Descuento</th>
+
         </tr>
     </thead>
     <tbody>
@@ -48,10 +49,12 @@
                     @endif
                 </td>
                 <td>{{ $detailPurchase->form_of_payment }}</td>
-                <td>{{ $detailPurchase->net_total }}</td>
-                <td>{{ $detailPurchase->product_tax }}%</td>
-                <td>{{ $detailPurchase->total_value }}</td>
-                <td>{{ $detailPurchase->discount_total }}</td>
+                <td>{{$detailPurchase->gross_total}}</td>
+                <td>{{$detailPurchase->total_tax}}</td>
+                <td>{{$detailPurchase->net_total}}</td>
+
+
+
 
             </tr>
         @endforeach

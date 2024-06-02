@@ -285,6 +285,7 @@
                                     </div>
                                 </div>
                                 <div class="card-footer text-end">
+                                    
                                     <a class="btn btn-primary" style="margin-right: 5rem"
                                         href="{{ route('debit-note-supplier.index') }}">Regresar</a>
                                     <button type="submit" class="btn btn-success">{{ __('Guardar') }}</button>
@@ -371,17 +372,17 @@ ARREGLO ASOCIATIVO GENERAMOS LAS FILAS QUE NECESITAMOS MOSTRAR --}}
 
                             newRow.innerHTML =
                                 '<td><input type="text" name="producto[]" class="form-control" value="' +
-                                detail.product_name + '"></td>' +
+                                detail.product_name + '"readonly></td>' +
                                 '<td><input type="number" name="cantidad[]" class="form-control" value="' +
                                 detail.quantity_units + '"></td>' +
                                 '<td><input type="text" name="descripcion[]" class="form-control" value="' +
         detail.descuento + '"></td>' +
                                 '<td><input type="number" name="precio_unitario[]" class="form-control" value="' +
-                                detail.price_unit + '"></td>' +
+                                detail.price_unit + '"readonly></td>' +
                                 '<td><input type="number" name="descuento[]" class="form-control" value="' +
-                                detail.discount_total + '"></td>' +
+                                detail.discount_total + '"readonly></td>' +
                                 '<td><input type="number" name="iva[]" class="form-control" value="' +
-                                detail.product_tax + '"></td>' +
+                                detail.product_tax + '"readonly></td>' +
                                 '<td><button class="btn btn-danger" type="button"><i class="fa-solid fa-trash"></i></button></td>';
 
                             tbody.appendChild(newRow);
