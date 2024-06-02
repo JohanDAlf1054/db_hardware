@@ -65,7 +65,7 @@ class PeopleExport implements FromCollection, WithHeadings, WithCustomStartCell,
     public function query()
     {
         $query = Person::query()
-            ->select('rol', 'identification_type', 'identification_number', 'digit_verification', 'company_name', 'first_name', 'other_name', 'surname', 'second_surname', 'comercial_name', 'email_address', 'city', 'address', 'phone', 'status');
+            ->select('rol', 'identification_type', 'identification_number', 'digit_verification', 'company_name', 'first_name', 'other_name', 'surname', 'second_surname', 'comercial_name', 'email_address', 'municipality_id', 'address', 'phone', 'status');
 
         if ($this->role === 'supplier') {
             $query->where('rol', 'Proveedor');

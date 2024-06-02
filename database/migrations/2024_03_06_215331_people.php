@@ -26,11 +26,12 @@ return new class extends Migration
             $table->string('second_surname',45)->nullable();
             $table->string('digit_verification',10);
             $table->string('email_address',45);
-            $table->string('city',100);
+            $table->unsignedBigInteger('municipality_id');
             $table->string('address',100);
             $table->string('phone',100);
             $table->boolean('status')->default(True);
             $table->timestamps();
+            $table->foreign('municipality_id')->references('id')->on('municipalities')->onDelete("cascade");
         });
     }
 

@@ -20,7 +20,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property $second_surname
  * @property $digit_verification
  * @property $email_address
- * @property $city
+ * @property $municipality_id
  * @property $address
  * @property $phone
  * @property $status
@@ -51,7 +51,7 @@ class Person extends Model
         'second_surname' => 'string|nullable',
         'digit_verification' => 'required|string',
         'email_address' => 'required|string',
-        'city' => 'required|string',
+        'municipality_id' => 'required',
         'address' => 'required|string',
         'phone' => 'required|string',
         'status' => 'nullable',
@@ -92,7 +92,7 @@ class Person extends Model
      *
      * @var array
      */
-    protected $fillable = ['rol','identification_type','identification_number','person_type','company_name','comercial_name','first_name','other_name','surname','second_surname','digit_verification','email_address','city','address','phone','status'];
+    protected $fillable = ['rol','identification_type','identification_number','person_type','company_name','comercial_name','first_name','other_name','surname','second_surname','digit_verification','email_address','municipality_id','address','phone','status'];
 
     public function sales()
     {
@@ -101,6 +101,6 @@ class Person extends Model
 
     public function municipality()
     {
-        return $this->belongsTo(Municipality::class, 'city');
+        return $this->belongsTo(Municipality::class, 'municipality_id');
     }
 }

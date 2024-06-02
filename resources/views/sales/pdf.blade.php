@@ -27,10 +27,9 @@
             <th>Apellido</th>
             <th>Razon social</th>
             <th>Forma de pago</th>
-            <th>Total bruto</th>
-            <th>Total impuesto</th>
-            <th>Total neto</th>
-        </tr>
+            <th>Total Bruto</th>
+            <th>Total Impuesto</th>
+            <th>Total Neto</th>
     </thead>
     <tbody>
         @foreach ($ventas as $sale)

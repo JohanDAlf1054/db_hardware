@@ -45,7 +45,7 @@ class PersonController extends Controller
             ->orWhere('second_surname','like','%'.$filtervalue.'%')
             ->orWhere('email_address','like','%'.$filtervalue.'%')
             ->orWhere('company_name','like','%'.$filtervalue.'%')
-            ->orWhere('city','like','%'.$filtervalue.'%')
+            ->orWhere('municipality_id','like','%'.$filtervalue.'%')
             ->orWhere('phone','like','%'.$filtervalue.'%')
             ->paginate();
 
@@ -68,9 +68,8 @@ class PersonController extends Controller
         $person = new Person();
         $table = 'person';
         $municipalities = Municipality::with('department.country')->get();
-        $people = Person::with('municipality')->get();
 
-        return view('person.create', compact('person', 'municipalities', 'people', 'table'));
+        return view('person.create', compact('person', 'municipalities', 'table'));
     }
 
     /**

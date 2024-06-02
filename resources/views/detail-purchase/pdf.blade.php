@@ -25,9 +25,10 @@
             <th>Tipo de identificación</th>
             <th>Proveedor</th>
             <th>Forma de Pago</th>
-            <th>Total bruto</th>
-            <th>Total impuesto</th>
-            <th>Total neto</th>
+            <th>Total Neto</th>
+            <th>Iva</th>
+            <th>Total</th>
+            <th>Descuento</th>
 
         </tr>
     </thead>
@@ -48,6 +49,12 @@
                     @endif
                 </td>
                 <td>{{ $detailPurchase->form_of_payment }}</td>
+                <td>{{$detailPurchase->gross_total}}</td>
+                <td>{{$detailPurchase->total_tax}}</td>
+                <td>{{$detailPurchase->net_total}}</td>
+
+
+
                 <td>{{$detailPurchase->gross_total}}</td>
                 <td>{{$detailPurchase->total_tax}}</td>
                 <td>{{$detailPurchase->net_total}}</td>
