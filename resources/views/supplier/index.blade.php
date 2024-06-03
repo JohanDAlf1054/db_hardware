@@ -109,7 +109,7 @@
                                         <tbody>
                                             @foreach ($proveedores as $proveedor)
                                                 <tr style="text-align: center">
-                                                    <td>{{ $proveedor->rol }}</td>
+                                                    <td >{{ $proveedor->rol }}</td>
                                                     <td>{{ $proveedor->identification_type }}</td>
                                                     <td>{{ $proveedor->identification_number }}</td>
                                                     <td>{{ $proveedor->digit_verification }}</td>
