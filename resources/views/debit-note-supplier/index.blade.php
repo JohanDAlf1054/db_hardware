@@ -59,6 +59,10 @@
                                             title="PDF" onclick="window.location.href='{{ route('debit-note-supplier.pdf') }}'">
                                             <i class="fa-solid fa-file-pdf"></i>
                                         </button>
+                                        <button type="button" class="btn btn-warning ms-2 rounded" tooltip="tooltip"
+                                            title="Importar" data-bs-toggle="modal" data-bs-target="#importPerson">
+                                            <i class="fa-solid fa-folder-open"></i>
+                                        </button>
                                     </form>
                                 </div>
                             </div>
