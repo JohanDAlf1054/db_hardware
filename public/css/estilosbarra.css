@@ -253,6 +253,8 @@ a.selected {
 .transparent-input:focus {
     outline: none; /* Quitar el borde al enfocarse */
 }
-
+.InputBuscarUsuario{
+    width: 30rem;
+}
 
 

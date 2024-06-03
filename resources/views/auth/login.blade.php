@@ -78,7 +78,7 @@
             </div>
             <!-- Boton de envio del formulario -->
             <div class="formulario__grupo formulario__grupo-btn-enviar">
-                <button type="submit" class="formulario__btn" id="btn-iniciar_sesion">Enviar</button>
+                <button type="submit" class="formulario__btn" id="btn-iniciar_sesion">Ingresar</button>
             </div>
 
             </form>
@@ -154,7 +154,7 @@
                     <span class="text_red">*</span>
                 </label>
                 <div class="formulario__grupo-input">
-                    <input type="text" class="formulario__input" name="identification_number" placeholder="Ejemplo: 1054283229" id="identification_number">
+                    <input type="number" class="formulario__input" name="identification_number" placeholder="Ejemplo: 1054283229" id="identification_number">
                     <i class="formulario__validacion-estado far fa-times-circle"></i>
                 </div>
                 <p class="formulario__input-error">Completa este campo</p>

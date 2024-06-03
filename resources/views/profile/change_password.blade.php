@@ -1,27 +1,15 @@
 @auth
 <head>
     <link href="{{asset('css/estilos_configuracion.css')}}" rel="stylesheet">
+    <link href="{{asset('css/estilos_notificacion.css')}}" rel="stylesheet" />
+    <script src="{{ asset('js/notificaciones.js')}}" defer></script>
 </head>
     @include('include.barra', ['modo' => 'Cambiar contraseña'])
-    {{--  @can('profile')  --}}
+    @can('profile')
     <div class="bread_crumb">
         {{ Breadcrumbs::render('profile.password') }}
     </div>
     <br>
-    {{-- Script  para mostrar la notificacion --}}
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const mensajeFlash = {!! json_encode(Session::get('notificacion')) !!};
-            if (mensajeFlash) {
-                agregarnotificacion(mensajeFlash);
-            }
-        });
-    </script>
-
-    {{--  Div con las notificaciones nuevas  --}}
-    <div class="contenedor-notificacion" id="contenedor-notificacion">
-        {{--  Aqui trae las notificaciones por medio de javaescript  --}}
-    </div>
     <div class="content container-fluid">
         <div class="page-body">
             <div class="container-x1">
@@ -48,9 +36,6 @@
                                                     <div class="input_contraseña_confirmar">
                                                         <input type="password" id="password" name="current_password" required class="form-control">
                                                         <i class="formulario__icono-toggle fa-solid fa-eye-slash ojo_contrasena" id="togglePassword" onclick="togglePassword()"></i>
-                                                        @error('current_password')
-                                                            <p>{{ $message }}</p>
-                                                        @enderror
                                                     </div>
                                                 </div>
                                             </div>
@@ -66,9 +51,6 @@
                                                     <div class="input_nueva_contraseña">
                                                         <input type="password" id="Newpassword" name="new_password" required class="form-control">
                                                         <i class="formulario__icono-toggle fa-solid fa-eye-slash ojo_contrasena" id="togglePasswordNew" onclick="togglePasswordNew()"></i>
-                                                        @error('new_password')
-                                                            <p>{{ $message }}</p>
-                                                        @enderror
                                                     </div>
                                                 </div>
                                             </div>
@@ -82,11 +64,8 @@
                                                         <span class="text-danger">*</span>
                                                     </label>
                                                     <div class="input_confirmar_contraseña">
-                                                        <input type="password" id="password-confirm" name="new_password_confirmation" required class="form-control">
-                                                        <i class="formulario__icono-toggle fa-solid fa-eye-slash ojo_contrasena" id="togglePasswordRegi" onclick="togglePassword2()"></i>
-                                                        @error('new_password_confirmation')
-                                                            <p>{{ $message }}</p>
-                                                        @enderror
+                                                        <input type="password" id="NewpasswordConfirm" name="new_password_confirmation" required class="form-control">
+                                                        <i class="formulario__icono-toggle fa-solid fa-eye-slash ojo_contrasena" id="togglePasswordNewConfir" onclick="togglePasswordNewConfir()"></i>
                                                     </div>
                                                 </div>
                                             </div>
@@ -106,14 +85,26 @@
         </div>
     </div>
 
+{{-- Script  para mostrar la notificacion --}}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const mensajeFlash = {!! json_encode(Session::get('notificacion')) !!};
+        if (mensajeFlash) {
+            agregarnotificacion(mensajeFlash);
+        }
+    });
+</script>
 
-
-    {{--  @else
+{{--  Div con las notificaciones nuevas  --}}
+<div class="contenedor-notificacion" id="contenedor-notificacion">
+    {{--  Aqui trae las notificaciones por medio de javaescript  --}}
+</div>
+    @else
         <div class="mensaje_Rol">
             <img src="{{ asset('img/Rol_no_asignado.png') }}" class="img_rol" />
             <h2 class="texto_noRol">Pídele al administrador que se te asigne un rol.</h2>
         </div>
-    @endcan  --}}
+    @endcan
 @endauth
 @guest
     @include('include.falta_sesion')
