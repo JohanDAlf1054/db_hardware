@@ -73,6 +73,7 @@
                                 <div class="contenedor-notificacion" id="contenedor-notificacion">
                                 </div>
                                 <div class="card-body">
+                                    <form action="{{ route('debit-note-supplier.store') }}" method="post" id="create">
                                     <div class="row row-cards">
                                         {{--  Buscar Un Numero De Factura  --}}
                                         <div class="col-sm-6 md-6">
@@ -86,19 +87,21 @@
                                                     data-size="5" title="Seleccione una factura">
                                                     <option value="">Seleccione un prefijo y número de factura</option>
                                                     @foreach ($purchaseSuppliers as $purchaseSupplier)
-                                                    <option value="{{ $purchaseSupplier->id }}"
-                                                        data-users-id="{{ $purchaseSupplier->users_id }}"
-                                                        data-people-id="{{ $purchaseSupplier->people_id }}"
-                                                        data-date-purchase="{{ $purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->date_purchase : '' }}"
-                                                        data-product-name="{{ $purchaseSupplier->detailPurchase && $purchaseSupplier->detailPurchase->product ? $purchaseSupplier->detailPurchase->product->name_product : '' }}"
-                                                        data-product-tax="{{ $purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->product_tax : '' }}"
-                                                        data-price-unit="{{ $purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->price_unit : '' }}"
-                                                        data-discount-total="{{ $purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->discount_total : '' }}"
-                                                        data-quantity-units="{{ $purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->discount_total : '' }}"
-                                                        data-description="{{ $purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->description : '' }}"> <!-- Aquí está el nuevo atributo -->
-                                                        {{ $purchaseSupplier->invoice_number_purchase }}
-                                                    </option>
+                                                        <option value="{{ $purchaseSupplier->id }}"
+                                                            data-users-id="{{ $purchaseSupplier->users_id }}"
+                                                            data-people-id="{{ $purchaseSupplier->people_id }}"
+                                                            data-date-purchase="{{ $purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->date_purchase : '' }}"
+                                                            data-product-name="{{ $purchaseSupplier->detailPurchase && $purchaseSupplier->detailPurchase->product ? $purchaseSupplier->detailPurchase->product->name_product : '' }}"
+                                                            data-product-tax="{{ $purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->product_tax : '' }}"
+                                                            data-price-unit="{{ $purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->price_unit : '' }}"
+                                                            data-discount-total="{{ $purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->discount_total : '' }}"
+                                                            data-quantity-units="{{ $purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->discount_total : '' }}"
+                                                            data-description="{{ $purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->description : '' }}"
+                                                            {{ old('factura') == $purchaseSupplier->id ? 'selected' : '' }}>
+                                                            {{ $purchaseSupplier->invoice_number_purchase }}
+                                                        </option>
                                                     @endforeach
+
                                                 </select>
                                                 {!! $errors->first('factura', '<div class="invalid-feedback">:message</div>') !!}
                                             </div>
@@ -298,6 +301,7 @@
                                         href="{{ route('debit-note-supplier.index') }}">Regresar</a>
                                     <button type="submit" class="btn btn-success">{{ __('Guardar') }}</button>
                                 </div>
+                            </form>
                             </div>
                         </div>
                     </div>
@@ -458,7 +462,116 @@ function calcularTotales() {
     document.getElementById('iva').value = Math.round(totalIva * 100) / 100;
 }
 </script>
+<script>
+document.querySelector('form').addEventListener('submit', function(e) {
+    e.preventDefault();
 
+    var isValid = true;
+    var message = '';
+
+    document.querySelectorAll('input[name="producto[]"]').forEach(function(input) {
+        if (input.value.trim() === '') {
+            isValid = false;
+            message = 'El producto es obligatorio.';
+            showModal(message);
+            return;
+        }
+    });
+    document.querySelectorAll('input[name="cantidad[]"]').forEach(function(input) {
+        var cantidad = Number(input.value);
+        if (!isNumeric(cantidad)) {
+            isValid = false;
+            message = 'Se debe ingresar una cantidad válida.';
+            showModal(message);
+            return;
+        } else if (cantidad <= 0) {
+            isValid = false;
+            message = 'La cantidad ingresada no puede ser negativa o cero.';
+            showModal(message);
+            return;
+        }
+    });
+
+    document.querySelectorAll('input[name="descripcion[]"]').forEach(function(input) {
+        var descripcion = input.value;
+        if (descripcion.trim() === '') {
+            isValid = false;
+            message = 'Se necesita agregar la descripción del porqué se va a realizar la nota débito.';
+            showModal(message);
+            return;
+        }
+    });
+
+    var totalNetoInput = document.getElementById('totalNeto');
+    var totalNeto = totalNetoInput ? totalNetoInput.value : 0;
+    if (totalNeto < 0) {
+        isValid = false;
+        message = 'El total factura no puede ser negativo.';
+        showModal(message);
+        return;
+    }
+
+    var grossTotalInput = document.getElementById('gross_total');
+    var grossTotal = grossTotalInput ? grossTotalInput.value : 0;
+    if (grossTotal < 0) {
+        isValid = false;
+        message = 'El total bruto no puede ser negativo.';
+        showModal(message);
+        return;
+    }
+
+    var totalInput = document.getElementById('total');
+    var total = totalInput ? totalInput.value : 0;
+    if (total < 0) {
+        isValid = false;
+        message = 'El subtotal no puede ser negativo.';
+        showModal(message);
+        return;
+    }
+
+    var motiveInput = document.getElementById('motive');
+    var motive = motiveInput ? motiveInput.value : '';
+    if (motive.trim() === '') {
+        isValid = false;
+        message = 'El motivo por el cual se realiza la nota es obligatorio.';
+        showModal(message);
+        return;
+    }
+
+    if (isValid) {
+        this.submit();
+    }
+});
+
+function isNumeric(n) {
+    return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
+function showModal(message, icon = 'error') {
+    const Toast = Swal.mixin({
+        toast: true,
+        position: 'bottom-left',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+        showClass: {
+            popup: 'animate__animated animate__fadeInUp'
+        },
+        hideClass: {
+            popup: 'animate__animated animate__fadeOutDown'
+        },
+        didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer)
+            toast.addEventListener('mouseleave', Swal.resumeTimer)
+        }
+    });
+
+    Toast.fire({
+        icon: icon,
+        title: message
+    });
+}
+</script>
         
         </body>
 
