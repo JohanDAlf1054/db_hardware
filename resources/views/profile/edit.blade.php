@@ -1,6 +1,11 @@
 @auth
     @include('include.barra', ['modo' => 'Editar información '])
-    {{--  @can('profile')  --}}
+    <head>
+        <link href="{{asset('css/estilos_configuracion.css')}}" rel="stylesheet">
+        <link href="{{asset('css/estilos_notificacion.css')}}" rel="stylesheet" />
+        <script src="{{ asset('js/notificaciones.js')}}" defer></script>
+    </head>
+    @can('profile')
     <div class="bread_crumb">
         {{ Breadcrumbs::render('profile.edit') }}
     </div>
@@ -45,7 +50,7 @@
                                                     <label for="phone_number" class="form-label" style="font-weight: bolder">
                                                         Numero de celular:
                                                     </label>
-                                                    <input type="text" id="phone_number" name="phone_number" value="{{ old('phone_number', $user->phone_number) }}" class="form-control">
+                                                    <input type="number" id="phone_number" name="phone_number" value="{{ old('phone_number', $user->phone_number) }}" class="form-control">
                                                 </div>
                                             </div>
                                             {{--  Tipo de documento  --}}
@@ -71,7 +76,7 @@
                                                     <label for="identification_number" class="form-label" style="font-weight: bolder">
                                                         Número de identificación:
                                                     </label>
-                                                    <input type="text" id="identification_number" name="identification_number" value="{{ old('identification_number', $user->identification_number) }}" class="form-control">
+                                                    <input type="number" id="identification_number" name="identification_number" value="{{ old('identification_number', $user->identification_number) }}" class="form-control">
                                                 </div>
                                             </div>
                                         </div>
@@ -89,12 +94,26 @@
         </div>
     </div>
 
-    {{--  @else
+    {{-- Script  para mostrar la notificacion --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mensajeFlash = {!! json_encode(Session::get('notificacion')) !!};
+            if (mensajeFlash) {
+                agregarnotificacion(mensajeFlash);
+            }
+        });
+    </script>
+
+    {{--  Div con las notificaciones nuevas  --}}
+    <div class="contenedor-notificacion" id="contenedor-notificacion">
+        {{--  Aqui trae las notificaciones por medio de javaescript  --}}
+    </div>
+    @else
         <div class="mensaje_Rol">
             <img src="{{ asset('img/Rol_no_asignado.png') }}" class="img_rol" />
             <h2 class="texto_noRol">Pídele al administrador que se te asigne un rol.</h2>
         </div>
-    @endcan  --}}
+    @endcan
 @endauth
 @guest
     @include('include.falta_sesion')

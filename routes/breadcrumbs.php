@@ -203,7 +203,7 @@ Breadcrumbs::for('credit.note.sales.create', function (BreadcrumbTrail $trail) {
 //Administrador
 Breadcrumbs::for('admin.index', function (BreadcrumbTrail $trail) {
     $trail->push('Administrador');
-    $trail->push('Usuarios', route('admin.usuarios.index'));
+    $trail->push('Gestion de usuarios', route('admin.usuarios.index'));
 });
 
 //Administrador -> roles

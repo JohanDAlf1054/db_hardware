@@ -25,7 +25,7 @@
 
                 <div>
                     <label for="email_address">Email
-                        <span class="text_red">*</span>
+                        <span class="text-danger">*</span>
                     </label>
                     <div>
                         <input type="text" id="email_address"  name="email" required autofocus >
@@ -40,7 +40,7 @@
 
                 <div>
                     <label for="password">Contraseña
-                        <span class="text_red">*</span>
+                        <span class="text-danger">*</span>
                     </label>
                     <div>
                         <div class="input_contrasena">
@@ -58,7 +58,7 @@
 
                 <div>
                     <label for="password-confirm">Confirmar Contraseña
-                        <span class="text_red">*</span>
+                        <span class="text-danger">*</span>
                     </label>
                     <div>
                         <div class="input_confir_contra">

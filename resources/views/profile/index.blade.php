@@ -4,6 +4,7 @@
     <head>
         <link rel="stylesheet" href="{{asset('css/dashboard/panel.css')}}">
         <link rel="stylesheet" href="{{asset('css/estilos_notificacion.css')}}">
+        <script src="{{ asset('js/notificaciones.js')}}" defer></script>
     </head>
     <div class="bread_crumb">
         {{ Breadcrumbs::render('profile') }}

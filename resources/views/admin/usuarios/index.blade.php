@@ -17,92 +17,85 @@
                             {{ Breadcrumbs::render('admin.index') }}
                         </h3>
                     </div>
+                    <div class="card-body">
+                        <div class="row">
+                            {{-- Barra de búsqueda --}}
+                            <div class="col-12 d-flex justify-content-end">
+                                <form class="d-flex align-items-center ms-auto">
+                                    {{-- Campo para buscar el usuario --}}
+                                    <input name="filtervalue" type="text" class="form-control me-2 InputBuscarUsuario" aria-label="Buscar usuario" placeholder="Buscar usuario....">
+                                    {{-- Botón para buscar --}}
+                                    <button type="submit" class="btn btn-dark">Buscar</button>
+                                </form>
+                            </div>
+                        </div>
+
+                        <div class="table_container">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-hover" style="justify-content: center" id="datatable">
+                                    <thead class="table-dark">
+                                        <tr style="text-align: center">
+                                            <th>Nombre</th>
+                                            <th>Correo electronico</th>
+                                            <th>Numero de celular</th>
+                                            <th>Tipo de documento</th>
+                                            <th>Numero de identificacion</th>
+                                            <th>Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ( $usuarios as $usuario )
+                                        <tr style="text-align: center">
+                                            {{-- Aquí se traen los datos guardados de los usuarios --}}
+                                            <td>{{$usuario->name }}</td>
+                                            <td>{{$usuario->email }}</td>
+                                            <td>{{$usuario->phone_number }}</td>
+                                            <td>{{$usuario->document_type }}</td>
+                                            <td>{{$usuario->identification_number }}</td>
+                                            <td>
+                                                <a class="btn btn-sm btn-primary" href="{{route('admin.usuarios.edit', $usuario->id)}}">Accesos <i class="fa-solid fa-people-line"></i></a>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+
+                                        <script src="{{ asset('js/datatable.js') }}" defer></script>
+                                        <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+                                        <script src="https://cdn.datatables.net/2.0.5/js/dataTables.js"></script>
+                                        <script src="https://cdn.datatables.net/2.0.5/js/dataTables.bootstrap5.js"></script>
+                                        <script src="https://cdn.datatables.net/responsive/3.0.2/js/dataTables.responsive.js"></script>
+                                        <script src="https://cdn.datatables.net/responsive/3.0.2/js/responsive.dataTables.js"></script>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    {{-- Script para mostrar la notificación --}}
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function () {
+                            const mensajeFlash = {!! json_encode(Session::get('notificacion')) !!};
+                            if (mensajeFlash) {
+                                agregarnotificacion(mensajeFlash);
+                            }
+                        });
+                    </script>
+
+                    {{-- Div con las notificaciones nuevas --}}
+                    <div class="contenedor-notificacion" id="contenedor-notificacion">
+                        {{-- Aquí trae las notificaciones por medio de JavaScript --}}
+                    </div>
+                    <div class="container_datos">
+                        {{-- Validación para cuando se busca una información y no se encuentra --}}
+                        @if($usuarios->count())
+
+                        @else
                         <div class="card-body">
-                            <div class="row">
-                                <div style="display: flex; justify-content: space-between; align-items: center;">
-                                    {{--  Barra de busqueda  --}}
-                                    <div class="col-lg-6 col-md-6 col-sm-12">
-                                        <form>
-                                            <div class="mb-3 row">
-                                                <div class="col-sm-9">
-                                                    {{--  Campo para buscar el usuario  --}}
-                                                    <input name="filtervalue" type="text" class="form-control" aria-label="Text input with segmented dropdown button"  placeholder="Buscar usuario....">
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    {{--  Boton para buscar  --}}
-                                                    <button type="submit" class="btn btn-dark">Buscar</button>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="table_container">
-                                <div class="table-responsive">
-                                    <table class = "table table-striped table-hover" style="justify-content: center" id="datatable">
-                                        <thead class="table-dark">
-                                            <tr style="text-align: center">
-                                                <th>Nombre</th>
-                                                <th>Correo electronico</th>
-                                                <th>Numero de celular</th>
-                                                <th>Tipo de documento</th>
-                                                <th>Numero de identificacion</th>
-                                                <th>Acciones</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ( $usuarios as $usuario )
-                                            <tr style="text-align: center">
-                                            {{--  Aqui se traen los datos guardados de los usuarios  --}}
-                                                <td>{{$usuario -> name }}</td>
-                                                <td>{{$usuario -> email }}</td>
-                                                <td>{{$usuario -> phone_number }}</td>
-                                                <td>{{$usuario -> document_type }}</td>
-                                                <td>{{$usuario -> identification_number }}</td>
-                                                <td>
-                                                    <a class="btn btn-sm btn-primary" href="{{route('admin.usuarios.edit', $usuario->id)}}">Accesos <i class="fa-solid fa-people-line"></i></a>
-                                                </td>
-                                            </tr>
-                                            @endforeach
-
-                                            <script src="{{ asset('js/datatable.js') }}" defer></script>
-                                            <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-                                            <script src="https://cdn.datatables.net/2.0.5/js/dataTables.js"></script>
-                                            <script src="https://cdn.datatables.net/2.0.5/js/dataTables.bootstrap5.js"></script>
-                                            <script src="https://cdn.datatables.net/responsive/3.0.2/js/dataTables.responsive.js"></script>
-                                            <script src="https://cdn.datatables.net/responsive/3.0.2/js/responsive.dataTables.js"></script>
-
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                            <strong>No hay registros</strong>
                         </div>
-                        {{-- Script  para mostrar la notificacion --}}
-                        <script>
-                            document.addEventListener('DOMContentLoaded', function () {
-                                const mensajeFlash = {!! json_encode(Session::get('notificacion')) !!};
-                                if (mensajeFlash) {
-                                    agregarnotificacion(mensajeFlash);
-                                }
-                            });
-                        </script>
-
-                        {{--  Div con las notificaciones nuevas  --}}
-                        <div class="contenedor-notificacion" id="contenedor-notificacion">
-                            {{--  Aqui trae las notificaciones por medio de javaescript  --}}
-                        </div>
-                        <div class="container_datos">
-                            {{--  Validacion para cuando se busca una informacion y no se encuentra  --}}
-                            @if($usuarios->count())
-                            
-                            @else
-                                <div class="card-body">
-                                    <strong>No hay registros</strong>
-                                </div>
-                            @endif
-                        </div>
+                        @endif
+                    </div>
                 </div>
-                {{--  {!! $usuario->links() !!}  --}}
+                {{-- {!! $usuario->links() !!} --}}
             </div>
         </div>
     </div>

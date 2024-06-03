@@ -20,11 +20,11 @@
             <h2>¿Olvidaste tu contraseña?</h2>
             <hr class="linea">
             <form action="{{ route('enviar-recuperacion') }}" method="POST">
-                <p>Te enviaremos un correo con la informacion necesaria para poder restablecerla.</p>
+                <p>No te preocupes, te enviaremos un correo con la informacion necesaria para poder restablecerla.</p>
                 @csrf
                 <div>
-                    <label for="email_address">Tu Email
-                        <span class="text_red">*</span>
+                    <label for="email_address">Email
+                        <span class="text-danger">*</span>
                     </label>
                     <br>
                         <input type="text" id="email_address" class="" name="email" required autofocus>
