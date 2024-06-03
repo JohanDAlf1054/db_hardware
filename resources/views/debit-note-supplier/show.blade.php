@@ -140,36 +140,52 @@
                                                         <th>Descripción</th>
                                                         <th>Precio Unitario</th>
                                                         <th>Descuento</th>
+                                                        <th>%</th>
                                                         <th>Iva</th>
+                                                        <th>Precio Unitario De Venta</th>
+                                                    
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     @foreach ($debitNoteSuppliers as $debitNoteSupplier)
-                                                        <tr>
-                                                            <td><input type="text" name="producto"
-                                                                    value="{{ $debitNoteSupplier->detailPurchase->product->name_product }}"
-                                                                    class="form-control" readonly></td>
-                                                            <td><input type="number" name="cantidad"
-                                                                    value="{{ $debitNoteSupplier->quantity }}"
-                                                                    class="form-control" readonly></td>
-                                                            <td><input type="text" name="descripcion"
-                                                                    value="{{ $debitNoteSupplier->description }}"
-                                                                    class="form-control" readonly></td>
-                                                            <td><input type="number" id="precio_unitario"
-                                                                    name="precio_unitario"
-                                                                    value="{{ $debitNoteSupplier->detailPurchase->price_unit }}"
-                                                                    class="form-control" readonly></td>
-                                                            <td><input type="number" id="descuento" name="descuento"
-                                                                    value="{{ $debitNoteSupplier->detailPurchase->discount_total }}"
-                                                                    class="form-control" readonly></td>
-                                                            <td><input type="number" id="iva" name="iva"
+                                                    <tr>
+                                                        <?php
+                                                            $porcentaje = $debitNoteSupplier->detailPurchase->product_tax / 100; 
+                                                            $cantidad = $debitNoteSupplier->quantity;
+                                                            $precio_unitario = $debitNoteSupplier->detailPurchase->price_unit;
+                                                            $subtotal = round($cantidad * $precio_unitario * 100) / 100;
+                                                            $ivaTotal = round($subtotal * $porcentaje * 100) / 100; 
+                                                            $precio_unitario_venta = $cantidad*$precio_unitario; 
+                                                        ?>
+
+                                                        <td><input type="text" name="producto"
+                                                                value="{{ $debitNoteSupplier->detailPurchase->product->name_product }}"
+                                                                class="form-control" readonly></td>
+                                                        <td><input type="number" name="cantidad"
+                                                                value="{{ $cantidad }}"
+                                                                class="form-control" readonly></td>
+                                                        <td><input type="text" name="descripcion"
+                                                                value="{{ $debitNoteSupplier->description }}"
+                                                                class="form-control" readonly></td>
+                                                        <td><input type="number" id="precio_unitario"
+                                                                name="precio_unitario"
+                                                                value="{{ $precio_unitario }}"
+                                                                class="form-control" readonly></td>
+                                                        <td><input type="number" id="descuento" name="descuento"
+                                                                value="{{ $debitNoteSupplier->detailPurchase->discount_total }}"
+                                                                class="form-control" readonly></td>
+                                                                <td><input type="number" id="iva" name="iva"
                                                                     value="{{ $debitNoteSupplier->detailPurchase->product_tax }}"
                                                                     class="form-control" readonly></td>
-            
-            
-            
-                                                        </tr>
-                                                    @endforeach
+                                                        <td><input type="number" id="iva" name="iva"
+                                                                value="{{ $ivaTotal }}"
+                                                                class="form-control" readonly></td>
+                                                        <td><input type="number" id="precio_unitario_venta" name="precio_unitario_venta"
+                                                                value="{{ $precio_unitario_venta }}"
+                                                                class="form-control" readonly></td>
+                                                    </tr>
+                                                @endforeach
+                                                
                                                 </tbody>
                                                 
                                             </table>

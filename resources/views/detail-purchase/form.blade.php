@@ -231,16 +231,16 @@
                                                     <input readonly type="date" name="fecha" id="fecha"
                                                         class="form-control border-success" value="<?php echo date('Y-m-d'); ?>">
                                                 </div>
-                                                <div class="col-6 mb-2">
-                                                    <label for="invoice_type" class="form-label">Factura De Compra:</label>
+                                                <div class="col-7 mb-2">
+                                                    <label for="invoice_type" class="form-label">Factura de compra:</label>
                                                     <input type="text" id="invoice_type" name="invoice_type" class="form-control" value="FC" readonly >
                                                     @error('invoice_type')
                                                         <small class="text-danger">{{ '*' . $message }}</small>
                                                     @enderror
                                                 </div>
                                                 
-                                                <div class="col-6 mb-2">
-                                                    <label for="id" class="form-label">ID:</label>
+                                                <div class="col-5 mb-2">
+                                                    <label for="id" class="form-label">Consecutivo:</label>
                                                     <input type="text" id="id" name="id" class="form-control" value="{{ DB::table('detail_purchase')->max('id') + 1 }}" readonly>
                                                     @error('id')
                                                         <small class="text-danger">{{ '*' . $message }}</small>

@@ -206,6 +206,9 @@
                                                     .bg-dark-blue {
                                                         background-color: #004080;
                                                     }
+                                                    .bg-primary.text-white th {
+                                                        text-align: center;
+                                                    }
                                                 </style>
 
                                                 <thead class="bg-primary text-white">
@@ -215,7 +218,9 @@
                                                         <th>Descripción</th>
                                                         <th>Precio Unitario</th>
                                                         <th>Descuento</th>
+                                                        <th>%</th>
                                                         <th>Iva</th>
+                                                        <th>Precio Unitario De Venta</th>
                                                         <th>Acción</th>
                                                     </tr>
                                                 </thead>
@@ -223,14 +228,17 @@
                                                     <tr>
                                                         <td><input type="text" name="producto" class="form-control"></td>
                                                         <td><input type="number" name="cantidad" class="form-control"></td>
-                                                        <td><input type="text" name="descripcion" class="form-control">
-                                                        </td>
+                                                        <td><input type="text" name="descripcion" class="form-control"> </td>       
                                                         <td><input type="number" id="precio_unitario" name="precio_unitario"
                                                                 class="form-control"></td>
                                                         <td><input type="number" id="descuento" name="descuento"
                                                                 class="form-control"></td>
                                                         <td><input type="number" id="iva" name="iva"
                                                                 class="form-control"></td>
+                                                                <td><input type="number" id="%" name="%"
+                                                                    class="form-control"></td>
+                                                                    <td><input type="number" id="PrecioUniVenta" name="PrecioUniVenta"
+                                                                        class="form-control"></td>
                                                         <td><button class="btn btn-danger" type="button"><i
                                                                     class="fa-solid fa-trash"></i></button></td>
                                                     </tr>
@@ -353,65 +361,75 @@ EL PRECIO DEL PRODUCTO EL DESCUENTO Y EL IVA --}}
 NOS TRAEMOS TODOS LOS DATOS EN UN ARREGLO CONCATENADO Y DEPENDIENDO DEL
 ARREGLO ASOCIATIVO GENERAMOS LAS FILAS QUE NECESITAMOS MOSTRAR --}}
         <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                var facturaSelect = document.getElementById('factura');
-                if (facturaSelect) {
-                    facturaSelect.addEventListener('change', function() {
-                        var selectedOption = this.options[this.selectedIndex];
-                        var purchaseSupplierId = selectedOption.value;
+        document.addEventListener('DOMContentLoaded', function() {
+    var facturaSelect = document.getElementById('factura');
+    if (facturaSelect) {
+        facturaSelect.addEventListener('change', function() {
+            var selectedOption = this.options[this.selectedIndex];
+            var purchaseSupplierId = selectedOption.value;
 
-                        var detailData = detailPurchaseData[purchaseSupplierId] || [];
+            var detailData = detailPurchaseData[purchaseSupplierId] || [];
 
-                        var tbody = document.querySelector('#tabla_detalle tbody');
-                        while (tbody.firstChild) {
-                            tbody.removeChild(tbody.firstChild);
-                        }
+            var tbody = document.querySelector('#tabla_detalle tbody');
+            while (tbody.firstChild) {
+                tbody.removeChild(tbody.firstChild);
+            }
 
-                        detailData.forEach(function(detail) {
-                            var newRow = document.createElement('tr');
+            detailData.forEach(function(detail) {
+                var newRow = document.createElement('tr');
 
-                            newRow.innerHTML =
-                                '<td><input type="text" name="producto[]" class="form-control" value="' +
-                                detail.product_name + '"readonly></td>' +
-                                '<td><input type="number" name="cantidad[]" class="form-control" value="' +
-                                detail.quantity_units + '"></td>' +
-                                '<td><input type="text" name="descripcion[]" class="form-control" value="' +
-        detail.descuento + '"></td>' +
-                                '<td><input type="number" name="precio_unitario[]" class="form-control" value="' +
-                                detail.price_unit + '"readonly></td>' +
-                                '<td><input type="number" name="descuento[]" class="form-control" value="' +
-                                detail.discount_total + '"readonly></td>' +
-                                '<td><input type="number" name="iva[]" class="form-control" value="' +
-                                detail.product_tax + '"readonly></td>' +
-                                '<td><button class="btn btn-danger" type="button"><i class="fa-solid fa-trash"></i></button></td>';
+                newRow.innerHTML =
+                '<td><input type="text" name="producto[]" class="form-control" value="' +
+                detail.product_name + '"readonly></td>' +
+                '<td><input type="number" name="cantidad[]" class="form-control" value="' +
+                detail.quantity_units + '"></td>' +
+                '<td><input type="text" name="descripcion[]" class="form-control" value="' +
+                detail.descuento + '"></td>' +
+                '<td><input type="number" name="precio_unitario[]" class="form-control" value="' +
+                detail.price_unit + '"readonly></td>' +
+                '<td><input type="number" name="descuento[]" class="form-control" value="' +
+                detail.discount_total + '"readonly></td>' +
+                '<td><input type="number" name="iva[]" class="form-control" value="' +
+                detail.product_tax + '"readonly></td>' +
+                '<td><input type="number" name="porcentaje[]" class="form-control"readonly></td>' + 
+                '<td><input type="number" name="precio_unitario_venta[]" class="form-control"readonly></td>' + 
+                '<td><button class="btn btn-danger" type="button"><i class="fa-solid fa-trash"></i></button></td>';
 
-                            tbody.appendChild(newRow);
+                tbody.appendChild(newRow);
 
-                            newRow.querySelector('input[name="cantidad[]"]').addEventListener('input',
-                                calcularTotales);
+                var calcularValores = function() {
+                    var cantidad = Number(newRow.querySelector('input[name="cantidad[]"]').value);
+                    var precio_unitario = Number(newRow.querySelector('input[name="precio_unitario[]"]').value);
+                    var iva = Number(newRow.querySelector('input[name="iva[]"]').value) / 100;
+                    var subtotal = Math.round(cantidad * precio_unitario * 100) / 100;
+                    var ivaTotal = Math.round(subtotal * iva * 100) / 100;
 
-                            newRow.querySelector('button').addEventListener('click', function() {
-                                newRow.remove();
+                    newRow.querySelector('input[name="precio_unitario_venta[]"]').value = subtotal;
+                    newRow.querySelector('input[name="porcentaje[]"]').value = ivaTotal;
+                };
 
-                                calcularTotales();
-                            });
+                newRow.querySelector('input[name="cantidad[]"]').addEventListener('input', calcularValores);
 
-                            newRow.querySelectorAll('input[type=number]').forEach(function(input) {
-                                input.addEventListener('input', function(e) {
+                newRow.querySelector('button').addEventListener('click', function() {
+                    newRow.remove();
+                    calcularTotales();
+                });
 
-                                    calcularTotales();
-                                });
-
-                            });
-                        });
-
+                newRow.querySelectorAll('input[type=number]').forEach(function(input) {
+                    input.addEventListener('input', function(e) {
                         calcularTotales();
                     });
-                }
+                });
+
+                calcularValores();
             });
 
+            calcularTotales();
+        });
+    }
+});
 
-            function calcularTotales() {
+function calcularTotales() {
     var total = 0;
     var totalBruto = 0;
     var descuentoTotal = 0;
@@ -439,7 +457,9 @@ ARREGLO ASOCIATIVO GENERAMOS LAS FILAS QUE NECESITAMOS MOSTRAR --}}
     document.getElementById('Descuento').value = Math.round(descuentoTotal * 100) / 100;
     document.getElementById('iva').value = Math.round(totalIva * 100) / 100;
 }
-        </script>
+</script>
+
+        
         </body>
 
         </html>
