@@ -14,15 +14,6 @@
             <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
 
         </head>
-        @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
         <body>
             <div class="container-fluid">
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -204,7 +195,7 @@
                                                     <label for="people_id" class="form-label">Proveedor:</label>
                                                     <select name="people_id" id="people_id"
                                                         class="form-control selectpicker show-tick" data-live-search="true"
-                                                        title="Selecciona el cliente" data-size='3'>
+                                                        title="Selecciona el cliente" data-size='3' required>
                                                         @foreach ($people as $person)
                                                             <option value="{{ $person->id }}">
                                                                 {{ $person->identification_number }} -
@@ -222,7 +213,7 @@
                                                     <label for="user_id" class="form-label">Empleado:</label>
                                                     <select name="user_id" id="user_id"
                                                         class="form-control selectpicker show-tick" data-live-search="true"
-                                                        title="Selecciona" data-size='2'>
+                                                        title="Selecciona" data-size='2'required>
                                                         <option value="">Seleccione un Empleado</option>
                                                         @foreach ($users as $user)
                                                             <option value="{{ $user->id }}">
@@ -256,15 +247,12 @@
                                                     @enderror
                                                 </div>
                                                 
-                                                <!-- Aquí van tus otros campos -->
-                                                
-                                                
-                                                <!-- Aquí van tus otros campos -->
+                            
                                                 
                                                 <div class="col-6 mb-2">
                                                     <label for="code" class="form-label">Prefijo:</label>
                                                     <div class="input-group">
-                                                        <input type="text" name="code" id="code" class="form-control" placeholder="Ingrese el prefijo">
+                                                        <input type="text" name="code" id="code" class="form-control" placeholder="Ingrese el prefijo"required>
                                                     </div>
                                                     @error('code')
                                                         <small class="text-danger">{{ '*' . $message }}</small>
@@ -278,14 +266,14 @@
                                                         name="invoice_number_purchase"
                                                         class="form-control {{ $errors->has('invoice_number_purchase') ? ' is-invalid' : '' }}"
                                                         placeholder="Ingrese el número de factura"
-                                                        value="{{ old('invoice_number_purchase', isset($purchaseSupplier) ? $purchaseSupplier->invoice_number_purchase : '') }}">
+                                                        value="{{ old('invoice_number_purchase', isset($purchaseSupplier) ? $purchaseSupplier->invoice_number_purchase : '') }}"required>
                                                     @error('invoice_number_purchase')
                                                         <small class="text-danger">{{ '*' . $message }}</small>
                                                     @enderror
                                                 </div>
                                                 <div class="col-6 mb-2">
                                                     <label for="form_of_payment" class="form-label">Formas de pago:</label>
-                                                    <select id="form_of_payment" name="form_of_payment" class="form-control">
+                                                    <select id="form_of_payment" name="form_of_payment" class="form-control"required>
                                                         <option value="" disabled selected>Seleccione</option>
                                                         <option value="Tarjeta"
                                                             {{ old('form_of_payment', isset($detailPurchase) ? $detailPurchase->form_of_payment : '') == 'tarjeta' ? 'selected' : '' }}>
@@ -304,7 +292,7 @@
                                                 
                                                 <div class="col-6 mb-2">
                                                     <label for="method_of_payment" class="form-label">Método de Pago:</label>
-                                                    <select id="method_of_payment" name="method_of_payment" class="form-control">
+                                                    <select id="method_of_payment" name="method_of_payment" class="form-control"required>
                                                         <option value="" disabled selected>Seleccione</option>
                                                         <option value="Cuotas"
                                                             {{ old('method_of_payment', isset($detailPurchase) ? $detailPurchase->method_of_payment : '') == 'cuotas' ? 'selected' : '' }}>
