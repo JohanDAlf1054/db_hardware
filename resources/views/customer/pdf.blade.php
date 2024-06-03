@@ -52,7 +52,7 @@
                     <td>{{ $cliente->second_surname }}</td>
                     <td>{{ $cliente->comercial_name }}</td>
                     <td>{{ $cliente->email_address }}</td>
-                    <td>{{ $cliente->city }}</td>
+                    <td>{{ $cliente->municipality_id }}</td>
                     <td>{{ $cliente->address }}</td>
                     <td>{{ $cliente->phone }}</td>
                     <td>

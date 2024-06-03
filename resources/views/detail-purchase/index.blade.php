@@ -52,6 +52,9 @@ Compras</a></li> --}}
                                             aria-label="Text input with segmented dropdown button"
                                             placeholder="Buscar Compra....">
                                         <button type="submit" class="btn btn-dark" style="margin-left: 10px;">Buscar</button>
+
+                                        {{-- Botones IMPORTAR Y EXPORTAR --}}
+
                                         <button type="button" class="btn btn-success ms-2 rounded" tooltip="tooltip"
                                             title="Excel" onclick="window.location.href='{{ route('export.purchase') }}'">
                                             <i class="fa-solid fa-file-excel"></i>
@@ -59,6 +62,10 @@ Compras</a></li> --}}
                                         <button type="button" class="btn btn-danger ms-2 rounded" tooltip="tooltip"
                                             title="PDF" onclick="window.location.href='{{ route('detail-purchases.pdf') }}'">
                                             <i class="fa-solid fa-file-pdf"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-warning ms-2 rounded" tooltip="tooltip"
+                                            title="Importar" data-bs-toggle="modal" data-bs-target="#importPerson">
+                                            <i class="fa-solid fa-folder-open"></i>
                                         </button>
                                     </form>
                                 </div>

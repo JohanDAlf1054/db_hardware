@@ -44,7 +44,7 @@
                                     <form action="{{ route('customer.index') }}" method="get"
                                         class="d-flex align-items-center">
                                         <input name="filtervalue" type="text" class="form-control me-2"
-                                            aria-label="Buscar persona" placeholder="Buscar persona....">
+                                            aria-label="Buscar persona" placeholder="Buscar tercero....">
                                         <button type="submit" class="btn btn-dark">Buscar</button>
 
                                         {{-- Botones EXPORTAR --}}

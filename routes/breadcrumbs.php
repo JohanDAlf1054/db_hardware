@@ -32,10 +32,10 @@ Breadcrumbs::for('product.create', function (BreadcrumbTrail $trail) {
     $trail->push('Crear producto', route('products.create'));
 });
 
-//Productos > Editar producto
+//Productos > Modificar producto
 Breadcrumbs::for('product.edit', function (BreadcrumbTrail $trail, Product $producto) {
     $trail->parent('products');
-    $trail->push('Editar');
+    $trail->push('Modificar');
     $trail->push($producto->name_product, route('products.edit', $producto));
 });
 
@@ -136,10 +136,10 @@ Breadcrumbs::for('customer.index', function (BreadcrumbTrail $trail) {
     $trail->parent('person.index');
     $trail->push('Clientes', route('customer.index'));
 });
-// Terceros > Proveedores > Editar
+// Terceros > Proveedores > Modificar
 Breadcrumbs::for('supplier.edit', function (BreadcrumbTrail $trail, Person $person) {
     $trail->parent('supplier.index');
-    $trail->push('Editar');
+    $trail->push('Modificar');
     $trail->push($person->identification_number);
 });
 
@@ -150,10 +150,10 @@ Breadcrumbs::for('supplier.show', function (BreadcrumbTrail $trail, Person $pers
     $trail->push($person->identification_number);
 });
 
-// Terceros > Clientes > Editar
+// Terceros > Clientes > Modificar
 Breadcrumbs::for('customer.edit', function (BreadcrumbTrail $trail, Person $person) {
     $trail->parent('customer.index');
-    $trail->push('Editar');
+    $trail->push('Mofificar');
     $trail->push($person->identification_number);
 });
 

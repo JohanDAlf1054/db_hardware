@@ -44,7 +44,7 @@
                                     <form action="{{ route('supplier.index') }}" method="get"
                                         class="d-flex align-items-center">
                                         <input name="filtervalue" type="text" class="form-control me-2"
-                                            aria-label="Buscar persona" placeholder="Buscar persona....">
+                                            aria-label="Buscar persona" placeholder="Buscar tercero....">
                                         <button type="submit" class="btn btn-dark">Buscar</button>
 
                                         {{-- Botones EXPORTAR --}}
@@ -109,7 +109,7 @@
                                         <tbody>
                                             @foreach ($proveedores as $proveedor)
                                                 <tr style="text-align: center">
-                                                    <td>{{ $proveedor->rol }}</td>
+                                                    <td >{{ $proveedor->rol }}</td>
                                                     <td>{{ $proveedor->identification_type }}</td>
                                                     <td>{{ $proveedor->identification_number }}</td>
                                                     <td>{{ $proveedor->digit_verification }}</td>
@@ -145,7 +145,7 @@
 
                                                         @if ($proveedor->status == true)
                                                             <button type="button" class="btn btn-danger btn-sm"
-                                                                data-bs-toggle="modal" data-bs-toggle="tooltip"
+                                                                data-bs-toggle="modal" tooltip="tooltip"
                                                                 title="Inactivar"
                                                                 data-bs-target="#confirmationDestroy-{{ $proveedor->id }}"><i
                                                                     class="fa fa-fw fa-trash"></i></button>

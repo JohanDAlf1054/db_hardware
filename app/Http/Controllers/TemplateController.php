@@ -8,7 +8,7 @@ class TemplateController extends Controller
 {
     public function downloadFile()
     {
-        $filePath = storage_path('app/public/template/personas-plantilla.xlsx');
+        $filePath = storage_path('app/public/template/Plantilla_importar_personas.xlsx');
         return response()->download($filePath);
     }
 

@@ -222,15 +222,15 @@
                                                             {{ __('Ciudad') }}
                                                             <span class="text-danger">*</span>
                                                         </label>
-                                                        <select name="city" id="city" class="form-control selectpicker show-tick CiudadPerson" data-live-search="true" data-dropup-auto="false" title="Selecciona la ciudad" data-size='4'>
+                                                        <select name="municipality_id" id="municipality_id" class="form-control selectpicker show-tick CiudadPerson" data-live-search="true" data-dropup-auto="false" title="Selecciona la ciudad" data-size='4'>
                                                             @foreach ($municipalities as $municipality)
-                                                                <option value="{{ $municipality->id }}" {{ $municipality->id == $person->city ? 'selected' : '' }}>
+                                                                <option value="{{ $municipality->id }}" {{ $municipality->id == $person->municipality_id ? 'selected' : '' }}>
                                                                     {{ $municipality->name }}, {{ $municipality->department->name }}, {{ $municipality->department->country->name }}
                                                                 </option>
                                                             @endforeach
                                                         </select>
                                                         
-                                                        @error('city')
+                                                        @error('municipality_id')
                                                             <small class="text-danger">{{ '*' . $message }}</small>
                                                         @enderror
                                                     </div>
