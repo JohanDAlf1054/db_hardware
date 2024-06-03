@@ -30,7 +30,13 @@ class StoreSalesRequest extends FormRequest
             'taxes_total' => 'required' ,
             'total_discounts' => 'required' ,
             'net_total' => 'required' ,
-            'clients_id'=> 'required|exists:people,id'
+            'clients_id'=> 'required|exists:people,id',
+            'arrayidproducto.*' => 'required|exists:products,id',
+            'arraycantidad.*' => 'required|integer|min:1',
+            'arrayprecioventa.*' => 'required|numeric|min:0',
+            'arraydescuento.*' => 'required|numeric|min:0',
+            'arrayimpuesto.*' => 'required|numeric|min:0',
+            'arrayimpuestoval.*' => 'required|numeric|min:0',
         ];
     }   
     protected function prepareForValidation()
@@ -51,6 +57,12 @@ public function attributes(): array
         'taxes_total' => 'total impuesto',
         'net_total' => 'total neto',
         'clients_id' => 'cliente',
+        'arrayidproducto.*' => 'producto',
+        'arraycantidad.*' => 'cantidad',
+        'arrayprecioventa.*' => 'precio de venta',
+        'arraydescuento.*' => 'descuento',
+        'arrayimpuesto.*' => 'impuesto',
+        'arrayimpuestoval.*' => 'valor del impuesto',
     ];
 }
 

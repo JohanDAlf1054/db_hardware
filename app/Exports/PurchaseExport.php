@@ -30,41 +30,28 @@ class PurchaseExport implements FromCollection, WithHeadings, WithCustomStartCel
         return DetailPurchase::with('product:id,name_product')
             ->select([
                 'id',
-                'description',
-                'price_unit',
-                'product_tax',
-                'quantity_units',
                 'date_purchase',
                 'total_tax',
                 'form_of_payment',
                 'gross_total',
                 'net_total',
-                'total_value',
                 'discount_total',
                 'status',
-                'method_of_payment',
-                'products_id'
+                'method_of_payment'
             ])
             ->get()
             ->map(function ($sale) {
-                $producto = $sale->product ? $sale->product->name_product : '';
                 $status = $sale->status ? 'Activo' : 'Inactivo';
                 return [
                     'id' => $sale->id,
-                    'description' => $sale->description,
-                    'products_id' => $producto,
-                    'price_unit' => $sale->price_unit,
-                    'product_tax' => $sale->product_tax,
-                    'quantity_units' => $sale->quantity_units,
-                    'net_total' => $sale->net_total,
-                    'total_tax' => $sale->total_tax,
-                    'total_value' => $sale->total_value,
-                    'discount_total' => $sale->discount_total,
-                    'status' => $status,
                     'date_purchase' => $sale->date_purchase,
-                    'form_of_payment' => $sale->form_of_payment,
                     'gross_total' => $sale->gross_total,
-                    'method_of_payment' => $sale->method_of_payment
+                    'total_tax' => $sale->total_tax,
+                    'discount_total' => $sale->discount_total,
+                    'net_total' => $sale->net_total,
+                    'form_of_payment' => $sale->form_of_payment,
+                    'method_of_payment' => $sale->method_of_payment,
+                    'status' => $status
                 ];
             });
     }
@@ -75,21 +62,15 @@ class PurchaseExport implements FromCollection, WithHeadings, WithCustomStartCel
     public function headings(): array
     {
         return [
-            'ID',
-            'Descripción',
-            'Producto',
-            'Precio Unitario',
-            'Impuesto Producto',
-            'Existencias',
+            'No',
+            'Fecha elaboración',
             'Total Bruto',
-            'Total Neto',
-            'Impuesto Total',
-            'Valor Total',
-            'Descuento Total',
-            'Estado',
-            'Fecha de Compra',
+            'IVA',
+            'Total Descuentos',
+            'Total Factura',
             'Forma de Pago',
-            'Método de Pago'
+            'Metodo de Pago',
+            'Estado'
         ];
     }
 
@@ -123,7 +104,7 @@ class PurchaseExport implements FromCollection, WithHeadings, WithCustomStartCel
             }
 
             // Definir el rango desde A1 hasta L4 para el encabezado
-            $headerRange = 'A1:O3';
+            $headerRange = 'A1:I3';
 
             // Aplicar color azul al encabezado
             $sheet->getDelegate()->getStyle($headerRange)->applyFromArray([
@@ -143,7 +124,7 @@ class PurchaseExport implements FromCollection, WithHeadings, WithCustomStartCel
                 ],
             ]);
 
-            $sheet->getDelegate()->getStyle('A5:O5')->applyFromArray([
+            $sheet->getDelegate()->getStyle('A5:I5')->applyFromArray([
                 'fill' => [
                     'fillType' => Fill::FILL_SOLID,
                     'startColor' => ['argb' => 'd3d3d3'], // Gris claro
@@ -162,7 +143,7 @@ class PurchaseExport implements FromCollection, WithHeadings, WithCustomStartCel
             
 
             // Fusionar celdas para el encabezado
-            $sheet->getDelegate()->mergeCells('A1:O1');
+            $sheet->getDelegate()->mergeCells('A1:I1');
             $sheet->setCellValue('A1', 'Informe de Compras');
             $sheet->getStyle('A1')->getFont()->setSize(20); // Tamaño de letra para "Informe de Ventas"
             $sheet->getStyle('A1')->getFont()->setBold(true); // Ajustar a negrita
@@ -170,14 +151,14 @@ class PurchaseExport implements FromCollection, WithHeadings, WithCustomStartCel
             $sheet->getStyle('A1')->getFont()->getColor()->setARGB(Color::COLOR_WHITE); // Letra blanca
 
             // Agregar "Ferretería La Excelencia" y "NIT 9.524.275" en celdas separadas
-            $sheet->getDelegate()->mergeCells('A2:O2');
+            $sheet->getDelegate()->mergeCells('A2:I2');
             $sheet->setCellValue('A2', 'Ferretería La Excelencia');
             $sheet->getStyle('A2')->getFont()->setSize(16); // Tamaño de letra para "Ferretería La Excelencia"
             $sheet->getStyle('A2')->getFont()->setBold(false); // Ajustar a negrita
             $sheet->getStyle('A2')->getAlignment()->setWrapText(true);
             $sheet->getStyle('A2')->getFont()->getColor()->setARGB(Color::COLOR_WHITE); // Letra blanca
 
-            $sheet->getDelegate()->mergeCells('A3:O3');
+            $sheet->getDelegate()->mergeCells('A3:I3');
             $sheet->setCellValue('A3', 'NIT 9.524.275');
             $sheet->getStyle('A3')->getFont()->setSize(14); // Tamaño de letra para "NIT 9.524.275"
             $sheet->getStyle('A3')->getFont()->setBold(false); // Ajustar a negrita

@@ -278,13 +278,13 @@
                                                     <label for="form_of_payment" class="form-label">Formas de pago:</label>
                                                     <select id="form_of_payment" name="form_of_payment" class="form-control">
                                                         <option value="" disabled selected>Seleccione</option>
-                                                        <option value="tarjeta"
+                                                        <option value="Tarjeta"
                                                             {{ old('form_of_payment', isset($detailPurchase) ? $detailPurchase->form_of_payment : '') == 'tarjeta' ? 'selected' : '' }}>
                                                             Tarjeta</option>
-                                                        <option value="efectivo"
+                                                        <option value="Efectivo"
                                                             {{ old('form_of_payment', isset($detailPurchase) ? $detailPurchase->form_of_payment : '') == 'efectivo' ? 'selected' : '' }}>
                                                             Efectivo</option>
-                                                        <option value="transferencia"
+                                                        <option value="Transferencia"
                                                             {{ old('form_of_payment', isset($detailPurchase) ? $detailPurchase->form_of_payment : '') == 'transferencia' ? 'selected' : '' }}>
                                                             Transferencia Bancaria</option>
                                                     </select>
@@ -297,13 +297,13 @@
                                                     <label for="method_of_payment" class="form-label">Método de Pago:</label>
                                                     <select id="method_of_payment" name="method_of_payment" class="form-control">
                                                         <option value="" disabled selected>Seleccione</option>
-                                                        <option value="cuotas"
+                                                        <option value="Cuotas"
                                                             {{ old('method_of_payment', isset($detailPurchase) ? $detailPurchase->method_of_payment : '') == 'cuotas' ? 'selected' : '' }}>
                                                             Cuotas</option>
-                                                        <option value="contado"
+                                                        <option value="Contado"
                                                             {{ old('method_of_payment', isset($detailPurchase) ? $detailPurchase->method_of_payment : '') == 'contado' ? 'selected' : '' }}>
                                                             Contado</option>
-                                                        <option value="credito"
+                                                        <option value=Crédito"
                                                             {{ old('method_of_payment', isset($detailPurchase) ? $detailPurchase->method_of_payment : '') == 'credito' ? 'selected' : '' }}>
                                                             Crédito</option>
                                                     </select>
