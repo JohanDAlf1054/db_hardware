@@ -9,7 +9,7 @@
 <body>
     <div class="encabezado">
         <div class="Title_Informe">
-            <h1 class="NombreInforme">Informe detalle de compra</h1>
+            <h1 class="NombreInforme">Informe nota débito de compra</h1>
         </div>
         <img src="{{ public_path('img/LogoBlanco_Ferreteria.png') }}" class="imgPDF">
         <h1 class="FerreteriaEx">Ferretería la Excelencia</h1>

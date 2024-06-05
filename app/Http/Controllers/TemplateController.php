@@ -41,4 +41,16 @@ class TemplateController extends Controller
         $filePath = storage_path('app/public/template/planilla_importar_productos.xlsx');
         return response()->download($filePath);
     }
+
+    public function downloadManualUser()
+    {
+        $filePath = storage_path('app/public/template/Manual_de_usuario_final.pdf');
+        return response()->download($filePath);
+    }
+
+    public function downloadManualAdmin()
+    {
+        $filePath = storage_path('app/public/template/Manual_de_administrador_final.pdf');
+        return response()->download($filePath);
+    }
 }

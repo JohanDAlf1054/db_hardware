@@ -51,7 +51,7 @@
                                                         @endforeach
                                                     </select>
                                                     {!! $errors->first('producto_id', '<div class="invalid-feedback">:message</div>') !!}
-                                                    
+
                                                 </div>
                                                 <div class="col-sm-4 mb-2">
                                                     <label for="precio_compra" class="form-label">Precio Unitario:</label>
@@ -79,7 +79,7 @@
                                                         <small class="text-danger">{{ '*' . $message }}</small>
                                                     @enderror
                                                 </div>
-                                                
+
                                                 <div class="col-6 mb-4">
                                                     <label for="product_tax" class="form-label">Impuesto a cargo del
                                                         producto</label>
@@ -146,7 +146,7 @@
                                                                     <th colspan="7">Descuento</th>
                                                                     <th colspan="2"><span id="descuento">0</span></th>
                                                                 </tr>
-                                                                
+
                                                                 <tr>
                                                                     <th></th>
                                                                     <th colspan="7">Total Bruto</th>
@@ -162,8 +162,8 @@
                                                                         <span id="igv">0</span>
                                                                     </th>
                                                                 </tr>
-                                                                
-                                                                
+
+
                                                                 <tr>
                                                                     <th></th>
                                                                     <th colspan="7">Total Factura</th>
@@ -238,7 +238,7 @@
                                                         <small class="text-danger">{{ '*' . $message }}</small>
                                                     @enderror
                                                 </div>
-                                                
+
                                                 <div class="col-5 mb-2">
                                                     <label for="id" class="form-label">Consecutivo:</label>
                                                     <input type="text" id="id" name="id" class="form-control" value="{{ DB::table('detail_purchase')->max('id') + 1 }}" readonly>
@@ -246,9 +246,9 @@
                                                         <small class="text-danger">{{ '*' . $message }}</small>
                                                     @enderror
                                                 </div>
-                                                
-                            
-                                                
+
+
+
                                                 <div class="col-6 mb-2">
                                                     <label for="code" class="form-label">Prefijo:</label>
                                                     <div class="input-group">
@@ -258,11 +258,11 @@
                                                         <small class="text-danger">{{ '*' . $message }}</small>
                                                     @enderror
                                                 </div>
-                                                
+
                                                 <div class="col-6 mb-2">
                                                     <label for="invoice_number_purchase" class="form-label">Número de
                                                         factura</label>
-                                                    <input type="text" id="invoice_number_purchase"
+                                                    <input type="number" id="invoice_number_purchase"
                                                         name="invoice_number_purchase"
                                                         class="form-control {{ $errors->has('invoice_number_purchase') ? ' is-invalid' : '' }}"
                                                         placeholder="Ingrese el número de factura"
@@ -289,7 +289,7 @@
                                                         <small class="text-danger">{{ '*' . $message }}</small>
                                                     @enderror
                                                 </div>
-                                                
+
                                                 <div class="col-6 mb-2">
                                                     <label for="method_of_payment" class="form-label">Método de Pago:</label>
                                                     <select id="method_of_payment" name="method_of_payment" class="form-control"required>
@@ -308,22 +308,22 @@
                                                         <small class="text-danger">{{ '*' . $message }}</small>
                                                     @enderror
                                                 </div>
-                                                
+
                                                 <div class="col-12 mt-4 text-center d-flex justify-content-center">
                                                     <button type="submit" class="btn btn-success mr-3" id="guardar">Realizar compra</button>
                                                     <a class="btn btn-primary" href="{{ route('detail-purchases.index') }}">Regresar</a>
                                                 </div>
                                                 <style>
                                                     .btn-success {
-                                                    margin-right: 1rem; 
+                                                    margin-right: 1rem;
                                                     }
 
                                                     .btn-primary {
-                                                    margin-left: 1rem; 
+                                                    margin-left: 1rem;
                                                     }
                                                 </style>
-                                                
-                                                
+
+
                                             </div>
                                         </div>
                                     </div>
@@ -425,7 +425,7 @@
                     }
                 }
 
-                
+
                 function agregarProducto() {
                     let idProducto = $('#producto_id').val();
                     if ($("#tabla_detalle input[name='arrayidproducto[]']").filter(function() {
@@ -447,7 +447,7 @@
                     if (descripcion === '' || descripcion === undefined) {
                         descripcion = nameProducto;
                     } else {
-                        
+
                         descripcion = nameProducto + " / " + descripcion;
                     }
                     if (idProducto === '' || idProducto === undefined || nameProducto === '' || nameProducto === undefined ||
@@ -503,7 +503,7 @@
                         $('#hiddenTotalBruto').val(totalBruto);
                         $('#igv_input').val(igv);
                         $('#hiddenTotalNeto').val(totalNeto);
-                        
+
                     }
 
                 }

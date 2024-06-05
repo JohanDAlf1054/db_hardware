@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PDF - Informe de notas credito de ventas</title>
+    <title>PDF - Informe de notas crédito de ventas</title>
     <link rel="stylesheet" href="{{public_path('css/pdf.css')}}" type="text/css">
 </head>
 <body>
     <div class="encabezado">
         <div class="Title_Informe">
-            <h1 class="NombreInforme">Informe de notas credito de ventas</h1>
+            <h1 class="NombreInforme">Informe de notas crédito de ventas</h1>
         </div>
         <img src="{{ public_path('img/LogoBlanco_Ferreteria.png') }}" class="imgPDF">
         <h1 class="FerreteriaEx">Ferretería la Excelencia</h1>

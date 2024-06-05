@@ -149,6 +149,10 @@ Route::get('/downloadFileUnits',[TemplateController::class, 'downloadFileUnits']
 Route::get('/downloadFileSubcategory',[TemplateController::class, 'downloadFileSubcategory'])->name('downloadFileSubcategory');
 Route::get('/downloadFileProduct',[TemplateController::class, 'downloadFileProduct'])->name('downloadFileProduct');
 
+//Descarga del manual de usuario
+Route::get('/downloadManualUser',[TemplateController::class,'downloadManualUser'])->name('downloadManualUser');
+Route::get('/downloadManualAdmin',[TemplateController::class,'downloadManualAdmin'])->name('downloadManualAdmin');
+
 
 
 //Ruta para traer la informacion de las subcategorias
