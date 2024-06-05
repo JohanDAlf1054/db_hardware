@@ -76,6 +76,7 @@
                                     <form action="{{ route('debit-note-supplier.store') }}" method="post" id="create">
                                     <div class="row row-cards">
                                         {{--  Buscar Un Numero De Factura  --}}
+                                        
                                         <div class="col-sm-6 md-6">
                                             <div class="md-3" style="margin-bottom: 16px">
                                                 <label for="factura" class="form-label" style="font-weight: bolder">
@@ -87,25 +88,27 @@
                                                     data-size="5" title="Seleccione una factura">
                                                     <option value="">Seleccione un prefijo y número de factura</option>
                                                     @foreach ($purchaseSuppliers as $purchaseSupplier)
-                                                        <option value="{{ $purchaseSupplier->id }}"
-                                                            data-users-id="{{ $purchaseSupplier->users_id }}"
-                                                            data-people-id="{{ $purchaseSupplier->people_id }}"
-                                                            data-date-purchase="{{ $purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->date_purchase : '' }}"
-                                                            data-product-name="{{ $purchaseSupplier->detailPurchase && $purchaseSupplier->detailPurchase->product ? $purchaseSupplier->detailPurchase->product->name_product : '' }}"
-                                                            data-product-tax="{{ $purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->product_tax : '' }}"
-                                                            data-price-unit="{{ $purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->price_unit : '' }}"
-                                                            data-discount-total="{{ $purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->discount_total : '' }}"
-                                                            data-quantity-units="{{ $purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->discount_total : '' }}"
-                                                            data-description="{{ $purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->description : '' }}"
-                                                            {{ old('factura') == $purchaseSupplier->id ? 'selected' : '' }}>
-                                                            {{ $purchaseSupplier->invoice_number_purchase }}
-                                                        </option>
+                                                        @if($purchaseSupplier->status != false)
+                                                            <option value="{{ $purchaseSupplier->id }}"
+                                                                data-users-id="{{ $purchaseSupplier->users_id }}"
+                                                                data-people-id="{{ $purchaseSupplier->people_id }}"
+                                                                data-date-purchase="{{ $purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->date_purchase : '' }}"
+                                                                data-product-name="{{ $purchaseSupplier->detailPurchase && $purchaseSupplier->detailPurchase->product ? $purchaseSupplier->detailPurchase->product->name_product : '' }}"
+                                                                data-product-tax="{{ $purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->product_tax : '' }}"
+                                                                data-price-unit="{{ $purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->price_unit : '' }}"
+                                                                data-discount-total="{{ $purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->discount_total : '' }}"
+                                                                data-quantity-units="{{ $purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->discount_total : '' }}"
+                                                                data-description="{{ $purchaseSupplier->detailPurchase ? $purchaseSupplier->detailPurchase->description : '' }}"
+                                                                {{ old('factura') == $purchaseSupplier->id ? 'selected' : '' }}>
+                                                                {{ $purchaseSupplier->invoice_number_purchase }}
+                                                            </option>
+                                                        @endif
                                                     @endforeach
-
                                                 </select>
                                                 {!! $errors->first('factura', '<div class="invalid-feedback">:message</div>') !!}
                                             </div>
                                         </div>
+                                        
                                         {{--  Fecha De Elaboracion Nota Debito  --}}
                                         <div class="col-sm-6 md-6">
                                             <div class="md-3" style="margin-bottom: 16px">

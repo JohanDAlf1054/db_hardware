@@ -298,18 +298,18 @@ class DetailPurchaseController extends Controller
     public function destroy($id)
     {
         $detailPurchase = DetailPurchase::find($id);
-
+    
         if ($detailPurchase) {
-            if ($detailPurchase->status == 1) {
+            if ($detailPurchase->status == true) {
                 DetailPurchase::where('id', $detailPurchase->id)
                     ->update([
-                        'status' => 0
+                        'status' => false
                     ]);
-
+    
                 // Cambia el estado del purchase supplier asociado
                 PurchaseSupplier::where('id', $detailPurchase->purchase_suppliers_id)
                     ->update([
-                        'status' => 0
+                        'status' => false
                     ]);
                 Session::flash('notificacion', [
                     'tipo' => 'error',
@@ -320,13 +320,13 @@ class DetailPurchaseController extends Controller
             } else {
                 DetailPurchase::where('id', $detailPurchase->id)
                     ->update([
-                        'status' => 1
+                        'status' => true
                     ]);
                 PurchaseSupplier::where('id', $detailPurchase->purchase_suppliers_id)
                     ->update([
-                        'status' => 1
+                        'status' => true
                     ]);
-
+    
                 Session::flash('notificacion', [
                     'tipo' => 'exito',
                     'titulo' => 'Éxito!',
@@ -335,9 +335,10 @@ class DetailPurchaseController extends Controller
                 ]);
             }
         }
-
+    
         return redirect()->route('detail-purchases.index');
     }
+    
     public function pdf()
     {
         $detailPurchases = DetailPurchase::all();

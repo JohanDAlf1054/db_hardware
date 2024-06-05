@@ -42,16 +42,17 @@
                                                         data-live-search="true" data-size="5" title="Seleccione un producto">
                                                         <option value="">Seleccione un producto</option>
                                                         @foreach ($products as $item)
-                                                            <option value="{{ $item->id }}"
-                                                                data-purchase-price="{{ $item->purchase_price }}"
-                                                                data-classification-tax="{{ $item->classification_tax }}"
-                                                                {{ old('producto_id') == $item->id ? 'selected' : '' }}>
-                                                                {{ $item->name_product }}
-                                                            </option>
+                                                            @if($item->status != 0 && $item->status != 'inactivo')
+                                                                <option value="{{ $item->id }}"
+                                                                    data-purchase-price="{{ $item->purchase_price }}"
+                                                                    data-classification-tax="{{ $item->classification_tax }}"
+                                                                    {{ old('producto_id') == $item->id ? 'selected' : '' }}>
+                                                                    {{ $item->name_product }}
+                                                                </option>
+                                                            @endif
                                                         @endforeach
                                                     </select>
                                                     {!! $errors->first('producto_id', '<div class="invalid-feedback">:message</div>') !!}
-
                                                 </div>
                                                 <div class="col-sm-4 mb-2">
                                                     <label for="precio_compra" class="form-label">Precio Unitario:</label>
@@ -197,11 +198,14 @@
                                                         class="form-control selectpicker show-tick" data-live-search="true"
                                                         title="Selecciona el cliente" data-size='3' required>
                                                         @foreach ($people as $person)
-                                                            <option value="{{ $person->id }}">
-                                                                {{ $person->identification_number }} -
-                                                                {{ $person->first_name }} {{ $person->other_name }}
-                                                                {{ $person->surname }} {{ $person->second_surname }}
-                                                                {{ $person->company_name }}</option>
+                                                            @if($person->status != 0 && $person->status != 'inactivo')
+                                                                <option value="{{ $person->id }}">
+                                                                    {{ $person->identification_number }} -
+                                                                    {{ $person->first_name }} {{ $person->other_name }}
+                                                                    {{ $person->surname }} {{ $person->second_surname }}
+                                                                    {{ $person->company_name }}
+                                                                </option>
+                                                            @endif
                                                         @endforeach
                                                     </select>
                                                     @error('people_id')
