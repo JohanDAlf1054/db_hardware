@@ -126,6 +126,12 @@ class debitNoteSupplierController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
+        public function verificarNotaDebito(Request $request)
+    {
+        $lastRecord = DebitNoteSupplier::where('purchase_suppliers_id', $request->factura)->exists();
+        return response()->json(['existe' => $lastRecord]);
+    }
+
     public function store(Request $request)
     {
         $request->validate([

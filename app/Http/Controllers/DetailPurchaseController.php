@@ -90,6 +90,13 @@ class DetailPurchaseController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    // app/Http/Controllers/DetailPurchaseController.php
+            public function verificarFactura(Request $request)
+            {
+                $existe = PurchaseSupplier::where('invoice_number_purchase', $request->invoice_number_purchase)->exists();
+                return response()->json(['existe' => $existe]);
+            }
+
     public function store(Request $request)
 
     {

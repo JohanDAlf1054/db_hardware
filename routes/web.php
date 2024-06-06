@@ -138,8 +138,11 @@ Route::get('Debit-note-supplier/pdf', [debitNoteSupplierController::class,'pdf']
 
 //Funciones De Compras
 Route::resource('purchase_supplier', App\Http\Controllers\PurchaseSupplierController::class);
+Route::post('/verificar-factura', [DetailPurchaseController::class, 'verificarFactura']);
 Route::resource('detail-purchases', App\Http\Controllers\DetailPurchaseController::class);
+Route::post('/verificar-nota-debito', [DebitNoteSupplierController::class, 'verificarNotaDebito']);
 Route::resource('debit-note-supplier', App\Http\Controllers\DebitNoteSupplierController::class);
+
 
 // Descarga de template importar
 Route::get('/downloadFile',[TemplateController::class, 'downloadFile'])->name('downloadFile');

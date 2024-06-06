@@ -12,7 +12,7 @@
             <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"></script>
             {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script> --}}
             <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
-
+            <meta name="csrf-token" content="{{ csrf_token() }}">
         </head>
         <body>
             <div class="container-fluid">
@@ -578,6 +578,43 @@
                         title: message
                     })
                 }
+            </script>
+            <script>
+          $(document).ready(function() {
+    var formListoParaEnviar = false; 
+
+    $('#guardar').on('click', function(event) {
+        if (!formListoParaEnviar) {
+            event.preventDefault(); 
+
+            var code = $('#code').val();
+            var invoiceNumber = $('#invoice_number_purchase').val();
+            var fullInvoiceNumber = code + invoiceNumber;
+
+        
+            $.ajax({
+                url: '/verificar-factura',
+                type: 'POST',
+                data: {
+                    _token: $('meta[name="csrf-token"]').attr('content'), 
+                    invoice_number_purchase: fullInvoiceNumber
+                },
+                success: function(response) {
+                    if(response.existe) {
+                        showModal('El número de factura ya existe.', 'error');
+                    } else {
+                        
+                        formListoParaEnviar = true;
+                        $('#guardar').trigger('click'); 
+                    }
+                },
+                error: function(xhr, status, error) {
+                    showModal('Ocurrió un error al verificar el número de factura.', 'error');
+                }
+            });
+        }
+    });
+});
             </script>
             <script>
                 document.getElementById('producto_id').addEventListener('change', function() {

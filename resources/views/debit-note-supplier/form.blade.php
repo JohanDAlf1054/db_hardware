@@ -24,6 +24,8 @@
             <link href="{{ asset('css/estilos_notificacion.css') }}" rel="stylesheet" />
 
             <script src="{{ asset('js/notificaciones.js') }}" defer></script>
+            <meta name="csrf-token" content="{{ csrf_token() }}">
+
         </head>
         <br>
         <style>
@@ -182,7 +184,7 @@
                                                     <span class="text-danger">*</span>
                                                 </label>
                                                 <input type="date" id="date_purchase" name="date_purchase"
-                                                    class="form-control{{ $errors->has('date_purchase') ? ' is-invalid' : '' }}">
+                                                    class="form-control{{ $errors->has('date_purchase') ? ' is-invalid' : '' }}"readonly>
                                                 {!! $errors->first('date_purchase', '<div class="invalid-feedback">:message</div>') !!}
                                             </div>
                                         </div>
@@ -575,7 +577,43 @@ function showModal(message, icon = 'error') {
     });
 }
 </script>
-        
+        <script>
+            $(document).ready(function() {
+    var formListoParaEnviar = false;
+
+    $('.btn-success').on('click', function(event) {
+        if (!formListoParaEnviar) {
+            event.preventDefault();
+
+            var purchaseSupplierId = $('#factura').val();
+
+            // Verificar si la factura seleccionada ya tiene una nota de débito
+            $.ajax({
+                url: '/verificar-nota-debito',
+                type: 'POST',
+                data: {
+                    _token: $('meta[name="csrf-token"]').attr('content'),
+                    factura: purchaseSupplierId
+                },
+                success: function(response) {
+                    if(response.existe) {
+                        showModal('El número de factura ya tiene una nota débito.', 'error');
+                    } else {
+                        formListoParaEnviar = true;
+                        $('.btn-success').trigger('click'); // Asegúrate de que este selector coincida con tu botón de envío
+                    }
+                },
+                error: function(xhr, status, error) {
+                    showModal('Ocurrió un error al verificar la nota débito.', 'error');
+                }
+            });
+        }
+    });
+
+    // Resto de tu código de validaciones...
+});
+
+        </script>
         </body>
 
         </html>
