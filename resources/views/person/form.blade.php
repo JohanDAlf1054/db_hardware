@@ -57,7 +57,7 @@
                                             <h3 class="card-title">
                                                 {{ __('Tercero') }}
                                             </h3>
-                                            <div class="card-actions" style="padding-top: 9px; padding-left: 20px">                                               
+                                            <div class="card-actions" style="padding-top: 9px; padding-left: 20px">
                                             </div>
                                         </div>
                                         <div class="card-body">
@@ -229,7 +229,7 @@
                                                                 </option>
                                                             @endforeach
                                                         </select>
-                                                        
+
                                                         @error('municipality_id')
                                                             <small class="text-danger">{{ '*' . $message }}</small>
                                                         @enderror
@@ -295,67 +295,59 @@
                 </div>
 
 
-                {{--  <div class="card-footer text-end d-flex justify-content-end">
+{{--  Script para escojer el tipo de persona  --}}
+<script>
+    $(document).ready(function() {
+        $('#person_type').on('change', function() {
+            let selectValue = $(this).val();
+            //Escoger los valores de natural o juridica
+            if (selectValue == 'Persona natural') {
+                $('#box-company-name').hide();
+                $('#box-first-name').show();
+                $('#box-other-name').show();
+                $('#box-surname').show();
+                $('#box-second-surname').show();
+                $('#box-comercial-name').show();
+            } else {
+                $('#box-first-name').hide();
+                $('#box-other-name').hide();
+                $('#box-surname').hide();
+                $('#box-second-surname').hide();
+                $('#box-comercial-name').hide();
+                $('#box-company-name').show();
+            }
+        });
 
-    </div>  --}}
+        // Mostrar u ocultar elementos según el valor seleccionado al cargar la página
+        initialSelectValue = $('#person_type').val();
+        if (initialSelectValue == 'Persona natural') {
+            $('#box-company-name').hide();
+            $('#box-first-name').show();
+            $('#box-other-name').show();
+            $('#box-surname').show();
+            $('#box-second-surname').show();
+            $('#box-comercial-name').show();
 
+        } else if (initialSelectValue == 'Persona jurídica') {
+            $('#box-first-name').hide();
+            $('#box-other-name').hide();
+            $('#box-surname').hide();
+            $('#box-second-surname').hide();
+            $('#box-comercial-name').hide();
+            $('#box-company-name').show();
+        } else {
+            $('#box-first-name').hide();
+            $('#box-other-name').hide();
+            $('#box-surname').hide();
+            $('#box-second-surname').hide();
+            $('#box-comercial-name').hide();
+            $('#box-company-name').hide();
+        }
+    });
+</script>
+</body>
 
-
-                {{--  Script para escojer el tipo de persona  --}}
-                <script>
-                    $(document).ready(function() {
-                        $('#person_type').on('change', function() {
-                            let selectValue = $(this).val();
-                            //Escoger los valores de natural o juridica
-                            if (selectValue == 'Persona natural') {
-                                $('#box-company-name').hide();
-                                $('#box-first-name').show();
-                                $('#box-other-name').show();
-                                $('#box-surname').show();
-                                $('#box-second-surname').show();
-                                $('#box-comercial-name').show();
-                            } else {
-                                $('#box-first-name').hide();
-                                $('#box-other-name').hide();
-                                $('#box-surname').hide();
-                                $('#box-second-surname').hide();
-                                $('#box-comercial-name').hide();
-                                $('#box-company-name').show();
-                            }
-                        });
-
-                        // Mostrar u ocultar elementos según el valor seleccionado al cargar la página
-                        initialSelectValue = $('#person_type').val();
-                        if (initialSelectValue == 'Persona natural') {
-                            $('#box-company-name').hide();
-                            $('#box-first-name').show();
-                            $('#box-other-name').show();
-                            $('#box-surname').show();
-                            $('#box-second-surname').show();
-                            $('#box-comercial-name').show();
-
-                        } else if (initialSelectValue == 'Persona jurídica') {
-                            $('#box-first-name').hide();
-                            $('#box-other-name').hide();
-                            $('#box-surname').hide();
-                            $('#box-second-surname').hide();
-                            $('#box-comercial-name').hide();
-                            $('#box-company-name').show();
-                        } else {
-                            $('#box-first-name').hide();
-                            $('#box-other-name').hide();
-                            $('#box-surname').hide();
-                            $('#box-second-surname').hide();
-                            $('#box-comercial-name').hide();
-                            $('#box-company-name').hide();
-                        }
-                    });
-                </script>
-                
-                
-        </body>
-
-        </html>
+</html>
     @else
         <div class="mensaje_Rol">
             <img src="{{ asset('img/Rol_no_asignado.png') }}" class="img_rol" />

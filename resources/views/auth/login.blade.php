@@ -3,7 +3,6 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
-        <!-- <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet"/> -->
         <script src="https://kit.fontawesome.com/7604ee3851.js" crossorigin="anonymous"></script>
         <link href="css/estilos_inicio_sesion.css" rel="stylesheet" />
         <link href="css/estilos_notificacion_login.css" rel="stylesheet" />
@@ -188,6 +187,7 @@
         </div>
     </main>
     <script src="js/script_inicio_sesion.js"></script>
+    {{--  Notificacion para cuando hay errores  --}}
     @if ($errors->any())
 
     <div class="contenedor-notificacion" id="contenedor-notificacion">

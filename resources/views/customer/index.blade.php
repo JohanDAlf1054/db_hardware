@@ -30,10 +30,10 @@
                                             <ul class="dropdown-menu">
                                                 <li>
                                                     <a class="dropdown-item" href="{{ route('person.create') }}">Crear Tercero</a>
-                                                </li>                                                
+                                                </li>
                                                 <li>
                                                     <a class="dropdown-item" href="{{ route('supplier.index') }}">Ver proveedores</a>
-                                                </li>                                               
+                                                </li>
                                                 <li>
                                                     <a class="dropdown-item" href="{{ route('person.index')}}">Ver tabla general de terceros</a>
                                                 </li>
@@ -91,7 +91,7 @@
                                                 <th>Tipo ID</th>
                                                 <th>Identificacion</th>
                                                 <th>DV</th>
-                                                {{--  <th>Tipo de persona</th>  --}}
+
                                                 <th>Razon social</th>
                                                 <th>Primer nombre</th>
                                                 <th>Otro nombre</th>
@@ -113,7 +113,6 @@
                                                     <td>{{ $cliente->identification_type }}</td>
                                                     <td>{{ $cliente->identification_number }}</td>
                                                     <td>{{ $cliente->digit_verification }}</td>
-                                                    {{--  <td>{{ $person->person_type }}</td>  --}}
                                                     <td>{{ $cliente->company_name }}</td>
                                                     <td>{{ $cliente->first_name }}</td>
                                                     <td>{{ $cliente->other_name }}</td>

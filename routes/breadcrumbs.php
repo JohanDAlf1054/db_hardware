@@ -8,7 +8,6 @@ use App\Models\DebitNoteSupplier;
 use App\Models\DetailPurchase;
 use App\Models\Person;
 use App\Models\Product;
-use App\Models\PurchaseSupplier;
 use App\Models\Sale;
 use Diglactic\Breadcrumbs\Breadcrumbs;
 

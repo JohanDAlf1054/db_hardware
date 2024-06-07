@@ -10,20 +10,6 @@
         {{ Breadcrumbs::render('profile') }}
     </div>
     <br>
-    {{-- Script  para mostrar la notificacion --}}
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const mensajeFlash = {!! json_encode(Session::get('notificacion')) !!};
-            if (mensajeFlash) {
-                agregarnotificacion(mensajeFlash);
-            }
-        });
-    </script>
-
-    {{--  Div con las notificaciones nuevas  --}}
-    <div class="contenedor-notificacion" id="contenedor-notificacion">
-        {{--  Aqui trae las notificaciones por medio de javaescript  --}}
-    </div>
     <div class="container-fluid">
         <div class="row">
             {{-- Columna para la imagen del perfil --}}
@@ -166,7 +152,6 @@
                 </div>
             </div>
         </div>
-
         <div class="card-footer text-end" style="padding-top: 1.5rem">
             @if(auth()->user()->hasRole('Administrador'))
                 <a class="btn btn-primary" style="margin-right: 2rem" href="{{route('downloadManualAdmin')}}">Descargar manual de administrador</a>
@@ -176,6 +161,20 @@
             <a class="btn btn-primary" style="margin-right: 2rem" href="{{ route('password.change') }}">Cambiar contraseña</a>
             <a class="btn btn-success" style="margin-right: 2rem" href="{{ route('profile.edit') }}">Editar información </a>
         </div>
+    </div>
+    {{-- Script  para mostrar la notificacion --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const mensajeFlash = {!! json_encode(Session::get('notificacion')) !!};
+            if (mensajeFlash) {
+                agregarnotificacion(mensajeFlash);
+            }
+        });
+    </script>
+
+    {{--  Div con las notificaciones nuevas  --}}
+    <div class="contenedor-notificacion" id="contenedor-notificacion">
+        {{--  Aqui trae las notificaciones por medio de javaescript  --}}
     </div>
 
     <script src="{{ asset('js/notificaciones.js') }}" defer></script>

@@ -21,8 +21,8 @@
                 </td>
                 <td class="td_informacion">
                 <div class="icono_footer">
-                    <p class="telefono_footer"><i class="fa-solid fa-phone "></i> 3224062916</p>
-                    <p class="correo_footer"><i class="fa-solid fa-envelope "></i> torytech@gmail.com</p>
+                    <p class="telefono_footer"><i class="fa-solid fa-phone "></i> 3142734487</p>
+                    <p class="correo_footer"><i class="fa-solid fa-envelope "></i> ferreterialaexcelencia24@gmail.com</p>
                 </div>
                 </td>
             </tr>

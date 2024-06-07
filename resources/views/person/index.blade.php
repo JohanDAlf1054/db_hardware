@@ -40,7 +40,7 @@
                                             </li>
                                             <li>
                                                 <a class="dropdown-item" href="{{ route('supplier.index') }}">Ver proveedores</a>
-                                            </li>                                            
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
@@ -97,7 +97,6 @@
                                                 <th>Tipo ID</th>
                                                 <th>Identificación</th>
                                                 <th>DV</th>
-                                                {{--  <th>Tipo de persona</th>  --}}
                                                 <th>Razón social</th>
                                                 <th>Primer nombre</th>
                                                 <th>Otro nombre</th>

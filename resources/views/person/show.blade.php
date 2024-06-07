@@ -47,7 +47,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card card-default">
-                            <div class="card-header style="display: flex">
+                            <div class="card-header">
                                 <h3 class="card-title">
                                     {{__('Visualización tercero')}}
                                 </h3>
@@ -247,14 +247,12 @@
         // Obtener el valor del tipo de persona
         let selectValue = '{{ $person->person_type }}';
 
-
-
         // Mostrar u ocultar campos según el tipo de persona
         mostrarOcultarCampos(selectValue);
     });
 
 </script>
-{{--  @endsection  --}}
+
 @else
     <div class="mensaje_Rol">
         <img src="{{ asset('img/Rol_no_asignado.png')}}" class="img_rol"/>

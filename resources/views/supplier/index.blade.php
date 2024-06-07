@@ -7,8 +7,6 @@
             <link href="css/estilos_notificacion.css" rel="stylesheet" />
             <link rel="stylesheet" href="https://cdn.datatables.net/2.0.6/css/dataTables.bootstrap5.css">
             <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.2/css/responsive.dataTables.css">
-
-
         </head>
         <br>
         <div class="container-fluid">
@@ -30,7 +28,7 @@
                                             <ul class="dropdown-menu">
                                                 <li>
                                                     <a class="dropdown-item" href="{{ route('person.create') }}">Crear tercero</a>
-                                                </li>                                                
+                                                </li>
                                                 <li>
                                                     <a class="dropdown-item" href="{{ route('customer.index') }}">Ver clientes</a>
                                                 </li>
@@ -63,8 +61,6 @@
                             </div>
                         </div>
 
-
-
                         {{-- Script  para mostrar la notificacion --}}
                         <script>
                             document.addEventListener('DOMContentLoaded', function() {
@@ -91,7 +87,6 @@
                                                 <th>Tipo ID</th>
                                                 <th>Identificación</th>
                                                 <th>DV</th>
-                                                {{--  <th>Tipo de persona</th>  --}}
                                                 <th>Razón social</th>
                                                 <th>Primer nombre</th>
                                                 <th>Otro nombre</th>
@@ -113,7 +108,6 @@
                                                     <td>{{ $proveedor->identification_type }}</td>
                                                     <td>{{ $proveedor->identification_number }}</td>
                                                     <td>{{ $proveedor->digit_verification }}</td>
-                                                    {{--  <td>{{ $person->person_type }}</td>  --}}
                                                     <td>{{ $proveedor->company_name }}</td>
                                                     <td>{{ $proveedor->first_name }}</td>
                                                     <td>{{ $proveedor->other_name }}</td>
@@ -173,7 +167,6 @@
                         </div>
                     </div>
                 </div>
-                {{--  {!! $people->links() !!}  --}}
             </div>
 
 

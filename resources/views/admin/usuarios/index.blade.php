@@ -95,7 +95,6 @@
                         @endif
                     </div>
                 </div>
-                {{-- {!! $usuario->links() !!} --}}
             </div>
         </div>
     </div>
