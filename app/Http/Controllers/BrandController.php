@@ -28,89 +28,6 @@ class BrandController extends Controller
             ->with('i', (request()->input('page', 1) - 1) * $brands->perPage());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $brand = new Brand();
-        return view('brand.create', compact('brand'));
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        request()->validate(Brand::$rules);
-
-        $brand = Brand::create($request->all());
-
-        return redirect()->route('brands.index')
-            ->with('success', 'Brand created successfully.');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $brand = Brand::find($id);
-
-        return view('brand.show', compact('brand'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $brand = Brand::find($id);
-
-        return view('brand.edit', compact('brand'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  Brand $brand
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Brand $brand)
-    {
-        request()->validate(Brand::$rules);
-
-        $brand->update($request->all());
-
-        return redirect()->route('brands.index')
-            ->with('success', 'Brand updated successfully');
-    }
-
-    /**
-     * @param int $id
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Exception
-     */
-    public function destroy($id)
-    {
-        $brand = Brand::find($id)->delete();
-
-        return redirect()->route('brands.index')
-            ->with('success', 'Brand deleted successfully');
-    }
-
     public function importbrands(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -121,7 +38,7 @@ class BrandController extends Controller
             Session::flash('notificacion', [
                 'tipo' => 'error',
                 'titulo' => 'Error!',
-                'descripcion' => 'Archivo incorrecto, debe de ser de extensión xlsx.',
+                'descripcion' => 'Archivo incorrecto, debe de ser de extensión xlsx o excel.',
                 'autoCierre' => 'true'
             ]);
             return redirect()->route('brand.index');
@@ -133,12 +50,18 @@ class BrandController extends Controller
             Session::flash('notificacion', [
                 'tipo' => 'exito',
                 'titulo' => 'Éxito!',
-                'descripcion' => 'Marcas Agregadas!',
+                'descripcion' => 'Los datos se han agregado exitosamente',
                 'autoCierre' => 'true'
             ]);
             return redirect()->route('brand.index');
-        } catch (\Exception $e){
+        } catch (\Exception $e) {
+            Session::flash('notificacion', [
+                'tipo' => 'error',
+                'titulo' => 'Error!',
+                'descripcion' => 'Los datos no se han agregado exitosamente, verifique el archivo de excel',
+                'autoCierre' => 'true'
+            ]);
+            return redirect()->to('brand.index');
         }
     }
-
 }

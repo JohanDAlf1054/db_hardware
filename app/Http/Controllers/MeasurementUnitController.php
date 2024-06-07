@@ -30,17 +30,6 @@ class MeasurementUnitController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $measurementUnit = new MeasurementUnit();
-        return view('measurement-unit.create', compact('measurementUnit'));
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
@@ -68,69 +57,19 @@ class MeasurementUnitController extends Controller
             Session::flash('notificacion', [
                 'tipo' => 'exito',
                 'titulo' => 'Éxito!',
-                'descripcion' => 'Unidades Agregadas!.',
+                'descripcion' => 'Los datos se han agregado exitosamente',
                 'autoCierre' => 'true'
             ]);
             return redirect()->route('units.index');
-        } catch (\Exception $e){
+        } catch (\Exception $e) {
+            Session::flash('notificacion', [
+                'tipo' => 'error',
+                'titulo' => 'Error!',
+                'descripcion' => 'Los datos no se han agregado exitosamente, verifique el archivo de excel',
+                'autoCierre' => 'true'
+            ]);
+            return redirect()->to('units.index');
         }
-    }
-
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $measurementUnit = MeasurementUnit::find($id);
-
-        return view('measurement-unit.show', compact('measurementUnit'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $measurementUnit = MeasurementUnit::find($id);
-
-        return view('measurement-unit.edit', compact('measurementUnit'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  MeasurementUnit $measurementUnit
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, MeasurementUnit $measurementUnit)
-    {
-        request()->validate(MeasurementUnit::$rules);
-
-        $measurementUnit->update($request->all());
-
-        return redirect()->route('measurement-units.index')
-            ->with('success', 'MeasurementUnit updated successfully');
-    }
-
-    /**
-     * @param int $id
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Exception
-     */
-    public function destroy($id)
-    {
-        $measurementUnit = MeasurementUnit::find($id)->delete();
-
-        return redirect()->route('measurement-units.index')
-            ->with('success', 'MeasurementUnit deleted successfully');
     }
 
     public function import()
