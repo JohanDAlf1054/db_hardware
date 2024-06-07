@@ -75,15 +75,19 @@
                         </div>
                     </a>
 
-
-
                     <a tooltip="tooltip" data-bs-placement="right" title="Ventas" href="{{route('sales.index')}}" class="{{ request()->route()->named('sales.index') ? 'selected' : '' }}">
                         <div class="option">
                             <i class='bx bxs-business'></i>
                             <h4>Ventas</h4>
                         </div>
                     </a>
-                    <br>
+
+                    <a tooltip="tooltip" data-bs-placement="right" title="Informes" href="{{route('index_informes')}}" class="{{ request()->route()->named('index_informes') ? 'selected' : '' }}">
+                        <div class="option">
+                            <i class="fas fa-file-alt"></i>
+                            <h4>Informes</h4>
+                        </div>
+                    </a>
                     <br>
                     <br>
                     <span id="liPanel1" class="li" >Cuenta</span>

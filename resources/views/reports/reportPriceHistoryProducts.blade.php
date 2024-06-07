@@ -15,7 +15,7 @@
             <div class="card card-default">
                 <div class="card-header" style="display: flex">
                     <button type="button" class="btn btn-light">
-                        <a href="{{route('products.index')}}">
+                        <a href="{{route('index_informes')}}">
                             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-arrow-left" width="30" height="30" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12l14 0" /><path d="M5 12l6 6" /><path d="M5 12l6 -6" /></svg>
                         </a>
                     </button>
@@ -131,14 +131,18 @@
                                             {{$ventas->amount}}
                                         </td>
                                         <td style="text-align: center">
-                                            {{$ventas->venta->gross_totals }}
+                                            ${{ number_format($ventas->venta->gross_totals, 2) }}
                                         </td>
                                         <td style="text-align: center">
                                             {{$ventas->discounts }}
                                         </td>
-                                        <td style="text-align: center">{{($ventas->amount) * ($ventas->selling_price) - ($ventas->discounts)}}</td>
-                                        <td style="text-align: center">{{ $ventas->tax }}</td>
-                                        <td style="text-align: center">{{ $ventas->venta->net_total }}</td>
+                                        <td style="text-align: center">
+                                            ${{number_format(($ventas->amount) * ($ventas->selling_price) - ($ventas->discounts))}}
+                                        </td>
+                                        <td style="text-align: center">{{ $ventas->tax }}%</td>
+                                        <td style="text-align: center">${{ number_format($ventas->venta->net_total, 2) }}</td>
+                                        
+
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -151,6 +155,14 @@
         </div>
     </div>
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var today = new Date();
+        today.setDate(today.getDate() - 1);
+        var maxDate = today.toISOString().split('T')[0];
+        document.getElementById('fecha_cierre').setAttribute('max', maxDate);
+    });
+</script>
 <script>
     $(document).ready(function() {
 

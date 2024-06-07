@@ -1,8 +1,13 @@
 @auth
 
-@include('include.barra', ['modo'=>'Informes'])
-<br>
-<div class="container-fluid">
+    @include('include.barra', ['modo' => 'Informes'])
+    <br>
+
+    <head>
+        {{-- <link rel="stylesheet" href="{{asset('css/dashboard/panel.css')}}"> --}}
+        <link rel="stylesheet" href="{{ asset('css/report/style.css') }}">
+    </head>
+    {{-- <div class="container-fluid">
   <div class="row">
       <div class="col-sm-12">
           <div class="card card-default">
@@ -13,22 +18,38 @@
               </div>
             <div class="card-body">
               <div class="container px-0 py-0">
-                  <div class="row g-4 py-5 row-cols-0 row-cols-lg-3">
+                  <div class="row g-4 py-5 row-cols-0 row-cols-lg-12">
                     <div class="col d-flex align-items-center">
-                      <div class="card bg-light mb-3" style="max-width: 20rem; border-radius: 6%">
-                        {{-- <div class="card-header">Informes de los Productos</div> --}}
+                      <div class="card bg-light mb-3" style="max-width: 25rem; border-radius: 6%">
+                        <div class="card-header">Generar Informes</div>
                         <div class="card-body">
-                          <h2>Informes de los Productos</h2>
-                          <br>
                             <a class="btn btn btn-outline-dark" href="{{route('reportPriceHistoryProductsPurchase')}}" style="margin-bottom: 1rem">
-                              <i class="fa-solid fa-file-pdf"></i> Informe General de Productos
+                              <i class="fa-solid fa-file-pdf"></i> Historial de precios en las ventas
+                            </a>
+                            <a class="btn btn btn-outline-dark" href="{{route('reportPriceHistoryProductsPurchase')}}" style="margin-bottom: 1rem">
+                              <i class="fa-solid fa-file-pdf"></i> Historial de precios en las compras
                             </a>
                             <a class="btn btn btn-outline-dark" href="{{route('historial')}}" style="margin-bottom: 1rem">
-                              <i class="fa-solid fa-file-pdf"></i> Informe de Movimientos
+                              <i class="fa-solid fa-file-pdf"></i> Historial de movimientos
                             </a>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col d-flex align-items-start">
+                      <div class="card bg-light mb-3" style="max-width: 25rem; border-radius: 6%">
+                        <div class="card-header">Informe de Unidades y Municipios</div>
+                        <div class="card-body">
                             <a class="btn btn btn-outline-dark" href="" style="margin-bottom: 1rem">
-                              <i class="fa-solid fa-file-pdf"></i> Informe Historial de Precios
+                              <i class="fa-solid fa-file-pdf"></i> Informe General de Productos
                             </a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col d-flex align-items-start">
+                      <div class="card bg-light mb-3" style="max-width: 25rem; border-radius: 6%">
+                        <div class="card-header">Informes de los Productos</div>
+                        <div class="card-body">
                             <a class="btn btn btn-outline-dark" href="" style="margin-bottom: 1rem">
                               <i class="fa-solid fa-file-pdf"></i> Informe General de Productos
                             </a>
@@ -36,92 +57,134 @@
                       </div>
                     </div>
 
-                    <div class="col d-flex align-items-start">
-                      <div class="card bg-light mb-3" style="max-width: 20rem; border-radius: 6%">
-                        {{-- <div class="card-header">Informes de los Productos</div> --}}
-                        <div class="card-body">
-                          <h2>Informes de las Ventas</h2>
-                          <br>
-                            {{-- <a class="btn btn btn-success " href="{{route('export')}}">
-                              <i class="fa-solid fa-file-excel"></i> Excel
-                            </a> --}}
-                            <a class="btn btn btn-outline-dark" href="" style="margin-bottom: 1rem">
-                              <i class="fa-solid fa-file-pdf"></i> Informe General de Productos
-                            </a>
-
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col d-flex align-items-start">
-                      <div class="card bg-light mb-3" style="max-width: 20rem; border-radius: 6%">
-                        {{-- <div class="card-header">Informes de los Productos</div> --}}
-                        <div class="card-body">
-                          <h2>Informes de los Compras</h2>
-                          <br>
-                            {{-- <a class="btn btn btn-success " href="{{route('export')}}">
-                              <i class="fa-solid fa-file-excel"></i> Excel
-                            </a> --}}
-                            <a class="btn btn btn-outline-dark" href="" style="margin-bottom: 1rem">
-                              <i class="fa-solid fa-file-pdf"></i> Informe General de Productos
-                            </a>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col d-flex align-items-start">
-                      <div class="card bg-light mb-3" style="max-width: 20rem; border-radius: 6%">
-                        {{-- <div class="card-header">Informes de los Productos</div> --}}
-                        <div class="card-body">
-                          <h2>Informes de los Proveedores</h2>
-                          <br>
-                            {{-- <a class="btn btn btn-success " href="{{route('export')}}">
-                              <i class="fa-solid fa-file-excel"></i> Excel
-                            </a> --}}
-                            <a class="btn btn btn-outline-dark" href="" style="margin-bottom: 1rem">
-                              <i class="fa-solid fa-file-pdf"></i> Informe General de Productos
-                            </a>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col d-flex align-items-start">
-                      <div class="card bg-light mb-3" style="max-width: 20rem; border-radius: 6%">
-                        {{-- <div class="card-header">Informes de los Productos</div> --}}
-                        <div class="card-body">
-                          <h2>Informes de los Usuarios</h2>
-                          <br>
-                            {{-- <a class="btn btn btn-success " href="{{route('export')}}">
-                              <i class="fa-solid fa-file-excel"></i> Excel
-                            </a> --}}
-                            <a class="btn btn btn-outline-dark" href="" style="margin-bottom: 1rem">
-                              <i class="fa-solid fa-file-pdf"></i> Informe General de Productos
-                            </a>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col d-flex align-items-start">
-                      <div class="card bg-light mb-3" style="max-width: 20rem; border-radius: 6%">
-                        {{-- <div class="card-header">Informes de los Productos</div> --}}
-                        <div class="card-body">
-                          <h2>Informes de los Clientes</h2>
-                          <br>
-                            {{-- <a class="btn btn btn-success " href="{{route('export')}}">
-                              <i class="fa-solid fa-file-excel"></i> Excel
-                            </a> --}}
-                            <a class="btn btn btn-outline-dark" href="" style="margin-bottom: 1rem">
-                              <i class="fa-solid fa-file-pdf"></i> Informe General de Productos
-                            </a>
-                        </div>
-                      </div>
-                    </div>
                   </div>
               </div>
             </div>
           </div>
       </div>
   </div>
-</div>
+</div> --}}
+    <div class="container-fluid px-5 py-8">
+        <div class="col-sm-12">
+            <!-- ========== Contenedores de Estadisticas ========== -->
+            <div class="title">
+                <h2>Informes</h2>
+            </div>
+            <div class="row px-lg-5">
+                <div class="col-xl-4 col-lg-4 col-sm-6">
+                    <div class="icon-card-sales">
+                        <a class="content" href="{{route('reportPriceHistoryProducts')}}">
+                            <div class="info">
+                                <h4 class="mb-10">
+                                  Generar Informe Historial de Precios de las Ventas
+                                </h4>
+                            </div>
+                            <div class="progresss">
+                                <svg>
+                                    <circle cx="38" cy="38" r="36"></circle>
+                                </svg>
+                                <div class="percentage">
+                                  <i class="fa-solid fa-magnifying-glass-dollar fa-2xl" style="color: #00b3ff"></i>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-sm-6">
+                    <div class="icon-card-sales">
+                        <a class="content" href="{{route('reportPriceHistoryProductsPurchase')}}">
+                            <div class="info">
+                                <h4 class="mb-10">
+                                  Generar Informe Historial de Precios de las Compras
+                                </h4>
+                            </div>
+                            <div class="progresss">
+                                <svg>
+                                    <circle cx="38" cy="38" r="36"></circle>
+                                </svg>
+                                <div class="percentage">
+                                    <i class="fa-solid fa-coins fa-2xl" style="color: #00b3ff"></i>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-sm-6">
+                    <div class="icon-card-sales">
+                        <a class="content" href="{{route('historial')}}">
+                            <div class="info">
+                              <h4 class="mb-10">
+                                Generar Informe Historial de Movimientos de los Productos
+                              </h4>
+                            </div>
+                            <div class="progresss">
+                                <svg>
+                                    <circle cx="38" cy="38" r="36"></circle>
+                                </svg>
+                                <div class="percentage">
+                                    <i class="fas fa-exchange-alt fa-2xl" style="color: #00b3ff"></i>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-sm-6">
+                    <div class="icon-card-sales">
+                        <a class="content" href="{{route('units.index')}}">
+                            <div class="info">
+                                <h4 class="mb-10">Consultar Unidades de Medida</h4>
+                            </div>
+                            <div class="progresss">
+                                <svg>
+                                    <circle cx="38" cy="38" r="36"></circle>
+                                </svg>
+                                <div class="percentage">
+                                    <i class="fas fa-ruler fa-2xl" style="color: #00b3ff"></i>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-sm-6">
+                    <div class="icon-card-sales">
+                        <a class="content" href="">
+                            <div class="info">
+                                <h4 class="mb-10">Consultar Municipios del Software</h4>
+                            </div>
+                            <div class="progresss">
+                                <svg>
+                                    <circle cx="38" cy="38" r="36"></circle>
+                                </svg>
+                                <div class="percentage">
+                                    <i class="fas fa-city fa-2xl" style="color: #00b3ff"></i>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-4 col-sm-6">
+                  <div class="icon-card-sales">
+                      <a class="content" href="">
+                          <div class="info">
+                              <h4 class="mb-10">Otros</h4>
+                          </div>
+                          <div class="progresss">
+                              <svg>
+                                  <circle cx="38" cy="38" r="36"></circle>
+                              </svg>
+                              <div class="percentage">
+                                  <i class="fas fa-ellipsis-h fa-2xl" style="color: #00b3ff"></i>
+                              </div>
+                          </div>
+                      </a>
+                  </div>
+              </div>
+            </div>
+        </div>
+    </div>
+
 @endauth
 
 @guest
     @include('include.falta_sesion')
 @endguest
-
