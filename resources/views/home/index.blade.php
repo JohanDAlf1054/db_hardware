@@ -14,6 +14,7 @@
     <script src="{{ asset('js/tooltips.js') }}" defer></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.5/css/dataTables.bootstrap5.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.2/css/responsive.dataTables.css">
+</head>
 <body>
     <div class="container-fluid px-5 py-3">
         <div class="col-sm-12">
@@ -147,13 +148,13 @@
                                 @foreach ($dataProduct as $data)
                                     <tr>
                                         <td style="text-align: left;">{{ $data->name_product }}</td>
-                                        <td style="text-align: left;">
-                                            <p class="badge rounded-pill bg-danger">{{ $data->stock }}</p>
+                                        <td style="text-align: left;" >
+                                            <p class="badge rounded-pill bg-danger" tooltip="tooltip" title="Pocas existencias">{{ $data->stock }}</p>
                                         </td>
-                                        <td style="text-align: left;">{{ $data->selling_price }}</td>
+                                        <td style="text-align: left;">${{ number_format($data->selling_price) }}</td>
                                         <td style="text-align: left;">{{ ($data->status == 1) ? 'Activo' : 'Inactivo' }}</td>
                                         <td>
-                                            <a class="btn btn-sm btn-primary" title="Aumentar Existencias" href="{{ route('detail-purchases.create') }}">
+                                            <a class="btn btn-sm btn-primary" tooltip="tooltip" title="Aumentar Existencias" href="{{ route('detail-purchases.create') }}">
                                                 <i class="fa-solid fa-cart-shopping"></i>
                                             </a>
                                         </td>
@@ -189,12 +190,23 @@
                           <tbody>
                             @foreach ( $purchaseToday as $data )
                                 <tr>
-                                    <td style="text-align: left;">{{ $data->id}}</td>
+                                    <td style="text-align: left;">{{ $data->purchaseSupplier->invoice_number_purchase}}</td>
                                     <td style="text-align: left;">{{ $data->date_purchase}}</td>
-                                    <td style="text-align: left;">{{ $data->purchaseSupplier->person->first_name }}</td>
+                                    <td style="text-align: left;">
+                                        @if ($data->purchaseSupplier->person)
+                                            @if ($data->purchaseSupplier->person->person_type === 'Persona jurídica')
+                                                {{ $data->purchaseSupplier->person->company_name }}
+                                            @else
+                                                {{ $data->purchaseSupplier->person->first_name }}
+                                                {{ $data->purchaseSupplier->person->surname }}
+                                            @endif
+                                        @else
+                                            {{ 'nn' }}
+                                        @endif
+                                    </td>
                                     <td style="text-align: left;">{{ $data->form_of_payment }}</td>
                                     <td style="text-align: left;">{{ ($data->status == 1) ? 'Activo' : 'Inactivo' }} </td>
-                                    <td style="text-align: left; color: rgb(17, 198, 0)">{{ $data->total_value }}</td>
+                                    <td style="text-align: left; color: rgb(17, 198, 0)">${{ number_format($data->total_value)}}</td>
                                 </tr>
                             @endforeach
                           </tbody>
@@ -232,7 +244,7 @@
                                 <td style="text-align: left;">{{ $data->sellers}}</td>
                                 <td style="text-align: left;">{{ $data->payments_methods}}</td>
                                 <td style="text-align: left;">{{ ($data->status == 1) ? 'Activo' : 'Inactivo' }} </td>
-                                <td style="text-align: left; color: rgb(17, 198, 0)">{{ $data->net_total}}</td>
+                                <td style="text-align: left; color: rgb(17, 198, 0)">${{  number_format($data->net_total)}}</td>
                             </tr>
                             @endforeach
                         </tbody>
