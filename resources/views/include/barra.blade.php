@@ -23,19 +23,6 @@
                 <div class="titulo">
                     <h1>Ferretería la excelencia</h1>
                 </div>
-
-                {{--  <button type="button" class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split accesibilidad header-button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="fa-solid fa-universal-access fa-2xl icono_accesibilidad"></i>
-                    <span class="visually-hidden">Accesibilidad</span>
-                </button>
-                <ul class="dropdown-menu">
-                    <div class="acciones_boton">
-                        <li><a class="dropdown-item" id="alto-contraste-button">Alto contraste <i class="fa-solid fa-palette"></i></a></li>
-                        <li><a class="dropdown-item" id="font-larger-button">Aumentar letra <i class="fa-solid fa-plus"></i></a></li>
-                        <li><a class="dropdown-item" id="font-smaller-button">Disminuir letra <i class="fa-solid fa-minus"></i></a></li>
-                    </div>
-                </ul>  --}}
-
             </header>
 
             <div class="menu__side" id="menu_side">

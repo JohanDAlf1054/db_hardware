@@ -41,7 +41,6 @@ function open_close_menu() {
         namePageImg.style.opacity = '0';
         namePageImg.style.visibility = 'hidden';
 
-        side_menu.style.borderRight = '3px solid rgb(104, 104, 104)';
 
         // Ocultar solo los elementos h4 y las imágenes dentro de .option
         var textElements = document.querySelectorAll('.option h4');
@@ -58,7 +57,6 @@ function open_close_menu() {
         namePageImg.style.opacity = '0';
         namePageImg.style.visibility = 'hidden';
 
-        side_menu.style.borderRight = '1px solid rgb(0, 0, 0)';
     } else {
         // Si la barra lateral está cerrada (es decir, body SÍ tiene la clase body_move)
         liPanel.style.display = 'block';
@@ -83,24 +81,7 @@ function open_close_menu() {
     }
 }
 
-// open_close_menu();
 
-// document.getElementById("btn_open").addEventListener("click", open_close_menu);
-
-
-//Si el ancho de la página es menor a 760px, ocultará el menú al recargar la página
-
-// if (window.innerWidth < 760) {
-
-//     body.classList.add("body_move");
-//     side_menu.classList.add("menu__side_move");
-
-//     // Ocultar los elementos .li y .online cuando la página se carga con el menú cerrado
-//     liPanel.style.display = 'none';
-//     onlinePanel.style.display = 'none';
-//     liPanel1.style.display = 'none';
-//     onlinePanel1.style.display = 'none';
-// }
 
 //Haciendo el menú responsive(adaptable)
 

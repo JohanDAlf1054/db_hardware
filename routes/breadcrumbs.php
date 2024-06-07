@@ -49,29 +49,21 @@ Breadcrumbs::for('product.show', function (BreadcrumbTrail $trail, Product $prod
 //Productos > Crear categoria
 Breadcrumbs::for('category.index', function (BreadcrumbTrail $trail) {
     $trail->parent('products');
-    $trail->push('Crear categoría', route('category.index'));
+    $trail->push('Categoria', route('category.index'));
 });
 
 //Productos > Craer categoria > Crear sub categorria
 Breadcrumbs::for('sub-category.index', function (BreadcrumbTrail $trail) {
     $trail->parent('category.index');
-    $trail->push('Crear Subcategoría', route('categorySub.index'));
+    $trail->push('Subcategoría', route('categorySub.index'));
 });
 
 //Productos > Crear marca
 Breadcrumbs::for('brand.index', function (BreadcrumbTrail $trail) {
     $trail->parent('products');
-    $trail->push('Crear marca', route('brand.index'));
+    $trail->push('Marca', route('brand.index'));
 });
 
-//Productos > Crear unidad
-Breadcrumbs::for('units.index', function (BreadcrumbTrail $trail) {
-    $trail->parent('products');
-    $trail->push('Crear unidad', route('units.index'));
-});
-Breadcrumbs::for('compras.index', function (BreadcrumbTrail $trail) {
-    $trail->push('Compras', route('detail-purchases.index'));
-});
 
 //Compras > Mostrar
 Breadcrumbs::for('compras.show', function (BreadcrumbTrail $trail, DetailPurchase $detailPurchase) {
@@ -80,12 +72,16 @@ Breadcrumbs::for('compras.show', function (BreadcrumbTrail $trail, DetailPurchas
     $trail->push($detailPurchase->id);
 });
 
-
+//Compra > Crear detalle de compra
 Breadcrumbs::for('detail.purchase.create', function (BreadcrumbTrail $trail) {
     $trail->parent('compras.index');
     $trail->push('Crear detalle de la compra');
 });
 
+//Compras
+Breadcrumbs::for('compras.index', function (BreadcrumbTrail $trail) {
+    $trail->push('Compras', route('detail-purchases.index'));
+});
 
 //Compras > Mostrar nota debito
 Breadcrumbs::for('debit-note-supplier.index', function (BreadcrumbTrail $trail) {
@@ -164,6 +160,8 @@ Breadcrumbs::for('customer.show', function (BreadcrumbTrail $trail, Person $pers
     $trail->push($person->identification_number);
 });
 
+
+
 //Ventas
 Breadcrumbs::for('sales.index', function (BreadcrumbTrail $trail) {
     $trail->push('Ventas', route('sales.index'));
@@ -198,6 +196,35 @@ Breadcrumbs::for('credit.note.sales.show', function (BreadcrumbTrail $trail, cre
 Breadcrumbs::for('credit.note.sales.create', function (BreadcrumbTrail $trail) {
     $trail->parent('sales.index');
     $trail->push('Crear nota crédito');
+});
+
+//Informes
+Breadcrumbs::for('informes.index', function (BreadcrumbTrail $trail) {
+    $trail->push('Informes', route('index_informes'));
+});
+
+//Informes > Historial precios de venta
+Breadcrumbs::for('PriceHystoryProducts', function (BreadcrumbTrail $trail) {
+    $trail->parent('informes.index');
+    $trail->push('Historial de precios de venta', route('reportPriceHistoryProducts'));
+});
+
+//Informe > Historial precios de compra
+Breadcrumbs::for('PriceHystoryProductsPurchase', function (BreadcrumbTrail $trail) {
+    $trail->parent('informes.index');
+    $trail->push('Historial de precios de compra', route('reportPriceHistoryProductsPurchase'));
+});
+
+//Informe > Historial de movimientos
+Breadcrumbs::for('movement_history', function (BreadcrumbTrail $trail) {
+    $trail->parent('informes.index');
+    $trail->push('Historial de movimientos', route('historial'));
+});
+
+//Informes > Crear unidad
+Breadcrumbs::for('units.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('informes.index');
+    $trail->push('Unidades de medida', route('units.index'));
 });
 
 //Administrador

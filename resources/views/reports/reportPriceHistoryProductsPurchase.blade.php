@@ -1,7 +1,6 @@
 @auth
     @include('include.barra', ['modo' => 'Informe Historia de Precios Compras'])
     <br>
-
     <head>
         <link rel="stylesheet"
             href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/css/bootstrap-select.min.css">
@@ -28,7 +27,7 @@
                             </a>
                         </button>
                         <h2 id="card_title">
-                            {{ __('Informe Historial de Precios Compras') }}
+                            {{ Breadcrumbs::render('PriceHystoryProductsPurchase') }}
                         </h2>
                     </div>
                     <div class="card-body">

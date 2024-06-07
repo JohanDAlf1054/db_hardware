@@ -20,7 +20,7 @@
                         </a>
                     </button>
                     <h2 id="card_title">
-                        {{ __('Informe Historial de Precios Ventas') }}
+                        {{ Breadcrumbs::render('PriceHystoryProducts') }}
                     </h2>
                 </div>
                 <div class="card-body">
@@ -55,7 +55,7 @@
                                                 {{ $message }}
                                             </div>
                                         @enderror
-                                    </div> 
+                                    </div>
                                     <div class=" col-md-6 d-flex flex-column flex-grow-1 mr-2">
                                         <label for="fecha_cierre" class="form-label @error('fecha_cierre') is-invalid @enderror" style="font-weight: bolder">
                                             Fecha de cierre
@@ -67,7 +67,7 @@
                                                 {{ $message }}
                                             </div>
                                         @enderror
-                                    </div>                                   
+                                    </div>
                                 </div>
                                 <br>
                                 <button type="submit" class="btn btn-dark">Filtrar</button>
@@ -86,7 +86,7 @@
                                     <input disabled id="status" name="status" class="selectpicker form-control" data-live-search="true" style="text-align-last:left;"></input>
                                 </div>
                             </div>
-                            
+
                         </div>
                     </div>
                     <div class="table_container">
@@ -141,16 +141,16 @@
                                         </td>
                                         <td style="text-align: center">{{ $ventas->tax }}%</td>
                                         <td style="text-align: center">${{ number_format($ventas->venta->net_total, 2) }}</td>
-                                        
+
 
                                     </tr>
                                     @endforeach
                                 </tbody>
                             </table>
                         </div>
-                    </div> 
+                    </div>
                 </div>
-                
+
             </div>
         </div>
     </div>
@@ -221,7 +221,7 @@
         },
         layout: {
             topRight: {
-                buttons: [ 
+                buttons: [
                     {
                         'extend': 'excelHtml5',
                         'text': '<i class="fa fa-file-excel"></i>',

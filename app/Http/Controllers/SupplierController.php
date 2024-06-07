@@ -41,20 +41,20 @@ class SupplierController extends Controller
     }
 
     public function edit($id)
-{
-    $person = Person::with('municipality')->findOrFail($id);
-    $municipalities = Municipality::with('department.country')->get();
-    $table = 'supplier';
+    {
+        $person = Person::with('municipality')->findOrFail($id);
+        $municipalities = Municipality::with('department.country')->get();
+        $table = 'supplier';
 
-    return view('person.edit', compact('person', 'municipalities', 'table'));
-}
+        return view('person.edit', compact('person', 'municipalities', 'table'));
+    }
 
 public function show($id)
-{
-    $person = Person::findOrFail($id);
-    $table = 'supplier';
-    return view('person.show', compact('person', 'table'));
-}
+    {
+        $person = Person::findOrFail($id);
+        $table = 'supplier';
+        return view('person.show', compact('person', 'table'));
+    }
     // Funcion para inactivar un proveedor
     public function destroy($id)
     {

@@ -27,9 +27,6 @@ class UserController extends Controller
         return redirect(route('privada'));
     }
 
-    public function login(Request $request){
-
-    }
 
     public function logout(Request $request){
         Auth::logout();
@@ -146,7 +143,7 @@ public function changePassword(Request $request)
         ]);
         return redirect()->route('profile.index');
     }
-    
+
     // Guardar la nueva contraseña
     $user->password = $request->new_password;
     $user->save();

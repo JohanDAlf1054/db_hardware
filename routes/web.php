@@ -103,8 +103,10 @@ Route::post('/importSubcategory',[SubCategoryController::class, 'importSubcatego
 Route::post('/importPerson', [PersonController::class, 'importPerson'])->name('importPerson');
 Route::post('/importProduct', [ProductController::class, 'importProduct'])->name('importProduct');
 
-//Funcion Export Informes
+//Informes
 Route::get('export_index', [ExportController::class, 'index_informes'])->name('index_informes');
+
+//Funcion Export Informes
 Route::get('/export', [ExportController::class, 'export'])->name('export');
 Route::get('/export_person', [ExportController::class, 'exportperson'])->name('export.person');
 Route::get('/export_sale', [ExportController::class, 'exportsale'])->name('export.sale');
