@@ -85,7 +85,6 @@ class Person extends Model
     return $rules;
     }
 
-    // protected $perPage = 20;
 
     /**
      * Attributes that should be mass-assignable.

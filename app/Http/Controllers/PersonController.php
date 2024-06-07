@@ -2,18 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\PeopleExport;
 use App\Imports\PersonImport;
 use App\Models\Person;
 use App\Models\Municipality;
-use App\Exports\PersonTemplateExport;
-use App\Models\Country;
-use App\Models\Department;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
-use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
 
@@ -168,7 +162,7 @@ class PersonController extends Controller
     {
         $data = $request->all();
         $data['id'] = $person->id;
-        
+
         $rules = Person::staticRules($data);
 
         $validator = Validator::make($data, $rules);
