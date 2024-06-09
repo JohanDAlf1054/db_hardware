@@ -463,6 +463,8 @@
                         showModal('Valores incorrectos');
                     } else if (descuentoProducto > cantidad * precioCompra) {
                         showModal('El descuento no puede ser mayor que el valor de la compra');
+                    } else if (cantidad > 999){
+                        showModal('La cantidad es demasiado alta')
                     } else {
                         igv += ivaProducto;
                         descuentoTotal += parseFloat(descuentoProducto);
