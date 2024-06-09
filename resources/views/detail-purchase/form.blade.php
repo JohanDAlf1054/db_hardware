@@ -196,7 +196,7 @@
                                                     <label for="people_id" class="form-label">Proveedor:</label>
                                                     <select name="people_id" id="people_id"
                                                         class="form-control selectpicker show-tick" data-live-search="true"
-                                                        title="Selecciona el cliente" data-size='3' required>
+                                                        title="Selecciona el Proveedor" data-size='3' required>
                                                         @foreach ($people as $person)
                                                             @if($person->status != 0 && $person->status != 'inactivo')
                                                                 <option value="{{ $person->id }}">
@@ -217,8 +217,8 @@
                                                     <label for="user_id" class="form-label">Empleado:</label>
                                                     <select name="user_id" id="user_id"
                                                         class="form-control selectpicker show-tick" data-live-search="true"
-                                                        title="Selecciona" data-size='2'required>
-                                                        <option value="">Seleccione un Empleado</option>
+                                                        title="Selecciona un Empleado" data-size='2'required>
+                                                        
                                                         @foreach ($users as $user)
                                                             <option value="{{ $user->id }}">
                                                                 {{ $user->name }}
