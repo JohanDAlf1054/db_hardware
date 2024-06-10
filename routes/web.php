@@ -23,9 +23,7 @@ use App\Http\Controllers\BackupController;
 use App\Http\Controllers\debitNoteSupplierController;
 use App\Http\Controllers\DetailPurchaseController;
 use App\Http\Controllers\UserController;
-//Funcion para revisar el cambio de contraseña
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
+
 
 /*
 |--------------------------------------------------------------------------
