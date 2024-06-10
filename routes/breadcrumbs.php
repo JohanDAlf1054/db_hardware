@@ -226,6 +226,12 @@ Breadcrumbs::for('units.index', function (BreadcrumbTrail $trail) {
     $trail->push('Unidades de medida', route('units.index'));
 });
 
+// //Informes > Crear municipio
+Breadcrumbs::for('municipalities.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('informes.index');
+    $trail->push('Consulta de Municipios', route('municipalities.index'));
+});
+
 //Administrador
 Breadcrumbs::for('admin.index', function (BreadcrumbTrail $trail) {
     $trail->push('Administrador');

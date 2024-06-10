@@ -9,6 +9,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\MeasurementUnitController;
+use App\Http\Controllers\MunicipalityController;
 use App\Http\Controllers\PersonController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RegisterController;
@@ -45,12 +46,9 @@ Route::get('/', function () {
 //Rutas del login y registro
 Route::get('/register', [RegisterController::class,'show']);
 Route::post('/register', [RegisterController::class,'register']);
-
 Route::get('/login', [LoginController::class,'show']);
 Route::post('/login', [LoginController::class,'login']);
-
 Route::get('/home', [HomeController::class,'index'])->name('home');
-
 Route::get('/logout', [LogoutController::class,'logout']);
 
 //Rutas y funciones para el login y recuperar contraseña
@@ -83,14 +81,20 @@ Route::resource('category', CategoryProductController::class);
 Route::resource('brand', BrandController::class);
 Route::resource('units', MeasurementUnitController::class);
 Route::resource('categorySub', SubCategoryController::class);
-Route::resource('sales', SalesController::class);
-Route::resource('credit-note-sales', CreditNoteSalesController::class);
+
+//Funcion Personas
 Route::resource('person', PersonController::class);
 Route::resource('customer', CustomerController::class);
 Route::resource('supplier', SupplierController::class);
+
+//Funcion Municipios
+Route::resource('municipalities', MunicipalityController::class);
+
+//Funcion Ventas
+Route::resource('sales', SalesController::class);
+Route::resource('credit-note-sales', CreditNoteSalesController::class);
 Route::get('/obtener-detalle-venta', [CreditNoteSalesController::class, 'obtenerDetalleVenta']);
 Route::get('/indexAll',[SubCategoryController::class, 'indexAll'])->name('indexAll');
-
 
 //Funcion Importar
 Route::post('/importbrands',[BrandController::class, 'importbrands'])->name('importbrands');
@@ -98,6 +102,14 @@ Route::post('/importCategory',[CategoryProductController::class, 'importCategory
 Route::post('/importSubcategory',[SubCategoryController::class, 'importSubcategory'])->name('importSubcategory');
 Route::post('/importPerson', [PersonController::class, 'importPerson'])->name('importPerson');
 Route::post('/importProduct', [ProductController::class, 'importProduct'])->name('importProduct');
+
+// Descarga de template importar
+Route::get('/downloadFile',[TemplateController::class, 'downloadFile'])->name('downloadFile');
+Route::get('/downloadFileCategory',[TemplateController::class, 'downloadFileCategory'])->name('downloadFileCategory');
+Route::get('/downloadFileBrands',[TemplateController::class, 'downloadFileBrands'])->name('downloadFileBrands');
+Route::get('/downloadFileUnits',[TemplateController::class, 'downloadFileUnits'])->name('downloadFileUnits');
+Route::get('/downloadFileSubcategory',[TemplateController::class, 'downloadFileSubcategory'])->name('downloadFileSubcategory');
+Route::get('/downloadFileProduct',[TemplateController::class, 'downloadFileProduct'])->name('downloadFileProduct');
 
 //Informes
 Route::get('export_index', [ExportController::class, 'index_informes'])->name('index_informes');
@@ -113,7 +125,7 @@ Route::get('/export_supplier', [ExportController::class, 'exportsupplier'])->nam
 Route::get('/export_customer', [ExportController::class, 'exportcustomer'])->name('export.customer');
 Route::get('/report', [ExportController::class,'report'])->name('report');
 
-//rutas de historial de movimientos No Tocar y brayitan es mi hijo
+//rutas de historial de movimientos 
 Route::post('/buscar-historial', [App\Http\Controllers\HistorialMovimientoController::class, 'buscarMovimientos'])->name('buscar.historial');
 Route::get('/historial', [App\Http\Controllers\HistorialMovimientoController::class, 'historialMovimientos'])->name('historial');
 Route::get('/filtrar_por_fechas', 'HistorialMovimientoController@buscarMovimientos')->name('filtrar_por_fechas');
@@ -140,15 +152,6 @@ Route::post('/verificar-factura', [DetailPurchaseController::class, 'verificarFa
 Route::resource('detail-purchases', App\Http\Controllers\DetailPurchaseController::class);
 Route::post('/verificar-nota-debito', [DebitNoteSupplierController::class, 'verificarNotaDebito']);
 Route::resource('debit-note-supplier', App\Http\Controllers\DebitNoteSupplierController::class);
-
-
-// Descarga de template importar
-Route::get('/downloadFile',[TemplateController::class, 'downloadFile'])->name('downloadFile');
-Route::get('/downloadFileCategory',[TemplateController::class, 'downloadFileCategory'])->name('downloadFileCategory');
-Route::get('/downloadFileBrands',[TemplateController::class, 'downloadFileBrands'])->name('downloadFileBrands');
-Route::get('/downloadFileUnits',[TemplateController::class, 'downloadFileUnits'])->name('downloadFileUnits');
-Route::get('/downloadFileSubcategory',[TemplateController::class, 'downloadFileSubcategory'])->name('downloadFileSubcategory');
-Route::get('/downloadFileProduct',[TemplateController::class, 'downloadFileProduct'])->name('downloadFileProduct');
 
 //Descarga del manual de usuario
 Route::get('/downloadManualUser',[TemplateController::class,'downloadManualUser'])->name('downloadManualUser');

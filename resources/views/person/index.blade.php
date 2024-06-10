@@ -128,7 +128,6 @@
                                                     <td>{{ $person->municipality->name }}</td>
                                                     <td>{{ $person->address }}</td>
                                                     <td>{{ $person->phone }}</td>
-                                                    <td>
                                                         @if ($person->status == true)
                                                             <p class="badge rounded-pill bg-success" style="font-size: 15px">
                                                                 Activo</p>
