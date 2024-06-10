@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Validation\Rules\Password;
 
 
 class UserController extends Controller
@@ -59,7 +60,7 @@ class UserController extends Controller
         'phone_number' => 'required|digits:10',
         'document_type' => 'required|string|max:3',
         'identification_number' => 'required|digits_between:7,20|unique:users,identification_number,' . $user->id,
-        'password' => 'nullable|min:8|confirmed'
+        'password' => ['required', 'confirmed', Password::min(8)->mixedCase()->letters()->numbers()->symbols()]
     ], [], [
         'name' => 'Nombre',
         'email' => 'Correo electrónico',
@@ -113,49 +114,45 @@ public function showChangePasswordForm()
 public function changePassword(Request $request)
 {
     // Validar los campos
-    $request->validate([
+    $validator = Validator::make($request->all(), [
         'current_password' => 'required',
-        'new_password' => 'required|string|min:8|confirmed',
+        'new_password' => ['required', 'confirmed', Password::min(8)->mixedCase()->letters()->numbers()->symbols()]
     ], [
         'new_password.confirmed' => 'La confirmacion de la nueva contraseña no coincide.'
     ]);
+
+    $validator->setAttributeNames([
+        'new_password' => 'nueva contraseña',
+    ]);
+
+    if ($validator->fails()) {
+        return redirect()->route('password.update')
+            ->withErrors($validator)
+            ->withInput();
+    }
 
     $user = Auth::user();
 
     // Verificar la contraseña actual
     if (!Hash::check($request->current_password, $user->password)) {
-        Session::flash('notificacion', [
-            'tipo' => 'error',
-            'titulo' => 'Atencion!',
-            'descripcion' => 'La contraseña actual no es correcta.',
-            'autoCierre' => 'true'
-        ]);
-        return redirect()->route('profile.index');
-    }
-
-    //Verificar la confirmacion de la nueva contraseña
-    if ($request->new_password !== $request->new_password_confirmation) {
-        Session::flash('notificacion', [
-            'tipo' => 'error',
-            'titulo' => 'Atención!',
-            'descripcion' => 'La confirmación de la nueva contraseña no coincide.',
-            'autoCierre' => 'true'
-        ]);
-        return redirect()->route('profile.index');
+        return redirect()->route('password.update')
+            ->withErrors(['current_password' => 'La contraseña actual no es correcta.'])
+            ->withInput();
     }
 
     // Guardar la nueva contraseña
-    $user->password = $request->new_password;
+    $user->password = Hash::make($request->new_password);
     $user->save();
 
     Session::flash('notificacion', [
         'tipo' => 'exito',
-        'titulo' => 'Exito!',
+        'titulo' => 'Éxito!',
         'descripcion' => 'Contraseña actualizada exitosamente.',
         'autoCierre' => 'true'
     ]);
 
     return redirect()->route('profile.index');
 }
+
 
 }

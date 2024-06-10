@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rules\Password;
 
 class RegisterRequest extends FormRequest
 {
@@ -29,7 +30,7 @@ class RegisterRequest extends FormRequest
             'phone_number' => 'required|digits:10',
             'document_type'=>'required',
             'identification_number'=>'required|digits_between:7,20|unique:users,identification_number',
-            'password' => 'required|min:8'
+            'password' => ['required',Password::min(8)->mixedCase()->letters()->numbers()->symbols()]
         ];
     }
     //Funcion para los mensajes de validacion.

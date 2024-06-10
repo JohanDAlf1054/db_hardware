@@ -37,6 +37,9 @@
                                                         <input type="password" id="password" name="current_password" required class="form-control">
                                                         <i class="formulario__icono-toggle fa-solid fa-eye-slash ojo_contrasena" id="togglePassword" onclick="togglePassword()"></i>
                                                     </div>
+                                                    @error('current_password')
+                                                            <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
                                                 </div>
                                             </div>
                                         </div>
@@ -52,6 +55,9 @@
                                                         <input type="password" id="Newpassword" name="new_password" required class="form-control">
                                                         <i class="formulario__icono-toggle fa-solid fa-eye-slash ojo_contrasena" id="togglePasswordNew" onclick="togglePasswordNew()"></i>
                                                     </div>
+                                                    @error('new_password')
+                                                            <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
                                                 </div>
                                             </div>
                                         </div>
@@ -67,6 +73,9 @@
                                                         <input type="password" id="NewpasswordConfirm" name="new_password_confirmation" required class="form-control">
                                                         <i class="formulario__icono-toggle fa-solid fa-eye-slash ojo_contrasena" id="togglePasswordNewConfir" onclick="togglePasswordNewConfir()"></i>
                                                     </div>
+                                                    @error('new_password_confirmation')
+                                                            <div class="text-danger">{{ $message }}</div>
+                                                    @enderror
                                                 </div>
                                             </div>
                                         </div>
