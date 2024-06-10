@@ -13,13 +13,21 @@ class MunicipalityController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $municipalities = Municipality::all();
-
+        $query = Municipality::query();
+    
+        if ($request->has('filtervalue')) {
+            $filterValue = $request->input('filtervalue');
+            $query->where('id', 'like', '%' . $filterValue . '%')
+                ->orWhere('name', 'like', '%' . $filterValue . '%');
+        }
+    
+        $municipalities = $query->get();
+    
         return view('reports.municipalities', compact('municipalities'));
     }
-
+    
     /**
      * Show the form for creating a new resource.
      */

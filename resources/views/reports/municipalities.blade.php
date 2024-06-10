@@ -85,7 +85,6 @@
                                 <table id="datatable" class="table table-striped table-hover" style="width: 100%;">
                                     <thead class="table-dark">
                                         <tr>
-                                            <th style="text-align: center">Id</th>
                                             <th style="text-align: center">Codigo</th>
                                             <th style="text-align: center">Nombre</th>
                                         </tr>
@@ -94,7 +93,6 @@
                                         @foreach ($municipalities as $municipality)
                                             <tr>
                                                 <td style="text-align: center">{{ $municipality->id }}</td>
-                                                <td style="text-align: center">{{ $municipality->code }}</td>
                                                 <td style="text-align: center">{{ $municipality->name }}</td>
                                             </tr>
                                         @endforeach
