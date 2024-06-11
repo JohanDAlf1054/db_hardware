@@ -14,12 +14,7 @@
         </div>
         <div class="modal-footer">
         <button type="button" class="btn btn-success" data-bs-dismiss="modal">Cerrar</button>
-        {{-- <form action="{{ route('delete',$unit->id) }}" method="POST"> --}}
-            {{-- @csrf
-            @method('DELETE') --}}
             <button type="submit" class="btn btn-primary" wire:click='delete("{{ $category->id }}")'>Confirmar</button>
-        {{-- </form> --}}
-        
         </div>
     </div>
     </div>

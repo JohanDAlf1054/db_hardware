@@ -15,7 +15,8 @@ use Illuminate\Support\Carbon;
 class HomeController extends Controller
 {
     //
-    public function index(Request $request, User $usuario){
+    public function index(Request $request, User $usuario)
+    {
         $users = User::all();
         $productos = count(Product::all());
         $sales = count(Sale::all());
@@ -27,19 +28,17 @@ class HomeController extends Controller
         $rolesUsuario = $users->first()->roles()->pluck('name')->all();
         $roles = Role::all();
         $totalVentasHoy = Sale::whereDate('created_at', Carbon::today())->sum('net_total');
-        return view('home.index',compact('totalVentasHoy','salesToday','purchaseToday','users', 'productos', 'sales', 'purchase', 'person', 'dataProduct', 'roles', 'rolesUsuario'));
+        return view('home.index', compact('totalVentasHoy', 'salesToday', 'purchaseToday', 'users', 'productos', 'sales', 'purchase', 'person', 'dataProduct', 'roles', 'rolesUsuario'));
     }
 
     public function calcularTotalVentasHoy()
-{
-    // Obtener la fecha actual
-    $fechaHoy = Carbon::today()->toDateString();
+    {
+        // Obtener la fecha actual
+        $fechaHoy = Carbon::today()->toDateString();
 
-    // Consulta para obtener el total de ventas para el día de hoy
-    $totalVentasHoy = Sale::whereDate('created_at', $fechaHoy)->sum('net_total');
+        // Consulta para obtener el total de ventas para el día de hoy
+        $totalVentasHoy = Sale::whereDate('created_at', $fechaHoy)->sum('net_total');
 
-    return $totalVentasHoy;
-}
-
-
+        return $totalVentasHoy;
+    }
 }

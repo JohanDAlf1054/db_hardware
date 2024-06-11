@@ -96,7 +96,6 @@
                                         @endforeach
                                     </tbody>
                                 </table>
-                                {{-- {{ $brands->links() }} --}}
                             </div>
                         </div>
                     </div>

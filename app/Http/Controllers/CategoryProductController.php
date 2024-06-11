@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Validator;
+
 /**
  * Class CategoryProductController
  * @package App\Http\Controllers
@@ -22,10 +23,6 @@ class CategoryProductController extends Controller
      */
     public function index()
     {
-        // $categoryProducts = CategoryProduct::paginate();
-
-        // return view('category-product.index', compact('categoryProducts'))
-        //     ->with('i', (request()->input('page', 1) - 1) * $categoryProducts->perPage());
         return view('category-product.index');
     }
 
@@ -38,77 +35,6 @@ class CategoryProductController extends Controller
     {
         $categoryProduct = new CategoryProduct();
         return view('category-product.create', compact('categoryProduct'));
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        request()->validate(CategoryProduct::$rules);
-
-        $categoryProduct = CategoryProduct::create($request->all());
-
-        return redirect()->route('category.index')
-            ->with('success', 'CategoryProduct created successfully.');
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        Session::put("category_id", $id);
-        return redirect()->route('categorySub.index');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $categoryProduct = CategoryProduct::find($id);
-
-        return view('category-product.edit', compact('categoryProduct'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  CategoryProduct $categoryProduct
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, CategoryProduct $categoryProduct)
-    {
-        request()->validate(CategoryProduct::$rules);
-
-        $categoryProduct->update($request->all());
-
-        return redirect()->route('category-products.index')
-            ->with('success', 'CategoryProduct updated successfully');
-    }
-
-    /**
-     * @param int $id
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Exception
-     */
-    public function destroy($id)
-    {
-        $categoryProduct = CategoryProduct::find($id)->delete();
-
-        return redirect()->route('category.index')
-            ->with('success', 'CategoryProduct deleted successfully');
     }
 
     public function importCategory(Request $request)
@@ -137,7 +63,7 @@ class CategoryProductController extends Controller
                 'autoCierre' => 'true'
             ]);
             return redirect()->route('category.index');
-        }catch (\Exception $e){
+        } catch (\Exception $e) {
         }
     }
 
