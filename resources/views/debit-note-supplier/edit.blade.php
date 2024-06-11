@@ -96,14 +96,6 @@
                                             {!! $errors->first('factura', '<div class="invalid-feedback">:message</div>') !!}
                                         </div>
                                     </div>
-
-
-
-
-
-
-
-
                                             {{--  Fecha De Elaboracion Nota Debito  --}}
                                             <div class="col-sm-6 md-6">
                                                 <div class="md-3" style="margin-bottom: 16px">
@@ -115,9 +107,6 @@
                                                     {!! $errors->first('date_invoice', '<div class="invalid-feedback">:message</div>') !!}
                                                 </div>
                                             </div>
-
-
-
                                         {{--  Numero de Nota Debito   --}}
                                         <div class="col-sm-6 md-6">
                                             <div class="mb-3">
@@ -129,8 +118,6 @@
                                                 {!! $errors->first('debit_note_code', '<div class="invalid-feedback">:message</div>') !!}
                                             </div>
                                         </div>
-
-
                                         {{--  Usuario A Cargo --}}
 
                                         <div class="col-sm-6 md-6">
@@ -148,8 +135,6 @@
                                                 {!! $errors->first('users_id', '<div class="invalid-feedback">:message</div>') !!}
                                             </div>
                                         </div>
-
-
                                         {{--  Proveedor al que se le compro el producto --}}
                                         <div class="col-sm-6 md-6">
                                             <div class="mb-3">
@@ -168,13 +153,6 @@
                                                 {!! $errors->first('people_id', '<div class="invalid-feedback">:message</div>') !!}
                                             </div>
                                         </div>
-
-
-
-
-
-
-
                                         {{--  Fecha Detalle De Compra  --}}
 
                                         <div class="col-sm-6 md-6">
@@ -283,7 +261,6 @@ var peopleSelect = document.getElementById('people_id');
 var datePurchaseInput = document.getElementById('date_purchase');
 var productInput = document.querySelector('input[name="producto"]');
 
-// Establecer el valor seleccionado en usersSelect
 for (var i = 0; i < usersSelect.options.length; i++) {
 if (usersSelect.options[i].value == String(usersId)) {
 usersSelect.options[i].selected = true;
@@ -291,7 +268,6 @@ break;
 }
 }
 
-// Establecer el valor seleccionado en peopleSelect
 for (var i = 0; i < peopleSelect.options.length; i++) {
 if (peopleSelect.options[i].value == String(peopleId)) {
 peopleSelect.options[i].selected = true;
@@ -299,11 +275,9 @@ break;
 }
 }
 
-// Obtener la fecha de detail_purchase desde el lado del cliente
 var datePurchaseFromClient = @json($detailPurchaseDates)[purchaseSupplierId] || '';
 datePurchaseInput.value = datePurchaseFromClient;
 
-// Obtener el nombre del producto desde el lado del cliente
 var productNameFromClient = @json($detailPurchaseProducts)[purchaseSupplierId] || '';
 productInput.value = productNameFromClient;
 
@@ -317,7 +291,6 @@ var priceUnit = purchaseData.price_unit || '';
 var productTax = purchaseData.product_tax || '';
 var discountTotal = purchaseData.discount_total || '';
 
-// Asignar los valores a los campos de entrada
 precioUnitarioInput.value = priceUnit;
 descuentoInput.value = discountTotal;
 ivaInput.value = productTax;
@@ -338,7 +311,6 @@ var totalInput = document.getElementById('total');
 var totalBrutoInput = document.getElementById('totalBruto');
 var totalNetoInput = document.getElementById('totalNeto');
 
-// Función para calcular los totales
 var calcularTotales = function() {
 var cantidad = parseFloat(cantidadInput.value) || 0;
 var precioUnitario = parseFloat(precioUnitarioInput.value) || 0;
@@ -354,7 +326,6 @@ totalBrutoInput.value = totalBruto.toFixed(2);
 totalNetoInput.value = totalNeto.toFixed(2);
 };
 
-// Agregar el evento 'input' a los campos
 cantidadInput.addEventListener('input', calcularTotales);
 precioUnitarioInput.addEventListener('input', calcularTotales);
 descuentoInput.addEventListener('input', calcularTotales);

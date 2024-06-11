@@ -342,7 +342,6 @@ EL PRECIO DEL PRODUCTO EL DESCUENTO Y EL IVA --}}
                         var peopleSelect = document.getElementById('people_id');
                         var datePurchaseInput = document.getElementById('date_purchase');
 
-                        // Establecer el valor seleccionado en usersSelect
                         for (var i = 0; i < usersSelect.options.length; i++) {
                             if (usersSelect.options[i].value == String(usersId)) {
                                 usersSelect.options[i].selected = true;
@@ -350,7 +349,6 @@ EL PRECIO DEL PRODUCTO EL DESCUENTO Y EL IVA --}}
                             }
                         }
 
-                        // Establecer el valor seleccionado en peopleSelect
                         for (var i = 0; i < peopleSelect.options.length; i++) {
                             if (peopleSelect.options[i].value == String(peopleId)) {
                                 peopleSelect.options[i].selected = true;
@@ -358,7 +356,6 @@ EL PRECIO DEL PRODUCTO EL DESCUENTO Y EL IVA --}}
                             }
                         }
 
-                        // Obtener la fecha de detail_purchase desde el lado del cliente
                         var datePurchaseFromClient = @json($detailPurchaseDates)[purchaseSupplierId] || '';
                         datePurchaseInput.value = datePurchaseFromClient;
                     });
@@ -587,7 +584,6 @@ function showModal(message, icon = 'error') {
 
             var purchaseSupplierId = $('#factura').val();
 
-            // Verificar si la factura seleccionada ya tiene una nota de débito
             $.ajax({
                 url: '/verificar-nota-debito',
                 type: 'POST',
@@ -600,7 +596,7 @@ function showModal(message, icon = 'error') {
                         showModal('El número de factura ya tiene una nota débito.', 'error');
                     } else {
                         formListoParaEnviar = true;
-                        $('.btn-success').trigger('click'); // Asegúrate de que este selector coincida con tu botón de envío
+                        $('.btn-success').trigger('click'); 
                     }
                 },
                 error: function(xhr, status, error) {
@@ -609,8 +605,6 @@ function showModal(message, icon = 'error') {
             });
         }
     });
-
-    // Resto de tu código de validaciones...
 });
 
         </script>

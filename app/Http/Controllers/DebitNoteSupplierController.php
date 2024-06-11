@@ -69,10 +69,10 @@ class debitNoteSupplierController extends Controller
      */
     public function create()
     {
-        // Obtén el último DebitNoteSupplier de la base de datos
+       
         $lastDebitNoteSupplier = DebitNoteSupplier::orderBy('id', 'desc')->first();
 
-        // Si existe, toma su id y agrégale 1. Si no existe, usa 1 como el primer id.
+        
         $debitNoteId = $lastDebitNoteSupplier ? $lastDebitNoteSupplier->id + 1 : 1;
 
         $debitNoteSupplier = new debitNoteSupplier();
@@ -368,10 +368,10 @@ class debitNoteSupplierController extends Controller
         $users = User::all();
         $purchaseSuppliers = PurchaseSupplier::all();
 
-        // Obtén el último DebitNoteSupplier de la base de datos
+        
         $lastDebitNoteSupplier = DebitNoteSupplier::orderBy('id', 'desc')->first();
 
-        // Si existe, toma su id y agrégale 1. Si no existe, usa 1 como el primer id.
+       
         $debitNoteId = $lastDebitNoteSupplier ? $lastDebitNoteSupplier->id + 1 : 1;
 
         return view('debit-note-supplier.edit', compact('debitNoteSuppliers', 'debitNoteSupplier', 'detailPurchases', 'people', 'products', 'users', 'purchaseSuppliers', 'detailPurchaseData', 'detailPurchaseDates', 'detailPurchaseProducts', 'debitNoteId'));
@@ -413,7 +413,7 @@ class debitNoteSupplierController extends Controller
             $debitNoteSupplier->users_id = $request->input('users_id');
             $debitNoteSupplier->description = $descripciones[$i];
             $debitNoteSupplier->quantity = $cantidades[$i];
-            $debitNoteSupplier->total = $precios_unitarios[$i] * $cantidades[$i]; // o cualquier cálculo que necesites hacer
+            $debitNoteSupplier->total = $precios_unitarios[$i] * $cantidades[$i]; 
             $debitNoteSupplier->net_total = $request->input('net_total');
             $debitNoteSupplier->gross_total = $request->input('gross_total');
             $debitNoteSupplier->updated_at = $request->input('updated_at');
@@ -480,10 +480,9 @@ class debitNoteSupplierController extends Controller
         $pdf = Pdf::loadView('debit-note-supplier.pdf', ['debitNoteSuppliers' => $debitNoteSuppliers])
                     ->setPaper('a4','landscape');
 
-        // Funcion para devolver una vista del pdf en el navegador
+    
         return $pdf->stream('Compras - Nota debito.pdf');
 
-        //Descargar el pdf directamente
-        // return $pdf->download(Compras - Nota debito.pdf');
+    
     }
 }

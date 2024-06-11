@@ -26,7 +26,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-12">
-                                    {{-- Desplegable de opciones --}}
+                                    
                                     <div class="dropdown">
                                         <button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown"
                                             aria-expanded="false">Acciones</button>
@@ -68,7 +68,6 @@
                             </div>
                         </div>
 
-                        {{-- Script  para mostrar la notificacion --}}
                         <script>
                             document.addEventListener('DOMContentLoaded', function() {
                                 const mensajeFlash = {!! json_encode(Session::get('notificacion')) !!};

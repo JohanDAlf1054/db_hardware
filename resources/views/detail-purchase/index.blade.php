@@ -38,9 +38,6 @@
 
                                                 <li><a class="dropdown-item"
                                                         href="{{ route('debit-note-supplier.index') }}">Mostrar notas débito</a></li>
-                                                
-                                                {{-- <li><a class="dropdown-item" href="{{ route('purchase_supplier.index') }}">Mostrar
-Compras</a></li> --}}
                                             </div>
                                         </ul>
                                     </div>
@@ -158,7 +155,6 @@ Compras</a></li> --}}
                                                                 title="Visualizar"
                                                                 href="{{ route('detail-purchases.show', $detailPurchase->id) }}"><i
                                                                     class="fa fa-fw fa-eye"></i> {{ __('') }}</a>
-                                                            {{-- <a class="btn btn-sm btn-success" href="{{ route('detail-purchases.edit',$detailPurchase->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Editar') }}</a>--}}
                                                             @csrf
                                                             @method('DELETE')
                                                             @if ($detailPurchase->status == true)

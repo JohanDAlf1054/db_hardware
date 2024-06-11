@@ -36,7 +36,7 @@ class DetailPurchaseController extends Controller
 
     $detailPurchases = DetailPurchase::whereIn('id', $uniqueDetailPurchaseIds)
         ->when($filtervalue, function ($query) use ($filtervalue, $status) {
-            $filtervalue = strtolower($filtervalue); // Convertir a minúsculas para hacer la búsqueda insensible a mayúsculas y minúsculas
+            $filtervalue = strtolower($filtervalue); 
             return $query->whereRaw('LOWER(description) LIKE ?', ['%' . $filtervalue . '%'])
                 ->orWhereRaw('LOWER(price_unit) LIKE ?', ['%' . $filtervalue . '%'])
                 ->orWhere('product_tax', $filtervalue)
@@ -45,7 +45,7 @@ class DetailPurchaseController extends Controller
                 ->orWhereRaw('LOWER(gross_total) LIKE ?', ['%' . $filtervalue . '%'])
                 ->orWhereRaw('LOWER(discount_total) LIKE ?', ['%' . $filtervalue . '%'])
                 ->orWhereRaw('LOWER(form_of_payment) LIKE ?', ['%' . $filtervalue . '%'])
-                ->orWhere('status', $status) // Agregar esta línea para buscar por estado
+                ->orWhere('status', $status) 
                 ->orWhereHas('purchaseSupplier', function ($query) use ($filtervalue) {
                     return $query->whereHas('person', function ($query) use ($filtervalue) {
                         return $query->whereRaw('LOWER(identification_type) LIKE ?', ['%' . $filtervalue . '%'])
@@ -54,7 +54,7 @@ class DetailPurchaseController extends Controller
                             ->orWhereRaw('LOWER(first_name) LIKE ?', ['%' . $filtervalue . '%'])
                             ->orWhereRaw('LOWER(other_name) LIKE ?', ['%' . $filtervalue . '%']);
                     })
-                    ->orWhereRaw('LOWER(invoice_number_purchase) LIKE ?', ['%' . $filtervalue . '%']); // Agregar esta línea para buscar por invoice_number_purchase
+                    ->orWhereRaw('LOWER(invoice_number_purchase) LIKE ?', ['%' . $filtervalue . '%']); 
                 })
                 ->orWhereHas('product', function ($query) use ($filtervalue) {
                     if ($filtervalue) {
@@ -141,7 +141,7 @@ class DetailPurchaseController extends Controller
             $arrayPrecioCompra = $request->get('arraypreciocompra');
             $arrayPrecioVenta = $request->get('arrayprecioventa');
             $arraydescuento = $request->get('arraydescuento');
-            //dd($request);
+        
             if (!$arrayIdProducto || !$arrayImpuesto || !$arrayDescripcion || !$arrayCantidad || !$arrayPrecioCompra || !$arrayPrecioVenta || !$arraydescuento) {
                 return redirect()->back()->withInput()->withErrors(['error' => 'Faltan datos en el formulario.']);
             }
@@ -179,7 +179,7 @@ class DetailPurchaseController extends Controller
                     'products_id' => 'required|exists:products,id',
                     'purchase_suppliers_id' => 'required|exists:purchase_suppliers,id',
                 ])->validate();
-                //dd($request);
+            
                 $detailPurchase = DetailPurchase::create($validatedData);
                 $producto = Product::find($arrayIdProducto[$cont]);
                 $stockActual = $producto->stock;
@@ -246,7 +246,7 @@ class DetailPurchaseController extends Controller
     public function edit($id)
     {
         $detailPurchase = DetailPurchase::find($id);
-        $people = Person::all(); // Cambiado de People a Person
+        $people = Person::all(); 
         $products = Product::all();
         $purchase_suppliers = PurchaseSupplier::all();
         $users = User::all();
@@ -261,13 +261,11 @@ class DetailPurchaseController extends Controller
      */
     public function update(Request $request, DetailPurchase $detailPurchase)
     {
-        // Renombrar 'precio_compra' a 'price_unit', 'cantidad' a 'quantity_units' y 'fecha' a 'date_purchase'
         $input = $request->all();
         $input['price_unit'] = $input['precio_compra'];
         $input['quantity_units'] = $input['cantidad'];
         $input['date_purchase'] = $input['fecha'];
 
-        // Calcular 'gross_total', 'total_tax', 'net_total' y 'total_value'
         $input['gross_total'] = $input['quantity_units'] * $input['price_unit'];
         $input['total_tax'] = $input['gross_total'] * ($input['product_tax'] / 100);
         $input['net_total'] = $input['gross_total'] + $input['total_tax'];
@@ -313,7 +311,7 @@ class DetailPurchaseController extends Controller
                         'status' => false
                     ]);
     
-                // Cambia el estado del purchase supplier asociado
+            
                 PurchaseSupplier::where('id', $detailPurchase->purchase_suppliers_id)
                     ->update([
                         'status' => false
@@ -353,10 +351,9 @@ class DetailPurchaseController extends Controller
         $pdf = Pdf::loadView('detail-purchase.pdf', ['detailPurchases' => $detailPurchases])
                     ->setPaper('a4','landscape');
 
-        // Funcion para devolver una vista del pdf en el navegador
+        
         return $pdf->stream('Detalle de compra.pdf');
 
-        //Descargar el pdf directamente
-        // return $pdf->download('Detalle de compra.pdf');
+    
     }
 }

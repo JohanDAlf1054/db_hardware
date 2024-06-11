@@ -27,7 +27,7 @@
                         {{ Breadcrumbs::render('movement_history') }}
                     </h2>
                 </div>
-                {{-- {{ route('buscar.historial') }} ruta no definida --}}
+              
                 <form method="POST" action="{{ route('buscar.historial') }}">
                     @csrf
                 <div class="card-body">

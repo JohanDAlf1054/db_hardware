@@ -10,7 +10,6 @@
             <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
             <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js"></script>
-            {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js"></script> --}}
             <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
             <meta name="csrf-token" content="{{ csrf_token() }}">
         </head>
@@ -358,7 +357,6 @@
                     </form>
                 </div>
             </div>
-            {{-- <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> --}}
             <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/js/bootstrap-select.min.js"></script>
             <script>
                 $(document).ready(function() {
@@ -524,7 +522,6 @@
                     totalBruto = round(sumas);
                     totalNeto = total;
 
-                    //Mostrar los campos calculados
                     $('#sumas').html(formatearMoneda(sumas));
                     $('#igv').html(formatearMoneda(igv));
                     $('#total_value').val(formatearMoneda(sumas));
@@ -535,7 +532,6 @@
                     $('#hiddenTotalBruto').val(totalBruto);
                     $('#igv_input').val(igv);
                     $('#hiddenTotalNeto').val(totalNeto);
-                    //Eliminar el fila de la tabla
                     $('#fila' + indice).remove();
                 }
 
@@ -552,12 +548,10 @@
                 function round(num, decimales = 2) {
                     var signo = (num >= 0 ? 1 : -1);
                     num = num * signo;
-                    if (decimales === 0) //con 0 decimales
+                    if (decimales === 0) 
                         return signo * Math.round(num);
-                    // round(x * 10 ^ decimales)
                     num = num.toString().split('e');
                     num = Math.round(+(num[0] + 'e' + (num[1] ? (+num[1] + decimales) : decimales)));
-                    // x * 10 ^ (-decimales)
                     num = num.toString().split('e');
                     return signo * (num[0] + 'e' + (num[1] ? (+num[1] - decimales) : -decimales));
                 }
@@ -582,7 +576,7 @@
                 }
             </script>
             <script>
-          $(document).ready(function() {
+        $(document).ready(function() {
     var formListoParaEnviar = false; 
 
     $('#guardar').on('click', function(event) {
