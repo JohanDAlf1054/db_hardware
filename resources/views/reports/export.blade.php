@@ -87,11 +87,13 @@
                         </a>
                     </div>
                 </div>
+
+
                 <div class="col-xl-4 col-lg-4 col-sm-6">
                     <div class="icon-card-sales">
-                        <a class="content" href="">
+                        <a class="content" href="{{route('municipalities.index')}}">
                             <div class="info">
-                                <h4 class="mb-10">Consultar Municipios del Software</h4>
+                                <h4 class="mb-10">Consultar Municipios</h4>
                             </div>
                             <div class="progresss">
                                 <svg>
@@ -104,6 +106,8 @@
                         </a>
                     </div>
                 </div>
+
+
                 <div class="col-xl-4 col-lg-4 col-sm-6">
                     <div class="icon-card-sales">
                         <a class="content" href="">
