@@ -14,8 +14,8 @@
         <link rel="stylesheet" href="https://cdn.datatables.net/responsive/3.0.2/css/responsive.dataTables.css">
 
     </head>
-    {{--  <br>
-    @can('municipalities')  --}}
+    <br>
+    @can('municipalities')
     <div>
         <div class="container-fluid">
             <div class="row">
@@ -105,7 +105,7 @@
                                         <script src="https://cdn.datatables.net/2.0.7/js/dataTables.bootstrap5.js"></script>
                                         <script src="https://cdn.datatables.net/responsive/3.0.2/js/dataTables.responsive.js"></script>
                                         <script src="https://cdn.datatables.net/responsive/3.0.2/js/responsive.dataTables.js"></script>
-                                        
+
                                     </tbody>
                                 </table>
                             </div>
@@ -116,12 +116,12 @@
             </div>
         </div>
     </div>
-    {{--  @else
+    @else
     <div class="mensaje_Rol">
         <img src="{{ asset('img/Rol_no_asignado.png') }}" class="img_rol" />
         <h2 class="texto_noRol">Pídele al administrador que se te asigne un rol.</h2>
     </div>
-@endcan  --}}
+@endcan
 @endauth
 @guest
     @include('include.falta_sesion')

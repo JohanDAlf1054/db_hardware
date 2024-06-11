@@ -1,6 +1,7 @@
 @auth
     @include('include.barra', ['modo' => 'Informe Historia de Precios Compras'])
     <br>
+    @can('Historial_precios_compra')
     <head>
         <link rel="stylesheet"
             href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta3/dist/css/bootstrap-select.min.css">
@@ -274,6 +275,12 @@
             }
         });
     </script>
+    @else
+    <div class="mensaje_Rol">
+        <img src="{{ asset('img/Rol_no_asignado.png') }}" class="img_rol" />
+        <h2 class="texto_noRol">Pídele al administrador que se te asigne un rol.</h2>
+    </div>
+    @endcan
 @endauth
 @guest
     @include('include.falta_sesion')

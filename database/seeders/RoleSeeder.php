@@ -41,5 +41,10 @@ class RoleSeeder extends Seeder
         Permission::create(['name' => 'debit-note-supplier'])->syncRoles([$role1,$role2]);
         Permission::create(['name' => 'report'])->syncRoles([$role1,$role2]);
         Permission::create(['name' => 'profile'])->syncRoles([$role1,$role2]);
+        Permission::create(['name' => 'reports'])->syncRoles([$role1,$role2]);
+        Permission::create(['name' => 'Product_movement'])->syncRoles([$role1,$role2]);
+        Permission::create(['name' => 'Historial_precios_compra'])->syncRoles([$role1,$role2]);
+        Permission::create(['name' => 'Historial_productos'])->syncRoles([$role1,$role2]);
+        Permission::create(['name' => 'municipalities'])->syncRoles([$role1,$role2]);
     }
 }
