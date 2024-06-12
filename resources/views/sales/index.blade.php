@@ -61,7 +61,7 @@
                         </div>
                        <br>
 
-                <div> <!-- Añade la clase "px-3" para agregar margen horizontal -->
+                <div>
                     <table class="table table-striped table-hover" style="width:100%" id="datatable">
                                 <thead class="table-dark">
                                     <tr style="text-align: center">
@@ -146,7 +146,6 @@
 
 
             </div>
-           {{-- {{ $sales->links()}} --}}
         </div>
     </div>
 </div>

@@ -195,6 +195,7 @@
                                         <input type="hidden" name="dates_hidden" value="{{ \Carbon\Carbon::now()->toDateTimeString() }}">
                                     </div>
 
+                                      <!--Factura de venta--->
                                     <div class="col-12">
                                         <label for="autoincrement" class="form-label">Factura de Venta:</label>
                                         <div class="input-group">
@@ -300,7 +301,6 @@
             disableButtons();
         });
 
-        // Variables globales
         let cont = 0;
         let subtotal = [];
         let sumas = 0;
