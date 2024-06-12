@@ -153,10 +153,11 @@
             </div>
         </div>
         <div class="card-footer text-end" style="padding-top: 1.5rem">
+            <a class="btn btn-outline-secondary" style="margin-right: 2rem" href="{{route('downloadMapa')}}">Descargar mapa de navegación</a>
             @if(auth()->user()->hasRole('Administrador'))
-                <a class="btn btn-primary" style="margin-right: 2rem" href="{{route('downloadManualAdmin')}}">Descargar manual de administrador</a>
+                <a class="btn btn-outline-secondary" style="margin-right: 2rem" href="{{route('downloadManualAdmin')}}">Descargar manual de administrador</a>
             @elseif(auth()->user()->hasRole('Trabajador'))
-                <a class="btn btn-primary" style="margin-right: 2rem" href="{{route('downloadManualUser')}}">Descargar manual de usuario</a>
+                <a class="btn btn-outline-secondary" style="margin-right: 2rem" href="{{route('downloadManualUser')}}">Descargar manual de usuario</a>
             @endif
             <a class="btn btn-primary" style="margin-right: 2rem" href="{{ route('password.change') }}">Cambiar contraseña</a>
             <a class="btn btn-success" style="margin-right: 2rem" href="{{ route('profile.edit') }}">Editar información </a>

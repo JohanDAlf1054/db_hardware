@@ -53,4 +53,18 @@ class TemplateController extends Controller
         $filePath = storage_path('app/public/template/Manual_de_administrador_final.pdf');
         return response()->download($filePath);
     }
+
+    public function downloadMapaSitio()
+    {
+        $filename = 'Mapa_sitios.drawio.png';
+        $filePath = public_path('img/mapa/' . $filename);
+
+        if (!file_exists($filePath)) {
+            abort(404, 'Archivo no encontrado.');
+        }
+
+        return response()->download($filePath, $filename, [
+            'Content-Type' => mime_content_type($filePath)
+        ]);
+    }
 }

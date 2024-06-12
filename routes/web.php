@@ -123,7 +123,7 @@ Route::get('/export_supplier', [ExportController::class, 'exportsupplier'])->nam
 Route::get('/export_customer', [ExportController::class, 'exportcustomer'])->name('export.customer');
 Route::get('/report', [ExportController::class,'report'])->name('report');
 
-//rutas de historial de movimientos 
+//rutas de historial de movimientos
 Route::post('/buscar-historial', [App\Http\Controllers\HistorialMovimientoController::class, 'buscarMovimientos'])->name('buscar.historial');
 Route::get('/historial', [App\Http\Controllers\HistorialMovimientoController::class, 'historialMovimientos'])->name('historial');
 Route::get('/filtrar_por_fechas', 'HistorialMovimientoController@buscarMovimientos')->name('filtrar_por_fechas');
@@ -143,6 +143,9 @@ Route::get('Sales/pdf',[SalesController::class, 'pdf'])->name('sales.pdf');
 Route::get('Credit-note-sales/pdf', [CreditNoteSalesController::class, 'pdf'])->name('credit-note-sales.pdf');
 Route::get('Detail-purchases/pdf',[DetailPurchaseController::class,'pdf'])->name('detail-purchases.pdf');
 Route::get('Debit-note-supplier/pdf', [debitNoteSupplierController::class,'pdf'])->name('debit-note-supplier.pdf');
+
+//Descargar el mapa de sitio
+Route::get('/MapaSitio', [TemplateController::class, 'downloadMapaSitio'])->name('downloadMapa');
 
 //Funciones De Compras
 Route::resource('purchase_supplier', App\Http\Controllers\PurchaseSupplierController::class);
