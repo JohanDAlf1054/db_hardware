@@ -108,8 +108,6 @@
                                             </div>
                                             <br>
                                         </div>
-                                        {{--  Buscar Un Numero De Factura  --}}
-                                        {{-- Contenido --}}
                                     </div>
                                 </form>
                                 {{-- Tabla de detalles de venta --}}
@@ -211,7 +209,6 @@
 
     @push('js')
     <script>
-        // Variables
         let filasSubtotal = document.getElementsByClassName('td-subtotal');
         let cont = 0;
         let impuesto = parseFloat("{{ $credit_note_sale->taxes_total }}");
@@ -225,11 +222,9 @@
         function calcularValores() {
             cont = 0;
             for (let i = 0; i < filasSubtotal.length; i++) {
-    // Obtener el valor de la celda, eliminar el símbolo de la moneda y las comas, y convertirlo a número
     cont += parseFloat(filasSubtotal[i].innerHTML.replace('$', '').replace(/,/g, ''));
 }
     
-            // Formatear los valores antes de mostrarlos
             let sumaFormateada = formatCurrency(cont.toFixed(2));
             let igvFormateado = formatCurrency(impuesto.toFixed(2));
             let descuentoFormateado = formatCurrency(descuento.toFixed(2));
@@ -246,7 +241,7 @@
         function round(num, decimales = 2) {
             var signo = (num >= 0 ? 1 : -1);
             num = num * signo;
-            if (decimales === 0) //con 0 decimales
+            if (decimales === 0)
                 return signo * Math.round(num);
             // round(x * 10 ^ decimales)
             num = num.toString().split('e');

@@ -64,113 +64,95 @@
                                 </div>
                                 <br>
 
-                                <div> <!-- Añade la clase "px-3" para agregar margen horizontal -->
-                                    <table class="table table-striped table-hover" style="width:100%" id="datatable">
-                                        <thead class="table-dark">
-                                            <tr style="text-align: center">
-                                                <th>No</th>
-                                                <th>Comprobante</th>
-                                                <th>Fecha elaboración</th>
-                                                <th>Identificación</th>
-                                                <th>Nombre tercero</th>
-                                                <th>Total Bruto</th>
-                                                <th>IVA</th>
-                                                <th>Total Descuentos</th>
-                                                <th>Total Factura</th>
-                                                <th>Estado</th>
-                                                <th>Acciones</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($ventasFiltradas as $sale)
-                                                <tr style="text-align: center">
-                                                    <td>{{ $sale->id }}</td>
-                                                    <td>{{ $sale->bill_numbers }}</td>
-                                                    <td>{{ $sale->dates }}</td>
-                                                    <td>{{ $sale->cliente->identification_number }}</td>
-                                                    <td>{{ "{$sale->cliente->company_name} {$sale->cliente->first_name} {$sale->cliente->other_name} {$sale->cliente->surname} {$sale->cliente->second_surname}" }}
-                                                    </td>
-                                                    <td>${{ number_format($sale->gross_totals, 2, '.', ',') }}</td>
-                                                    <td>${{ number_format($sale->taxes_total, 2, '.', ',') }}</td>
-                                                    <td>${{ number_format($sale->total_discounts, 2, '.', ',') }}</td>
-                                                    <td>${{ number_format($sale->net_total, 2, '.', ',') }}</td>
-                                                    <td>
-                                                        @if ($sale->status == true)
-                                                            <p class="badge rounded-pill bg-success" style="font-size: 15px">Activo
-                                                            </p>
-                                                        @else
-                                                            <p class="badge rounded-pill bg-danger" style="font-size: 15px">Inactivo
-                                                            </p>
-                                                        @endif
-                                                    </td>
-                                                    <td class="border px-4 py-2 text-center">
-                                                        <div class="d-inline-block">
-                                                            <form action="{{ route('sales.show', ['sale' => $sale]) }}"
-                                                                method="get">
-                                                                <button type="submit" class="btn btn-primary btn-sm"
-                                                                    tooltip="tooltip" title="Visualizar">
-                                                                    <i class="fa fa-fw fa-eye"></i>
-                                                                </button>
-                                                            </form>
-                                                        </div>
-                                                        <div class="d-inline-block">
-                                                            @if ($sale->status == true)
-                                                                <button type="button" class="btn btn-danger btn-sm"
-                                                                    data-bs-toggle="modal" tooltip="tooltip" title="Inactivar"
-                                                                    data-bs-target="#confirmModal-{{ $sale->id }}"><i
-                                                                        class="fa fa-fw fa-trash"></i></button>
-                                                            @else
-                                                                <button type="button" class="btn btn-danger btn-sm"
-                                                                    data-bs-toggle="modal" tooltip="tooltip" title="Activar"
-                                                                    data-bs-target="#confirmModal-{{ $sale->id }}"><i
-                                                                        class="fa-solid fa-rotate"></i></button>
-                                                            @endif
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <div class="modal fade" id="confirmModal-{{ $sale->id }}" tabindex="-1"
-                                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                    <div class="modal-dialog">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Mensaje de
-                                                                    confirmación</h1>
-                                                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                                    aria-label="Close"></button>
-                                                            </div>
-                                                            <div class="modal-body">
-                                                                @if ($sale->status == true)
-                                                                    ¿Seguro que quieres inactivar el registro?
-                                                                @else
-                                                                    ¿Seguro que quieres activar el registro?
-                                                                @endif
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                                <button type="button" class="btn btn-success"
-                                                                    data-bs-dismiss="modal">Cerrar</button>
-                                                                <form action="{{ route('sales.destroy', ['sale' => $sale->id]) }}"
-                                                                    method="post">
-                                                                    @method('DELETE')
-                                                                    @csrf
-                                                                    <button type="submit"
-                                                                        class="btn btn-primary">Confirmar</button>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                <div>
+                    <table class="table table-striped table-hover" style="width:100%" id="datatable">
+                                <thead class="table-dark">
+                                    <tr style="text-align: center">
+                                        <th>No</th>
+                                        <th>Comprobante</th>
+                                        <th>Fecha elaboración</th>
+                                        <th>Identificación</th>
+                                        <th>Nombre tercero</th>
+                                        <th>Total Bruto</th>
+                                        <th>IVA</th>
+                                        <th>Total Descuentos</th>
+                                        <th>Total Factura</th>
+                                        <th>Estado</th>
+                                        <th>Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($ventasFiltradas as $sale)
+                                    <tr style="text-align: center">
+                                        <td>{{$sale->id}}</td>
+                                        <td>{{$sale->bill_numbers}}</td>
+                                        <td>{{$sale->dates}}</td>
+                                        <td>{{$sale->cliente->identification_number}}</td>
+                                        <td>{{ "{$sale->cliente->company_name} {$sale->cliente->first_name} {$sale->cliente->other_name} {$sale->cliente->surname} {$sale->cliente->second_surname}" }}</td>
+                                        <td>${{ number_format($sale->gross_totals, 2, '.', ',') }}</td>
+                                        <td>${{ number_format($sale->taxes_total, 2, '.', ',') }}</td>
+                                        <td>${{ number_format($sale->total_discounts, 2, '.', ',') }}</td>
+                                        <td>${{ number_format($sale->net_total, 2, '.', ',') }}</td>
+                                        <td>
+                                            @if($sale->status == True)
+                                            <p class="badge rounded-pill bg-success" style="font-size: 15px">Activo</p>
+                                            @else
+                                            <p class="badge rounded-pill bg-danger" style="font-size: 15px">Inactivo</p>
+                                            @endif
+                                        </td>
+                                        <td class="border px-4 py-2 text-center">
+                                            <div class="d-inline-block">
+                                                <form action="{{ route('sales.show', ['sale' => $sale]) }}" method="get">
+                                                    <button type="submit" class="btn btn-primary btn-sm" tooltip="tooltip" title="Visualizar">
+                                                        <i class="fa fa-fw fa-eye"></i>
+                                                    </button>
+                                                </form>
+                                            </div>
+                                            <div class="d-inline-block">
+                                                @if ($sale->status == true)
+                                                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" tooltip="tooltip" title="Inactivar" data-bs-target="#confirmModal-{{$sale->id}}"><i class="fa fa-fw fa-trash"></i></button>
+                                            @else
+                                                <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" tooltip="tooltip" title="Activar" data-bs-target="#confirmModal-{{$sale->id}}"><i class="fa-solid fa-rotate"></i></button>
+                                            @endif
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <div class="modal fade" id="confirmModal-{{$sale->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h1 class="modal-title fs-5" id="exampleModalLabel">Mensaje de confirmación</h1>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-
-
-                            </div>
-                            {{-- {{ $sales->links()}} --}}
+                                                <div class="modal-body">
+                                                    @if ($sale->status == true)
+                                                    ¿Seguro que quieres inactivar el registro?
+                                                @else
+                                                    ¿Seguro que quieres activar el registro?
+                                                @endif
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">Cerrar</button>
+                                                    <form action="{{ route('sales.destroy',['sale'=>$sale->id]) }}" method="post">
+                                                        @method('DELETE')
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-primary">Confirmar</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
-                    </div>
-                </div>
-            @endsection
+
+
+            </div>
+        </div>
+    </div>
+</div>
+@endsection
 
 
             @push('js')

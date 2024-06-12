@@ -221,13 +221,10 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.14.0-beta2/dist/js/bootstrap-select.min.js"></script>
 <script>
    $(document).ready(function() {
-    // Capturar el evento change del select #datos
     $('#datos').change(mostrarValores);
 
-    // Adjuntar evento input a los inputs de cantidad y precio de venta
     $(document).on('input', 'input[name="amount[]"], input[name="selling_price[]"]', recalcularPrecios);
 
-    // Inicializar selectpicker de Bootstrap para los selects
     $('.selectpicker').selectpicker();
 });
 
@@ -235,36 +232,36 @@
     let dataVenta = document.getElementById('datos').value.split('-');
     let fecha = dataVenta.slice(1, 4).join('-');
     $('#cliente-id').val(dataVenta[5]);
-    $('#clients_id').val(dataVenta[6]); // suponiendo que dataVenta[6] es el ID del cliente
+    $('#clients_id').val(dataVenta[6]); 
     $('#date_invoice').val(fecha);
-    $('#sellers').val(dataVenta[4]); // suponiendo que dataVenta[4] es el ID del vendedor
-    $('#payments_methods').val(dataVenta[7]); // suponiendo que dataVenta[7] es el método de pago
-    let selectedSaleId = dataVenta[0]; // Obtener el ID de la venta seleccionada
-    $('#sale_id').val(selectedSaleId); // Guardar el ID de la venta seleccionada en el campo sale_id
-    let totalSubtotales = 0; // Variable para el total de subtotales
-    let totalDescuentos = 0; // Variable para el total de descuentos
-    let totalImpuestos = 0; // Variable para el total de impuestos
+    $('#sellers').val(dataVenta[4]); 
+    $('#payments_methods').val(dataVenta[7]); 
+    let selectedSaleId = dataVenta[0]; 
+    $('#sale_id').val(selectedSaleId);
+    let totalSubtotales = 0; 
+    let totalDescuentos = 0; 
+    let totalImpuestos = 0; 
 
-    // Realizar una solicitud AJAX al servidor para obtener el detalle de la venta
+   
     $.ajax({
         url: '/obtener-detalle-venta',
         type: 'GET',
         data: { sale_id: selectedSaleId },
         success: function(response) {
-            // Limpiar la tabla de productos antes de agregar los nuevos
+         
             $('#tablaDetalleVenta tbody').empty();
 
-            // Iterar sobre los detalles de venta y agregarlos a la tabla
+           
             response.detallesVenta.forEach(function(detalle) {
-                // Calcular subtotal
+               
                 var subtotal = (detalle.amount * detalle.selling_price);
                 totalSubtotales += subtotal;
 
-                // Calcular impuesto
+               
                 var impuesto = detalle.tax;
                 totalImpuestos += (subtotal * impuesto) / 100;
 
-                // Calcular descuentos totales
+             
                 totalDescuentos += parseFloat(detalle.discounts);
 
                 $('#tablaDetalleVenta tbody').append(`
@@ -282,24 +279,24 @@
                 `);
             });
 
-            // Calcular el total bruto
+           
             var totalBruto = totalSubtotales - totalDescuentos;
             var totalFactura = totalBruto + totalImpuestos;
             
 
-            // Actualizar el valor del input de subtotal
+           
             $('#subtotal').val(totalSubtotales.toFixed(2));
 
-            // Actualizar el valor del input de descuentos
+         
             $('#total_discounts').val(totalDescuentos.toFixed(2));
 
-            // Actualizar el valor del input de total bruto
+           
             $('#gross_totals').val(totalBruto.toFixed(2));
 
-            // Actualizar el valor del input de total de impuestos
+           
             $('#taxes_total').val(totalImpuestos.toFixed(2));
 
-            // Actualizar el valor del input de total factura
+        
             $('#net_total').val(totalFactura.toFixed(2));
         },
         error: function(xhr, status, error) {
@@ -325,7 +322,7 @@ function recalcularPrecios() {
         fila.find('input[name="arrayimpuestoval[]"]').val(impuestoval.toFixed(2));
     });
 
-    recalcularTotales(); // Se deben recalcular los totales después de recalcular los precios
+    recalcularTotales(); 
 }
 
 function recalcularTotales() {
@@ -356,7 +353,7 @@ function recalcularTotales() {
 }
 
         
-    // Función para mostrar la alerta con el mensaje personalizado
+   
     function showModal(message, icon = 'error') {
         const Toast = Swal.mixin({
             toast: true,
@@ -376,9 +373,9 @@ function recalcularTotales() {
         });
     }
 
-    // Validación del formulario antes de enviarlo
+   
     document.addEventListener('DOMContentLoaded', function () {
-        const form = document.getElementById('create'); // Reemplaza 'create' por el ID de tu formulario
+        const form = document.getElementById('create'); 
 
         form.addEventListener('submit', function (event) {
             const reason = document.getElementById('reason').value;
@@ -386,35 +383,35 @@ function recalcularTotales() {
 
             // Verificar motivo
             if (!reason) {
-                event.preventDefault(); // Detener el envío del formulario
+                event.preventDefault(); 
                 showModal('Por favor, selecciona el motivo.', 'error');
-                return; // Salir de la función si falta el motivo
+                return; 
             }
 
-            // Verificar venta seleccionada
+          
             if (ventaSeleccionada === '') {
-                event.preventDefault(); // Detener el envío del formulario
+                event.preventDefault();
                 showModal('Por favor, seleccione una venta.', 'error');
-                return; // Salir de la función si falta la venta seleccionada
+                return; 
             }
 
-            // Verificar si hay campos de cantidad sin llenar o menores a 1
+            
             const cantidadInputs = document.querySelectorAll('input[name="amount[]"]');
 for (let i = 0; i < cantidadInputs.length; i++) {
     const cantidad = parseInt(cantidadInputs[i].value);
     if (!cantidad || cantidad < 1) {
-        event.preventDefault(); // Detener el envío del formulario
+        event.preventDefault(); 
         const productName = cantidadInputs[i].closest('tr').querySelector('input[name="arrayname[]"]').value;
         showModal(`Por favor, ingresa una cantidad válida (mayor o igual a 1) para el producto "${productName}".`, 'error');
-        return; // Salir de la función al encontrar un campo sin llenar o con valor incorrecto
+        return;
     }
 
     const precioVenta = parseFloat(cantidadInputs[i].closest('tr').querySelector('input[name="selling_price[]"]').value);
     if (!precioVenta || precioVenta <= 0) {
-        event.preventDefault(); // Detener el envío del formulario
+        event.preventDefault();
         const productName = cantidadInputs[i].closest('tr').querySelector('input[name="arrayname[]"]').value;
         showModal(`Por favor, ingresa un precio de venta válido (mayor a 0) para el producto "${productName}".`, 'error');
-        return; // Salir de la función al encontrar un campo sin llenar o con valor incorrecto
+        return;
     }
 }
         });
