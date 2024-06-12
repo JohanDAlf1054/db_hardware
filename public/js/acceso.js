@@ -81,7 +81,9 @@ function open_close_menu() {
     }
 }
 
+open_close_menu();
 
+document.getElementById("btn_open").addEventListener("click", open_close_menu);
 
 //Haciendo el menú responsive(adaptable)
 
