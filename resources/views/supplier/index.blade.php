@@ -53,7 +53,7 @@
                                         </button>
 
                                         <button type="button" class="btn btn-danger ms-2 rounded" tooltip="tooltip"
-                                            title="PDF" onclick="window.location.href='{{ route('supplier.pdf') }}'">
+                                            title="PDF" onclick="window.open('{{ route('supplier.pdf') }}','_blank')">
                                             <i class="fa-solid fa-file-pdf"></i>
                                         </button>
                                     </form>

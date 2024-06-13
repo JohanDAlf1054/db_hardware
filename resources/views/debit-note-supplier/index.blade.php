@@ -26,7 +26,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-12">
-                                    
+
                                     <div class="dropdown">
                                         <button type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown"
                                             aria-expanded="false">Acciones</button>
@@ -37,7 +37,7 @@
                                             </a></li>
                                             <li><a class="dropdown-item" href="{{ route('detail-purchases.create') }}">Crear Compra
                                             </a></li>
-                                            
+
 
                                             <li><a class="dropdown-item"
                                                     href="{{ route('detail-purchases.index') }}">Mostrar Compras</a></li>
@@ -56,7 +56,7 @@
                                             <i class="fa-solid fa-file-excel"></i>
                                         </button>
                                         <button type="button" class="btn btn-danger ms-2 rounded" tooltip="tooltip"
-                                            title="PDF" onclick="window.location.href='{{ route('debit-note-supplier.pdf') }}'">
+                                            title="PDF" onclick="window.open('{{ route('debit-note-supplier.pdf') }}','_blank')">
                                             <i class="fa-solid fa-file-pdf"></i>
                                         </button>
                                         <button type="button" class="btn btn-warning ms-2 rounded" tooltip="tooltip"

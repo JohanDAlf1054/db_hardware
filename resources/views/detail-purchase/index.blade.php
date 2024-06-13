@@ -57,7 +57,7 @@
                                             <i class="fa-solid fa-file-excel"></i>
                                         </button>
                                         <button type="button" class="btn btn-danger ms-2 rounded" tooltip="tooltip"
-                                            title="PDF" onclick="window.location.href='{{ route('detail-purchases.pdf') }}'">
+                                            title="PDF" onclick="window.open('{{ route('detail-purchases.pdf') }}','_blank')">
                                             <i class="fa-solid fa-file-pdf"></i>
                                         </button>
                                         <button type="button" class="btn btn-warning ms-2 rounded" tooltip="tooltip"

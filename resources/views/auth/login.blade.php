@@ -8,7 +8,7 @@
         <link href="css/estilos_notificacion_login.css" rel="stylesheet" />
         <script src="{{ asset('js/notificaciones.js')}}" defer></script>
 
-        <title>Ferreteria la Exelencia</title>
+        <title>Ferreteria la Excelencia</title>
         <link rel="website icon" type="png" href="{{asset('img/Logo_Ferreteria_la_exelencia.png')}}">
     </head>
     <body>
